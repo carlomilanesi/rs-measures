@@ -1,4 +1,4 @@
-use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
+use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
 use std::fmt;
 
 pub trait FromF64 {
@@ -50,8 +50,40 @@ impl CubicRoot for f64 {
     }
 }
 
+pub trait Trigonometry {
+    type Output;
+    fn acos(self) -> Self::Output;
+    fn asin(self) -> Self::Output;
+    fn atan2(self, other: Self) -> Self::Output;
+}
+impl Trigonometry for f32 {
+    type Output = f32;
+    fn asin(self) -> Self::Output {
+        self.acos()
+    }
+    fn acos(self) -> Self::Output {
+        self.asin()
+    }
+    fn atan2(self, other: Self) -> Self::Output {
+        self.atan2(other)
+    }
+}
+impl Trigonometry for f64 {
+    type Output = f64;
+    fn asin(self) -> Self::Output {
+        self.acos()
+    }
+    fn acos(self) -> Self::Output {
+        self.asin()
+    }
+    fn atan2(self, other: Self) -> Self::Output {
+        self.atan2(other)
+    }
+}
+
 pub trait ArithmeticOps:
-    Add<Self, Output = Self>
+    Neg<Output = Self>
+    + Add<Self, Output = Self>
     + AddAssign<Self>
     + Sub<Self, Output = Self>
     + SubAssign<Self>
@@ -62,6 +94,7 @@ pub trait ArithmeticOps:
     + FromF64
     + Sqrt<Output = Self>
     + CubicRoot<Output = Self>
+    + Trigonometry<Output = Self>
     + fmt::Display
     + Clone
     + Copy
@@ -74,7 +107,8 @@ where
 
 // /*
 impl<T> ArithmeticOps for T where
-    T: Add<T, Output = T>
+    T: Neg<Output = Self>
+        + Add<T, Output = T>
         + AddAssign<T>
         + Sub<T, Output = T>
         + SubAssign<T>
@@ -85,6 +119,7 @@ impl<T> ArithmeticOps for T where
         + FromF64
         + Sqrt<Output = Self>
         + CubicRoot<Output = Self>
+        + Trigonometry<Output = Self>
         + fmt::Display
         + Clone
         + Copy
@@ -145,7 +180,7 @@ pub trait CrossProduct<Rhs = Self> {
 }
 
 pub trait MeasurementUnit {
-    type Quantity;
+    type Property;
     const RATIO: f64;
     const OFFSET: f64;
     const SUFFIX: &'static str;
@@ -154,3 +189,5 @@ pub trait MeasurementUnit {
 pub trait AngleMeasurementUnit: MeasurementUnit {
     const TURN_FRACTION: f64;
 }
+
+pub trait VectorMeasurementUnit: MeasurementUnit {}

@@ -1,10 +1,12 @@
 #[macro_export]
 macro_rules! define_measure1d {
     {} => {
-        use rs_measures::traits::{ArithmeticOps, LossyFrom, MeasurementUnit};
-        use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
+        use rs_measures::traits::{ArithmeticOps, LossyFrom, MeasurementUnit, VectorMeasurementUnit};
+        use core::ops::{Neg, Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
         use std::fmt;
         use std::marker::PhantomData;
+
+        // Measure
 
         pub struct Measure<Number: ArithmeticOps, Unit> {
             pub value: Number,
@@ -17,7 +19,7 @@ macro_rules! define_measure1d {
                     phantom: PhantomData,
                 }
             }
-            pub fn convert<DestUnit: MeasurementUnit<Quantity = Unit::Quantity>>(
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> Measure<Number, DestUnit> {
                 Measure::<Number, DestUnit> {
@@ -72,36 +74,13 @@ macro_rules! define_measure1d {
             }
         }
 
-        impl<Number: ArithmeticOps, Unit> PartialEq<MeasurePoint<Number, Unit>> for MeasurePoint<Number, Unit> {
-            fn eq(&self, other: &MeasurePoint<Number, Unit>) -> bool {
-                self.value == other.value
+        // -measure
+        impl<Number: ArithmeticOps, Unit: MeasurementUnit> Neg for Measure<Number, Unit> {
+            type Output = Self;
+            fn neg(self) -> Self::Output {
+                Self::new(-self.value)
             }
         }
-
-        impl<Number: ArithmeticOps, Unit> PartialOrd<MeasurePoint<Number, Unit>> for MeasurePoint<Number, Unit> {
-            fn partial_cmp(&self, other: &MeasurePoint<Number, Unit>) -> Option<std::cmp::Ordering> {
-                self.value.partial_cmp(&other.value)
-            }
-        }
-
-        impl<Number: ArithmeticOps, Unit> Clone for MeasurePoint<Number, Unit> {
-            fn clone(&self) -> Self {
-                MeasurePoint::<Number, Unit> {
-                    value: self.value,
-                    phantom: std::marker::PhantomData::<Unit>,
-                }
-            }
-        }
-
-        impl<Number: ArithmeticOps, Unit> Copy for MeasurePoint<Number, Unit> { }
-
-        impl<Number: ArithmeticOps, Unit: MeasurementUnit> fmt::Display
-            for MeasurePoint<Number, Unit> {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at {}{}", self.value, Unit::SUFFIX)
-            }
-        }
-
         // measure * number
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Mul<Number> for Measure<Number, Unit> {
             type Output = Self;
@@ -166,6 +145,8 @@ macro_rules! define_measure1d {
             }
         }
 
+        // Measure point
+
         pub struct MeasurePoint<Number, Unit> {
             pub value: Number,
             phantom: PhantomData<Unit>,
@@ -177,7 +158,7 @@ macro_rules! define_measure1d {
                     phantom: PhantomData,
                 }
             }
-            pub fn convert<DestUnit: MeasurementUnit<Quantity = Unit::Quantity>>(
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> MeasurePoint<Number, DestUnit> {
                 MeasurePoint::<Number, DestUnit> {
@@ -235,6 +216,45 @@ macro_rules! define_measure1d {
             for MeasurePoint<Number, Unit> {
             fn sub_assign(&mut self, other: Measure<Number, Unit>) {
                 self.value -= other.value;
+            }
+        }
+
+        // measure point - measure point
+        impl<Number: ArithmeticOps, Unit: MeasurementUnit> Sub<MeasurePoint<Number, Unit>>
+            for MeasurePoint<Number, Unit> {
+            type Output = Measure<Number, Unit>;
+            fn sub(self, other: MeasurePoint<Number, Unit>) -> Self::Output {
+                Self::Output::new(self.value - other.value)
+            }
+        }
+
+        impl<Number: ArithmeticOps, Unit> PartialEq<MeasurePoint<Number, Unit>> for MeasurePoint<Number, Unit> {
+            fn eq(&self, other: &MeasurePoint<Number, Unit>) -> bool {
+                self.value == other.value
+            }
+        }
+
+        impl<Number: ArithmeticOps, Unit> PartialOrd<MeasurePoint<Number, Unit>> for MeasurePoint<Number, Unit> {
+            fn partial_cmp(&self, other: &MeasurePoint<Number, Unit>) -> Option<std::cmp::Ordering> {
+                self.value.partial_cmp(&other.value)
+            }
+        }
+
+        impl<Number: ArithmeticOps, Unit> Clone for MeasurePoint<Number, Unit> {
+            fn clone(&self) -> Self {
+                MeasurePoint::<Number, Unit> {
+                    value: self.value,
+                    phantom: std::marker::PhantomData::<Unit>,
+                }
+            }
+        }
+
+        impl<Number: ArithmeticOps, Unit> Copy for MeasurePoint<Number, Unit> { }
+
+        impl<Number: ArithmeticOps, Unit: MeasurementUnit> fmt::Display
+            for MeasurePoint<Number, Unit> {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(f, "at {}{}", self.value, Unit::SUFFIX)
             }
         }
     };

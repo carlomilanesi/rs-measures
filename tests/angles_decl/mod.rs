@@ -7,7 +7,7 @@ use std::f64::consts::TAU;
 #[derive(Debug, Clone, Copy)]
 pub struct Turn;
 impl MeasurementUnit for Turn {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rev";
@@ -19,7 +19,7 @@ impl AngleMeasurementUnit for Turn {
 #[derive(Debug, Clone, Copy)]
 pub struct Gradian;
 impl MeasurementUnit for Gradian {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU / 400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " grad";
@@ -31,7 +31,7 @@ impl AngleMeasurementUnit for Gradian {
 #[derive(Debug, Clone, Copy)]
 pub struct Degree;
 impl MeasurementUnit for Degree {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU / 360.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg";

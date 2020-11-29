@@ -3,7 +3,7 @@ mod test {
 	struct Length;
 	struct Metre;
 	impl MeasurementUnit for Metre {
-		type Quantity = Length;
+		type Property = Length;
 		const RATIO: f64 = 1.;
 		const OFFSET: f64 = 0.;
 		const SUFFIX: &'static str = " m";

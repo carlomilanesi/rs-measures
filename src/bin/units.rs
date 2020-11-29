@@ -39,7 +39,7 @@ const YOCTO: f64 = 1e-24;
 #[derive(Debug, Clone, Copy)]
 struct Turn;
 impl MeasurementUnit for Turn {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rev";
@@ -51,7 +51,7 @@ impl AngleMeasurementUnit for Turn {
 #[derive(Debug, Clone, Copy)]
 struct Gradian;
 impl MeasurementUnit for Gradian {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU / 400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " grad";
@@ -63,7 +63,7 @@ impl AngleMeasurementUnit for Gradian {
 #[derive(Debug, Clone, Copy)]
 struct Degree;
 impl MeasurementUnit for Degree {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU / 360.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg";
@@ -75,7 +75,7 @@ impl AngleMeasurementUnit for Degree {
 #[derive(Debug, Clone, Copy)]
 struct ArcMinute;
 impl MeasurementUnit for ArcMinute {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU / 360. / 60.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg'";
@@ -87,7 +87,7 @@ impl AngleMeasurementUnit for ArcMinute {
 #[derive(Debug, Clone, Copy)]
 struct ArcSecond;
 impl MeasurementUnit for ArcSecond {
-    type Quantity = Angle;
+    type Property = Angle;
     const RATIO: f64 = TAU / 360. / 60. / 60.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg\"";
@@ -102,29 +102,32 @@ struct Acceleration;
 #[derive(Debug, Clone, Copy)]
 struct MetrePerSquareSecond;
 impl MeasurementUnit for MetrePerSquareSecond {
-    type Quantity = Acceleration;
+    type Property = Acceleration;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s\u{b2}";
 }
+impl VectorMeasurementUnit for MetrePerSquareSecond {}
 
 #[derive(Debug, Clone, Copy)]
 struct GForce;
 impl MeasurementUnit for GForce {
-    type Quantity = Acceleration;
+    type Property = Acceleration;
     const RATIO: f64 = 9.8;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g";
 }
+impl VectorMeasurementUnit for GForce {}
 
 #[derive(Debug, Clone, Copy)]
 struct KiloMetrePerHourPerSecond;
 impl MeasurementUnit for KiloMetrePerHourPerSecond {
-    type Quantity = Acceleration;
+    type Property = Acceleration;
     const RATIO: f64 = 1000. / 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km/h/s";
 }
+impl VectorMeasurementUnit for KiloMetrePerHourPerSecond {}
 
 // Action
 struct Action;
@@ -132,7 +135,7 @@ struct Action;
 #[derive(Debug, Clone, Copy)]
 struct JouleSecond;
 impl MeasurementUnit for JouleSecond {
-    type Quantity = Action;
+    type Property = Action;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J\u{b7}s";
@@ -144,7 +147,7 @@ struct Amount;
 #[derive(Debug, Clone, Copy)]
 struct Unit;
 impl MeasurementUnit for Unit {
-    type Quantity = Amount;
+    type Property = Amount;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " u.";
@@ -153,7 +156,7 @@ impl MeasurementUnit for Unit {
 #[derive(Debug, Clone, Copy)]
 struct Dozen;
 impl MeasurementUnit for Dozen {
-    type Quantity = Amount;
+    type Property = Amount;
     const RATIO: f64 = 12.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dz.";
@@ -162,7 +165,7 @@ impl MeasurementUnit for Dozen {
 #[derive(Debug, Clone, Copy)]
 struct Mole;
 impl MeasurementUnit for Mole {
-    type Quantity = Amount;
+    type Property = Amount;
     const RATIO: f64 = 6.0221413e23;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mol";
@@ -174,7 +177,7 @@ struct AngularAcceleration;
 #[derive(Debug, Clone, Copy)]
 struct RadianPerSquareSecond;
 impl MeasurementUnit for RadianPerSquareSecond {
-    type Quantity = AngularAcceleration;
+    type Property = AngularAcceleration;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rad/s\u{b2}";
@@ -186,20 +189,22 @@ struct AngularMomentum;
 #[derive(Debug, Clone, Copy)]
 struct KilogramSquareMetrePerSecond;
 impl MeasurementUnit for KilogramSquareMetrePerSecond {
-    type Quantity = AngularMomentum;
+    type Property = AngularMomentum;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg\u{b7}m\u{b2}/s";
 }
+impl VectorMeasurementUnit for KilogramSquareMetrePerSecond {}
 
 #[derive(Debug, Clone, Copy)]
 struct GramSquareCentiMetrePerSecond;
 impl MeasurementUnit for GramSquareCentiMetrePerSecond {
-    type Quantity = AngularMomentum;
+    type Property = AngularMomentum;
     const RATIO: f64 = 1e-7;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g\u{b7}cm\u{b2}/s";
 }
+impl VectorMeasurementUnit for GramSquareCentiMetrePerSecond {}
 
 // Area
 struct Area;
@@ -207,7 +212,7 @@ struct Area;
 #[derive(Debug, Clone, Copy)]
 struct SquareMetre;
 impl MeasurementUnit for SquareMetre {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m\u{b2}";
@@ -216,7 +221,7 @@ impl MeasurementUnit for SquareMetre {
 #[derive(Debug, Clone, Copy)]
 struct SquareKiloMetre;
 impl MeasurementUnit for SquareKiloMetre {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 1e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km\u{b2}";
@@ -225,7 +230,7 @@ impl MeasurementUnit for SquareKiloMetre {
 #[derive(Debug, Clone, Copy)]
 struct Hectare;
 impl MeasurementUnit for Hectare {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 1e4;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ha";
@@ -234,7 +239,7 @@ impl MeasurementUnit for Hectare {
 #[derive(Debug, Clone, Copy)]
 struct Are;
 impl MeasurementUnit for Are {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 100.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " are";
@@ -243,7 +248,7 @@ impl MeasurementUnit for Are {
 #[derive(Debug, Clone, Copy)]
 struct SquareDeciMetre;
 impl MeasurementUnit for SquareDeciMetre {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dm\u{b2}";
@@ -252,7 +257,7 @@ impl MeasurementUnit for SquareDeciMetre {
 #[derive(Debug, Clone, Copy)]
 struct SquareCentiMetre;
 impl MeasurementUnit for SquareCentiMetre {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 1e-4;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm\u{b2}";
@@ -261,7 +266,7 @@ impl MeasurementUnit for SquareCentiMetre {
 #[derive(Debug, Clone, Copy)]
 struct SquareMilliMetre;
 impl MeasurementUnit for SquareMilliMetre {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mm\u{b2}";
@@ -270,7 +275,7 @@ impl MeasurementUnit for SquareMilliMetre {
 #[derive(Debug, Clone, Copy)]
 struct SquareInch;
 impl MeasurementUnit for SquareInch {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 0.0254 * 0.0254;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " in\u{b2}";
@@ -279,7 +284,7 @@ impl MeasurementUnit for SquareInch {
 #[derive(Debug, Clone, Copy)]
 struct SquareFoot;
 impl MeasurementUnit for SquareFoot {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 0.3048 * 0.3048;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ft\u{b2}";
@@ -288,7 +293,7 @@ impl MeasurementUnit for SquareFoot {
 #[derive(Debug, Clone, Copy)]
 struct SquareYard;
 impl MeasurementUnit for SquareYard {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 0.9144 * 0.9144;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " yd\u{b2}";
@@ -297,7 +302,7 @@ impl MeasurementUnit for SquareYard {
 #[derive(Debug, Clone, Copy)]
 struct SquareMile;
 impl MeasurementUnit for SquareMile {
-    type Quantity = Area;
+    type Property = Area;
     const RATIO: f64 = 1609. * 1609.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mi\u{b2}";
@@ -309,10 +314,10 @@ struct AreaDensity;
 #[derive(Debug, Clone, Copy)]
 struct KilogramPerSquareMetre;
 impl MeasurementUnit for KilogramPerSquareMetre {
-    type Quantity = AreaDensity;
+    type Property = AreaDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " Kg/m\u{b2}";
+    const SUFFIX: &'static str = " kg/m\u{b2}";
 }
 
 // Capacitance
@@ -321,7 +326,7 @@ struct Capacitance;
 #[derive(Debug, Clone, Copy)]
 struct Farad;
 impl MeasurementUnit for Farad {
-    type Quantity = Capacitance;
+    type Property = Capacitance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " F";
@@ -330,7 +335,7 @@ impl MeasurementUnit for Farad {
 #[derive(Debug, Clone, Copy)]
 struct MilliFarad;
 impl MeasurementUnit for MilliFarad {
-    type Quantity = Capacitance;
+    type Property = Capacitance;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mF";
@@ -339,7 +344,7 @@ impl MeasurementUnit for MilliFarad {
 #[derive(Debug, Clone, Copy)]
 struct MicroFarad;
 impl MeasurementUnit for MicroFarad {
-    type Quantity = Capacitance;
+    type Property = Capacitance;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}F";
@@ -348,7 +353,7 @@ impl MeasurementUnit for MicroFarad {
 #[derive(Debug, Clone, Copy)]
 struct NanoFarad;
 impl MeasurementUnit for NanoFarad {
-    type Quantity = Capacitance;
+    type Property = Capacitance;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " nF";
@@ -357,7 +362,7 @@ impl MeasurementUnit for NanoFarad {
 #[derive(Debug, Clone, Copy)]
 struct PicoFarad;
 impl MeasurementUnit for PicoFarad {
-    type Quantity = Capacitance;
+    type Property = Capacitance;
     const RATIO: f64 = 1e-12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " pF";
@@ -369,7 +374,7 @@ struct CatalyticActivity;
 #[derive(Debug, Clone, Copy)]
 struct Katal;
 impl MeasurementUnit for Katal {
-    type Quantity = CatalyticActivity;
+    type Property = CatalyticActivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kat";
@@ -381,7 +386,7 @@ struct CatalyticActivityConcentration;
 #[derive(Debug, Clone, Copy)]
 struct KatalPerCubicMetre;
 impl MeasurementUnit for KatalPerCubicMetre {
-    type Quantity = CatalyticActivityConcentration;
+    type Property = CatalyticActivityConcentration;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kat/m\u{B3}";
@@ -393,7 +398,7 @@ struct ChemicalPotential;
 #[derive(Debug, Clone, Copy)]
 struct JoulePerMole;
 impl MeasurementUnit for JoulePerMole {
-    type Quantity = ChemicalPotential;
+    type Property = ChemicalPotential;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/mol";
@@ -405,7 +410,7 @@ struct MolarConcentration;
 #[derive(Debug, Clone, Copy)]
 struct MolePerCubicMetre;
 impl MeasurementUnit for MolePerCubicMetre {
-    type Quantity = MolarConcentration;
+    type Property = MolarConcentration;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mol/m\u{B3}";
@@ -417,11 +422,12 @@ struct CurrentDensity;
 #[derive(Debug, Clone, Copy)]
 struct AmperePerSquareMetre;
 impl MeasurementUnit for AmperePerSquareMetre {
-    type Quantity = CurrentDensity;
+    type Property = CurrentDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " A/m\u{b2}";
 }
+impl VectorMeasurementUnit for AmperePerSquareMetre {}
 
 // Dose equivalent
 struct DoseEquivalent;
@@ -429,7 +435,7 @@ struct DoseEquivalent;
 #[derive(Debug, Clone, Copy)]
 struct Sievert;
 impl MeasurementUnit for Sievert {
-    type Quantity = DoseEquivalent;
+    type Property = DoseEquivalent;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Sv";
@@ -438,7 +444,7 @@ impl MeasurementUnit for Sievert {
 #[derive(Debug, Clone, Copy)]
 struct Rem;
 impl MeasurementUnit for Rem {
-    type Quantity = DoseEquivalent;
+    type Property = DoseEquivalent;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rem";
@@ -450,7 +456,7 @@ struct DynamicViscosity;
 #[derive(Debug, Clone, Copy)]
 struct PascalSecond;
 impl MeasurementUnit for PascalSecond {
-    type Quantity = DynamicViscosity;
+    type Property = DynamicViscosity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Pa\u{b7}s";
@@ -462,7 +468,7 @@ struct ElectricCharge;
 #[derive(Debug, Clone, Copy)]
 struct Coulomb;
 impl MeasurementUnit for Coulomb {
-    type Quantity = ElectricCharge;
+    type Property = ElectricCharge;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " C";
@@ -471,7 +477,7 @@ impl MeasurementUnit for Coulomb {
 #[derive(Debug, Clone, Copy)]
 struct MilliCoulomb;
 impl MeasurementUnit for MilliCoulomb {
-    type Quantity = ElectricCharge;
+    type Property = ElectricCharge;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mC";
@@ -480,7 +486,7 @@ impl MeasurementUnit for MilliCoulomb {
 #[derive(Debug, Clone, Copy)]
 struct MicroCoulomb;
 impl MeasurementUnit for MicroCoulomb {
-    type Quantity = ElectricCharge;
+    type Property = ElectricCharge;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}C";
@@ -489,7 +495,7 @@ impl MeasurementUnit for MicroCoulomb {
 #[derive(Debug, Clone, Copy)]
 struct NanoCoulomb;
 impl MeasurementUnit for NanoCoulomb {
-    type Quantity = ElectricCharge;
+    type Property = ElectricCharge;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " nC";
@@ -498,7 +504,7 @@ impl MeasurementUnit for NanoCoulomb {
 #[derive(Debug, Clone, Copy)]
 struct PicoCoulomb;
 impl MeasurementUnit for PicoCoulomb {
-    type Quantity = ElectricCharge;
+    type Property = ElectricCharge;
     const RATIO: f64 = 1e-12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " pC";
@@ -510,7 +516,7 @@ struct LinearElectricChargeDensity;
 #[derive(Debug, Clone, Copy)]
 struct CoulombPerMetre;
 impl MeasurementUnit for CoulombPerMetre {
-    type Quantity = LinearElectricChargeDensity;
+    type Property = LinearElectricChargeDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " C/m";
@@ -522,7 +528,7 @@ struct ElectricDisplacement;
 #[derive(Debug, Clone, Copy)]
 struct CoulombPerSquareMetre;
 impl MeasurementUnit for CoulombPerSquareMetre {
-    type Quantity = ElectricDisplacement;
+    type Property = ElectricDisplacement;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " C/m\u{b2}";
@@ -534,7 +540,7 @@ struct ElectricChargeDensity;
 #[derive(Debug, Clone, Copy)]
 struct CoulombPerCubicMetre;
 impl MeasurementUnit for CoulombPerCubicMetre {
-    type Quantity = ElectricChargeDensity;
+    type Property = ElectricChargeDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " C/m\u{B3}";
@@ -546,11 +552,12 @@ struct ElectricFieldStrength;
 #[derive(Debug, Clone, Copy)]
 struct VoltMetre;
 impl MeasurementUnit for VoltMetre {
-    type Quantity = ElectricFieldStrength;
+    type Property = ElectricFieldStrength;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " V/m";
 }
+impl VectorMeasurementUnit for VoltMetre {}
 
 // Electrical conductance, electric susceptance, electric admittance
 struct ElectricalConductance;
@@ -558,7 +565,7 @@ struct ElectricalConductance;
 #[derive(Debug, Clone, Copy)]
 struct Siemens;
 impl MeasurementUnit for Siemens {
-    type Quantity = ElectricalConductance;
+    type Property = ElectricalConductance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " S";
@@ -570,7 +577,7 @@ struct ElectricalConductivity;
 #[derive(Debug, Clone, Copy)]
 struct SiemensPerMetre;
 impl MeasurementUnit for SiemensPerMetre {
-    type Quantity = ElectricalConductivity;
+    type Property = ElectricalConductivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " S/m";
@@ -582,16 +589,17 @@ struct ElectricCurrent;
 #[derive(Debug, Clone, Copy)]
 struct Ampere;
 impl MeasurementUnit for Ampere {
-    type Quantity = ElectricCurrent;
+    type Property = ElectricCurrent;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " A";
 }
+impl VectorMeasurementUnit for Ampere {}
 
 #[derive(Debug, Clone, Copy)]
 struct MilliAmpere;
 impl MeasurementUnit for MilliAmpere {
-    type Quantity = ElectricCurrent;
+    type Property = ElectricCurrent;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mA";
@@ -600,7 +608,7 @@ impl MeasurementUnit for MilliAmpere {
 #[derive(Debug, Clone, Copy)]
 struct MicroAmpere;
 impl MeasurementUnit for MicroAmpere {
-    type Quantity = ElectricCurrent;
+    type Property = ElectricCurrent;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}A";
@@ -612,7 +620,7 @@ struct ElectricPotential;
 #[derive(Debug, Clone, Copy)]
 struct Volt;
 impl MeasurementUnit for Volt {
-    type Quantity = ElectricPotential;
+    type Property = ElectricPotential;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " V";
@@ -621,7 +629,7 @@ impl MeasurementUnit for Volt {
 #[derive(Debug, Clone, Copy)]
 struct KiloVolt;
 impl MeasurementUnit for KiloVolt {
-    type Quantity = ElectricPotential;
+    type Property = ElectricPotential;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kV";
@@ -630,7 +638,7 @@ impl MeasurementUnit for KiloVolt {
 #[derive(Debug, Clone, Copy)]
 struct MilliVolt;
 impl MeasurementUnit for MilliVolt {
-    type Quantity = ElectricPotential;
+    type Property = ElectricPotential;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mV";
@@ -638,7 +646,7 @@ impl MeasurementUnit for MilliVolt {
 
 struct MicroVolt;
 impl MeasurementUnit for MicroVolt {
-    type Quantity = ElectricPotential;
+    type Property = ElectricPotential;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}V";
@@ -649,7 +657,7 @@ struct ElectricalResistance;
 
 struct Ohm;
 impl MeasurementUnit for Ohm {
-    type Quantity = ElectricalResistance;
+    type Property = ElectricalResistance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{3A9}";
@@ -657,7 +665,7 @@ impl MeasurementUnit for Ohm {
 
 struct MilliOhm;
 impl MeasurementUnit for MilliOhm {
-    type Quantity = ElectricalResistance;
+    type Property = ElectricalResistance;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m\u{3A9}";
@@ -665,7 +673,7 @@ impl MeasurementUnit for MilliOhm {
 
 struct KiloOhm;
 impl MeasurementUnit for KiloOhm {
-    type Quantity = ElectricalResistance;
+    type Property = ElectricalResistance;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " k\u{3A9}";
@@ -676,7 +684,7 @@ struct ElectricalResistivity;
 
 struct OhmMetre;
 impl MeasurementUnit for OhmMetre {
-    type Quantity = ElectricalResistivity;
+    type Property = ElectricalResistivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{3A9}\u{b7}m";
@@ -687,7 +695,7 @@ struct Energy;
 
 struct Joule;
 impl MeasurementUnit for Joule {
-    type Quantity = Energy;
+    type Property = Energy;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J";
@@ -695,7 +703,7 @@ impl MeasurementUnit for Joule {
 
 struct WattHour;
 impl MeasurementUnit for WattHour {
-    type Quantity = Energy;
+    type Property = Energy;
     const RATIO: f64 = 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W\u{b7}h";
@@ -703,15 +711,15 @@ impl MeasurementUnit for WattHour {
 
 struct KiloWattHour;
 impl MeasurementUnit for KiloWattHour {
-    type Quantity = Energy;
+    type Property = Energy;
     const RATIO: f64 = 3.6e6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " KW\u{b7}h";
+    const SUFFIX: &'static str = " kW\u{b7}h";
 }
 
 struct MegaWattHour;
 impl MeasurementUnit for MegaWattHour {
-    type Quantity = Energy;
+    type Property = Energy;
     const RATIO: f64 = 3.6e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MW\u{b7}h";
@@ -719,7 +727,7 @@ impl MeasurementUnit for MegaWattHour {
 
 struct Calorie;
 impl MeasurementUnit for Calorie {
-    type Quantity = Energy;
+    type Property = Energy;
     const RATIO: f64 = 4.187;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cal";
@@ -727,7 +735,7 @@ impl MeasurementUnit for Calorie {
 
 struct KiloCalorie;
 impl MeasurementUnit for KiloCalorie {
-    type Quantity = Energy;
+    type Property = Energy;
     const RATIO: f64 = 4187.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kcal";
@@ -738,7 +746,7 @@ struct EnergyDensity;
 
 struct JoulePerCubicMetre;
 impl MeasurementUnit for JoulePerCubicMetre {
-    type Quantity = EnergyDensity;
+    type Property = EnergyDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/m\u{B3}";
@@ -749,7 +757,7 @@ struct Entropy;
 
 struct JoulePerKelvin;
 impl MeasurementUnit for JoulePerKelvin {
-    type Quantity = Entropy;
+    type Property = Entropy;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/\u{B0}K";
@@ -760,50 +768,55 @@ struct Force;
 
 struct Newton;
 impl MeasurementUnit for Newton {
-    type Quantity = Force;
+    type Property = Force;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N";
 }
+impl VectorMeasurementUnit for Newton {}
 
 struct Dyne;
 impl MeasurementUnit for Dyne {
-    type Quantity = Force;
+    type Property = Force;
     const RATIO: f64 = 1e-5;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dyn";
 }
+impl VectorMeasurementUnit for Dyne {}
 
 struct KilogramForce;
 impl MeasurementUnit for KilogramForce {
-    type Quantity = Force;
+    type Property = Force;
     const RATIO: f64 = 9.80665;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kgf";
 }
+impl VectorMeasurementUnit for KilogramForce {}
 
 struct PoundForce;
 impl MeasurementUnit for PoundForce {
-    type Quantity = Force;
+    type Property = Force;
     const RATIO: f64 = 4.448222;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lbf";
 }
+impl VectorMeasurementUnit for PoundForce {}
 
 struct Poundal;
 impl MeasurementUnit for Poundal {
-    type Quantity = Force;
+    type Property = Force;
     const RATIO: f64 = 0.138255;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " pdl";
 }
+impl VectorMeasurementUnit for Poundal {}
 
 // Frequency, angular speed, angular velocity
 struct Frequency;
 
 struct Hertz;
 impl MeasurementUnit for Hertz {
-    type Quantity = Frequency;
+    type Property = Frequency;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Hz";
@@ -811,7 +824,7 @@ impl MeasurementUnit for Hertz {
 
 struct KiloHertz;
 impl MeasurementUnit for KiloHertz {
-    type Quantity = Frequency;
+    type Property = Frequency;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kHz";
@@ -819,7 +832,7 @@ impl MeasurementUnit for KiloHertz {
 
 struct MegaHertz;
 impl MeasurementUnit for MegaHertz {
-    type Quantity = Frequency;
+    type Property = Frequency;
     const RATIO: f64 = 1e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MHz";
@@ -827,7 +840,7 @@ impl MeasurementUnit for MegaHertz {
 
 struct GigaHertz;
 impl MeasurementUnit for GigaHertz {
-    type Quantity = Frequency;
+    type Property = Frequency;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GHz";
@@ -835,7 +848,7 @@ impl MeasurementUnit for GigaHertz {
 
 struct RadianPerSecond;
 impl MeasurementUnit for RadianPerSecond {
-    type Quantity = Frequency;
+    type Property = Frequency;
     const RATIO: f64 = 1. / TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rad/s";
@@ -843,7 +856,7 @@ impl MeasurementUnit for RadianPerSecond {
 
 struct TurnPerMinute;
 impl MeasurementUnit for TurnPerMinute {
-    type Quantity = Frequency;
+    type Property = Frequency;
     const RATIO: f64 = 1. / 60.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rpm";
@@ -854,7 +867,7 @@ struct Irradiance;
 
 struct WattPerSquareMetre;
 impl MeasurementUnit for WattPerSquareMetre {
-    type Quantity = Irradiance;
+    type Property = Irradiance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W/m\u{b2}";
@@ -864,7 +877,7 @@ struct Illuminance;
 
 struct Lux;
 impl MeasurementUnit for Lux {
-    type Quantity = Illuminance;
+    type Property = Illuminance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lx";
@@ -872,7 +885,7 @@ impl MeasurementUnit for Lux {
 
 struct Phot;
 impl MeasurementUnit for Phot {
-    type Quantity = Illuminance;
+    type Property = Illuminance;
     const RATIO: f64 = 10000.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " phot";
@@ -880,7 +893,7 @@ impl MeasurementUnit for Phot {
 
 struct FootCandle;
 impl MeasurementUnit for FootCandle {
-    type Quantity = Illuminance;
+    type Property = Illuminance;
     const RATIO: f64 = 10.764;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " fc";
@@ -894,7 +907,7 @@ struct Inductance;
 
 struct Henry;
 impl MeasurementUnit for Henry {
-    type Quantity = Inductance;
+    type Property = Inductance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " H";
@@ -905,7 +918,7 @@ struct Information;
 
 struct Bit;
 impl MeasurementUnit for Bit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " b";
@@ -913,7 +926,7 @@ impl MeasurementUnit for Bit {
 
 struct Byte;
 impl MeasurementUnit for Byte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " B";
@@ -921,7 +934,7 @@ impl MeasurementUnit for Byte {
 
 struct KiloBit;
 impl MeasurementUnit for KiloBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kb";
@@ -929,7 +942,7 @@ impl MeasurementUnit for KiloBit {
 
 struct KiloByte;
 impl MeasurementUnit for KiloByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kB";
@@ -937,7 +950,7 @@ impl MeasurementUnit for KiloByte {
 
 struct KibiBit;
 impl MeasurementUnit for KibiBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kib";
@@ -945,7 +958,7 @@ impl MeasurementUnit for KibiBit {
 
 struct KibiByte;
 impl MeasurementUnit for KibiByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kiB";
@@ -953,7 +966,7 @@ impl MeasurementUnit for KibiByte {
 
 struct MegaBit;
 impl MeasurementUnit for MegaBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Mb";
@@ -961,7 +974,7 @@ impl MeasurementUnit for MegaBit {
 
 struct MegaByte;
 impl MeasurementUnit for MegaByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MB";
@@ -969,7 +982,7 @@ impl MeasurementUnit for MegaByte {
 
 struct MebiBit;
 impl MeasurementUnit for MebiBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Mib";
@@ -977,7 +990,7 @@ impl MeasurementUnit for MebiBit {
 
 struct MebiByte;
 impl MeasurementUnit for MebiByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MiB";
@@ -985,7 +998,7 @@ impl MeasurementUnit for MebiByte {
 
 struct GigaBit;
 impl MeasurementUnit for GigaBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Gb";
@@ -993,7 +1006,7 @@ impl MeasurementUnit for GigaBit {
 
 struct GigaByte;
 impl MeasurementUnit for GigaByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GB";
@@ -1001,7 +1014,7 @@ impl MeasurementUnit for GigaByte {
 
 struct GibiBit;
 impl MeasurementUnit for GibiBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Gib";
@@ -1009,7 +1022,7 @@ impl MeasurementUnit for GibiBit {
 
 struct GibiByte;
 impl MeasurementUnit for GibiByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8. * 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GiB";
@@ -1017,7 +1030,7 @@ impl MeasurementUnit for GibiByte {
 
 struct TeraBit;
 impl MeasurementUnit for TeraBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1e12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Tb";
@@ -1025,7 +1038,7 @@ impl MeasurementUnit for TeraBit {
 
 struct TeraByte;
 impl MeasurementUnit for TeraByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8e12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " TB";
@@ -1033,7 +1046,7 @@ impl MeasurementUnit for TeraByte {
 
 struct TebiBit;
 impl MeasurementUnit for TebiBit {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 1024. * 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Tib";
@@ -1041,7 +1054,7 @@ impl MeasurementUnit for TebiBit {
 
 struct TebiByte;
 impl MeasurementUnit for TebiByte {
-    type Quantity = Information;
+    type Property = Information;
     const RATIO: f64 = 8. * 1024. * 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " TiB";
@@ -1052,7 +1065,7 @@ struct InformationRate;
 
 struct BitPerSecond;
 impl MeasurementUnit for BitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " b/s";
@@ -1060,7 +1073,7 @@ impl MeasurementUnit for BitPerSecond {
 
 struct BytePerSecond;
 impl MeasurementUnit for BytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " B/s";
@@ -1068,7 +1081,7 @@ impl MeasurementUnit for BytePerSecond {
 
 struct KiloBitPerSecond;
 impl MeasurementUnit for KiloBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kb/s";
@@ -1076,7 +1089,7 @@ impl MeasurementUnit for KiloBitPerSecond {
 
 struct KiloBytePerSecond;
 impl MeasurementUnit for KiloBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kB/s";
@@ -1084,7 +1097,7 @@ impl MeasurementUnit for KiloBytePerSecond {
 
 struct KibiBitPerSecond;
 impl MeasurementUnit for KibiBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kib/s";
@@ -1092,7 +1105,7 @@ impl MeasurementUnit for KibiBitPerSecond {
 
 struct KibiBytePerSecond;
 impl MeasurementUnit for KibiBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kiB/s";
@@ -1100,7 +1113,7 @@ impl MeasurementUnit for KibiBytePerSecond {
 
 struct MegaBitPerSecond;
 impl MeasurementUnit for MegaBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Mb/s";
@@ -1108,7 +1121,7 @@ impl MeasurementUnit for MegaBitPerSecond {
 
 struct MegaBytePerSecond;
 impl MeasurementUnit for MegaBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MB/s";
@@ -1116,7 +1129,7 @@ impl MeasurementUnit for MegaBytePerSecond {
 
 struct MebiBitPerSecond;
 impl MeasurementUnit for MebiBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Mib/s";
@@ -1124,7 +1137,7 @@ impl MeasurementUnit for MebiBitPerSecond {
 
 struct MebiBytePerSecond;
 impl MeasurementUnit for MebiBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MiB/s";
@@ -1132,7 +1145,7 @@ impl MeasurementUnit for MebiBytePerSecond {
 
 struct GigaBitPerSecond;
 impl MeasurementUnit for GigaBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Gb/s";
@@ -1140,7 +1153,7 @@ impl MeasurementUnit for GigaBitPerSecond {
 
 struct GigaBytePerSecond;
 impl MeasurementUnit for GigaBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GB/s";
@@ -1148,7 +1161,7 @@ impl MeasurementUnit for GigaBytePerSecond {
 
 struct GibiBitPerSecond;
 impl MeasurementUnit for GibiBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Gib/s";
@@ -1156,7 +1169,7 @@ impl MeasurementUnit for GibiBitPerSecond {
 
 struct GibiBytePerSecond;
 impl MeasurementUnit for GibiBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8. * 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GiB/s";
@@ -1164,7 +1177,7 @@ impl MeasurementUnit for GibiBytePerSecond {
 
 struct TeraBitPerSecond;
 impl MeasurementUnit for TeraBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1e12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Tb/s";
@@ -1172,7 +1185,7 @@ impl MeasurementUnit for TeraBitPerSecond {
 
 struct TeraBytePerSecond;
 impl MeasurementUnit for TeraBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8e12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " TB/s";
@@ -1180,7 +1193,7 @@ impl MeasurementUnit for TeraBytePerSecond {
 
 struct TebiBitPerSecond;
 impl MeasurementUnit for TebiBitPerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 1024. * 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Tib/s";
@@ -1188,7 +1201,7 @@ impl MeasurementUnit for TebiBitPerSecond {
 
 struct TebiBytePerSecond;
 impl MeasurementUnit for TebiBytePerSecond {
-    type Quantity = InformationRate;
+    type Property = InformationRate;
     const RATIO: f64 = 8. * 1024. * 1024. * 1024. * 1024.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " TiB/s";
@@ -1199,7 +1212,7 @@ struct KinematicViscosity;
 
 struct SquareMetrePerSecond;
 impl MeasurementUnit for SquareMetrePerSecond {
-    type Quantity = KinematicViscosity;
+    type Property = KinematicViscosity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m\u{b2}/s";
@@ -1207,7 +1220,7 @@ impl MeasurementUnit for SquareMetrePerSecond {
 
 struct Stoke;
 impl MeasurementUnit for Stoke {
-    type Quantity = KinematicViscosity;
+    type Property = KinematicViscosity;
     const RATIO: f64 = 1e-4;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " St";
@@ -1215,7 +1228,7 @@ impl MeasurementUnit for Stoke {
 
 struct CentiStoke;
 impl MeasurementUnit for CentiStoke {
-    type Quantity = KinematicViscosity;
+    type Property = KinematicViscosity;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cSt";
@@ -1227,154 +1240,172 @@ struct Length;
 #[derive(Debug, Clone, Copy)]
 struct Metre;
 impl MeasurementUnit for Metre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m";
 }
+impl VectorMeasurementUnit for Metre {}
 
 struct AstronomicalUnit;
 impl MeasurementUnit for AstronomicalUnit {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 149597870691.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " a.u.";
 }
+impl VectorMeasurementUnit for AstronomicalUnit {}
 
 struct Parsec;
 impl MeasurementUnit for Parsec {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 3.0856775813e16;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " psc";
 }
+impl VectorMeasurementUnit for Parsec {}
 
 struct LightYear;
 impl MeasurementUnit for LightYear {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 31557600. * 2.99792458e8;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ly";
 }
+impl VectorMeasurementUnit for LightYear {}
 
 struct KiloMetre;
 impl MeasurementUnit for KiloMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km";
 }
+impl VectorMeasurementUnit for KiloMetre {}
 
 struct HectoMetre;
 impl MeasurementUnit for HectoMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 100.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " hm";
 }
+impl VectorMeasurementUnit for HectoMetre {}
 
 struct DecaMetre;
 impl MeasurementUnit for DecaMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 10.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dam";
 }
+impl VectorMeasurementUnit for DecaMetre {}
 
 struct DeciMetre;
 impl MeasurementUnit for DeciMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 0.1;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dm";
 }
+impl VectorMeasurementUnit for DeciMetre {}
 
 struct CentiMetre;
 impl MeasurementUnit for CentiMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm";
 }
+impl VectorMeasurementUnit for CentiMetre {}
 
 struct MilliMetre;
 impl MeasurementUnit for MilliMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mm";
 }
+impl VectorMeasurementUnit for MilliMetre {}
 
 struct MicroMetre;
 impl MeasurementUnit for MicroMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}m";
 }
+impl VectorMeasurementUnit for MicroMetre {}
 
 struct NanoMetre;
 impl MeasurementUnit for NanoMetre {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " nm";
 }
+impl VectorMeasurementUnit for NanoMetre {}
 
 struct Angstrom;
 impl MeasurementUnit for Angstrom {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1e-10;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{212B}";
 }
+impl VectorMeasurementUnit for Angstrom {}
 
 struct Inch;
 impl MeasurementUnit for Inch {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 0.0254;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " in";
 }
+impl VectorMeasurementUnit for Inch {}
 
 struct Foot;
 impl MeasurementUnit for Foot {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 0.3048;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ft";
 }
+impl VectorMeasurementUnit for Foot {}
 
 struct Yard;
 impl MeasurementUnit for Yard {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 0.9144;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " yd";
 }
+impl VectorMeasurementUnit for Yard {}
 
 struct Mile;
 impl MeasurementUnit for Mile {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1609.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mi";
 }
+impl VectorMeasurementUnit for Mile {}
 
 struct NauticalMile;
 impl MeasurementUnit for NauticalMile {
-    type Quantity = Length;
+    type Property = Length;
     const RATIO: f64 = 1852.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " naut.mi";
 }
+impl VectorMeasurementUnit for NauticalMile {}
 
 // Linear density
 struct LinearDensity;
 
 struct KilogramPerMetre;
 impl MeasurementUnit for KilogramPerMetre {
-    type Quantity = LinearDensity;
+    type Property = LinearDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg/m";
@@ -1385,7 +1416,7 @@ struct Luminance;
 
 struct CandelaPerSquareMetre; // aka "nit"
 impl MeasurementUnit for CandelaPerSquareMetre {
-    type Quantity = Luminance;
+    type Property = Luminance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cd/m\u{b2}";
@@ -1393,7 +1424,7 @@ impl MeasurementUnit for CandelaPerSquareMetre {
 
 struct Stilb;
 impl MeasurementUnit for Stilb {
-    type Quantity = Luminance;
+    type Property = Luminance;
     const RATIO: f64 = 10000.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " stilb";
@@ -1404,18 +1435,19 @@ struct LuminousFlux;
 
 struct Lumen;
 impl MeasurementUnit for Lumen {
-    type Quantity = LuminousFlux;
+    type Property = LuminousFlux;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lm";
 }
+impl VectorMeasurementUnit for Lumen {}
 
 // Luminous intensity
 struct LuminousIntensity;
 
 struct Candela;
 impl MeasurementUnit for Candela {
-    type Quantity = LuminousIntensity;
+    type Property = LuminousIntensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cd";
@@ -1426,18 +1458,19 @@ struct MagneticFieldStrength;
 
 struct AmperePerMetre;
 impl MeasurementUnit for AmperePerMetre {
-    type Quantity = MagneticFieldStrength;
+    type Property = MagneticFieldStrength;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " A/m";
 }
+impl VectorMeasurementUnit for AmperePerMetre {}
 
 // Magnetic flux
 struct MagneticFlux;
 
 struct Weber;
 impl MeasurementUnit for Weber {
-    type Quantity = MagneticFlux;
+    type Property = MagneticFlux;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Wb";
@@ -1448,7 +1481,7 @@ struct MagneticFluxDensity;
 
 struct Tesla;
 impl MeasurementUnit for Tesla {
-    type Quantity = MagneticFluxDensity;
+    type Property = MagneticFluxDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " T";
@@ -1456,7 +1489,7 @@ impl MeasurementUnit for Tesla {
 
 struct Gauss;
 impl MeasurementUnit for Gauss {
-    type Quantity = MagneticFluxDensity;
+    type Property = MagneticFluxDensity;
     const RATIO: f64 = 1e-4;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " G";
@@ -1467,7 +1500,7 @@ struct MagneticReluctance;
 
 struct InverseHenry;
 impl MeasurementUnit for InverseHenry {
-    type Quantity = MagneticReluctance;
+    type Property = MagneticReluctance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " 1/H";
@@ -1478,7 +1511,7 @@ struct Mass;
 
 struct KiloGram;
 impl MeasurementUnit for KiloGram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg";
@@ -1486,7 +1519,7 @@ impl MeasurementUnit for KiloGram {
 
 struct MetricTon;
 impl MeasurementUnit for MetricTon {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " t";
@@ -1494,7 +1527,7 @@ impl MeasurementUnit for MetricTon {
 
 struct HectoGram;
 impl MeasurementUnit for HectoGram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 0.1;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " hg";
@@ -1502,7 +1535,7 @@ impl MeasurementUnit for HectoGram {
 
 struct DecaGram;
 impl MeasurementUnit for DecaGram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dag";
@@ -1510,7 +1543,7 @@ impl MeasurementUnit for DecaGram {
 
 struct Gram;
 impl MeasurementUnit for Gram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g";
@@ -1518,7 +1551,7 @@ impl MeasurementUnit for Gram {
 
 struct MilliGram;
 impl MeasurementUnit for MilliGram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mg";
@@ -1526,7 +1559,7 @@ impl MeasurementUnit for MilliGram {
 
 struct MicroGram;
 impl MeasurementUnit for MicroGram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}g";
@@ -1534,7 +1567,7 @@ impl MeasurementUnit for MicroGram {
 
 struct NanoGram;
 impl MeasurementUnit for NanoGram {
-    type Quantity = Mass;
+    type Property = Mass;
     const RATIO: f64 = 1e-12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ng";
@@ -1545,7 +1578,7 @@ struct MassDensity;
 
 struct KiloGramPerCubicMetre;
 impl MeasurementUnit for KiloGramPerCubicMetre {
-    type Quantity = MassDensity;
+    type Property = MassDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg/m\u{B3}";
@@ -1556,7 +1589,7 @@ struct MassFlowRate;
 
 struct KiloGramPerSecond;
 impl MeasurementUnit for KiloGramPerSecond {
-    type Quantity = MassFlowRate;
+    type Property = MassFlowRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg/s";
@@ -1564,7 +1597,7 @@ impl MeasurementUnit for KiloGramPerSecond {
 
 struct GramPerSecond;
 impl MeasurementUnit for GramPerSecond {
-    type Quantity = MassFlowRate;
+    type Property = MassFlowRate;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g/s";
@@ -1575,7 +1608,7 @@ struct MolarHeatCapacity;
 
 struct JoulePerKelvinPerMole;
 impl MeasurementUnit for JoulePerKelvinPerMole {
-    type Quantity = MolarHeatCapacity;
+    type Property = MolarHeatCapacity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/\u{B0}K/mol";
@@ -1586,7 +1619,7 @@ struct MomentOfInertia;
 
 struct KiloGramSquareMetre;
 impl MeasurementUnit for KiloGramSquareMetre {
-    type Quantity = MomentOfInertia;
+    type Property = MomentOfInertia;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg\u{b7}m\u{b2}";
@@ -1594,7 +1627,7 @@ impl MeasurementUnit for KiloGramSquareMetre {
 
 struct GramSquareCentiMetre;
 impl MeasurementUnit for GramSquareCentiMetre {
-    type Quantity = MomentOfInertia;
+    type Property = MomentOfInertia;
     const RATIO: f64 = 1e-7;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g\u{b7}cm\u{b2}";
@@ -1605,42 +1638,46 @@ struct Momentum;
 
 struct NewtonSecond;
 impl MeasurementUnit for NewtonSecond {
-    type Quantity = Momentum;
+    type Property = Momentum;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N\u{b7}s";
 }
+impl VectorMeasurementUnit for NewtonSecond {}
 
 struct KiloGramMetrePerSecond;
 impl MeasurementUnit for KiloGramMetrePerSecond {
-    type Quantity = Momentum;
+    type Property = Momentum;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg\u{b7}m/s";
 }
+impl VectorMeasurementUnit for KiloGramMetrePerSecond {}
 
 struct DynSecond;
 impl MeasurementUnit for DynSecond {
-    type Quantity = Momentum;
+    type Property = Momentum;
     const RATIO: f64 = 1e-5;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dyn\u{b7}s";
 }
+impl VectorMeasurementUnit for DynSecond {}
 
 struct GramCentiMetrePerSecond;
 impl MeasurementUnit for GramCentiMetrePerSecond {
-    type Quantity = Momentum;
+    type Property = Momentum;
     const RATIO: f64 = 1e-5;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g\u{b7}cm/s";
 }
+impl VectorMeasurementUnit for GramCentiMetrePerSecond {}
 
 // Magnetic permeability
 struct MagneticPermeability;
 
 struct HenryPerMetre;
 impl MeasurementUnit for HenryPerMetre {
-    type Quantity = MagneticPermeability;
+    type Property = MagneticPermeability;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " H/m";
@@ -1651,7 +1688,7 @@ struct Permittivity;
 
 struct FaradPerMetre;
 impl MeasurementUnit for FaradPerMetre {
-    type Quantity = Permittivity;
+    type Property = Permittivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " F/m";
@@ -1662,7 +1699,7 @@ struct Power;
 
 struct Watt;
 impl MeasurementUnit for Watt {
-    type Quantity = Power;
+    type Property = Power;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W";
@@ -1670,7 +1707,7 @@ impl MeasurementUnit for Watt {
 
 struct MilliWatt;
 impl MeasurementUnit for MilliWatt {
-    type Quantity = Power;
+    type Property = Power;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mW";
@@ -1678,7 +1715,7 @@ impl MeasurementUnit for MilliWatt {
 
 struct KiloWatt;
 impl MeasurementUnit for KiloWatt {
-    type Quantity = Power;
+    type Property = Power;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kW";
@@ -1686,7 +1723,7 @@ impl MeasurementUnit for KiloWatt {
 
 struct MegaWatt;
 impl MeasurementUnit for MegaWatt {
-    type Quantity = Power;
+    type Property = Power;
     const RATIO: f64 = 1e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MW";
@@ -1694,7 +1731,7 @@ impl MeasurementUnit for MegaWatt {
 
 struct GigaWatt;
 impl MeasurementUnit for GigaWatt {
-    type Quantity = Power;
+    type Property = Power;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GW";
@@ -1702,7 +1739,7 @@ impl MeasurementUnit for GigaWatt {
 
 struct HorsePower;
 impl MeasurementUnit for HorsePower {
-    type Quantity = Power;
+    type Property = Power;
     const RATIO: f64 = 745.699872;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " HP";
@@ -1713,7 +1750,7 @@ struct Pressure;
 
 struct Pascal;
 impl MeasurementUnit for Pascal {
-    type Quantity = Pressure;
+    type Property = Pressure;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Pa";
@@ -1721,7 +1758,7 @@ impl MeasurementUnit for Pascal {
 
 struct HectoPascal;
 impl MeasurementUnit for HectoPascal {
-    type Quantity = Pressure;
+    type Property = Pressure;
     const RATIO: f64 = 100.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " hPa";
@@ -1729,7 +1766,7 @@ impl MeasurementUnit for HectoPascal {
 
 struct PhysicalAtmosphere;
 impl MeasurementUnit for PhysicalAtmosphere {
-    type Quantity = Pressure;
+    type Property = Pressure;
     const RATIO: f64 = 1.013e5;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " atm";
@@ -1737,14 +1774,14 @@ impl MeasurementUnit for PhysicalAtmosphere {
 
 struct Bar;
 impl MeasurementUnit for Bar {
-    type Quantity = Pressure;
+    type Property = Pressure;
     const RATIO: f64 = 1e5;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " bar";
 }
 struct MilliBar;
 impl MeasurementUnit for MilliBar {
-    type Quantity = Pressure;
+    type Property = Pressure;
     const RATIO: f64 = 100.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mbar";
@@ -1752,7 +1789,7 @@ impl MeasurementUnit for MilliBar {
 
 struct MmHg;
 impl MeasurementUnit for MmHg {
-    type Quantity = Pressure;
+    type Property = Pressure;
     const RATIO: f64 = 133.322;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " torr";
@@ -1763,7 +1800,7 @@ struct Radiance;
 
 struct WattPerSquareMetrePerSteradian;
 impl MeasurementUnit for WattPerSquareMetrePerSteradian {
-    type Quantity = Radiance;
+    type Property = Radiance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W/m\u{b2}/sr";
@@ -1774,7 +1811,7 @@ struct RadiantIntensity;
 
 struct WattPerSteradian;
 impl MeasurementUnit for WattPerSteradian {
-    type Quantity = RadiantIntensity;
+    type Property = RadiantIntensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W/sr";
@@ -1785,14 +1822,14 @@ struct RadioactiveActivity;
 
 struct Becquerel;
 impl MeasurementUnit for Becquerel {
-    type Quantity = RadioactiveActivity;
+    type Property = RadioactiveActivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Bq";
 }
 struct KiloBecquerel;
 impl MeasurementUnit for KiloBecquerel {
-    type Quantity = RadioactiveActivity;
+    type Property = RadioactiveActivity;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kBq";
@@ -1800,7 +1837,7 @@ impl MeasurementUnit for KiloBecquerel {
 
 struct MegaBecquerel;
 impl MeasurementUnit for MegaBecquerel {
-    type Quantity = RadioactiveActivity;
+    type Property = RadioactiveActivity;
     const RATIO: f64 = 1e6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " MBq";
@@ -1808,7 +1845,7 @@ impl MeasurementUnit for MegaBecquerel {
 
 struct GigaBecquerel;
 impl MeasurementUnit for GigaBecquerel {
-    type Quantity = RadioactiveActivity;
+    type Property = RadioactiveActivity;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GBq";
@@ -1819,7 +1856,7 @@ struct RadioactiveDose;
 
 struct Gray;
 impl MeasurementUnit for Gray {
-    type Quantity = RadioactiveDose;
+    type Property = RadioactiveDose;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Gy";
@@ -1827,7 +1864,7 @@ impl MeasurementUnit for Gray {
 
 struct Rad;
 impl MeasurementUnit for Rad {
-    type Quantity = RadioactiveDose;
+    type Property = RadioactiveDose;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rad";
@@ -1838,7 +1875,7 @@ struct RadioactiveDoseRate;
 
 struct GrayPerSecond;
 impl MeasurementUnit for GrayPerSecond {
-    type Quantity = RadioactiveDoseRate;
+    type Property = RadioactiveDoseRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Gy/s";
@@ -1849,7 +1886,7 @@ struct ReactionRate;
 
 struct MolePerCubicMetrePerSecond;
 impl MeasurementUnit for MolePerCubicMetrePerSecond {
-    type Quantity = ReactionRate;
+    type Property = ReactionRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mol/m\u{B3}/s";
@@ -1860,7 +1897,7 @@ struct SolidAngle;
 
 struct Steradian;
 impl MeasurementUnit for Steradian {
-    type Quantity = SolidAngle;
+    type Property = SolidAngle;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " sr";
@@ -1868,7 +1905,7 @@ impl MeasurementUnit for Steradian {
 
 struct AllRound;
 impl MeasurementUnit for AllRound {
-    type Quantity = SolidAngle;
+    type Property = SolidAngle;
     const RATIO: f64 = 2. * TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " sphere";
@@ -1876,7 +1913,7 @@ impl MeasurementUnit for AllRound {
 
 struct SquareDegree;
 impl MeasurementUnit for SquareDegree {
-    type Quantity = SolidAngle;
+    type Property = SolidAngle;
     const RATIO: f64 = TAU * TAU / 360. / 360.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg\u{b2}";
@@ -1887,7 +1924,7 @@ struct SpecificEnergy;
 
 struct JoulePerKiloGram;
 impl MeasurementUnit for JoulePerKiloGram {
-    type Quantity = SpecificEnergy;
+    type Property = SpecificEnergy;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/kg";
@@ -1898,7 +1935,7 @@ struct SpecificHeatCapacity;
 
 struct JoulePerKiloGramPerKelvin;
 impl MeasurementUnit for JoulePerKiloGramPerKelvin {
-    type Quantity = SpecificHeatCapacity;
+    type Property = SpecificHeatCapacity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/kg/\u{B0}K";
@@ -1909,7 +1946,7 @@ struct SpecificVolume;
 
 struct CubicMetrePerKiloGram;
 impl MeasurementUnit for CubicMetrePerKiloGram {
-    type Quantity = SpecificVolume;
+    type Property = SpecificVolume;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m\u{B3}/kg";
@@ -1920,7 +1957,7 @@ struct SquareTime;
 
 struct SquareSecond;
 impl MeasurementUnit for SquareSecond {
-    type Quantity = SquareTime;
+    type Property = SquareTime;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " s\u{b2}";
@@ -1928,7 +1965,7 @@ impl MeasurementUnit for SquareSecond {
 
 struct HourSecond;
 impl MeasurementUnit for HourSecond {
-    type Quantity = SquareTime;
+    type Property = SquareTime;
     const RATIO: f64 = 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " h\u{b7}s";
@@ -1936,7 +1973,7 @@ impl MeasurementUnit for HourSecond {
 
 struct HourHour;
 impl MeasurementUnit for HourHour {
-    type Quantity = SquareTime;
+    type Property = SquareTime;
     const RATIO: f64 = 3600. * 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " h\u{b7}h";
@@ -1947,7 +1984,7 @@ struct SurfaceDensity;
 
 struct KiloGramPerSquareMetre;
 impl MeasurementUnit for KiloGramPerSquareMetre {
-    type Quantity = SurfaceDensity;
+    type Property = SurfaceDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg/m\u{b2}";
@@ -1958,7 +1995,7 @@ struct SurfaceTension;
 
 struct JoulePerSquareMetre;
 impl MeasurementUnit for JoulePerSquareMetre {
-    type Quantity = SurfaceTension;
+    type Property = SurfaceTension;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J/m\u{b2}";
@@ -1969,7 +2006,7 @@ struct Temperature;
 
 struct Kelvin;
 impl MeasurementUnit for Kelvin {
-    type Quantity = Temperature;
+    type Property = Temperature;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B0}K";
@@ -1977,7 +2014,7 @@ impl MeasurementUnit for Kelvin {
 
 struct Celsius;
 impl MeasurementUnit for Celsius {
-    type Quantity = Temperature;
+    type Property = Temperature;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 273.15;
     const SUFFIX: &'static str = " \u{B0}C";
@@ -1985,7 +2022,7 @@ impl MeasurementUnit for Celsius {
 
 struct Fahrenheit;
 impl MeasurementUnit for Fahrenheit {
-    type Quantity = Temperature;
+    type Property = Temperature;
     const RATIO: f64 = 5. / 9.;
     const OFFSET: f64 = 273.15 - 32. * 5. / 9.;
     const SUFFIX: &'static str = " \u{B0}F";
@@ -1996,7 +2033,7 @@ struct ThermalConductivity;
 
 struct WattPerMetrePerKelvin;
 impl MeasurementUnit for WattPerMetrePerKelvin {
-    type Quantity = ThermalConductivity;
+    type Property = ThermalConductivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W/m/\u{B0}K";
@@ -2007,7 +2044,7 @@ struct Time;
 
 struct Second;
 impl MeasurementUnit for Second {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " s";
@@ -2015,7 +2052,7 @@ impl MeasurementUnit for Second {
 
 struct Year;
 impl MeasurementUnit for Year {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 365.25 * 86400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Y";
@@ -2023,7 +2060,7 @@ impl MeasurementUnit for Year {
 
 struct Month;
 impl MeasurementUnit for Month {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 30. * 86400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " M";
@@ -2031,7 +2068,7 @@ impl MeasurementUnit for Month {
 
 struct Week;
 impl MeasurementUnit for Week {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 7. * 86400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " W";
@@ -2039,7 +2076,7 @@ impl MeasurementUnit for Week {
 
 struct Day;
 impl MeasurementUnit for Day {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 86400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " D";
@@ -2047,7 +2084,7 @@ impl MeasurementUnit for Day {
 
 struct Hour;
 impl MeasurementUnit for Hour {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " h";
@@ -2055,7 +2092,7 @@ impl MeasurementUnit for Hour {
 
 struct Minute;
 impl MeasurementUnit for Minute {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 60.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " min";
@@ -2063,7 +2100,7 @@ impl MeasurementUnit for Minute {
 
 struct MilliSecond;
 impl MeasurementUnit for MilliSecond {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ms";
@@ -2071,7 +2108,7 @@ impl MeasurementUnit for MilliSecond {
 
 struct MicroSecond;
 impl MeasurementUnit for MicroSecond {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}s";
@@ -2079,7 +2116,7 @@ impl MeasurementUnit for MicroSecond {
 
 struct NanoSecond;
 impl MeasurementUnit for NanoSecond {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ns";
@@ -2087,7 +2124,7 @@ impl MeasurementUnit for NanoSecond {
 
 struct PicoSecond;
 impl MeasurementUnit for PicoSecond {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 1e-12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ps";
@@ -2095,7 +2132,7 @@ impl MeasurementUnit for PicoSecond {
 
 struct FemtoSecond;
 impl MeasurementUnit for FemtoSecond {
-    type Quantity = Time;
+    type Property = Time;
     const RATIO: f64 = 1e-15;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " fs";
@@ -2106,69 +2143,76 @@ struct Torque;
 
 struct NewtonMetre;
 impl MeasurementUnit for NewtonMetre {
-    type Quantity = Torque;
+    type Property = Torque;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N\u{b7}m";
 }
+impl VectorMeasurementUnit for NewtonMetre {}
 
 // Velocity, speed
 struct Velocity;
 
 struct MetrePerSecond;
 impl MeasurementUnit for MetrePerSecond {
-    type Quantity = Velocity;
+    type Property = Velocity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s";
 }
+impl VectorMeasurementUnit for MetrePerSecond {}
 
 struct Knot;
 impl MeasurementUnit for Knot {
-    type Quantity = Velocity;
+    type Property = Velocity;
     const RATIO: f64 = 1852. / 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kt";
 }
+impl VectorMeasurementUnit for Knot {}
 
 struct KiloMetrePerHour;
 impl MeasurementUnit for KiloMetrePerHour {
-    type Quantity = Velocity;
+    type Property = Velocity;
     const RATIO: f64 = 1000. / 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km/h";
 }
+impl VectorMeasurementUnit for KiloMetrePerHour {}
 
 struct MilePerHour;
 impl MeasurementUnit for MilePerHour {
-    type Quantity = Velocity;
+    type Property = Velocity;
     const RATIO: f64 = 1609. / 3600.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mi/h";
 }
+impl VectorMeasurementUnit for MilePerHour {}
 
 struct Mach;
 impl MeasurementUnit for Mach {
-    type Quantity = Velocity;
+    type Property = Velocity;
     const RATIO: f64 = 340.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mach";
 }
+impl VectorMeasurementUnit for Mach {}
 
 struct CentiMetresPerSecond;
 impl MeasurementUnit for CentiMetresPerSecond {
-    type Quantity = Velocity;
+    type Property = Velocity;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm/s";
 }
+impl VectorMeasurementUnit for CentiMetresPerSecond {}
 
 // Volume
 struct Volume;
 
 struct CubicMetre;
 impl MeasurementUnit for CubicMetre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m\u{B3}";
@@ -2176,7 +2220,7 @@ impl MeasurementUnit for CubicMetre {
 
 struct CubicKiloMetre;
 impl MeasurementUnit for CubicKiloMetre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km\u{B3}";
@@ -2184,7 +2228,7 @@ impl MeasurementUnit for CubicKiloMetre {
 
 struct CubicInch;
 impl MeasurementUnit for CubicInch {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 0.0254 * 0.0254 * 0.0254;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " in\u{B3}";
@@ -2192,7 +2236,7 @@ impl MeasurementUnit for CubicInch {
 
 struct CubicFoot;
 impl MeasurementUnit for CubicFoot {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 0.3048 * 0.3048 * 0.3048;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ft\u{B3}";
@@ -2200,7 +2244,7 @@ impl MeasurementUnit for CubicFoot {
 
 struct CubicYard;
 impl MeasurementUnit for CubicYard {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 0.9144 * 0.9144 * 0.9144;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " yd\u{B3}";
@@ -2208,7 +2252,7 @@ impl MeasurementUnit for CubicYard {
 
 struct CubicMile;
 impl MeasurementUnit for CubicMile {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1609. * 1609. * 1609.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mi\u{B3}";
@@ -2216,7 +2260,7 @@ impl MeasurementUnit for CubicMile {
 
 struct Litre; // a.k.a. cubic decimetre or dm\u{B3}
 impl MeasurementUnit for Litre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " l";
@@ -2224,7 +2268,7 @@ impl MeasurementUnit for Litre {
 
 struct MilliLitre; // a.k.a. cubic centimetre or cm\u{B3}
 impl MeasurementUnit for MilliLitre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ml";
@@ -2232,7 +2276,7 @@ impl MeasurementUnit for MilliLitre {
 
 struct MicroLitre; // a.k.a. cubic millimetre or mm\u{B3}
 impl MeasurementUnit for MicroLitre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{B5}l";
@@ -2240,7 +2284,7 @@ impl MeasurementUnit for MicroLitre {
 
 struct NanoLitre;
 impl MeasurementUnit for NanoLitre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1e-12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " nl";
@@ -2248,7 +2292,7 @@ impl MeasurementUnit for NanoLitre {
 
 struct PicoLitre;
 impl MeasurementUnit for PicoLitre {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 1e-15;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " pl";
@@ -2256,7 +2300,7 @@ impl MeasurementUnit for PicoLitre {
 
 struct Pint;
 impl MeasurementUnit for Pint {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 473.2e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " pt";
@@ -2264,7 +2308,7 @@ impl MeasurementUnit for Pint {
 
 struct Gallon;
 impl MeasurementUnit for Gallon {
-    type Quantity = Volume;
+    type Property = Volume;
     const RATIO: f64 = 4546e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " gal";
@@ -2275,7 +2319,7 @@ struct VolumetricFlowRate;
 
 struct CubicMetrePerSecond;
 impl MeasurementUnit for CubicMetrePerSecond {
-    type Quantity = VolumetricFlowRate;
+    type Property = VolumetricFlowRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m\u{B3}/s";
@@ -2283,7 +2327,7 @@ impl MeasurementUnit for CubicMetrePerSecond {
 
 struct CubicCentiMetrePerSecond;
 impl MeasurementUnit for CubicCentiMetrePerSecond {
-    type Quantity = VolumetricFlowRate;
+    type Property = VolumetricFlowRate;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm\u{B3}/s";
@@ -2294,7 +2338,7 @@ struct WaveNumber;
 
 struct CyclePerMetre;
 impl MeasurementUnit for CyclePerMetre {
-    type Quantity = WaveNumber;
+    type Property = WaveNumber;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " 1/m";
@@ -2302,7 +2346,7 @@ impl MeasurementUnit for CyclePerMetre {
 
 struct RadianPerMetre;
 impl MeasurementUnit for RadianPerMetre {
-    type Quantity = WaveNumber;
+    type Property = WaveNumber;
     const RATIO: f64 = 1. / TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rad/m";
@@ -2599,101 +2643,194 @@ fn print_them_all() {
     println!("Gauss: {}.", Measure::<f64, Gauss>::new(1.2));
     println!("InverseHenry: {}.", Measure::<f64, InverseHenry>::new(1.2));
     println!("KiloGram: {}.", Measure::<f64, KiloGram>::new(1.2));
-    /*
-    println!(": {}.", Measure::<f64>::new(1.2)) MetricTon;
-    println!(": {}.", Measure::<f64>::new(1.2)) HectoGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) DecaGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) Gram;
-    println!(": {}.", Measure::<f64>::new(1.2)) MilliGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) MicroGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) NanoGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloGramPerCubicMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloGramPerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) GramPerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) JoulePerKelvinPerMole;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloGramSquareMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) GramSquareCentiMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) NewtonSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloGramMetrePerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) DynSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) GramCentiMetrePerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) HenryPerMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) FaradPerMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) Watt;
-    println!(": {}.", Measure::<f64>::new(1.2)) MilliWatt;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloWatt;
-    println!(": {}.", Measure::<f64>::new(1.2)) MegaWatt;
-    println!(": {}.", Measure::<f64>::new(1.2)) GigaWatt;
-    println!(": {}.", Measure::<f64>::new(1.2)) HorsePower;
-    println!(": {}.", Measure::<f64>::new(1.2)) Pascal;
-    println!(": {}.", Measure::<f64>::new(1.2)) HectoPascal;
-    println!(": {}.", Measure::<f64>::new(1.2)) PhysicalAtmosphere;
-    println!(": {}.", Measure::<f64>::new(1.2)) Bar;
-    println!(": {}.", Measure::<f64>::new(1.2)) MilliBar;
-    println!(": {}.", Measure::<f64>::new(1.2)) MmHg;
-    println!(": {}.", Measure::<f64>::new(1.2)) WattPerSquareMetrePerSteradian;
-    println!(": {}.", Measure::<f64>::new(1.2)) WattPerSteradian;
-    println!(": {}.", Measure::<f64>::new(1.2)) Becquerel;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloBecquerel;
-    println!(": {}.", Measure::<f64>::new(1.2)) MegaBecquerel;
-    println!(": {}.", Measure::<f64>::new(1.2)) GigaBecquerel;
-    println!(": {}.", Measure::<f64>::new(1.2)) Gray;
-    println!(": {}.", Measure::<f64>::new(1.2)) Rad;
-    println!(": {}.", Measure::<f64>::new(1.2)) GrayPerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) MolePerCubicMetrePerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) Steradian;
-    println!(": {}.", Measure::<f64>::new(1.2)) AllRound;
-    println!(": {}.", Measure::<f64>::new(1.2)) SquareDegree;
-    println!(": {}.", Measure::<f64>::new(1.2)) JoulePerKiloGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) JoulePerKiloGramPerKelvin;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicMetrePerKiloGram;
-    println!(": {}.", Measure::<f64>::new(1.2)) SquareSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) HourSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) HourHour;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloGramPerSquareMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) JoulePerSquareMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) Kelvin;
-    println!(": {}.", Measure::<f64>::new(1.2)) Celsius;
-    println!(": {}.", Measure::<f64>::new(1.2)) Fahrenheit;
-    println!(": {}.", Measure::<f64>::new(1.2)) WattPerMetrePerKelvin;
-    println!(": {}.", Measure::<f64>::new(1.2)) Second;
-    println!(": {}.", Measure::<f64>::new(1.2)) Year;
-    println!(": {}.", Measure::<f64>::new(1.2)) Month;
-    println!(": {}.", Measure::<f64>::new(1.2)) Week;
-    println!(": {}.", Measure::<f64>::new(1.2)) Day;
-    println!(": {}.", Measure::<f64>::new(1.2)) Hour;
-    println!(": {}.", Measure::<f64>::new(1.2)) Minute;
-    println!(": {}.", Measure::<f64>::new(1.2)) MilliSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) MicroSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) NanoSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) PicoSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) FemtoSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) NewtonMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) MetrePerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) Knot;
-    println!(": {}.", Measure::<f64>::new(1.2)) KiloMetrePerHour;
-    println!(": {}.", Measure::<f64>::new(1.2)) MilePerHour;
-    println!(": {}.", Measure::<f64>::new(1.2)) Mach;
-    println!(": {}.", Measure::<f64>::new(1.2)) CentiMetresPerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicKiloMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicInch;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicFoot;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicYard;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicMile;
-    println!(": {}.", Measure::<f64>::new(1.2)) Litre;
-    println!(": {}.", Measure::<f64>::new(1.2)) MilliLitre;
-    println!(": {}.", Measure::<f64>::new(1.2)) MicroLitre;
-    println!(": {}.", Measure::<f64>::new(1.2)) NanoLitre;
-    println!(": {}.", Measure::<f64>::new(1.2)) PicoLitre;
-    println!(": {}.", Measure::<f64>::new(1.2)) Pint;
-    println!(": {}.", Measure::<f64>::new(1.2)) Gallon;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicMetrePerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) CubicCentiMetrePerSecond;
-    println!(": {}.", Measure::<f64>::new(1.2)) CyclePerMetre;
-    println!(": {}.", Measure::<f64>::new(1.2)) RadianPerMetre;
-    ........................................................................................
-    */
+    println!("MetricTon: {}.", Measure::<f64, MetricTon>::new(1.2));
+    println!("HectoGram: {}.", Measure::<f64, HectoGram>::new(1.2));
+    println!("DecaGram: {}.", Measure::<f64, DecaGram>::new(1.2));
+    println!("Gram: {}.", Measure::<f64, Gram>::new(1.2));
+    println!("MilliGram: {}.", Measure::<f64, MilliGram>::new(1.2));
+    println!("MicroGram: {}.", Measure::<f64, MicroGram>::new(1.2));
+    println!("NanoGram: {}.", Measure::<f64, NanoGram>::new(1.2));
+    println!(
+        "KiloGramPerCubicMetre: {}.",
+        Measure::<f64, KiloGramPerCubicMetre>::new(1.2)
+    );
+    println!(
+        "KiloGramPerSecond: {}.",
+        Measure::<f64, KiloGramPerSecond>::new(1.2)
+    );
+    println!(
+        "GramPerSecond: {}.",
+        Measure::<f64, GramPerSecond>::new(1.2)
+    );
+    println!(
+        "JoulePerKelvinPerMole: {}.",
+        Measure::<f64, JoulePerKelvinPerMole>::new(1.2)
+    );
+    println!(
+        "KiloGramSquareMetre: {}.",
+        Measure::<f64, KiloGramSquareMetre>::new(1.2)
+    );
+    println!(
+        "GramSquareCentiMetre: {}.",
+        Measure::<f64, GramSquareCentiMetre>::new(1.2)
+    );
+    println!("NewtonSecond: {}.", Measure::<f64, NewtonSecond>::new(1.2));
+    println!(
+        "KiloGramMetrePerSecond: {}.",
+        Measure::<f64, KiloGramMetrePerSecond>::new(1.2)
+    );
+    println!("DynSecond: {}.", Measure::<f64, DynSecond>::new(1.2));
+    println!(
+        "GramCentiMetrePerSecond: {}.",
+        Measure::<f64, GramCentiMetrePerSecond>::new(1.2)
+    );
+    println!(
+        "HenryPerMetre: {}.",
+        Measure::<f64, HenryPerMetre>::new(1.2)
+    );
+    println!(
+        "FaradPerMetre: {}.",
+        Measure::<f64, FaradPerMetre>::new(1.2)
+    );
+    println!("Watt: {}.", Measure::<f64, Watt>::new(1.2));
+    println!("MilliWatt: {}.", Measure::<f64, MilliWatt>::new(1.2));
+    println!("KiloWatt: {}.", Measure::<f64, KiloWatt>::new(1.2));
+    println!("MegaWatt: {}.", Measure::<f64, MegaWatt>::new(1.2));
+    println!("GigaWatt: {}.", Measure::<f64, GigaWatt>::new(1.2));
+    println!("HorsePower: {}.", Measure::<f64, HorsePower>::new(1.2));
+    println!("Pascal: {}.", Measure::<f64, Pascal>::new(1.2));
+    println!("HectoPascal: {}.", Measure::<f64, HectoPascal>::new(1.2));
+    println!(
+        "PhysicalAtmosphere: {}.",
+        Measure::<f64, PhysicalAtmosphere>::new(1.2)
+    );
+    println!("Bar: {}.", Measure::<f64, Bar>::new(1.2));
+    println!("MilliBar: {}.", Measure::<f64, MilliBar>::new(1.2));
+    println!("MmHg: {}.", Measure::<f64, MmHg>::new(1.2));
+    println!(
+        "WattPerSquareMetrePerSteradian: {}.",
+        Measure::<f64, WattPerSquareMetrePerSteradian>::new(1.2)
+    );
+    println!(
+        "WattPerSteradian: {}.",
+        Measure::<f64, WattPerSteradian>::new(1.2)
+    );
+    println!("Becquerel: {}.", Measure::<f64, Becquerel>::new(1.2));
+    println!(
+        "KiloBecquerel: {}.",
+        Measure::<f64, KiloBecquerel>::new(1.2)
+    );
+    println!(
+        "MegaBecquerel: {}.",
+        Measure::<f64, MegaBecquerel>::new(1.2)
+    );
+    println!(
+        "GigaBecquerel: {}.",
+        Measure::<f64, GigaBecquerel>::new(1.2)
+    );
+    println!("Gray: {}.", Measure::<f64, Gray>::new(1.2));
+    println!("Rad: {}.", Measure::<f64, Rad>::new(1.2));
+    println!(
+        "GrayPerSecond: {}.",
+        Measure::<f64, GrayPerSecond>::new(1.2)
+    );
+    println!(
+        "MolePerCubicMetrePerSecond: {}.",
+        Measure::<f64, MolePerCubicMetrePerSecond>::new(1.2)
+    );
+    println!("Steradian: {}.", Measure::<f64, Steradian>::new(1.2));
+    println!("AllRound: {}.", Measure::<f64, AllRound>::new(1.2));
+    println!("SquareDegree: {}.", Measure::<f64, SquareDegree>::new(1.2));
+    println!(
+        "JoulePerKiloGram: {}.",
+        Measure::<f64, JoulePerKiloGram>::new(1.2)
+    );
+    println!(
+        "JoulePerKiloGramPerKelvin: {}.",
+        Measure::<f64, JoulePerKiloGramPerKelvin>::new(1.2)
+    );
+    println!(
+        "CubicMetrePerKiloGram: {}.",
+        Measure::<f64, CubicMetrePerKiloGram>::new(1.2)
+    );
+    println!("SquareSecond: {}.", Measure::<f64, SquareSecond>::new(1.2));
+    println!("HourSecond: {}.", Measure::<f64, HourSecond>::new(1.2));
+    println!("HourHour: {}.", Measure::<f64, HourHour>::new(1.2));
+    println!(
+        "KiloGramPerSquareMetre: {}.",
+        Measure::<f64, KiloGramPerSquareMetre>::new(1.2)
+    );
+    println!(
+        "JoulePerSquareMetre: {}.",
+        Measure::<f64, JoulePerSquareMetre>::new(1.2)
+    );
+    println!("Kelvin: {}.", Measure::<f64, Kelvin>::new(1.2));
+    println!("Celsius: {}.", Measure::<f64, Celsius>::new(1.2));
+    println!("Fahrenheit: {}.", Measure::<f64, Fahrenheit>::new(1.2));
+    println!(
+        "WattPerMetrePerKelvin: {}.",
+        Measure::<f64, WattPerMetrePerKelvin>::new(1.2)
+    );
+    println!("Second: {}.", Measure::<f64, Second>::new(1.2));
+    println!("Year: {}.", Measure::<f64, Year>::new(1.2));
+    println!("Month: {}.", Measure::<f64, Month>::new(1.2));
+    println!("Week: {}.", Measure::<f64, Week>::new(1.2));
+    println!("Day: {}.", Measure::<f64, Day>::new(1.2));
+    println!("Hour: {}.", Measure::<f64, Hour>::new(1.2));
+    println!("Minute: {}.", Measure::<f64, Minute>::new(1.2));
+    println!("MilliSecond: {}.", Measure::<f64, MilliSecond>::new(1.2));
+    println!("MicroSecond: {}.", Measure::<f64, MicroSecond>::new(1.2));
+    println!("NanoSecond: {}.", Measure::<f64, NanoSecond>::new(1.2));
+    println!("PicoSecond: {}.", Measure::<f64, PicoSecond>::new(1.2));
+    println!("FemtoSecond: {}.", Measure::<f64, FemtoSecond>::new(1.2));
+    println!("NewtonMetre: {}.", Measure::<f64, NewtonMetre>::new(1.2));
+    println!(
+        "MetrePerSecond: {}.",
+        Measure::<f64, MetrePerSecond>::new(1.2)
+    );
+    println!("Knot: {}.", Measure::<f64, Knot>::new(1.2));
+    println!(
+        "KiloMetrePerHour: {}.",
+        Measure::<f64, KiloMetrePerHour>::new(1.2)
+    );
+    println!("MilePerHour: {}.", Measure::<f64, MilePerHour>::new(1.2));
+    println!("Mach: {}.", Measure::<f64, Mach>::new(1.2));
+    println!(
+        "CentiMetresPerSecond: {}.",
+        Measure::<f64, CentiMetresPerSecond>::new(1.2)
+    );
+    println!("CubicMetre: {}.", Measure::<f64, CubicMetre>::new(1.2));
+    println!(
+        "CubicKiloMetre: {}.",
+        Measure::<f64, CubicKiloMetre>::new(1.2)
+    );
+    println!("CubicInch: {}.", Measure::<f64, CubicInch>::new(1.2));
+    println!("CubicFoot: {}.", Measure::<f64, CubicFoot>::new(1.2));
+    println!("CubicYard: {}.", Measure::<f64, CubicYard>::new(1.2));
+    println!("CubicMile: {}.", Measure::<f64, CubicMile>::new(1.2));
+    println!("Litre: {}.", Measure::<f64, Litre>::new(1.2));
+    println!("MilliLitre: {}.", Measure::<f64, MilliLitre>::new(1.2));
+    println!("MicroLitre: {}.", Measure::<f64, MicroLitre>::new(1.2));
+    println!("NanoLitre: {}.", Measure::<f64, NanoLitre>::new(1.2));
+    println!("PicoLitre: {}.", Measure::<f64, PicoLitre>::new(1.2));
+    println!("Pint: {}.", Measure::<f64, Pint>::new(1.2));
+    println!("Gallon: {}.", Measure::<f64, Gallon>::new(1.2));
+    println!(
+        "CubicMetrePerSecond: {}.",
+        Measure::<f64, CubicMetrePerSecond>::new(1.2)
+    );
+    println!(
+        "CubicCentiMetrePerSecond: {}.",
+        Measure::<f64, CubicCentiMetrePerSecond>::new(1.2)
+    );
+    println!(
+        "CyclePerMetre: {}.",
+        Measure::<f64, CyclePerMetre>::new(1.2)
+    );
+    println!(
+        "RadianPerMetre: {}.",
+        Measure::<f64, RadianPerMetre>::new(1.2)
+    );
 }
 
 //## Relationships among units
