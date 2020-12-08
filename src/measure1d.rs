@@ -1,13 +1,14 @@
 #[macro_export]
 macro_rules! define_measure1d {
     {} => {
-        use rs_measures::traits::{ArithmeticOps, LossyFrom, MeasurementUnit, VectorMeasurementUnit};
+        use rs_measures::{angle::{Angle, Radian}, traits::{ArithmeticOps, LossyFrom, MeasurementUnit, AngleMeasurementUnit, VectorMeasurementUnit}};
         use core::ops::{Neg, Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
         use std::fmt;
         use std::marker::PhantomData;
 
         // Measure
 
+        #[derive(Debug)]
         pub struct Measure<Number: ArithmeticOps, Unit> {
             pub value: Number,
             phantom: PhantomData<Unit>,
@@ -147,6 +148,7 @@ macro_rules! define_measure1d {
 
         // Measure point
 
+        #[derive(Debug)]
         pub struct MeasurePoint<Number, Unit> {
             pub value: Number,
             phantom: PhantomData<Unit>,
@@ -226,6 +228,31 @@ macro_rules! define_measure1d {
             fn sub(self, other: MeasurePoint<Number, Unit>) -> Self::Output {
                 Self::Output::new(self.value - other.value)
             }
+        }
+
+        // weighted_midpoint(MeasurePoint, MeasurePoint, weight) -> MeasurePoint
+        pub fn weighted_midpoint<Number: ArithmeticOps, Unit: MeasurementUnit>(
+            p1: MeasurePoint<Number, Unit>, p2: MeasurePoint<Number, Unit>, weight2: Number) -> MeasurePoint<Number, Unit>
+        {
+            MeasurePoint::<Number, Unit>::new(
+                p1.value * (Number::ONE - weight2) + p2.value * weight2)
+        }
+
+        // midpoint(MeasurePoint, MeasurePoint) -> MeasurePoint
+        pub fn midpoint<Number: ArithmeticOps, Unit: MeasurementUnit>(
+            p1: MeasurePoint<Number, Unit>, p2: MeasurePoint<Number, Unit>) -> MeasurePoint<Number, Unit>
+        {
+            MeasurePoint::<Number, Unit>::new(
+                (p1.value + p2.value) / (Number::ONE + Number::ONE))
+        }
+
+        // barycentric_combination(int, point1[], Num[]) -> point1
+        pub fn barycentric_combination<Number: ArithmeticOps, Unit: MeasurementUnit>(
+            points: &[MeasurePoint<Number, Unit>], weights: &[Number]) -> MeasurePoint<Number, Unit>
+        {
+            MeasurePoint::<Number, Unit>::new(
+                points.iter().zip(weights).map(|(p, &w)| p.value * w).sum()
+            )
         }
 
         impl<Number: ArithmeticOps, Unit> PartialEq<MeasurePoint<Number, Unit>> for MeasurePoint<Number, Unit> {

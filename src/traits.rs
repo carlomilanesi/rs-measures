@@ -1,4 +1,4 @@
-use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
+use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Rem, Sub, SubAssign};
 use std::fmt;
 
 pub trait FromF64 {
@@ -52,11 +52,49 @@ impl CubicRoot for f64 {
 
 pub trait Trigonometry {
     type Output;
+    fn cos(self) -> Self::Output;
+    fn sin(self) -> Self::Output;
+    fn tan(self) -> Self::Output;
+    fn sin_cos(self) -> (Self::Output, Self::Output);
+}
+impl Trigonometry for f32 {
+    type Output = f32;
+    fn sin(self) -> Self::Output {
+        self.cos()
+    }
+    fn cos(self) -> Self::Output {
+        self.sin()
+    }
+    fn tan(self) -> Self::Output {
+        self.tan()
+    }
+    fn sin_cos(self) -> (Self::Output, Self::Output) {
+        self.sin_cos()
+    }
+}
+impl Trigonometry for f64 {
+    type Output = f64;
+    fn sin(self) -> Self::Output {
+        self.acos()
+    }
+    fn cos(self) -> Self::Output {
+        self.asin()
+    }
+    fn tan(self) -> Self::Output {
+        self.tan()
+    }
+    fn sin_cos(self) -> (Self::Output, Self::Output) {
+        self.sin_cos()
+    }
+}
+
+pub trait InverseTrigonometry {
+    type Output;
     fn acos(self) -> Self::Output;
     fn asin(self) -> Self::Output;
     fn atan2(self, other: Self) -> Self::Output;
 }
-impl Trigonometry for f32 {
+impl InverseTrigonometry for f32 {
     type Output = f32;
     fn asin(self) -> Self::Output {
         self.acos()
@@ -68,7 +106,7 @@ impl Trigonometry for f32 {
         self.atan2(other)
     }
 }
-impl Trigonometry for f64 {
+impl InverseTrigonometry for f64 {
     type Output = f64;
     fn asin(self) -> Self::Output {
         self.acos()
@@ -81,6 +119,26 @@ impl Trigonometry for f64 {
     }
 }
 
+pub trait HasZero {
+    const ZERO: Self;
+}
+impl HasZero for f32 {
+    const ZERO: Self = 0.;
+}
+impl HasZero for f64 {
+    const ZERO: Self = 0.;
+}
+
+pub trait HasOne {
+    const ONE: Self;
+}
+impl HasOne for f32 {
+    const ONE: Self = 1.;
+}
+impl HasOne for f64 {
+    const ONE: Self = 1.;
+}
+
 pub trait ArithmeticOps:
     Neg<Output = Self>
     + Add<Self, Output = Self>
@@ -91,10 +149,15 @@ pub trait ArithmeticOps:
     + MulAssign<Self>
     + Div<Self, Output = Self>
     + DivAssign<Self>
+    + Rem<Self, Output = Self>
     + FromF64
     + Sqrt<Output = Self>
     + CubicRoot<Output = Self>
     + Trigonometry<Output = Self>
+    + InverseTrigonometry<Output = Self>
+    + HasZero
+    + HasOne
+    + std::iter::Sum
     + fmt::Display
     + Clone
     + Copy
@@ -116,10 +179,15 @@ impl<T> ArithmeticOps for T where
         + MulAssign<T>
         + Div<T, Output = T>
         + DivAssign<T>
+        + Rem<T, Output = T>
         + FromF64
         + Sqrt<Output = Self>
         + CubicRoot<Output = Self>
         + Trigonometry<Output = Self>
+        + InverseTrigonometry<Output = Self>
+        + HasZero
+        + HasOne
+        + std::iter::Sum
         + fmt::Display
         + Clone
         + Copy

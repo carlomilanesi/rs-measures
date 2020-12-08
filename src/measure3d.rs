@@ -16,6 +16,11 @@ macro_rules! define_measure3d {
                     phantom: PhantomData,
                 }
             }
+
+            pub fn x(self) -> Measure<Number, Unit> { Measure::<Number, Unit>::new(self.x) }
+
+            pub fn y(self) -> Measure<Number, Unit> { Measure::<Number, Unit>::new(self.y) }
+            pub fn z(self) -> Measure<Number, Unit> { Measure::<Number, Unit>::new(self.z) }
             pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> Measure3d<Number, DestUnit> {
@@ -148,6 +153,13 @@ macro_rules! define_measure3d {
                     phantom: PhantomData,
                 }
             }
+
+            pub fn x(self) -> MeasurePoint<Number, Unit> { MeasurePoint::<Number, Unit>::new(self.x) }
+
+            pub fn y(self) -> MeasurePoint<Number, Unit> { MeasurePoint::<Number, Unit>::new(self.y) }
+
+            pub fn z(self) -> MeasurePoint<Number, Unit> { MeasurePoint::<Number, Unit>::new(self.z) }
+
             pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> MeasurePoint3d<Number, DestUnit> {
@@ -284,3 +296,30 @@ macro_rules! define_measure3d {
         }
     };
 }
+
+// affine_map3
+/*
+    // convert(affine_map3)
+    template <class ToUnit, class FromUnit, typename Num>
+    affine_map3<ToUnit,Num> convert(affine_map3<FromUnit,Num> map)
+    {
+        affine_map3<ToUnit,Num> result;
+        result.coeff(0, 0) = map.coeff(0, 0);
+        result.coeff(0, 1) = map.coeff(0, 1);
+        result.coeff(0, 2) = map.coeff(0, 2);
+        result.coeff(0, 3) = map.coeff(0, 3) *
+            Unit::RATIO / DestUnit::RATIO;
+        result.coeff(1, 0) = map.coeff(1, 0);
+        result.coeff(1, 1) = map.coeff(1, 1);
+        result.coeff(1, 2) = map.coeff(1, 2);
+        result.coeff(1, 3) = map.coeff(1, 3) *
+            Unit::RATIO / DestUnit::RATIO;
+        result.coeff(2, 0) = map.coeff(2, 0);
+        result.coeff(2, 1) = map.coeff(2, 1);
+        result.coeff(2, 2) = map.coeff(2, 2);
+        result.coeff(2, 3) = map.coeff(2, 3) *
+            Unit::RATIO / DestUnit::RATIO;
+        return result;
+    }
+
+*/

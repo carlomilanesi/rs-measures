@@ -809,7 +809,7 @@ mod test {
 			MeasurePoint<radians,TypeParam> ang1(ang_val);
 			SignedDirection<radians,TypeParam> ang2(ang_val);
 			UnsignedDirection<radians,TypeParam> ang3(ang_val);
-			auto dir = Measure2d<TypeParam, Metre>::unit_vector(ang1);
+			auto dir = Measure2d<TypeParam, Metre>::normalized(ang1);
 
 			// Create eight projectors, presumed equal, and apply each of them
 			// to the original vector.
@@ -849,7 +849,7 @@ mod test {
 			MeasurePoint<radians,TypeParam> ang1(ang_val);
 			SignedDirection<radians,TypeParam> ang2(ang_val);
 			UnsignedDirection<radians,TypeParam> ang3(ang_val);
-			auto dir = Measure2d<TypeParam, Metre>::unit_vector(ang1);
+			auto dir = Measure2d<TypeParam, Metre>::normalized(ang1);
 
 			// Create eight reflectors, presumed equal, and apply each of them
 			// to the original vector.
@@ -1074,7 +1074,7 @@ mod test {
 			MeasurePoint<radians,TypeParam> ang1(ang_val);
 			SignedDirection<radians,TypeParam> ang2(ang_val);
 			UnsignedDirection<radians,TypeParam> ang3(ang_val);
-			auto dir = Measure2d<TypeParam, Metre>::unit_vector(ang1);
+			auto dir = Measure2d<TypeParam, Metre>::normalized(ang1);
 
 			// Create eight projectors, presumed equal, and apply each of them
 			// to the original point.
@@ -1115,7 +1115,7 @@ mod test {
 			MeasurePoint<radians,TypeParam> ang1(ang_val);
 			SignedDirection<radians,TypeParam> ang2(ang_val);
 			UnsignedDirection<radians,TypeParam> ang3(ang_val);
-			auto dir = Measure2d<TypeParam, Metre>::unit_vector(ang1);
+			auto dir = Measure2d<TypeParam, Metre>::normalized(ang1);
 
 			// Create eight reflectors, presumed equal, and apply each of them
 			// to the original point.

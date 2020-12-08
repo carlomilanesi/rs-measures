@@ -1,12 +1,11 @@
 use std::f64::consts::TAU;
 
 use rs_measures::{
-    angle::{Angle, Radian},
     define_derived_measure_1_1, define_derived_measure_1_2, define_derived_measure_1_3,
     define_derived_measure_2_2, define_derived_measure_3_3, define_derived_measure_inverse_1,
     define_derived_measure_squared_1, define_derived_measure_squared_2,
     define_derived_measure_squared_3, define_measure1d, define_measure2d, define_measure3d,
-    traits::{AngleMeasurementUnit, CrossProduct, Sqrt},
+    traits::{CrossProduct, Sqrt},
 };
 define_measure1d! {}
 define_measure2d! {}
@@ -1517,8 +1516,8 @@ impl MeasurementUnit for KiloGram {
     const SUFFIX: &'static str = " kg";
 }
 
-struct MetricTon;
-impl MeasurementUnit for MetricTon {
+struct Tonne; // a.k.a. metric ton or megagram
+impl MeasurementUnit for Tonne {
     type Property = Mass;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
@@ -1571,6 +1570,54 @@ impl MeasurementUnit for NanoGram {
     const RATIO: f64 = 1e-12;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ng";
+}
+
+struct ImperialTon; // a.k.a. long ton or weight ton
+impl MeasurementUnit for ImperialTon {
+    type Property = Mass;
+    const RATIO: f64 = 1016.0469;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " t";
+}
+
+struct USTon; // a.k.a. short ton
+impl MeasurementUnit for USTon {
+    type Property = Mass;
+    const RATIO: f64 = 907.18474;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " t";
+}
+
+struct Stone;
+impl MeasurementUnit for Stone {
+    type Property = Mass;
+    const RATIO: f64 = 6.35029;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " st.";
+}
+
+struct Pound;
+impl MeasurementUnit for Pound {
+    type Property = Mass;
+    const RATIO: f64 = 0.45359237;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " lb";
+}
+
+struct Ounce;
+impl MeasurementUnit for Ounce {
+    type Property = Mass;
+    const RATIO: f64 = 0.028349523;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " oz";
+}
+
+struct Carat;
+impl MeasurementUnit for Carat {
+    type Property = Mass;
+    const RATIO: f64 = 0.0002;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " ct";
 }
 
 // Mass density
@@ -1764,8 +1811,8 @@ impl MeasurementUnit for HectoPascal {
     const SUFFIX: &'static str = " hPa";
 }
 
-struct PhysicalAtmosphere;
-impl MeasurementUnit for PhysicalAtmosphere {
+struct Atmosphere;
+impl MeasurementUnit for Atmosphere {
     type Property = Pressure;
     const RATIO: f64 = 1.013e5;
     const OFFSET: f64 = 0.;
@@ -1793,6 +1840,14 @@ impl MeasurementUnit for MmHg {
     const RATIO: f64 = 133.322;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " torr";
+}
+
+struct PoundForcePerSquareInch;
+impl MeasurementUnit for PoundForcePerSquareInch {
+    type Property = Pressure;
+    const RATIO: f64 = 6894.757;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " lb/in\u{b2}";
 }
 
 // Radiance
@@ -2643,13 +2698,19 @@ fn print_them_all() {
     println!("Gauss: {}.", Measure::<f64, Gauss>::new(1.2));
     println!("InverseHenry: {}.", Measure::<f64, InverseHenry>::new(1.2));
     println!("KiloGram: {}.", Measure::<f64, KiloGram>::new(1.2));
-    println!("MetricTon: {}.", Measure::<f64, MetricTon>::new(1.2));
+    println!("MetricTon: {}.", Measure::<f64, Tonne>::new(1.2));
     println!("HectoGram: {}.", Measure::<f64, HectoGram>::new(1.2));
     println!("DecaGram: {}.", Measure::<f64, DecaGram>::new(1.2));
     println!("Gram: {}.", Measure::<f64, Gram>::new(1.2));
     println!("MilliGram: {}.", Measure::<f64, MilliGram>::new(1.2));
     println!("MicroGram: {}.", Measure::<f64, MicroGram>::new(1.2));
     println!("NanoGram: {}.", Measure::<f64, NanoGram>::new(1.2));
+    println!("ImperialTon: {}.", Measure::<f64, ImperialTon>::new(1.2));
+    println!("USTon: {}.", Measure::<f64, USTon>::new(1.2));
+    println!("Stone: {}.", Measure::<f64, Stone>::new(1.2));
+    println!("Pound: {}.", Measure::<f64, Pound>::new(1.2));
+    println!("Ounce: {}.", Measure::<f64, Ounce>::new(1.2));
+    println!("Carat: {}.", Measure::<f64, Carat>::new(1.2));
     println!(
         "KiloGramPerCubicMetre: {}.",
         Measure::<f64, KiloGramPerCubicMetre>::new(1.2)
@@ -2700,13 +2761,14 @@ fn print_them_all() {
     println!("HorsePower: {}.", Measure::<f64, HorsePower>::new(1.2));
     println!("Pascal: {}.", Measure::<f64, Pascal>::new(1.2));
     println!("HectoPascal: {}.", Measure::<f64, HectoPascal>::new(1.2));
-    println!(
-        "PhysicalAtmosphere: {}.",
-        Measure::<f64, PhysicalAtmosphere>::new(1.2)
-    );
+    println!("Atmosphere: {}.", Measure::<f64, Atmosphere>::new(1.2));
     println!("Bar: {}.", Measure::<f64, Bar>::new(1.2));
     println!("MilliBar: {}.", Measure::<f64, MilliBar>::new(1.2));
     println!("MmHg: {}.", Measure::<f64, MmHg>::new(1.2));
+    println!(
+        "PoundForcePerSquareInch: {}.",
+        Measure::<f64, PoundForcePerSquareInch>::new(1.2)
+    );
     println!(
         "WattPerSquareMetrePerSteradian: {}.",
         Measure::<f64, WattPerSquareMetrePerSteradian>::new(1.2)
