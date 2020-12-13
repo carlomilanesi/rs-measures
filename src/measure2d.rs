@@ -7,8 +7,8 @@ macro_rules! define_measure2d {
 
         #[derive(Debug)]
         pub struct Measure2d<Number, Unit> {
-            pub x: Number,
-            pub y: Number,
+            x: Number,
+            y: Number,
             phantom: std::marker::PhantomData<Unit>,
         }
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Measure2d<Number, Unit> {
@@ -73,14 +73,14 @@ macro_rules! define_measure2d {
             }
         }
 
-        // -measure
+        // -Measure2d -> Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Neg for Measure2d<Number, Unit> {
             type Output = Self;
             fn neg(self) -> Self::Output {
                 Self::new(-self.x, -self.y)
             }
         }
-        // measure * number
+        // Measure2d * Number -> Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Mul<Number> for Measure2d<Number, Unit> {
             type Output = Self;
             fn mul(self, n: Number) -> Self::Output {
@@ -88,7 +88,7 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure *= number
+        // Measure2d *= Number
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> MulAssign<Number> for Measure2d<Number, Unit> {
             fn mul_assign(&mut self, n: Number) {
                 self.x *= n;
@@ -96,7 +96,23 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure / number
+        // f64 * Measure2d -> Measure2d
+        impl<Unit: VectorMeasurementUnit> Mul<Measure2d<f64, Unit>> for f64 {
+            type Output = Measure2d<f64, Unit>;
+            fn mul(self, other: Measure2d<f64, Unit>) -> Self::Output {
+                Self::Output::new(self * other.x, self * other.y)
+            }
+        }
+
+        // f32 * Measure2d -> Measure2d
+        impl<Unit: VectorMeasurementUnit> Mul<Measure2d<f32, Unit>> for f32 {
+            type Output = Measure2d<f32, Unit>;
+            fn mul(self, other: Measure2d<f32, Unit>) -> Self::Output {
+                Self::Output::new(self * other.x, self * other.y)
+            }
+        }
+
+        // Measure2d / Number -> Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Div<Number> for Measure2d<Number, Unit> {
             type Output = Self;
             fn div(self, n: Number) -> Self::Output {
@@ -104,7 +120,7 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure /= number
+        // Measure2d /= Number
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> DivAssign<Number> for Measure2d<Number, Unit> {
             fn div_assign(&mut self, n: Number) {
                 self.x /= n;
@@ -112,7 +128,7 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure + measure
+        // Measure2d + Measure2d -> Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Add<Measure2d<Number, Unit>>
             for Measure2d<Number, Unit>
         {
@@ -122,7 +138,7 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure += measure
+        // Measure2d += Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> AddAssign<Measure2d<Number, Unit>> for Measure2d<Number, Unit> {
             fn add_assign(&mut self, other: Measure2d<Number, Unit>) {
                 self.x += other.x;
@@ -130,7 +146,7 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure - measure
+        // Measure2d - Measure2d -> Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Sub<Measure2d<Number, Unit>>
             for Measure2d<Number, Unit>
         {
@@ -140,7 +156,7 @@ macro_rules! define_measure2d {
             }
         }
 
-        // measure -= measure
+        // Measure2d -= Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> SubAssign<Measure2d<Number, Unit>> for Measure2d<Number, Unit> {
             fn sub_assign(&mut self, other: Measure2d<Number, Unit>) {
                 self.x -= other.x;
@@ -148,12 +164,14 @@ macro_rules! define_measure2d {
             }
         }
 
+        // Measure2d == Measure2d -> bool
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> PartialEq<Measure2d<Number, Unit>> for Measure2d<Number, Unit> {
             fn eq(&self, other: &Measure2d<Number, Unit>) -> bool {
                 self.x == other.x && self.y == other.y
             }
         }
 
+        // Measure2d.clone() -> Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Clone for Measure2d<Number, Unit> {
             fn clone(&self) -> Self {
                 Measure2d::<Number, Unit> {
@@ -164,6 +182,7 @@ macro_rules! define_measure2d {
             }
         }
 
+        // Measure2d = Measure2d
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Copy for Measure2d<Number, Unit> { }
 
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> fmt::Display for Measure2d<Number, Unit> {
@@ -176,8 +195,8 @@ macro_rules! define_measure2d {
 
         #[derive(Debug)]
         pub struct MeasurePoint2d<Number, Unit> {
-            pub x: Number,
-            pub y: Number,
+            x: Number,
+            y: Number,
             phantom: PhantomData<Unit>,
         }
         impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> MeasurePoint2d<Number, Unit> {
@@ -353,6 +372,13 @@ macro_rules! define_measure2d {
                 }
             }
 
+            pub fn from_measure_point(m: MeasurePoint<Number, Unit>) -> Self {
+                Self {
+                    value: Self::normalize(m.value),
+                    phantom: PhantomData,
+                }
+            }
+
             pub fn to_measure_point(self) -> MeasurePoint<Number, Unit> { MeasurePoint::<Number, Unit>::new(self.value) }
 
             pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
@@ -421,7 +447,7 @@ macro_rules! define_measure2d {
             for UnsignedDirection<Number, Unit> {
             type Output = Measure<Number, Unit>;
             fn sub(self, other: UnsignedDirection<Number, Unit>) -> Self::Output {
-                let mut diff = self.value - other.value;
+                let diff = self.value - other.value;
                 let turn = Number::from_f64(Unit::TURN_FRACTION);
                 let half_turn = turn / (Number::ONE + Number::ONE);
                 Self::Output::new(if diff > half_turn { diff - turn } else if diff < -half_turn { diff + turn } else { diff })
@@ -478,6 +504,13 @@ macro_rules! define_measure2d {
             pub fn new(value: Number) -> Self {
                 Self {
                     value: Self::normalize(value),
+                    phantom: PhantomData,
+                }
+            }
+
+            pub fn from_measure_point(m: MeasurePoint<Number, Unit>) -> Self {
+                Self {
+                    value: Self::normalize(m.value),
                     phantom: PhantomData,
                 }
             }
@@ -550,7 +583,7 @@ macro_rules! define_measure2d {
             for SignedDirection<Number, Unit> {
             type Output = Measure<Number, Unit>;
             fn sub(self, other: SignedDirection<Number, Unit>) -> Self::Output {
-                let mut diff = self.value - other.value;
+                let diff = self.value - other.value;
                 let turn = Number::from_f64(Unit::TURN_FRACTION);
                 let half_turn = turn / (Number::ONE + Number::ONE);
                 Self::Output::new(if diff > half_turn { diff - turn } else if diff < -half_turn { diff + turn } else { diff })
@@ -772,7 +805,7 @@ macro_rules! define_measure2d {
 
         #[derive(Debug)]
         pub struct AffineMap2d<Number: ArithmeticOps, Unit: MeasurementUnit> {
-            pub c: [[Number; 3]; 2],
+            c: [[Number; 3]; 2],
             phantom: std::marker::PhantomData<Unit>,
         }
 

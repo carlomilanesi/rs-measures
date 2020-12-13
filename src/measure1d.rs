@@ -75,14 +75,15 @@ macro_rules! define_measure1d {
             }
         }
 
-        // -measure
+        // -Measure -> Measure
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Neg for Measure<Number, Unit> {
             type Output = Self;
             fn neg(self) -> Self::Output {
                 Self::new(-self.value)
             }
         }
-        // measure * number
+
+        // Measure * Number -> Measure
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Mul<Number> for Measure<Number, Unit> {
             type Output = Self;
             fn mul(self, n: Number) -> Self::Output {
@@ -90,14 +91,30 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure *= number
+        // Measure *= Number
         impl<Number: ArithmeticOps, Unit> MulAssign<Number> for Measure<Number, Unit> {
             fn mul_assign(&mut self, n: Number) {
                 self.value *= n;
             }
         }
 
-        // measure / number
+        // f64 * Measure -> Measure
+        impl<Unit: MeasurementUnit> Mul<Measure<f64, Unit>> for f64 {
+            type Output = Measure<f64, Unit>;
+            fn mul(self, other: Measure<f64, Unit>) -> Self::Output {
+                Self::Output::new(self * other.value)
+            }
+        }
+
+        // f32 * Measure -> Measure
+        impl<Unit: MeasurementUnit> Mul<Measure<f32, Unit>> for f32 {
+            type Output = Measure<f32, Unit>;
+            fn mul(self, other: Measure<f32, Unit>) -> Self::Output {
+                Self::Output::new(self * other.value)
+            }
+        }
+
+        // Measure / Number -> Measure
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Div<Number> for Measure<Number, Unit> {
             type Output = Self;
             fn div(self, n: Number) -> Self::Output {
@@ -105,14 +122,22 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure /= number
+        // Measure /= Number
         impl<Number: ArithmeticOps, Unit> DivAssign<Number> for Measure<Number, Unit> {
             fn div_assign(&mut self, n: Number) {
                 self.value /= n;
             }
         }
 
-        // measure + measure
+        // Measure / Measure -> Number
+        impl<Number: ArithmeticOps, Unit: VectorMeasurementUnit> Div<Measure<Number, Unit>> for Measure<Number, Unit> {
+            type Output = Number;
+            fn div(self, other: Measure<Number, Unit>) -> Self::Output {
+                self.value / other.value
+            }
+        }
+
+        // Measure + Measure -> Measure
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Add<Measure<Number, Unit>>
             for Measure<Number, Unit> {
             type Output = Self;
@@ -121,7 +146,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure += measure
+        // Measure += Measure
         impl<Number: ArithmeticOps, Unit> AddAssign<Measure<Number, Unit>>
             for Measure<Number, Unit> {
             fn add_assign(&mut self, other: Measure<Number, Unit>) {
@@ -129,7 +154,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure - measure
+        // Measure - Measure -> Measure
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Sub<Measure<Number, Unit>>
             for Measure<Number, Unit> {
             type Output = Self;
@@ -138,7 +163,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure -= measure
+        // Measure -= Measure
         impl<Number: ArithmeticOps, Unit> SubAssign<Measure<Number, Unit>>
             for Measure<Number, Unit> {
             fn sub_assign(&mut self, other: Measure<Number, Unit>) {
@@ -146,7 +171,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // Measure point
+        // MeasurePoint
 
         #[derive(Debug)]
         pub struct MeasurePoint<Number, Unit> {
@@ -187,7 +212,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure point + measure
+        // MeasurePoint + Measure -> MeasurePoint
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Add<Measure<Number, Unit>>
             for MeasurePoint<Number, Unit> {
             type Output = Self;
@@ -196,7 +221,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure point += measure
+        // MeasurePoint += measure
         impl<Number: ArithmeticOps, Unit> AddAssign<Measure<Number, Unit>>
             for MeasurePoint<Number, Unit> {
             fn add_assign(&mut self, other: Measure<Number, Unit>) {
@@ -204,7 +229,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure point - measure
+        // MeasurePoint - Measure -> MeasurePoint
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Sub<Measure<Number, Unit>>
             for MeasurePoint<Number, Unit> {
             type Output = Self;
@@ -213,7 +238,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure point -= measure
+        // MeasurePoint -= Measure
         impl<Number: ArithmeticOps, Unit> SubAssign<Measure<Number, Unit>>
             for MeasurePoint<Number, Unit> {
             fn sub_assign(&mut self, other: Measure<Number, Unit>) {
@@ -221,7 +246,7 @@ macro_rules! define_measure1d {
             }
         }
 
-        // measure point - measure point
+        // MeasurePoint - MeasurePoint -> Measure
         impl<Number: ArithmeticOps, Unit: MeasurementUnit> Sub<MeasurePoint<Number, Unit>>
             for MeasurePoint<Number, Unit> {
             type Output = Measure<Number, Unit>;
