@@ -286,7 +286,7 @@ macro_rules! define_measure_1d {
                 (p1.value + p2.value) / (Number::ONE + Number::ONE))
         }
 
-        // barycentric_combination(int, point1[], Num[]) -> point1
+        // barycentric_combination([MeasurePoint], [Number]) -> MeasurePoint
         pub fn barycentric_combination<Unit: MeasurementUnit, Number: ArithmeticOps>(
             points: &[MeasurePoint<Unit, Number>], weights: &[Number]) -> MeasurePoint<Unit, Number>
         {
@@ -384,7 +384,7 @@ macro_rules! define_measure_1d {
             }
         }
 
-        // Unsigned direction + angle measure
+        // Unsigned direction + angle measure -> Unsigned direction
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Add<Measure<Unit, Number>>
             for UnsignedDirection<Unit, Number> {
             type Output = Self;
@@ -401,7 +401,7 @@ macro_rules! define_measure_1d {
             }
         }
 
-        // Unsigned direction - angle measure
+        // Unsigned direction - angle measure -> Unsigned direction
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Sub<Measure<Unit, Number>>
             for UnsignedDirection<Unit, Number> {
             type Output = Self;
@@ -418,7 +418,7 @@ macro_rules! define_measure_1d {
             }
         }
 
-        // Unsigned direction - Unsigned direction
+        // Unsigned direction - Unsigned direction -> Unsigned direction
         impl<Unit: AngleMeasurementUnit, Number: ArithmeticOps> Sub<UnsignedDirection<Unit, Number>>
             for UnsignedDirection<Unit, Number> {
             type Output = Measure<Unit, Number>;
