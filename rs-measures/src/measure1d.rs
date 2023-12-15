@@ -451,7 +451,7 @@ macro_rules! define_measure_1d {
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
             for UnsignedDirection<Unit, Number> {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at {}{} (in 0°-360°)", self.value, Unit::SUFFIX)
+                write!(f, "at {}{} (in 0°..360°)", self.value, Unit::SUFFIX)
             }
         }
 
@@ -588,7 +588,7 @@ macro_rules! define_measure_1d {
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
             for SignedDirection<Unit, Number> {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at {}{} (in -180°-180°)", self.value, Unit::SUFFIX)
+                write!(f, "at {}{} (in -180°..180°)", self.value, Unit::SUFFIX)
             }
         }
     };

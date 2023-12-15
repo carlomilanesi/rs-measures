@@ -722,7 +722,7 @@ fn unsigned_direction_copying() {
 #[test]
 fn unsigned_direction_formatting() {
     let m = UnsignedDirection::<Degree, f32>::new(12.);
-    assert_eq!(m.to_string(), "at 12 deg (in 0°-360°)");
+    assert_eq!(m.to_string(), "at 12 deg (in 0°..360°)");
 }
 
 // Signed directions
@@ -916,7 +916,7 @@ fn signed_direction_copying() {
 #[test]
 fn signed_direction_formatting() {
     let m = SignedDirection::<Degree, f32>::new(12.);
-    assert_eq!(m.to_string(), "at 12 deg (in -180°-180°)");
+    assert_eq!(m.to_string(), "at 12 deg (in -180°..180°)");
 }
 
 // Linear map

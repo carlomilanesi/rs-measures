@@ -182,13 +182,6 @@ macro_rules! define_measure_2d {
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for Measure2d<Unit, Number> {
             fn clone(&self) -> Self {
                 *self
-                /*
-                Measure2d::<Unit, Number> {
-                    x: self.x,
-                    y: self.y,
-                    phantom: std::marker::PhantomData::<Unit>,
-                }
-                */
             }
         }
 

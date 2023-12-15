@@ -344,5 +344,5 @@ fn unsigned_direction_is_equal_to_its_copy() {
 #[test]
 fn unsigned_direction_shown_in_degrees() {
     let ud = UnsignedDirection::<Degree, f32>::new(12.);
-    assert_eq!(ud.to_string(), "at 12 deg (in 0°-360°)");
+    assert_eq!(ud.to_string(), "at 12 deg (in 0°..360°)");
 }

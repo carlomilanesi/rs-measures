@@ -278,14 +278,6 @@ macro_rules! define_measure_3d {
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for Measure3d<Unit, Number> {
             fn clone(&self) -> Self {
                 *self
-                /*
-                Measure3d::<Unit, Number> {
-                    x: self.x,
-                    y: self.y,
-                    z: self.z,
-                    phantom: std::marker::PhantomData::<Unit>,
-                }
-                */
             }
         }
 
@@ -309,14 +301,6 @@ macro_rules! define_measure_3d {
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint3d<Unit, Number> {
             fn clone(&self) -> Self {
                 *self
-                /*
-                MeasurePoint3d::<Unit, Number> {
-                    x: self.x,
-                    y: self.y,
-                    z: self.z,
-                    phantom: std::marker::PhantomData::<Unit>,
-                }
-                */
             }
         }
 
