@@ -340,6 +340,6 @@ fn signed_direction_is_equal_to_its_copy() {
 
 #[test]
 fn signed_direction_shown_in_degrees() {
-    let ud = SignedDirection::<Degree, f32>::new(12.);
-    assert_eq!(ud.to_string(), "at 12 deg (in -180°..180°)");
+    let ud = SignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(ud.to_string(), "at 12.25 deg (in -180°..180°)");
 }

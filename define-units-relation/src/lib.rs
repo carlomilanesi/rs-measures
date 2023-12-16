@@ -96,12 +96,11 @@ fn parse_dimensions(input: &ParseStream) -> syn::Result<UnitDimensions> {
             2 => D2,
             3 => D3,
             _ => {
-                return Err(syn::Error::new(
-                    proc_macro2::Span::call_site(),
+                return Err(syn::Error::new_spanned(
+                    lit,
                     "dimensions can be only 1, 2, or 3",
-                ))
+                ));
             }
-            //_ => return Err(syn::Error::new_spanned(lit, "dimensions can be only 1, 2, or 3")),
         }
     } else {
         D1

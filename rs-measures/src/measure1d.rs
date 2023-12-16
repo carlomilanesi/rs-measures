@@ -14,7 +14,7 @@ macro_rules! define_measure_1d {
         }
 
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Measure<Unit, Number> {
-            // new(Number) -> Measure
+            /// Measure::new(Number) -> Measure
             pub fn new(value: Number) -> Self {
                 Self {
                     value,
@@ -52,10 +52,12 @@ macro_rules! define_measure_1d {
                 }
             }
 
+            // Measure.squared_norm() -> Number
             pub fn squared_norm(self) -> Number {
                 self.value * self.value
             }
 
+            /// Measure.normalized() -> Number
             pub fn normalized(self) -> Self {
                 Self::new(self.value.signum())
             }
@@ -329,14 +331,15 @@ macro_rules! define_measure_1d {
         }
 
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> UnsignedDirection<Unit, Number> {
-            // Returns the only value that in the current Unit represents `x`, and
-            // is between minus half turn included and plus half turn excluded.
+            /// Returns the only value that in the current Unit represents `x` and
+            /// is between minus half turn included and plus half turn excluded.
             fn normalize(x: Number) -> Number {
                 let one_turn = Number::from_f64(Unit::TURN_FRACTION);
                 let x2 = x % one_turn;
                 if x2 >= Number::ZERO { x2 } else { x2 + one_turn }
             }
 
+            /// UnsignedDirection::new(Number) -> UnsignedDirection
             pub fn new(value: Number) -> Self {
                 Self {
                     value: Self::normalize(value),
@@ -344,6 +347,7 @@ macro_rules! define_measure_1d {
                 }
             }
 
+            /// UnsignedDirection::from_measure_point(MeasurePoint) -> UnsignedDirection
             pub fn from_measure_point(m: MeasurePoint<Unit, Number>) -> Self {
                 Self {
                     value: Self::normalize(m.value),

@@ -15,7 +15,6 @@ impl FromF64 for f64 {
     }
 }
 
-// /*
 pub trait Sqrt {
     type Output;
     fn sqrt(self) -> Self::Output;
@@ -183,7 +182,6 @@ where
 {
 }
 
-// /*
 impl<T> ArithmeticOps for T where
     T: Neg<Output = Self>
         + Add<T, Output = T>

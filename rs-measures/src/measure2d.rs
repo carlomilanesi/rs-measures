@@ -14,6 +14,7 @@ macro_rules! define_measure_2d {
         }
 
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Measure2d<Unit, Number> {
+            /// Measure2d::new(Number) -> Measure2d
             pub fn new(x: Number, y: Number) -> Self {
                 Self {
                     x,
@@ -22,15 +23,13 @@ macro_rules! define_measure_2d {
                 }
             }
 
-            pub fn from_direction<AngleUnit: AngleMeasurementUnit<Property = Angle>>(direction: MeasurePoint<AngleUnit, Number>) -> Self {
-                let (y, x) = direction.value.sin_cos();
-                Self::new(x, y)
-            }
-
+            /// Measure2d.x() -> Measure
             pub fn x(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.x) }
 
+            /// Measure2d.y() -> Measure
             pub fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
 
+            /// Measure2d.convert() -> Measure
             pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> Measure2d<DestUnit, Number> {
@@ -42,6 +41,7 @@ macro_rules! define_measure_2d {
                 }
             }
 
+            /// Measure2d.lossless_into() -> Measure2d
             pub fn lossless_into<DestNumber: ArithmeticOps + From<Number>>(
                 &self,
             ) -> Measure2d<Unit, DestNumber> {
@@ -52,6 +52,7 @@ macro_rules! define_measure_2d {
                 }
             }
 
+            /// Measure2d.lossy_into() -> Measure2d
             pub fn lossy_into<DestNumber: ArithmeticOps + LossyFrom<Number>>(
                 &self,
             ) -> Measure2d<Unit, DestNumber> {
@@ -62,19 +63,29 @@ macro_rules! define_measure_2d {
                 }
             }
 
+            /// Measure2d.squared_norm() -> Number
             pub fn squared_norm(self) -> Number {
                 self.x * self.x + self.y * self.y
             }
 
+            /// Measure2d.normalized() -> Number
             pub fn normalized(self) -> Self {
                 let k = self.squared_norm().sqrt();
                 Self::new(self.x / k, self.y / k)
             }
 
+            /// Measure2d::from_direction(AnglePoint) -> Measure2d
+            pub fn from_direction<AngleUnit: AngleMeasurementUnit<Property = Angle>>(direction: MeasurePoint<AngleUnit, Number>) -> Self {
+                let (y, x) = direction.convert::<Radian>().value.sin_cos();
+                Self::new(x, y)
+            }
+
+            /// Measure2d.signed_direction() -> SignedDirection
             pub fn signed_direction<AngleUnit: MeasurementUnit<Property = Angle>>(self) -> SignedDirection<AngleUnit, Number> {
                 SignedDirection::<Radian, Number>::new(self.y.atan2(self.x)).convert::<AngleUnit>()
             }
 
+            /// Measure2d.unsigned_direction() -> UnsignedDirection
             pub fn unsigned_direction<AngleUnit: MeasurementUnit<Property = Angle>>(self) -> UnsignedDirection<AngleUnit, Number> {
                 UnsignedDirection::<Radian, Number>::new(self.y.atan2(self.x)).convert::<AngleUnit>()
             }
@@ -337,13 +348,6 @@ macro_rules! define_measure_2d {
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint2d<Unit, Number> {
             fn clone(&self) -> Self {
                 *self
-                /*
-                MeasurePoint2d::<Unit, Number> {
-                    x: self.x,
-                    y: self.y,
-                    phantom: std::marker::PhantomData::<Unit>,
-                }
-                */
             }
         }
 

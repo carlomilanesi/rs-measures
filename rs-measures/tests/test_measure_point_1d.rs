@@ -88,7 +88,7 @@ fn measure_point_lossy_into_64_to_64() {
 }
 
 #[test]
-fn measure_point_addition_of_vector() {
+fn measure_point_addition_of_measure() {
     let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
     let m = Measure::<Celsius, f32>::new(7.);
     let mp2: MeasurePoint<Celsius, f32> = mp1 + m;
@@ -96,14 +96,14 @@ fn measure_point_addition_of_vector() {
 }
 
 #[test]
-fn measure_point_addition_of_vector_assignment() {
+fn measure_point_addition_of_measure_assignment() {
     let mut mp = MeasurePoint::<Celsius, f32>::new(12.);
     mp += Measure::<Celsius, f32>::new(7.);
     assert_eq!(mp.value, 19.);
 }
 
 #[test]
-fn measure_point_subtraction_of_vector() {
+fn measure_point_subtraction_of_measure() {
     let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
     let m = Measure::<Celsius, f32>::new(7.);
     let mp2: MeasurePoint<Celsius, f32> = mp1 - m;
@@ -111,7 +111,7 @@ fn measure_point_subtraction_of_vector() {
 }
 
 #[test]
-fn measure_point_subtraction_of_vector_assignment() {
+fn measure_point_subtraction_of_measure_assignment() {
     let mut mp = MeasurePoint::<Celsius, f32>::new(12.);
     mp -= Measure::<Celsius, f32>::new(7.);
     assert_eq!(mp.value, 5.);
@@ -230,6 +230,6 @@ fn measure_point_is_equal_to_its_copy() {
 
 #[test]
 fn measure_point_shown_in_celsius() {
-    let mp = MeasurePoint::<Celsius, f32>::new(12.);
-    assert_eq!(mp.to_string(), "at 12 °C");
+    let mp = MeasurePoint::<Celsius, f32>::new(12.25);
+    assert_eq!(mp.to_string(), "at 12.25 °C");
 }

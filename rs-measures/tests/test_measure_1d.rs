@@ -11,13 +11,15 @@ impl MeasurementUnit for Metre {
     const SUFFIX: &'static str = " m";
 }
 
-struct KiloMetre;
-impl MeasurementUnit for KiloMetre {
+#[derive(Debug)]
+struct MilliMetre;
+impl MeasurementUnit for MilliMetre {
     type Property = Length;
-    const RATIO: f64 = 1e3;
+    const RATIO: f64 = 0.001;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " km";
+    const SUFFIX: &'static str = " mm";
 }
+impl VectorMeasurementUnit for MilliMetre {}
 
 #[test]
 fn measure_value() {
@@ -28,8 +30,9 @@ fn measure_value() {
 #[test]
 fn measure_convert() {
     let m1 = Measure::<Metre, f32>::new(12.);
-    let m2: Measure<KiloMetre, f32> = m1.convert::<KiloMetre>();
-    assert_eq!(m2.value, 0.012);
+    let m2: Measure<MilliMetre, f32> = m1.convert::<MilliMetre>();
+    assert_eq!(m1.value, 12.);
+    assert_eq!(m2.value, 12000.);
 }
 
 #[test]
@@ -293,6 +296,6 @@ fn measure_is_equal_to_its_copy() {
 
 #[test]
 fn measure_shown_in_metres() {
-    let m = Measure::<Metre, f32>::new(12.);
-    assert_eq!(m.to_string(), "12 m");
+    let m = Measure::<Metre, f32>::new(12.25);
+    assert_eq!(m.to_string(), "12.25 m");
 }
