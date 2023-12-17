@@ -11,6 +11,3 @@ publish = false
 
 [dependencies]
 define-units-relation = { path = "../define-units-relation" }
-
-[dev-dependencies]
-trybuild = { version = "1.0", features = ["diff"] }

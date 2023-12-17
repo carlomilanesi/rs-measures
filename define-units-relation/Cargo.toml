@@ -1,21 +1,22 @@
 [package]
 name = "define-units-relation"
-version = "0.0.0"
+version = "0.1.0"
+authors = ["Carlo Milanesi <carlo.milanesi@libero.it>"]
 edition = "2018"
-#autotests = false
+description = "A procedural macro to be used with the library Rs-Measures to define relations among units of measurement."
+repository = "https://github.com/carlomilanesi/rs-measures"
+license = "MIT OR Apache-2.0"
+readme = "README.md"
 publish = false
 
 [lib]
 proc-macro = true
 
-#[[test]]
-#name = "tests"
-#path = "tests/all_tests.rs"
-
-[dev-dependencies]
-trybuild = { version = "1.0", features = ["diff"] }
-
 [dependencies]
 proc-macro2 = "1.0.27"
 quote = "1.0.9"
 syn = "1.0.73"
+
+[dev-dependencies]
+trybuild = { version = "1.0", features = ["diff"] }
+rs-measures = { path = "../rs-measures" }
