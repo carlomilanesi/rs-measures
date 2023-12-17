@@ -458,7 +458,7 @@ macro_rules! define_measure_2d {
             // Composition of two plane linear transformations.
             // Applying the resulting transformation is equivalent to apply first
             // `other` and then `self`.
-            pub fn apply_after(
+            pub fn combined_with(
                 &self, other: &LinearMap2d<Number>) -> Self {
                 Self { c: [
                     [
@@ -487,27 +487,15 @@ macro_rules! define_measure_2d {
             fn rotation_by_radians(a: Number) -> Self {
                 let (sin_a, cos_a) = a.sin_cos();
                 Self { c: [
-                    [
-                        cos_a,
-                        -sin_a,
-                    ],
-                    [
-                        sin_a,
-                        cos_a,
-                    ]
+                    [ cos_a, -sin_a ],
+                    [ sin_a, cos_a ],
                 ]}
             }
 
             fn projection_by_cos_sin(cos_a: Number, sin_a: Number) -> Self {
                 Self { c: [
-                    [
-                        cos_a * cos_a,
-                        cos_a * sin_a,
-                    ],
-                    [
-                        sin_a * cos_a,
-                        sin_a * sin_a,
-                    ]
+                    [ cos_a * cos_a, cos_a * sin_a ],
+                    [ sin_a * cos_a, sin_a * sin_a ],
                 ]}
             }
 
@@ -520,14 +508,8 @@ macro_rules! define_measure_2d {
                 let one = Number::ONE;
                 let two = Number::ONE + Number::ONE;
                 Self { c: [
-                    [
-                        two * cos_a * cos_a - one,
-                        two * cos_a * sin_a,
-                    ],
-                    [
-                        two * cos_a * sin_a,
-                        two * sin_a * sin_a - one,
-                    ]
+                    [ two * cos_a * cos_a - one, two * cos_a * sin_a ],
+                    [ two * cos_a * sin_a, two * sin_a * sin_a - one ],
                 ]}
             }
 
@@ -725,7 +707,7 @@ macro_rules! define_measure_2d {
             // Composition of two plane affine transformations.
             // Applying the resulting transformation is equivalent to apply first
             // `other` and then `self`.
-            pub fn apply_after(&self,
+            pub fn combined_with(&self,
                 other: &AffineMap2d<Unit, Number>) -> Self {
                     Self::new([
                     [
