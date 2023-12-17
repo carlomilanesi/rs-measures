@@ -138,6 +138,16 @@ impl HasOne for f64 {
     const ONE: Self = 1.;
 }
 
+pub trait HasHalf {
+    const HALF: Self;
+}
+impl HasHalf for f32 {
+    const HALF: Self = 0.5;
+}
+impl HasHalf for f64 {
+    const HALF: Self = 0.5;
+}
+
 pub trait HasSign {
     fn signum(self) -> Self;
 }
@@ -170,6 +180,7 @@ pub trait ArithmeticOps:
     + InverseTrigonometry<Output = Self>
     + HasZero
     + HasOne
+    + HasHalf
     + HasSign
     + std::iter::Sum
     + fmt::Display
@@ -200,6 +211,7 @@ impl<T> ArithmeticOps for T where
         + InverseTrigonometry<Output = Self>
         + HasZero
         + HasOne
+        + HasHalf
         + HasSign
         + std::iter::Sum
         + fmt::Display

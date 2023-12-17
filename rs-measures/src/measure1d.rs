@@ -285,7 +285,7 @@ macro_rules! define_measure_1d {
             p1: MeasurePoint<Unit, Number>, p2: MeasurePoint<Unit, Number>) -> MeasurePoint<Unit, Number>
         {
             MeasurePoint::<Unit, Number>::new(
-                (p1.value + p2.value) / (Number::ONE + Number::ONE))
+                (p1.value + p2.value) * Number::HALF)
         }
 
         // barycentric_combination([MeasurePoint], [Number]) -> MeasurePoint
@@ -429,7 +429,7 @@ macro_rules! define_measure_1d {
             fn sub(self, other: UnsignedDirection<Unit, Number>) -> Self::Output {
                 let diff = self.value - other.value;
                 let turn = Number::from_f64(Unit::TURN_FRACTION);
-                let half_turn = turn / (Number::ONE + Number::ONE);
+                let half_turn = turn * Number::HALF;
                 Self::Output::new(if diff > half_turn { diff - turn } else if diff < -half_turn { diff + turn } else { diff })
             }
         }
@@ -472,7 +472,7 @@ macro_rules! define_measure_1d {
             // is between 0 included and one turn excluded.
             fn normalize(x: Number) -> Number {
                 let one_turn = Number::from_f64(Unit::TURN_FRACTION);
-                let half_turn = one_turn / (Number::ONE + Number::ONE);
+                let half_turn = one_turn * Number::HALF;
                 let x2 = (x + half_turn) % one_turn;
                 if x2 >= Number::ZERO { x2 - half_turn } else { x2 + half_turn }
             }
@@ -565,7 +565,7 @@ macro_rules! define_measure_1d {
             fn sub(self, other: SignedDirection<Unit, Number>) -> Self::Output {
                 let diff = self.value - other.value;
                 let turn = Number::from_f64(Unit::TURN_FRACTION);
-                let half_turn = turn / (Number::ONE + Number::ONE);
+                let half_turn = turn * Number::HALF;
                 Self::Output::new(if diff > half_turn { diff - turn } else if diff < -half_turn { diff + turn } else { diff })
             }
         }

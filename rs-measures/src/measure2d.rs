@@ -306,30 +306,28 @@ macro_rules! define_measure_2d {
             }
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number> {
-            // weighted_midpoint(MeasurePoint2d, MeasurePoint2d, weight2) -> MeasurePoint2d
-            pub fn weighted_midpoint(self,
-                other: Self, other_weight: Number) -> Self
-            {
-                let self_weigth = Number::ONE - other_weight;
-                Self::new(
-                    self.x * self_weigth + other.x * other_weight,
-                    self.y * self_weigth + other.y * other_weight,
-                )
-            }
-
-            // midpoint(MeasurePoint2d, MeasurePoint2d) -> MeasurePoint2d
-            pub fn midpoint(self, other: Self) -> Self
-            {
-                let two = Number::ONE + Number::ONE;
-                Self::new(
-                    (self.x + other.x) / two,
-                    (self.y + other.y) / two,
-                )
-            }
+        /// weighted_midpoint_2d(measure point, measure point, weight) -> measure point
+        pub fn weighted_midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight2: Number) -> MeasurePoint2d<Unit, Number>
+        {
+            let weight1 = Number::ONE - weight2;
+            MeasurePoint2d::<Unit, Number>::new(
+                p1.x * weight1 + p2.x * weight2,
+                p1.y * weight1 + p2.y * weight2,
+            )
         }
 
-        // barycentric_combination_2d([MeasurePoint2d], [Number]) -> MeasurePoint2d
+        /// midpoint_2d(measure point, measure point) -> measure point
+        pub fn midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>) -> MeasurePoint2d<Unit, Number>
+        {
+            MeasurePoint2d::<Unit, Number>::new(
+                (p1.x + p2.x) * Number::HALF,
+                (p1.y + p2.y) * Number::HALF,
+            )
+        }
+
+        /// barycentric_combination_2d(array of 2d measure points, array of numbers) -> 2d measure point
         pub fn barycentric_combination_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
             points: &[MeasurePoint2d<Unit, Number>], weights: &[Number]) -> MeasurePoint2d<Unit, Number>
         {

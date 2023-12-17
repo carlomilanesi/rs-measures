@@ -1,6 +1,8 @@
 use std::f64::consts::TAU;
 rs_measures::define_measure_2d! {}
 
+mod test_utils;
+
 struct Length;
 
 #[derive(Debug)]
@@ -184,65 +186,65 @@ fn measures_point_2d_subtraction() {
     assert_eq!(m.y, 23. - -45.);
 }
 
-//CONTINUED
 #[test]
 fn measures_point_2d_weighted_midpoint() {
-    let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp2 = MeasurePoint2d::<Metre, f32>::new(7., -29.);
-    let weight_of_m2 = 0.6;
-    let mid = mp1.weighted_midpoint(mp2, weight_of_m2);
-    assert_eq!(mid.x, mp1.x * 0.4 + mp2.x * 0.6);
-    assert_eq!(mid.y, mp1.y * 0.4 + mp2.y * 0.6);
+    let mp1 = MeasurePoint2d::<Metre, f32>::new(20., -200.);
+    let mp2 = MeasurePoint2d::<Metre, f32>::new(30., -300.);
+    let mp3: MeasurePoint2d<Metre, f32> = weighted_midpoint_2d(mp1, mp2, 0.4);
+    assert_eq_32!(mp3.x, 24.);
+    assert_eq_32!(mp3.y, -240.);
+    let mp4: MeasurePoint2d<Metre, f32> = weighted_midpoint_2d(mp1, mp2, -0.4);
+    assert_eq_32!(mp4.x, 16.);
+    assert_eq_32!(mp4.y, -160.);
+    let mp5: MeasurePoint2d<Metre, f32> = weighted_midpoint_2d(mp1, mp2, 2.4);
+    assert_eq_32!(mp5.x, 44.);
+    assert_eq_32!(mp5.y, -440.);
 }
 
 #[test]
 fn measures_point_2d_midpoint() {
-    let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp2 = MeasurePoint2d::<Metre, f32>::new(7., -29.);
-    let mid = mp1.midpoint(mp2);
-    assert_eq!(mid.x, mp1.x * 0.5 + mp2.x * 0.5);
-    assert_eq!(mid.y, mp1.y * 0.5 + mp2.y * 0.5);
+    let mp1 = MeasurePoint2d::<Metre, f32>::new(20., -200.);
+    let mp2 = MeasurePoint2d::<Metre, f32>::new(30., -300.);
+    let mp3: MeasurePoint2d<Metre, f32> = midpoint_2d(mp1, mp2);
+    assert_eq_32!(mp3.x, 25.);
+    assert_eq_32!(mp3.y, -250.);
 }
 
 #[test]
 fn measures_point_2d_barycentric_combination() {
-    let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp2 = MeasurePoint2d::<Metre, f32>::new(7., -29.);
-    let mp3 = MeasurePoint2d::<Metre, f32>::new(-4., 8.);
-    let mp4 = MeasurePoint2d::<Metre, f32>::new(3.1, 6.9);
-    let mid1 = barycentric_combination_2d(&[mp1], &[1.]);
-    assert_eq!(mid1.x, mp1.x);
-    assert_eq!(mid1.y, mp1.y);
-    let mid2 = barycentric_combination_2d(&[mp1, mp2], &[0.4, 0.6]);
-    assert_eq!(mid2.x, mp1.x * 0.4 + mp2.x * 0.6);
-    assert_eq!(mid2.y, mp1.y * 0.4 + mp2.y * 0.6);
-    let mid4 = barycentric_combination_2d(&[mp1, mp2, mp3, mp4], &[0.1, 0.4, 0.3, 0.2]);
-    assert_eq!(
-        mid4.x,
-        mp1.x * 0.1 + mp2.x * 0.4 + mp3.x * 0.3 + mp4.x * 0.2,
-    );
-    assert_eq!(
-        mid4.y,
-        mp1.y * 0.1 + mp2.y * 0.4 + mp3.y * 0.3 + mp4.y * 0.2,
-    );
+    let mp1 = MeasurePoint2d::<Metre, f32>::new(20., -200.);
+    let mp2 = MeasurePoint2d::<Metre, f32>::new(30., -300.);
+    let mp3 = MeasurePoint2d::<Metre, f32>::new(80., -800.);
+    let mp4: MeasurePoint2d<Metre, f32> =
+        barycentric_combination_2d(&[mp1, mp2, mp3], &[0.1, 0.3, 0.7]);
+    assert_eq_32!(mp4.x, 67.);
+    assert_eq_32!(mp4.y, -670.);
 }
 
 #[test]
 fn measure_point_2d_equals() {
-    let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp2 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp3 = MeasurePoint2d::<Metre, f32>::new(13., -29.);
-    assert!(mp2 == mp1);
-    assert!(!(mp3 == mp1));
+    let m1 = MeasurePoint2d::<Metre, f32>::new(12., 23.);
+    let m2 = MeasurePoint2d::<Metre, f32>::new(12., 23.);
+    let m3 = MeasurePoint2d::<Metre, f32>::new(12., 23.2);
+    let m4 = MeasurePoint2d::<Metre, f32>::new(12.1, 23.);
+    let m5 = MeasurePoint2d::<Metre, f32>::new(12.1, 23.2);
+    assert!(m1 == m2);
+    assert!(!(m1 == m3));
+    assert!(!(m1 == m4));
+    assert!(!(m1 == m5));
 }
 
 #[test]
 fn measure_point_2d_differs() {
-    let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp2 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp3 = MeasurePoint2d::<Metre, f32>::new(13., -29.);
-    assert!(!(mp2 != mp1));
-    assert!(mp3 != mp1);
+    let m1 = MeasurePoint2d::<Metre, f32>::new(12., 23.);
+    let m2 = MeasurePoint2d::<Metre, f32>::new(12., 23.);
+    let m3 = MeasurePoint2d::<Metre, f32>::new(12., 23.2);
+    let m4 = MeasurePoint2d::<Metre, f32>::new(12.1, 23.);
+    let m5 = MeasurePoint2d::<Metre, f32>::new(12.1, 23.2);
+    assert!(!(m1 != m2));
+    assert!(m1 != m3);
+    assert!(m1 != m4);
+    assert!(m1 != m5);
 }
 
 #[test]

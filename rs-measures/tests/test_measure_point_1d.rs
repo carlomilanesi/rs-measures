@@ -1,6 +1,8 @@
 use rs_measures::define_measure_1d;
 define_measure_1d! {}
 
+mod test_utils;
+
 pub struct Temperature;
 
 pub struct Celsius;
@@ -130,11 +132,11 @@ fn measures_point_weighted_midpoint() {
     let mp1 = MeasurePoint::<Celsius, f32>::new(20.);
     let mp2 = MeasurePoint::<Celsius, f32>::new(30.);
     let mp3: MeasurePoint<Celsius, f32> = weighted_midpoint(mp1, mp2, 0.4);
-    assert_eq!(mp3.value, 24.);
+    assert_eq_32!(mp3.value, 24.);
     let mp4: MeasurePoint<Celsius, f32> = weighted_midpoint(mp1, mp2, -0.4);
-    assert_eq!(mp4.value, 16.);
+    assert_eq_32!(mp4.value, 16.);
     let mp5: MeasurePoint<Celsius, f32> = weighted_midpoint(mp1, mp2, 2.4);
-    assert_eq!(mp5.value, 44.);
+    assert_eq_32!(mp5.value, 44.);
 }
 
 #[test]
@@ -142,7 +144,7 @@ fn measures_point_midpoint() {
     let mp1 = MeasurePoint::<Celsius, f32>::new(20.);
     let mp2 = MeasurePoint::<Celsius, f32>::new(30.);
     let mp3: MeasurePoint<Celsius, f32> = midpoint(mp1, mp2);
-    assert_eq!(mp3.value, 25.);
+    assert_eq_32!(mp3.value, 25.);
 }
 
 #[test]
@@ -152,7 +154,7 @@ fn measures_point_barycentric_combination() {
     let mp3 = MeasurePoint::<Celsius, f32>::new(80.);
     let mp4: MeasurePoint<Celsius, f32> =
         barycentric_combination(&[mp1, mp2, mp3], &[0.1, 0.3, 0.7]);
-    assert_eq!(mp4.value, 67.);
+    assert_eq_32!(mp4.value, 67.);
 }
 
 #[test]

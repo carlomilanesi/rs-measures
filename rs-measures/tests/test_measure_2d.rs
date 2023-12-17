@@ -334,7 +334,6 @@ fn measure_2d_scalar_division_assignment() {
     assert_eq_32!(m.y, 23. / 3.);
 }
 
-//CONTINUED
 #[test]
 fn measure_2d_equals() {
     let m1 = Measure2d::<Metre, f32>::new(12., 23.);
