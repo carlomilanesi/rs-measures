@@ -22,7 +22,7 @@ impl MeasurementUnit for MilliMetre {
 impl VectorMeasurementUnit for MilliMetre {}
 
 #[test]
-fn measure_value() {
+fn measure_new() {
     let m: Measure<Metre, f32> = Measure::<Metre, f32>::new(12.);
     assert_eq!(m.value, 12.);
 }

@@ -22,7 +22,7 @@ impl MeasurementUnit for Fahrenheit {
 }
 
 #[test]
-fn measure_point_value() {
+fn measure_point_new() {
     let mp = MeasurePoint::<Celsius, f32>::new(12.);
     assert_eq!(mp.value, 12.);
 }

@@ -4,7 +4,7 @@ macro_rules! define_measure_2d {
         rs_measures::define_measure_1d!();
         use rs_measures::traits::CrossProduct;
 
-        // Measure2d
+        // Measure 2d
 
         #[derive(Debug)]
         pub struct Measure2d<Unit, Number = f64> {
@@ -205,7 +205,7 @@ macro_rules! define_measure_2d {
             }
         }
 
-        // MeasurePoint2d
+        // Measure point 2d
 
         #[derive(Debug)]
         pub struct MeasurePoint2d<Unit, Number = f64> {
@@ -357,6 +357,8 @@ macro_rules! define_measure_2d {
             }
         }
 
+        // Linear map 2d
+
         #[derive(Debug)]
         pub struct LinearMap2d<Number: ArithmeticOps> {
             c: [[Number; 2]; 2],
@@ -389,7 +391,7 @@ macro_rules! define_measure_2d {
             //// Projections
 
             // Projection onto a line identified by a measure point angle.
-            pub fn projection_by_angle_point<Unit: AngleMeasurementUnit<Property = Angle>>(angle: MeasurePoint<Unit, Number>) -> Self {
+            pub fn projection_by_point_angle<Unit: AngleMeasurementUnit<Property = Angle>>(angle: MeasurePoint<Unit, Number>) -> Self {
                 Self::projection_by_radians(angle.convert::<Radian>().value)
             }
 
@@ -413,7 +415,7 @@ macro_rules! define_measure_2d {
             //// Reflections
 
             // Reflection over a line identified by a point angle.
-            pub fn reflection_by_angle_point<AngleUnit: AngleMeasurementUnit<Property = Angle>>(angle: MeasurePoint<AngleUnit, Number>) -> Self {
+            pub fn reflection_by_point_angle<AngleUnit: AngleMeasurementUnit<Property = Angle>>(angle: MeasurePoint<AngleUnit, Number>) -> Self {
                 Self::reflection_by_radians(angle.convert::<Radian>().value)
             }
 
@@ -519,7 +521,7 @@ macro_rules! define_measure_2d {
             }
         }
 
-        // Affine_map2
+        // Affine map 2d
 
         #[derive(Debug)]
         pub struct AffineMap2d<Unit: MeasurementUnit, Number: ArithmeticOps> {

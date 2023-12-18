@@ -28,7 +28,7 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
-fn linear_map_2d_values() {
+fn linear_map_2d_new() {
     let lm = LinearMap2d::<f32>::new([[12., 23.], [34., -45.]]);
     assert_eq!(lm.c[0][0], 12.);
     assert_eq!(lm.c[0][1], 23.);
@@ -43,10 +43,15 @@ fn linear_map_2d_values() {
 #[test]
 fn linear_map_2d_rotation_by_angle() {
     let m1 = Measure2d::<Metre, f32>::new(8., 5.);
-    let lm = LinearMap2d::<f32>::rotation(Measure::<Degree, f32>::new(90.));
-    let m2 = lm.apply_to(m1);
+    let lm1 = LinearMap2d::rotation(Measure::<Degree, f32>::new(90.));
+    let m2 = lm1.apply_to(m1);
     assert_eq_32!(m2.x, -5.);
     assert_eq_32!(m2.y, 8.);
+
+    let lm2 = LinearMap2d::rotation(Measure::<Degree, f32>::new(30.));
+    let m3 = lm2.apply_to(m1);
+    assert_eq_64!(m3.x, 4.428203105926514);
+    assert_eq_64!(m3.y, 8.330126762390137);
 }
 
 #[test]
@@ -70,9 +75,9 @@ fn linear_map_2d_rotation_at_left() {
 // Projections
 
 #[test]
-fn linear_map_2d_projection_by_angle_point() {
+fn linear_map_2d_projection_by_point_angle() {
     let m1 = Measure2d::<Metre, f64>::new(8., 5.);
-    let lm = LinearMap2d::<f64>::projection_by_angle_point(MeasurePoint::<Degree, f64>::new(60.));
+    let lm = LinearMap2d::<f64>::projection_by_point_angle(MeasurePoint::<Degree, f64>::new(60.));
     let m2 = lm.apply_to(m1);
     assert_eq_64!(m2.x, 4.165063509461098);
     assert_eq_64!(m2.y, 7.214101615137755);
@@ -114,9 +119,9 @@ fn linear_map_2d_projection_by_unit_vector() {
 // Reflections
 
 #[test]
-fn linear_map_2d_reflection_by_angle_point() {
+fn linear_map_2d_reflection_by_point_angle() {
     let m1 = Measure2d::<Metre, f64>::new(8., 5.);
-    let lm = LinearMap2d::<f64>::reflection_by_angle_point(MeasurePoint::<Degree, f64>::new(80.));
+    let lm = LinearMap2d::<f64>::reflection_by_point_angle(MeasurePoint::<Degree, f64>::new(80.));
     let m2 = lm.apply_to(m1);
     assert_eq_64!(m2.x, -5.807440249658923);
     assert_eq_64!(m2.y, 7.434624250534892);

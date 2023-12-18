@@ -38,18 +38,7 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
-fn measure_point_2d_value() {
-    let m = MeasurePoint2d::<Metre, f32> {
-        x: 12.3,
-        y: 45.6,
-        phantom: PhantomData,
-    };
-    assert_eq!(m.x, 12.3);
-    assert_eq!(m.y, 45.6);
-}
-
-#[test]
-fn measure_point_2d_xy_fields() {
+fn measure_point_2d_new() {
     let m: MeasurePoint2d<Metre, f32> = MeasurePoint2d::<Metre, f32>::new(12., 23.);
     assert_eq!(m.x, 12.);
     assert_eq!(m.y, 23.);

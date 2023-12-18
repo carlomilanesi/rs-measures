@@ -38,7 +38,7 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
-fn measure_2d_xy_fields() {
+fn measure_2d_new() {
     let m: Measure2d<Metre, f32> = Measure2d::<Metre, f32>::new(12., 23.);
     assert_eq!(m.x, 12.);
     assert_eq!(m.y, 23.);
