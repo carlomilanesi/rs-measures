@@ -1,7 +1,30 @@
 use define_units_relation::define_units_relation;
-use rs_measures::define_measure_2d;
+use rs_measures::define_measure_3d;
+define_measure_3d! {}
 
-define_measure_2d! {}
+pub struct Dimensionless;
+
+#[derive(Debug, Clone, Copy)]
+pub struct Unspecified;
+impl MeasurementUnit for Unspecified {
+    type Property = Dimensionless;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = "";
+}
+impl VectorMeasurementUnit for Unspecified {}
+
+#[derive(Debug, Clone, Copy)]
+pub struct Degree;
+impl MeasurementUnit for Degree {
+    type Property = Angle;
+    const RATIO: f64 = core::f64::consts::TAU / 360.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " deg";
+}
+impl AngleMeasurementUnit for Degree {
+    const TURN_FRACTION: f64 = 360.;
+}
 
 pub struct Length;
 
@@ -99,6 +122,47 @@ fn main() {
     println!(
         "Self cross-product: {}.",
         distance2.cross_product(distance2)
+    );
+    println!(
+        "{}",
+        LinearMap2d::<f64>::new([[1.2678, -0.8], [873.4, 1.34]])
+    );
+    println!(
+        "{}",
+        AffineMap2d::<MetrePerSecond, f64>::new([[7., -0.8, 897.23455663], [873.4, 1.3487, -5.]])
+    );
+    println!(
+        "{}",
+        LinearMap3d::<f64>::new([[1.2678, -0.8, 54.3], [873.4, 1.34, 2.], [-65., 34.7, 1.]])
+    );
+    println!(
+        "{}",
+        AffineMap3d::<MetrePerSecond, f64>::new([
+            [7., -0.8, 87.2, 1_897.23455663],
+            [873.4, 1.3487, 9.12, -5.],
+            [-4.2, -45.00, 7.7000, 32.8]
+        ])
+    );
+
+    println!(
+        "{}",
+        AffineMap3d::<Metre, f64>::rotation::<Degree, Unspecified>(
+            Measure::<Degree, f64>::new(1.),
+            Measure3d::<Unspecified, f64>::new(3., 4., 0.3).normalized(),
+            MeasurePoint3d::<Metre, f64>::new(6., 4., 2.),
+        )
+        .apply_to(MeasurePoint3d::<Metre, f64>::new(8., 5., 2.))
+    );
+
+    println!(
+        "{}",
+        AffineMap3d::<Metre, f64>::scaling(
+            MeasurePoint3d::<Metre, f64>::new(6., 4., -7.),
+            2.,
+            3.,
+            4.,
+        )
+        .apply_to(MeasurePoint3d::<Metre, f64>::new(8., 5., 2.))
     );
 }
 

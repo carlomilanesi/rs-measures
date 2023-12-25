@@ -6,6 +6,18 @@ use rs_measures::{
 };
 define_measure_3d! {}
 
+// Dimensionless
+pub struct Dimensionless;
+
+#[derive(Debug, Clone, Copy)]
+pub struct Unspecified;
+impl MeasurementUnit for Unspecified {
+    type Property = Dimensionless;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = "";
+}
+
 // Angle
 #[derive(Debug, Clone, Copy)]
 pub struct Turn;

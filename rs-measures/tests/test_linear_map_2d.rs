@@ -196,7 +196,7 @@ fn linear_map_2d_combined_with() {
     let lm2_and_then_lm1 = lm1.combined_with(&lm2);
     let m2 = lm2_and_then_lm1.apply_to(m1);
 
-    // to the resulting vector, another transformation is applied,
+    // To the resulting vector, another transformation is applied,
     // which represents the application of lm1 inverted and then of lm2 inverted.
     let lm1_inverted_and_then_lm2_inverted = lm2.inverted().combined_with(&lm1.inverted());
     let m3 = lm1_inverted_and_then_lm2_inverted.apply_to(m2);
@@ -213,4 +213,31 @@ fn linear_map_2d_combined_with() {
     let m4 = lm2_inverted_and_then_lm1_inverted.apply_to(m3);
     assert_eq_64!(m4.x, 8.);
     assert_eq_64!(m4.y, 5.);
+}
+
+#[test]
+fn linear_map_2d_formatting_with_no_padding() {
+    let lm = LinearMap2d::<f64>::new([[1.2, 000.8], [3.400, 1.3]]);
+    assert_eq!(lm.to_string(), "[1.2 0.8]\n[3.4 1.3]");
+}
+
+#[test]
+fn linear_map_2d_formatting_with_initial_padding() {
+    let lm = LinearMap2d::<f64>::new([[1.2, 20.8], [873.4, 1.3]]);
+    assert_eq!(lm.to_string(), "[  1.2 20.8]\n[873.4  1.3]");
+}
+
+#[test]
+fn linear_map_2d_formatting_with_final_padding() {
+    let lm = LinearMap2d::<f64>::new([[1.254, 0.8], [3.4, 1.36]]);
+    assert_eq!(lm.to_string(), "[1.254 0.8 ]\n[3.4   1.36]");
+}
+
+#[test]
+fn linear_map_2d_formatting_with_both_padding() {
+    let lm = LinearMap2d::<f64>::new([[1.254, 650.], [98763.4, 1.7658909]]);
+    assert_eq!(
+        lm.to_string(),
+        "[    1.254 650        ]\n[98763.4     1.7658909]"
+    );
 }

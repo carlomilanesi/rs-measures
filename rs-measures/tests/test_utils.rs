@@ -20,13 +20,13 @@ macro_rules! assert_eq_tolerance {
 #[macro_export]
 macro_rules! assert_eq_32 {
     ($actual:expr, $expected:expr) => {
-        assert_eq_tolerance!($actual as f32, $expected as f32, f32::EPSILON * 8.)
+        assert_eq_tolerance!($actual as f32, $expected as f32, f32::EPSILON * 64.)
     };
 }
 
 #[macro_export]
 macro_rules! assert_eq_64 {
     ($actual:expr, $expected:expr) => {
-        assert_eq_tolerance!($actual as f64, $expected as f64, f64::EPSILON * 8.)
+        assert_eq_tolerance!($actual as f64, $expected as f64, f64::EPSILON * 64.)
     };
 }

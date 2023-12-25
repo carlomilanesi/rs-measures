@@ -142,15 +142,31 @@ fn measure_2d_squared_norm_zero() {
 
 #[test]
 fn measure_2d_normalized_positive() {
-    let m1 = Measure2d::<Metre, f32>::new(12., 23.);
-    let m2: Measure2d<Metre, f32> = m1.normalized();
+    let m1 = Measure2d::<Metre, f64>::new(12., 23.);
+    let m2: Measure2d<Metre, f64> = m1.normalized();
     assert_eq_32!(m2.squared_norm(), 1.);
-    assert_eq_32!(m2.y / m2.x, 23. / 12.);
+    assert_eq!(m1.x.signum(), m2.x.signum());
+    assert_eq!(m1.y.signum(), m2.y.signum());
+    assert_eq_64!(m1.y / m1.x, m2.y / m2.x);
 }
 
 #[test]
 fn measure_2d_normalized_x_negative() {
     let m1 = Measure2d::<Metre, f64>::new(-12., 23.);
+    let m2: Measure2d<Metre, f64> = m1.normalized();
+    assert_eq_64!(m2.squared_norm(), 1.);
+    assert_eq!(m1.x.signum(), m2.x.signum());
+    assert_eq!(m1.y.signum(), m2.y.signum());
+    assert_eq_64!(m1.y / m1.x, m2.y / m2.x);
+    assert_eq_64!(
+        m1.signed_direction::<Radian>().value,
+        m2.signed_direction::<Radian>().value
+    );
+}
+
+#[test]
+fn measure_2d_normalized_y_negative() {
+    let m1 = Measure2d::<Metre, f64>::new(12., -23.);
     let m2: Measure2d<Metre, f64> = m1.normalized();
     assert_eq_64!(m2.squared_norm(), 1.);
     assert_eq!(m1.x.signum(), m2.x.signum());

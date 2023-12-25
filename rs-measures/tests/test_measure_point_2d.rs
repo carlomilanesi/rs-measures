@@ -119,17 +119,6 @@ fn measure_point_2d_lossy_into_64_to_64() {
     assert_eq!(mp2.y, 23.);
 }
 
-/*
-#[test]
-fn measure_point_2d_mapped_by() {
-    let m1 = MeasurePoint2d::<Metre, f32>::new(12.3, 45.6);
-    let am = AffineMap2d::<Metre, f32>::new([[4., 5., 6.], [7., 8., 9.]]);
-    let m2 = am.apply_to(m1);
-    assert_eq!(m2.x, 12.3 * 4. + 45.6 * 5. + 6.);
-    assert_eq!(m2.y, 12.3 * 7. + 45.6 * 8. + 9.);
-}
-*/
-
 #[test]
 fn measure_point_2d_addition_of_measure_2d() {
     let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 23.);

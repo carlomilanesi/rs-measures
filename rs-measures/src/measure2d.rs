@@ -14,7 +14,7 @@ macro_rules! define_measure_2d {
         }
 
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Measure2d<Unit, Number> {
-            /// Measure2d::new(Number) -> Measure2d
+            /// measure 2d :: new(number, number) -> measure 2d
             pub fn new(x: Number, y: Number) -> Self {
                 Self {
                     x,
@@ -23,13 +23,13 @@ macro_rules! define_measure_2d {
                 }
             }
 
-            /// Measure2d.x() -> Measure
+            /// measure 2d .x() -> measure
             pub fn x(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.x) }
 
-            /// Measure2d.y() -> Measure
+            /// measure 2d .x() -> measure
             pub fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
 
-            /// Measure2d.convert() -> Measure
+            /// measure 2d .convert() -> measure 2d
             pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> Measure2d<DestUnit, Number> {
@@ -41,7 +41,7 @@ macro_rules! define_measure_2d {
                 }
             }
 
-            /// Measure2d.lossless_into() -> Measure2d
+            /// measure 2d .lossy_into() -> measure 2d
             pub fn lossless_into<DestNumber: ArithmeticOps + From<Number>>(
                 &self,
             ) -> Measure2d<Unit, DestNumber> {
@@ -52,7 +52,7 @@ macro_rules! define_measure_2d {
                 }
             }
 
-            /// Measure2d.lossy_into() -> Measure2d
+            /// measure 2d .lossy_into() -> measure 2d
             pub fn lossy_into<DestNumber: ArithmeticOps + LossyFrom<Number>>(
                 &self,
             ) -> Measure2d<Unit, DestNumber> {
@@ -63,15 +63,15 @@ macro_rules! define_measure_2d {
                 }
             }
 
-            /// Measure2d.squared_norm() -> Number
+            /// measure 2d .squared_norm() -> number
             pub fn squared_norm(self) -> Number {
                 self.x * self.x + self.y * self.y
             }
 
-            /// Measure2d.normalized() -> Number
+            /// measure 2d .normalized() -> number
             pub fn normalized(self) -> Self {
-                let k = self.squared_norm().sqrt();
-                Self::new(self.x / k, self.y / k)
+                let k = Number::ONE / self.squared_norm().sqrt();
+                Self::new(self.x * k, self.y * k)
             }
 
             /// Measure2d::from_direction(AnglePoint) -> Measure2d
@@ -297,7 +297,7 @@ macro_rules! define_measure_2d {
             }
         }
 
-        // measure point - measure point
+        // measure point 2d - measure point 2d
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint2d<Unit, Number>>
             for MeasurePoint2d<Unit, Number> {
             type Output = Measure2d<Unit, Number>;
@@ -306,7 +306,7 @@ macro_rules! define_measure_2d {
             }
         }
 
-        /// weighted_midpoint_2d(measure point, measure point, weight) -> measure point
+        /// weighted_midpoint_2d(measure point 2d, measure point 2d, weight) -> measure point 2d
         pub fn weighted_midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
             p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight2: Number) -> MeasurePoint2d<Unit, Number>
         {
@@ -317,7 +317,7 @@ macro_rules! define_measure_2d {
             )
         }
 
-        /// midpoint_2d(measure point, measure point) -> measure point
+        /// midpoint_2d(measure point 2d, measure point 2d) -> measure point 2d
         pub fn midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
             p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>) -> MeasurePoint2d<Unit, Number>
         {
@@ -327,7 +327,7 @@ macro_rules! define_measure_2d {
             )
         }
 
-        /// barycentric_combination_2d(array of 2d measure points, array of numbers) -> 2d measure point
+        /// barycentric_combination_2d(array of 2d measure points, array of weights) -> 2d measure point
         pub fn barycentric_combination_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
             points: &[MeasurePoint2d<Unit, Number>], weights: &[Number]) -> MeasurePoint2d<Unit, Number>
         {
@@ -453,7 +453,7 @@ macro_rules! define_measure_2d {
                     [
                         self.c[1][0] * -inv_determinant,
                         self.c[0][0] * inv_determinant,
-                    ]
+                    ],
                 ]}
             }
 
@@ -518,6 +518,67 @@ macro_rules! define_measure_2d {
             fn reflection_by_radians(radians: Number) -> Self {
                 let (sin_a, cos_a) = radians.sin_cos();
                 Self::reflection_by_cos_sin(cos_a, sin_a)
+            }
+        }
+
+        // It receives a matrix of numbers, and a column index,
+        // processes the numbers of the specified column,
+        // and returns an array of the lined up formatted numbers.
+        fn format_column<const RowCount: usize, const ColumnCount: usize, Number: ArithmeticOps>(
+            matrix: &[[Number; ColumnCount]; RowCount],
+            column_index: usize,
+        ) -> [String; RowCount] {
+            const EMPTY_STRING: String = String::new();
+            let mut padded_cells = [EMPTY_STRING; RowCount];
+            let mut max_dot_pos = 0;
+            let mut max_fractional_len = 0;
+            let mut formatted_cells = [EMPTY_STRING; RowCount];
+            let mut dot_positions = [0; RowCount];
+            for row_index in 0..RowCount {
+                formatted_cells[row_index] = format!("{}", matrix[row_index][column_index]);
+                dot_positions[row_index] = if let Some(pos) =
+                    formatted_cells[row_index].bytes().position(|c| c == b'.') {
+                        pos
+                    } else {
+                        formatted_cells[row_index].len()
+                    };
+                max_dot_pos = core::cmp::max(max_dot_pos, dot_positions[row_index]);
+                max_fractional_len = core::cmp::max(
+                    max_fractional_len,
+                    formatted_cells[row_index].len() - dot_positions[row_index],
+                );
+            }
+            for row_index in 0..RowCount {
+                padded_cells[row_index] = format!("{}{}{}",
+                    " ".repeat(max_dot_pos - dot_positions[row_index]),
+                    formatted_cells[row_index],
+                    " ".repeat(max_fractional_len + dot_positions[row_index] - formatted_cells[row_index].len()),
+                );
+            }
+            padded_cells
+        }
+
+        fn format_matrix<const RowCount: usize, const ColumnCount: usize, Number: ArithmeticOps>(
+            matrix: &[[Number; ColumnCount]; RowCount],
+            unit_suffix: &str,
+        ) -> String {
+            const EMPTY_STRING: String = String::new();
+            let mut rows = [EMPTY_STRING; RowCount];
+            for column_index in 0..ColumnCount {
+                let column = format_column::<RowCount, ColumnCount, Number>(matrix, column_index);
+                for row_index in 0..RowCount {
+                    if column_index == 0 { rows[row_index] += "["; }
+                    rows[row_index] += &column[row_index];
+                    rows[row_index] += if column_index < ColumnCount - 1 { " " } else { "]" };
+                    if row_index == 0 && column_index == ColumnCount - 1 { rows[row_index] += unit_suffix; }
+                }
+            }
+            rows.join("\n")
+        }
+
+        impl<Number: ArithmeticOps> fmt::Display for LinearMap2d<Number> {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(f, "{}", format_matrix::<2, 2, Number>(&self.c, ""))
             }
         }
 
@@ -776,6 +837,12 @@ macro_rules! define_measure_2d {
                     [ c2ms2, cs_bis, sin_a * sxmcy_bis ],
                     [ cs_bis, -c2ms2, -cos_a * sxmcy_bis],
                 ])
+            }
+        }
+
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap2d<Unit, Number> {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(f, "{}", format_matrix::<2, 3, Number>(&self.c, Unit::SUFFIX))
             }
         }
     };
