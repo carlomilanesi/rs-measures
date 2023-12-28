@@ -190,7 +190,6 @@ macro_rules! define_measure_1d {
 
         // MeasurePoint
 
-        #[derive(Debug)]
         pub struct MeasurePoint<Unit, Number = f64> {
             pub value: Number,
             phantom: PhantomData<Unit>,
@@ -324,7 +323,6 @@ macro_rules! define_measure_1d {
 
         // UnsignedDirection
 
-        #[derive(Debug)]
         pub struct UnsignedDirection<Unit, Number = f64> {
             value: Number,
             phantom: PhantomData<Unit>,
@@ -461,7 +459,6 @@ macro_rules! define_measure_1d {
 
         // SignedDirection
 
-        #[derive(Debug)]
         pub struct SignedDirection<Unit, Number = f64> {
             value: Number,
             phantom: PhantomData<Unit>,

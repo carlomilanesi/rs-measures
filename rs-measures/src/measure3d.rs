@@ -368,7 +368,6 @@ macro_rules! define_measure_3d {
 
         // Linear map 3d
 
-        #[derive(Debug)]
         pub struct LinearMap3d<Number: ArithmeticOps> {
             c: [[Number; 3]; 3],
         }
@@ -553,7 +552,6 @@ macro_rules! define_measure_3d {
 
         // Affine map 3d
 
-        #[derive(Debug)]
         pub struct AffineMap3d<Unit: MeasurementUnit, Number: ArithmeticOps> {
             c: [[Number; 4]; 3],
             phantom: std::marker::PhantomData<Unit>,

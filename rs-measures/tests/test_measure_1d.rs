@@ -11,7 +11,6 @@ impl MeasurementUnit for Metre {
     const SUFFIX: &'static str = " m";
 }
 
-#[derive(Debug)]
 struct MilliMetre;
 impl MeasurementUnit for MilliMetre {
     type Property = Length;

@@ -1,7 +1,6 @@
 use rs_measures::define_measure_1d;
 define_measure_1d! {}
 
-#[derive(Debug, Clone, Copy)]
 pub struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;
@@ -13,7 +12,6 @@ impl AngleMeasurementUnit for Degree {
     const TURN_FRACTION: f64 = 360.;
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct Turn;
 impl MeasurementUnit for Turn {
     type Property = Angle;

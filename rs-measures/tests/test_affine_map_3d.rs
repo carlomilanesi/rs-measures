@@ -5,7 +5,6 @@ mod test_utils;
 
 pub struct Dimensionless;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Unspecified;
 impl MeasurementUnit for Unspecified {
     type Property = Dimensionless;
@@ -17,7 +16,6 @@ impl VectorMeasurementUnit for Unspecified {}
 
 struct Length;
 
-#[derive(Debug)]
 struct Metre;
 impl MeasurementUnit for Metre {
     type Property = Length;
@@ -27,7 +25,6 @@ impl MeasurementUnit for Metre {
 }
 impl VectorMeasurementUnit for Metre {}
 
-#[derive(Debug)]
 struct MilliMetre;
 impl MeasurementUnit for MilliMetre {
     type Property = Length;
@@ -37,7 +34,6 @@ impl MeasurementUnit for MilliMetre {
 }
 impl VectorMeasurementUnit for MilliMetre {}
 
-#[derive(Debug)]
 struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;

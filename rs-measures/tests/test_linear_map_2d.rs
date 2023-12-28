@@ -5,7 +5,6 @@ mod test_utils;
 
 struct Length;
 
-#[derive(Debug)]
 struct Metre;
 impl MeasurementUnit for Metre {
     type Property = Length;
@@ -15,7 +14,6 @@ impl MeasurementUnit for Metre {
 }
 impl VectorMeasurementUnit for Metre {}
 
-#[derive(Debug)]
 struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;

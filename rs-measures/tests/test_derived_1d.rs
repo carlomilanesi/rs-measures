@@ -4,7 +4,6 @@ define_measure_1d! {}
 
 pub struct Length;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Metre;
 impl MeasurementUnit for Metre {
     type Property = Length;
@@ -16,7 +15,6 @@ impl VectorMeasurementUnit for Metre {}
 
 pub struct Time;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Second;
 impl MeasurementUnit for Second {
     type Property = Time;
@@ -27,7 +25,6 @@ impl MeasurementUnit for Second {
 
 pub struct Velocity;
 
-#[derive(Debug, Clone, Copy)]
 pub struct MetrePerSecond;
 impl MeasurementUnit for MetrePerSecond {
     type Property = Velocity;
@@ -39,7 +36,6 @@ impl VectorMeasurementUnit for MetrePerSecond {}
 
 pub struct Area;
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareMetre;
 impl MeasurementUnit for SquareMetre {
     type Property = Area;

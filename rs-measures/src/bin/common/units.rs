@@ -1,25 +1,77 @@
 use std::f64::consts::TAU;
 
-use rs_measures::{
-    define_measure_1d, define_measure_2d, define_measure_3d,
-    traits::{CrossProduct, Sqrt},
-};
+use rs_measures::define_measure_3d;
 define_measure_3d! {}
 
-// Dimensionless
-pub struct Dimensionless;
+// Property: acceleration
+pub struct Acceleration;
 
-#[derive(Debug, Clone, Copy)]
-pub struct Unspecified;
-impl MeasurementUnit for Unspecified {
-    type Property = Dimensionless;
+pub struct MetrePerSquareSecond;
+impl MeasurementUnit for MetrePerSquareSecond {
+    type Property = Acceleration;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = "";
+    const SUFFIX: &'static str = " m/s\u{b2}";
+}
+impl VectorMeasurementUnit for MetrePerSquareSecond {}
+
+pub struct GForce;
+impl MeasurementUnit for GForce {
+    type Property = Acceleration;
+    const RATIO: f64 = 9.8;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " g";
+}
+impl VectorMeasurementUnit for GForce {}
+
+pub struct KiloMetrePerHourPerSecond;
+impl MeasurementUnit for KiloMetrePerHourPerSecond {
+    type Property = Acceleration;
+    const RATIO: f64 = 1000. / 3600.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " km/h/s";
+}
+impl VectorMeasurementUnit for KiloMetrePerHourPerSecond {}
+
+// Property: action
+pub struct Action;
+
+pub struct JouleSecond;
+impl MeasurementUnit for JouleSecond {
+    type Property = Action;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " J\u{b7}s";
 }
 
-// Angle
-#[derive(Debug, Clone, Copy)]
+// Property: amount of substance, count
+pub struct Amount;
+
+pub struct Unit;
+impl MeasurementUnit for Unit {
+    type Property = Amount;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " u.";
+}
+
+pub struct Dozen;
+impl MeasurementUnit for Dozen {
+    type Property = Amount;
+    const RATIO: f64 = 12.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " dz.";
+}
+
+pub struct Mole;
+impl MeasurementUnit for Mole {
+    type Property = Amount;
+    const RATIO: f64 = 6.0221413e23;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mol";
+}
+
+// Property: angle
 pub struct Turn;
 impl MeasurementUnit for Turn {
     type Property = Angle;
@@ -31,7 +83,6 @@ impl AngleMeasurementUnit for Turn {
     const TURN_FRACTION: f64 = 1.;
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct Gradian;
 impl MeasurementUnit for Gradian {
     type Property = Angle;
@@ -43,7 +94,6 @@ impl AngleMeasurementUnit for Gradian {
     const TURN_FRACTION: f64 = 400.;
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;
@@ -55,7 +105,6 @@ impl AngleMeasurementUnit for Degree {
     const TURN_FRACTION: f64 = 360.;
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct ArcMinute;
 impl MeasurementUnit for ArcMinute {
     type Property = Angle;
@@ -67,7 +116,6 @@ impl AngleMeasurementUnit for ArcMinute {
     const TURN_FRACTION: f64 = 360. * 60.;
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct ArcSecond;
 impl MeasurementUnit for ArcSecond {
     type Property = Angle;
@@ -79,85 +127,9 @@ impl AngleMeasurementUnit for ArcSecond {
     const TURN_FRACTION: f64 = 360. * 60. * 60.;
 }
 
-// Acceleration
-pub struct Acceleration;
-
-#[derive(Debug, Clone, Copy)]
-pub struct MetrePerSquareSecond;
-impl MeasurementUnit for MetrePerSquareSecond {
-    type Property = Acceleration;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " m/s\u{b2}";
-}
-impl VectorMeasurementUnit for MetrePerSquareSecond {}
-
-#[derive(Debug, Clone, Copy)]
-pub struct GForce;
-impl MeasurementUnit for GForce {
-    type Property = Acceleration;
-    const RATIO: f64 = 9.8;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " g";
-}
-impl VectorMeasurementUnit for GForce {}
-
-#[derive(Debug, Clone, Copy)]
-pub struct KiloMetrePerHourPerSecond;
-impl MeasurementUnit for KiloMetrePerHourPerSecond {
-    type Property = Acceleration;
-    const RATIO: f64 = 1000. / 3600.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " km/h/s";
-}
-impl VectorMeasurementUnit for KiloMetrePerHourPerSecond {}
-
-// Action
-pub struct Action;
-
-#[derive(Debug, Clone, Copy)]
-pub struct JouleSecond;
-impl MeasurementUnit for JouleSecond {
-    type Property = Action;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " J\u{b7}s";
-}
-
-// Amount of substance, Count
-pub struct Amount;
-
-#[derive(Debug, Clone, Copy)]
-pub struct Unit;
-impl MeasurementUnit for Unit {
-    type Property = Amount;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " u.";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct Dozen;
-impl MeasurementUnit for Dozen {
-    type Property = Amount;
-    const RATIO: f64 = 12.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " dz.";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct Mole;
-impl MeasurementUnit for Mole {
-    type Property = Amount;
-    const RATIO: f64 = 6.0221413e23;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mol";
-}
-
-// Angular acceleration
+// Property: angular acceleration
 pub struct AngularAcceleration;
 
-#[derive(Debug, Clone, Copy)]
 pub struct RadianPerSquareSecond;
 impl MeasurementUnit for RadianPerSquareSecond {
     type Property = AngularAcceleration;
@@ -166,10 +138,9 @@ impl MeasurementUnit for RadianPerSquareSecond {
     const SUFFIX: &'static str = " rad/s\u{b2}";
 }
 
-// Angular momentum, Spin
+// Property: angular momentum, spin
 pub struct AngularMomentum;
 
-#[derive(Debug, Clone, Copy)]
 pub struct KilogramSquareMetrePerSecond;
 impl MeasurementUnit for KilogramSquareMetrePerSecond {
     type Property = AngularMomentum;
@@ -179,7 +150,6 @@ impl MeasurementUnit for KilogramSquareMetrePerSecond {
 }
 impl VectorMeasurementUnit for KilogramSquareMetrePerSecond {}
 
-#[derive(Debug, Clone, Copy)]
 pub struct GramSquareCentiMetrePerSecond;
 impl MeasurementUnit for GramSquareCentiMetrePerSecond {
     type Property = AngularMomentum;
@@ -189,10 +159,9 @@ impl MeasurementUnit for GramSquareCentiMetrePerSecond {
 }
 impl VectorMeasurementUnit for GramSquareCentiMetrePerSecond {}
 
-// Area
+// Property: area
 pub struct Area;
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareMetre;
 impl MeasurementUnit for SquareMetre {
     type Property = Area;
@@ -201,7 +170,6 @@ impl MeasurementUnit for SquareMetre {
     const SUFFIX: &'static str = " m\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareKiloMetre;
 impl MeasurementUnit for SquareKiloMetre {
     type Property = Area;
@@ -210,7 +178,6 @@ impl MeasurementUnit for SquareKiloMetre {
     const SUFFIX: &'static str = " km\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct Hectare;
 impl MeasurementUnit for Hectare {
     type Property = Area;
@@ -219,7 +186,6 @@ impl MeasurementUnit for Hectare {
     const SUFFIX: &'static str = " ha";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct Are;
 impl MeasurementUnit for Are {
     type Property = Area;
@@ -228,7 +194,6 @@ impl MeasurementUnit for Are {
     const SUFFIX: &'static str = " are";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareDeciMetre;
 impl MeasurementUnit for SquareDeciMetre {
     type Property = Area;
@@ -237,7 +202,6 @@ impl MeasurementUnit for SquareDeciMetre {
     const SUFFIX: &'static str = " dm\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareCentiMetre;
 impl MeasurementUnit for SquareCentiMetre {
     type Property = Area;
@@ -246,7 +210,6 @@ impl MeasurementUnit for SquareCentiMetre {
     const SUFFIX: &'static str = " cm\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareMilliMetre;
 impl MeasurementUnit for SquareMilliMetre {
     type Property = Area;
@@ -255,7 +218,6 @@ impl MeasurementUnit for SquareMilliMetre {
     const SUFFIX: &'static str = " mm\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareInch;
 impl MeasurementUnit for SquareInch {
     type Property = Area;
@@ -264,7 +226,6 @@ impl MeasurementUnit for SquareInch {
     const SUFFIX: &'static str = " in\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareFoot;
 impl MeasurementUnit for SquareFoot {
     type Property = Area;
@@ -273,7 +234,6 @@ impl MeasurementUnit for SquareFoot {
     const SUFFIX: &'static str = " ft\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareYard;
 impl MeasurementUnit for SquareYard {
     type Property = Area;
@@ -282,7 +242,6 @@ impl MeasurementUnit for SquareYard {
     const SUFFIX: &'static str = " yd\u{b2}";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct SquareMile;
 impl MeasurementUnit for SquareMile {
     type Property = Area;
@@ -291,10 +250,9 @@ impl MeasurementUnit for SquareMile {
     const SUFFIX: &'static str = " mi\u{b2}";
 }
 
-// Area density
+// Property: area density
 pub struct AreaDensity;
 
-#[derive(Debug, Clone, Copy)]
 pub struct KilogramPerSquareMetre;
 impl MeasurementUnit for KilogramPerSquareMetre {
     type Property = AreaDensity;
@@ -303,10 +261,9 @@ impl MeasurementUnit for KilogramPerSquareMetre {
     const SUFFIX: &'static str = " kg/m\u{b2}";
 }
 
-// Capacitance
+// Property: capacitance
 pub struct Capacitance;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Farad;
 impl MeasurementUnit for Farad {
     type Property = Capacitance;
@@ -315,7 +272,6 @@ impl MeasurementUnit for Farad {
     const SUFFIX: &'static str = " F";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct MilliFarad;
 impl MeasurementUnit for MilliFarad {
     type Property = Capacitance;
@@ -324,7 +280,6 @@ impl MeasurementUnit for MilliFarad {
     const SUFFIX: &'static str = " mF";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct MicroFarad;
 impl MeasurementUnit for MicroFarad {
     type Property = Capacitance;
@@ -333,7 +288,6 @@ impl MeasurementUnit for MicroFarad {
     const SUFFIX: &'static str = " \u{B5}F";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct NanoFarad;
 impl MeasurementUnit for NanoFarad {
     type Property = Capacitance;
@@ -342,7 +296,6 @@ impl MeasurementUnit for NanoFarad {
     const SUFFIX: &'static str = " nF";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct PicoFarad;
 impl MeasurementUnit for PicoFarad {
     type Property = Capacitance;
@@ -351,10 +304,9 @@ impl MeasurementUnit for PicoFarad {
     const SUFFIX: &'static str = " pF";
 }
 
-// Catalytic activity
+// Property: catalytic activity
 pub struct CatalyticActivity;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Katal;
 impl MeasurementUnit for Katal {
     type Property = CatalyticActivity;
@@ -363,10 +315,9 @@ impl MeasurementUnit for Katal {
     const SUFFIX: &'static str = " kat";
 }
 
-// Catalytic activity concentration
+// Property: catalytic activity concentration
 pub struct CatalyticActivityConcentration;
 
-#[derive(Debug, Clone, Copy)]
 pub struct KatalPerCubicMetre;
 impl MeasurementUnit for KatalPerCubicMetre {
     type Property = CatalyticActivityConcentration;
@@ -375,10 +326,9 @@ impl MeasurementUnit for KatalPerCubicMetre {
     const SUFFIX: &'static str = " kat/m\u{B3}";
 }
 
-// Chemical potential, Molar energy
+// Property: chemical potential, molar energy
 pub struct ChemicalPotential;
 
-#[derive(Debug, Clone, Copy)]
 pub struct JoulePerMole;
 impl MeasurementUnit for JoulePerMole {
     type Property = ChemicalPotential;
@@ -387,22 +337,9 @@ impl MeasurementUnit for JoulePerMole {
     const SUFFIX: &'static str = " J/mol";
 }
 
-// Molar concentration
-pub struct MolarConcentration;
-
-#[derive(Debug, Clone, Copy)]
-pub struct MolePerCubicMetre;
-impl MeasurementUnit for MolePerCubicMetre {
-    type Property = MolarConcentration;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mol/m\u{B3}";
-}
-
-// current density
+// Property: current density
 pub struct CurrentDensity;
 
-#[derive(Debug, Clone, Copy)]
 pub struct AmperePerSquareMetre;
 impl MeasurementUnit for AmperePerSquareMetre {
     type Property = CurrentDensity;
@@ -412,10 +349,30 @@ impl MeasurementUnit for AmperePerSquareMetre {
 }
 impl VectorMeasurementUnit for AmperePerSquareMetre {}
 
-// Dose equivalent
+// Property: dimensionless
+pub struct Dimensionless;
+
+pub struct Unspecified;
+impl MeasurementUnit for Unspecified {
+    type Property = Dimensionless;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = "";
+}
+impl VectorMeasurementUnit for Unspecified {}
+
+pub struct Mach;
+impl MeasurementUnit for Mach {
+    type Property = Dimensionless;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mach";
+}
+impl VectorMeasurementUnit for Mach {}
+
+// Property: dose equivalent
 pub struct DoseEquivalent;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Sievert;
 impl MeasurementUnit for Sievert {
     type Property = DoseEquivalent;
@@ -424,7 +381,6 @@ impl MeasurementUnit for Sievert {
     const SUFFIX: &'static str = " Sv";
 }
 
-#[derive(Debug, Clone, Copy)]
 pub struct Rem;
 impl MeasurementUnit for Rem {
     type Property = DoseEquivalent;
@@ -433,10 +389,9 @@ impl MeasurementUnit for Rem {
     const SUFFIX: &'static str = " rem";
 }
 
-// dynamic viscosity, absolute viscosity
+// Property: dynamic viscosity, absolute viscosity
 pub struct DynamicViscosity;
 
-#[derive(Debug, Clone, Copy)]
 pub struct PascalSecond;
 impl MeasurementUnit for PascalSecond {
     type Property = DynamicViscosity;
@@ -445,107 +400,9 @@ impl MeasurementUnit for PascalSecond {
     const SUFFIX: &'static str = " Pa\u{b7}s";
 }
 
-// electric charge
-pub struct ElectricCharge;
-
-#[derive(Debug, Clone, Copy)]
-pub struct Coulomb;
-impl MeasurementUnit for Coulomb {
-    type Property = ElectricCharge;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " C";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct MilliCoulomb;
-impl MeasurementUnit for MilliCoulomb {
-    type Property = ElectricCharge;
-    const RATIO: f64 = 1e-3;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mC";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct MicroCoulomb;
-impl MeasurementUnit for MicroCoulomb {
-    type Property = ElectricCharge;
-    const RATIO: f64 = 1e-6;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}C";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct NanoCoulomb;
-impl MeasurementUnit for NanoCoulomb {
-    type Property = ElectricCharge;
-    const RATIO: f64 = 1e-9;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " nC";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct PicoCoulomb;
-impl MeasurementUnit for PicoCoulomb {
-    type Property = ElectricCharge;
-    const RATIO: f64 = 1e-12;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " pC";
-}
-
-// Linear electric charge density
-pub struct LinearElectricChargeDensity;
-
-#[derive(Debug, Clone, Copy)]
-pub struct CoulombPerMetre;
-impl MeasurementUnit for CoulombPerMetre {
-    type Property = LinearElectricChargeDensity;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " C/m";
-}
-
-// electric displacement, surface electric charge density
-pub struct ElectricDisplacement;
-
-#[derive(Debug, Clone, Copy)]
-pub struct CoulombPerSquareMetre;
-impl MeasurementUnit for CoulombPerSquareMetre {
-    type Property = ElectricDisplacement;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " C/m\u{b2}";
-}
-
-// Electric charge density
-pub struct ElectricChargeDensity;
-
-#[derive(Debug, Clone, Copy)]
-pub struct CoulombPerCubicMetre;
-impl MeasurementUnit for CoulombPerCubicMetre {
-    type Property = ElectricChargeDensity;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " C/m\u{B3}";
-}
-
-// electric field strength
-pub struct ElectricFieldStrength;
-
-#[derive(Debug, Clone, Copy)]
-pub struct VoltMetre;
-impl MeasurementUnit for VoltMetre {
-    type Property = ElectricFieldStrength;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " V/m";
-}
-impl VectorMeasurementUnit for VoltMetre {}
-
-// Electrical conductance, electric susceptance, electric admittance
+// Property: electrical conductance, electric susceptance, electric admittance
 pub struct ElectricalConductance;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Siemens;
 impl MeasurementUnit for Siemens {
     type Property = ElectricalConductance;
@@ -554,10 +411,9 @@ impl MeasurementUnit for Siemens {
     const SUFFIX: &'static str = " S";
 }
 
-// Electrical conductivity
+// Property: electrical conductivity
 pub struct ElectricalConductivity;
 
-#[derive(Debug, Clone, Copy)]
 pub struct SiemensPerMetre;
 impl MeasurementUnit for SiemensPerMetre {
     type Property = ElectricalConductivity;
@@ -566,76 +422,7 @@ impl MeasurementUnit for SiemensPerMetre {
     const SUFFIX: &'static str = " S/m";
 }
 
-// electric current
-pub struct ElectricCurrent;
-
-#[derive(Debug, Clone, Copy)]
-pub struct Ampere;
-impl MeasurementUnit for Ampere {
-    type Property = ElectricCurrent;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " A";
-}
-impl VectorMeasurementUnit for Ampere {}
-
-#[derive(Debug, Clone, Copy)]
-pub struct MilliAmpere;
-impl MeasurementUnit for MilliAmpere {
-    type Property = ElectricCurrent;
-    const RATIO: f64 = 1e-3;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mA";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct MicroAmpere;
-impl MeasurementUnit for MicroAmpere {
-    type Property = ElectricCurrent;
-    const RATIO: f64 = 1e-6;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}A";
-}
-
-// Electric potential
-pub struct ElectricPotential;
-
-#[derive(Debug, Clone, Copy)]
-pub struct Volt;
-impl MeasurementUnit for Volt {
-    type Property = ElectricPotential;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " V";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct KiloVolt;
-impl MeasurementUnit for KiloVolt {
-    type Property = ElectricPotential;
-    const RATIO: f64 = 1e3;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " kV";
-}
-
-#[derive(Debug, Clone, Copy)]
-pub struct MilliVolt;
-impl MeasurementUnit for MilliVolt {
-    type Property = ElectricPotential;
-    const RATIO: f64 = 1e-3;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mV";
-}
-
-pub struct MicroVolt;
-impl MeasurementUnit for MicroVolt {
-    type Property = ElectricPotential;
-    const RATIO: f64 = 1e-6;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}V";
-}
-
-// electrical resistance, electrical impedance
+// Property: electrical resistance, electrical impedance
 pub struct ElectricalResistance;
 
 pub struct Ohm;
@@ -662,7 +449,7 @@ impl MeasurementUnit for KiloOhm {
     const SUFFIX: &'static str = " k\u{3A9}";
 }
 
-// Electrical resistivity
+// Property: electrical resistivity
 pub struct ElectricalResistivity;
 
 pub struct OhmMetre;
@@ -673,7 +460,147 @@ impl MeasurementUnit for OhmMetre {
     const SUFFIX: &'static str = " \u{3A9}\u{b7}m";
 }
 
-// Energy, work, heat
+// Property: electric charge
+pub struct ElectricCharge;
+
+pub struct Coulomb;
+impl MeasurementUnit for Coulomb {
+    type Property = ElectricCharge;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " C";
+}
+
+pub struct MilliCoulomb;
+impl MeasurementUnit for MilliCoulomb {
+    type Property = ElectricCharge;
+    const RATIO: f64 = 1e-3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mC";
+}
+
+pub struct MicroCoulomb;
+impl MeasurementUnit for MicroCoulomb {
+    type Property = ElectricCharge;
+    const RATIO: f64 = 1e-6;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " \u{B5}C";
+}
+
+pub struct NanoCoulomb;
+impl MeasurementUnit for NanoCoulomb {
+    type Property = ElectricCharge;
+    const RATIO: f64 = 1e-9;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " nC";
+}
+
+pub struct PicoCoulomb;
+impl MeasurementUnit for PicoCoulomb {
+    type Property = ElectricCharge;
+    const RATIO: f64 = 1e-12;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " pC";
+}
+
+// Property: electric charge density
+pub struct ElectricChargeDensity;
+
+pub struct CoulombPerCubicMetre;
+impl MeasurementUnit for CoulombPerCubicMetre {
+    type Property = ElectricChargeDensity;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " C/m\u{B3}";
+}
+
+// Property: electric current
+pub struct ElectricCurrent;
+
+pub struct Ampere;
+impl MeasurementUnit for Ampere {
+    type Property = ElectricCurrent;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " A";
+}
+impl VectorMeasurementUnit for Ampere {}
+
+pub struct MilliAmpere;
+impl MeasurementUnit for MilliAmpere {
+    type Property = ElectricCurrent;
+    const RATIO: f64 = 1e-3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mA";
+}
+
+pub struct MicroAmpere;
+impl MeasurementUnit for MicroAmpere {
+    type Property = ElectricCurrent;
+    const RATIO: f64 = 1e-6;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " \u{B5}A";
+}
+
+// Property: electric displacement, surface electric charge density
+pub struct ElectricDisplacement;
+
+pub struct CoulombPerSquareMetre;
+impl MeasurementUnit for CoulombPerSquareMetre {
+    type Property = ElectricDisplacement;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " C/m\u{b2}";
+}
+
+// Property: electric field strength
+pub struct ElectricFieldStrength;
+
+pub struct VoltPerMetre; // a.k.a. newton per coulomb
+impl MeasurementUnit for VoltPerMetre {
+    type Property = ElectricFieldStrength;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " V/m";
+}
+impl VectorMeasurementUnit for VoltPerMetre {}
+
+// Property: electric potential
+pub struct ElectricPotential;
+
+pub struct Volt;
+impl MeasurementUnit for Volt {
+    type Property = ElectricPotential;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " V";
+}
+
+pub struct KiloVolt;
+impl MeasurementUnit for KiloVolt {
+    type Property = ElectricPotential;
+    const RATIO: f64 = 1e3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " kV";
+}
+
+pub struct MilliVolt;
+impl MeasurementUnit for MilliVolt {
+    type Property = ElectricPotential;
+    const RATIO: f64 = 1e-3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mV";
+}
+
+pub struct MicroVolt;
+impl MeasurementUnit for MicroVolt {
+    type Property = ElectricPotential;
+    const RATIO: f64 = 1e-6;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " \u{B5}V";
+}
+
+// Property: energy, work, heat
 pub struct Energy;
 
 pub struct Joule;
@@ -764,7 +691,7 @@ impl MeasurementUnit for TeraElectronVolt {
     const SUFFIX: &'static str = " TeV";
 }
 
-// energy density
+// Property: energy density
 pub struct EnergyDensity;
 
 pub struct JoulePerCubicMetre;
@@ -775,7 +702,7 @@ impl MeasurementUnit for JoulePerCubicMetre {
     const SUFFIX: &'static str = " J/m\u{B3}";
 }
 
-// Entropy, heat capacity
+// Property: entropy, heat capacity
 pub struct Entropy;
 
 pub struct JoulePerKelvin;
@@ -786,7 +713,7 @@ impl MeasurementUnit for JoulePerKelvin {
     const SUFFIX: &'static str = " J/\u{B0}K";
 }
 
-// Force, weight
+// Property: force, weight
 pub struct Force;
 
 pub struct Newton;
@@ -834,7 +761,7 @@ impl MeasurementUnit for Poundal {
 }
 impl VectorMeasurementUnit for Poundal {}
 
-// Frequency, angular speed, angular velocity
+// Property: frequency, angular speed, angular velocity
 pub struct Frequency;
 
 pub struct Hertz;
@@ -885,17 +812,6 @@ impl MeasurementUnit for TurnPerMinute {
     const SUFFIX: &'static str = " rpm";
 }
 
-// irradiance, heat flux density
-pub struct Irradiance;
-
-pub struct WattPerSquareMetre;
-impl MeasurementUnit for WattPerSquareMetre {
-    type Property = Irradiance;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " W/m\u{b2}";
-}
-
 pub struct Illuminance;
 
 pub struct Lux;
@@ -925,7 +841,7 @@ impl MeasurementUnit for FootCandle {
 //luxes = lumens / square_Metres
 //foot_candles = lumens / square_feet
 
-// Inductance
+// Property: inductance
 pub struct Inductance;
 
 pub struct Henry;
@@ -936,7 +852,7 @@ impl MeasurementUnit for Henry {
     const SUFFIX: &'static str = " H";
 }
 
-// Information
+// Property: information
 pub struct Information;
 
 pub struct Bit;
@@ -1083,7 +999,7 @@ impl MeasurementUnit for TebiByte {
     const SUFFIX: &'static str = " TiB";
 }
 
-// Information rate
+// Property: information rate
 pub struct InformationRate;
 
 pub struct BitPerSecond;
@@ -1230,7 +1146,18 @@ impl MeasurementUnit for TebiBytePerSecond {
     const SUFFIX: &'static str = " TiB/s";
 }
 
-// Kinematic viscosity
+// Property: irradiance, heat flux density
+pub struct Irradiance;
+
+pub struct WattPerSquareMetre;
+impl MeasurementUnit for WattPerSquareMetre {
+    type Property = Irradiance;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " W/m\u{b2}";
+}
+
+// Property: kinematic viscosity
 pub struct KinematicViscosity;
 
 pub struct SquareMetrePerSecond;
@@ -1257,10 +1184,9 @@ impl MeasurementUnit for CentiStoke {
     const SUFFIX: &'static str = " cSt";
 }
 
-// length, width, height, depth, space, wavelength
+// Property: length, width, height, depth, space, wavelength
 pub struct Length;
 
-#[derive(Debug, Clone, Copy)]
 pub struct Metre;
 impl MeasurementUnit for Metre {
     type Property = Length;
@@ -1423,7 +1349,7 @@ impl MeasurementUnit for NauticalMile {
 }
 impl VectorMeasurementUnit for NauticalMile {}
 
-// Linear density
+// Property: linear density
 pub struct LinearDensity;
 
 pub struct KilogramPerMetre;
@@ -1434,10 +1360,21 @@ impl MeasurementUnit for KilogramPerMetre {
     const SUFFIX: &'static str = " kg/m";
 }
 
-// Luminance
+// Property: linear electric charge density
+pub struct LinearElectricChargeDensity;
+
+pub struct CoulombPerMetre;
+impl MeasurementUnit for CoulombPerMetre {
+    type Property = LinearElectricChargeDensity;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " C/m";
+}
+
+// Property: luminance
 pub struct Luminance;
 
-pub struct CandelaPerSquareMetre; // aka "nit"
+pub struct CandelaPerSquareMetre; // a.k.a. nit
 impl MeasurementUnit for CandelaPerSquareMetre {
     type Property = Luminance;
     const RATIO: f64 = 1.;
@@ -1453,7 +1390,7 @@ impl MeasurementUnit for Stilb {
     const SUFFIX: &'static str = " stilb";
 }
 
-// Luminous flux, luminous power
+// Property: luminous flux, luminous power
 pub struct LuminousFlux;
 
 pub struct Lumen;
@@ -1465,7 +1402,7 @@ impl MeasurementUnit for Lumen {
 }
 impl VectorMeasurementUnit for Lumen {}
 
-// Luminous intensity
+// Property: luminous intensity
 pub struct LuminousIntensity;
 
 pub struct Candela;
@@ -1476,7 +1413,7 @@ impl MeasurementUnit for Candela {
     const SUFFIX: &'static str = " cd";
 }
 
-// Magnetic field strength, Magnetic field intensity, Magnetization
+// Property: magnetic field strength, magnetic field intensity, magnetization
 pub struct MagneticFieldStrength;
 
 pub struct AmperePerMetre;
@@ -1488,7 +1425,7 @@ impl MeasurementUnit for AmperePerMetre {
 }
 impl VectorMeasurementUnit for AmperePerMetre {}
 
-// Magnetic flux
+// Property: magnetic flux
 pub struct MagneticFlux;
 
 pub struct Weber;
@@ -1499,7 +1436,7 @@ impl MeasurementUnit for Weber {
     const SUFFIX: &'static str = " Wb";
 }
 
-// Magnetic flux density
+// Property: magnetic flux density
 pub struct MagneticFluxDensity;
 
 pub struct Tesla;
@@ -1509,6 +1446,7 @@ impl MeasurementUnit for Tesla {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " T";
 }
+impl VectorMeasurementUnit for Tesla {}
 
 pub struct Gauss;
 impl MeasurementUnit for Gauss {
@@ -1517,8 +1455,20 @@ impl MeasurementUnit for Gauss {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " G";
 }
+impl VectorMeasurementUnit for Gauss {}
 
-// Magnetic reluctance, Magnetic resistance
+// Property: magnetic permeability
+pub struct MagneticPermeability;
+
+pub struct HenryPerMetre;
+impl MeasurementUnit for HenryPerMetre {
+    type Property = MagneticPermeability;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " H/m";
+}
+
+// Property: mMagnetic reluctance, magnetic resistance
 pub struct MagneticReluctance;
 
 pub struct InverseHenry;
@@ -1529,7 +1479,7 @@ impl MeasurementUnit for InverseHenry {
     const SUFFIX: &'static str = " 1/H";
 }
 
-// Mass
+// Property: mass
 pub struct Mass;
 
 pub struct KiloGram;
@@ -1644,7 +1594,7 @@ impl MeasurementUnit for Carat {
     const SUFFIX: &'static str = " ct";
 }
 
-// Mass density
+// Property: mass density
 pub struct MassDensity;
 
 pub struct KiloGramPerCubicMetre;
@@ -1655,7 +1605,7 @@ impl MeasurementUnit for KiloGramPerCubicMetre {
     const SUFFIX: &'static str = " kg/m\u{B3}";
 }
 
-// Mass flow rate
+// Property: mass flow rate
 pub struct MassFlowRate;
 
 pub struct KiloGramPerSecond;
@@ -1674,7 +1624,18 @@ impl MeasurementUnit for GramPerSecond {
     const SUFFIX: &'static str = " g/s";
 }
 
-// molar heat capacity, molar entropy
+// Property: molar concentration
+pub struct MolarConcentration;
+
+pub struct MolePerCubicMetre;
+impl MeasurementUnit for MolePerCubicMetre {
+    type Property = MolarConcentration;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mol/m\u{B3}";
+}
+
+// Property: molar heat capacity, molar entropy
 pub struct MolarHeatCapacity;
 
 pub struct JoulePerKelvinPerMole;
@@ -1685,7 +1646,7 @@ impl MeasurementUnit for JoulePerKelvinPerMole {
     const SUFFIX: &'static str = " J/\u{B0}K/mol";
 }
 
-// Moment of inertia, Rotational inertia
+// Property: moment of inertia, rotational inertia
 pub struct MomentOfInertia;
 
 pub struct KiloGramSquareMetre;
@@ -1704,7 +1665,7 @@ impl MeasurementUnit for GramSquareCentiMetre {
     const SUFFIX: &'static str = " g\u{b7}cm\u{b2}";
 }
 
-// Momentum, Impulse
+// Property: momentum, impulse
 pub struct Momentum;
 
 pub struct NewtonSecond;
@@ -1743,18 +1704,7 @@ impl MeasurementUnit for GramCentiMetrePerSecond {
 }
 impl VectorMeasurementUnit for GramCentiMetrePerSecond {}
 
-// Magnetic permeability
-pub struct MagneticPermeability;
-
-pub struct HenryPerMetre;
-impl MeasurementUnit for HenryPerMetre {
-    type Property = MagneticPermeability;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " H/m";
-}
-
-// Permittivity
+// Property: permittivity
 pub struct Permittivity;
 
 pub struct FaradPerMetre;
@@ -1765,7 +1715,7 @@ impl MeasurementUnit for FaradPerMetre {
     const SUFFIX: &'static str = " F/m";
 }
 
-// Power
+// Property: power
 pub struct Power;
 
 pub struct Watt;
@@ -1816,7 +1766,7 @@ impl MeasurementUnit for HorsePower {
     const SUFFIX: &'static str = " HP";
 }
 
-// Pressure, Stress
+// Property: pressure, stress
 pub struct Pressure;
 
 pub struct Pascal;
@@ -1874,7 +1824,7 @@ impl MeasurementUnit for PoundForcePerSquareInch {
     const SUFFIX: &'static str = " lb/in\u{b2}";
 }
 
-// Radiance
+// Property: radiance
 pub struct Radiance;
 
 pub struct WattPerSquareMetrePerSteradian;
@@ -1885,7 +1835,7 @@ impl MeasurementUnit for WattPerSquareMetrePerSteradian {
     const SUFFIX: &'static str = " W/m\u{b2}/sr";
 }
 
-// Radiant intensity
+// Property: radiant intensity
 pub struct RadiantIntensity;
 
 pub struct WattPerSteradian;
@@ -1896,7 +1846,7 @@ impl MeasurementUnit for WattPerSteradian {
     const SUFFIX: &'static str = " W/sr";
 }
 
-// Radioactive activity
+// Property: radioactive activity
 pub struct RadioactiveActivity;
 
 pub struct Becquerel;
@@ -1930,7 +1880,7 @@ impl MeasurementUnit for GigaBecquerel {
     const SUFFIX: &'static str = " GBq";
 }
 
-// Radioactive dose
+// Property: radioactive dose
 pub struct RadioactiveDose;
 
 pub struct Gray;
@@ -1949,7 +1899,7 @@ impl MeasurementUnit for Rad {
     const SUFFIX: &'static str = " rad";
 }
 
-// Radioactive dose rate
+// Property: radioactive dose rate
 pub struct RadioactiveDoseRate;
 
 pub struct GrayPerSecond;
@@ -1960,7 +1910,7 @@ impl MeasurementUnit for GrayPerSecond {
     const SUFFIX: &'static str = " Gy/s";
 }
 
-// Reaction rate
+// Property: reaction rate
 pub struct ReactionRate;
 
 pub struct MolePerCubicMetrePerSecond;
@@ -1971,7 +1921,7 @@ impl MeasurementUnit for MolePerCubicMetrePerSecond {
     const SUFFIX: &'static str = " mol/m\u{B3}/s";
 }
 
-// Solid angle
+// Property: solid angle
 pub struct SolidAngle;
 
 pub struct Steradian;
@@ -1998,7 +1948,7 @@ impl MeasurementUnit for SquareDegree {
     const SUFFIX: &'static str = " deg\u{b2}";
 }
 
-// Specific energy
+// Property: specific energy
 pub struct SpecificEnergy;
 
 pub struct JoulePerKiloGram;
@@ -2009,7 +1959,7 @@ impl MeasurementUnit for JoulePerKiloGram {
     const SUFFIX: &'static str = " J/kg";
 }
 
-// Specific heat capacity
+// Property: specific heat capacity
 pub struct SpecificHeatCapacity;
 
 pub struct JoulePerKiloGramPerKelvin;
@@ -2020,7 +1970,7 @@ impl MeasurementUnit for JoulePerKiloGramPerKelvin {
     const SUFFIX: &'static str = " J/kg/\u{B0}K";
 }
 
-// Specific volume
+// Property: specific volume
 pub struct SpecificVolume;
 
 pub struct CubicMetrePerKiloGram;
@@ -2031,7 +1981,7 @@ impl MeasurementUnit for CubicMetrePerKiloGram {
     const SUFFIX: &'static str = " m\u{B3}/kg";
 }
 
-// Square time
+// Property: square time
 pub struct SquareTime;
 
 pub struct SquareSecond;
@@ -2058,7 +2008,7 @@ impl MeasurementUnit for HourHour {
     const SUFFIX: &'static str = " h\u{b7}h";
 }
 
-// Surface density
+// Property: surface density
 pub struct SurfaceDensity;
 
 pub struct KiloGramPerSquareMetre;
@@ -2069,7 +2019,7 @@ impl MeasurementUnit for KiloGramPerSquareMetre {
     const SUFFIX: &'static str = " kg/m\u{b2}";
 }
 
-// Surface tension
+// Property: surface tension
 pub struct SurfaceTension;
 
 pub struct JoulePerSquareMetre;
@@ -2080,7 +2030,7 @@ impl MeasurementUnit for JoulePerSquareMetre {
     const SUFFIX: &'static str = " J/m\u{b2}";
 }
 
-// Temperature
+// Property: temperature
 pub struct Temperature;
 
 pub struct Kelvin;
@@ -2107,7 +2057,7 @@ impl MeasurementUnit for Fahrenheit {
     const SUFFIX: &'static str = " \u{B0}F";
 }
 
-// Thermal conductivity
+// Property: thermal conductivity
 pub struct ThermalConductivity;
 
 pub struct WattPerMetrePerKelvin;
@@ -2118,7 +2068,7 @@ impl MeasurementUnit for WattPerMetrePerKelvin {
     const SUFFIX: &'static str = " W/m/\u{B0}K";
 }
 
-// Time, mean lifetime
+// Property: time, mean lifetime
 pub struct Time;
 
 pub struct Second;
@@ -2217,7 +2167,7 @@ impl MeasurementUnit for FemtoSecond {
     const SUFFIX: &'static str = " fs";
 }
 
-// Torque
+// Property: torque
 pub struct Torque;
 
 pub struct NewtonMetre;
@@ -2229,7 +2179,7 @@ impl MeasurementUnit for NewtonMetre {
 }
 impl VectorMeasurementUnit for NewtonMetre {}
 
-// Velocity, speed
+// Property: velocity, speed
 pub struct Velocity;
 
 pub struct MetrePerSecond;
@@ -2268,15 +2218,6 @@ impl MeasurementUnit for MilePerHour {
 }
 impl VectorMeasurementUnit for MilePerHour {}
 
-pub struct Mach;
-impl MeasurementUnit for Mach {
-    type Property = Velocity;
-    const RATIO: f64 = 340.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mach";
-}
-impl VectorMeasurementUnit for Mach {}
-
 pub struct CentiMetresPerSecond;
 impl MeasurementUnit for CentiMetresPerSecond {
     type Property = Velocity;
@@ -2286,7 +2227,7 @@ impl MeasurementUnit for CentiMetresPerSecond {
 }
 impl VectorMeasurementUnit for CentiMetresPerSecond {}
 
-// Volume
+// Property: volume
 pub struct Volume;
 
 pub struct CubicMetre;
@@ -2393,7 +2334,7 @@ impl MeasurementUnit for Gallon {
     const SUFFIX: &'static str = " gal";
 }
 
-// Volumetric flow rate
+// Property: volumetric flow rate
 pub struct VolumetricFlowRate;
 
 pub struct CubicMetrePerSecond;
@@ -2412,7 +2353,7 @@ impl MeasurementUnit for CubicCentiMetrePerSecond {
     const SUFFIX: &'static str = " cm\u{B3}/s";
 }
 
-// Wave number
+// Property: wave number
 pub struct WaveNumber;
 
 pub struct CyclePerMetre;
@@ -2433,521 +2374,525 @@ impl MeasurementUnit for RadianPerMetre {
 
 #[test]
 fn print_them_all() {
-    println!("Turn: {}.", Measure::<f64, Turn>::new(1.2));
-    println!("Gradian: {}.", Measure::<f64, Gradian>::new(1.2));
-    println!("Degree: {}.", Measure::<f64, Degree>::new(1.2));
-    println!("ArcMinute: {}.", Measure::<f64, ArcMinute>::new(1.2));
-    println!("ArcSecond: {}.", Measure::<f64, ArcSecond>::new(1.2));
+    println!("Turn: {}.", Measure::<Turn, f64>::new(1.2));
+    println!("Gradian: {}.", Measure::<Gradian, f64>::new(1.2));
+    println!("Degree: {}.", Measure::<Degree, f64>::new(1.2));
+    println!("ArcMinute: {}.", Measure::<ArcMinute, f64>::new(1.2));
+    println!("ArcSecond: {}.", Measure::<ArcSecond, f64>::new(1.2));
     println!(
         "MetrePerSquareSecond: {}.",
-        Measure::<f64, MetrePerSquareSecond>::new(1.2)
+        Measure::<MetrePerSquareSecond, f64>::new(1.2)
     );
-    println!("GForce: {}.", Measure::<f64, GForce>::new(1.2));
+    println!("GForce: {}.", Measure::<GForce, f64>::new(1.2));
     println!(
         "KiloMetrePerHourPerSecond: {}.",
-        Measure::<f64, KiloMetrePerHourPerSecond>::new(1.2)
+        Measure::<KiloMetrePerHourPerSecond, f64>::new(1.2)
     );
-    println!("JouleSecond: {}.", Measure::<f64, JouleSecond>::new(1.2));
-    println!("Unit: {}.", Measure::<f64, Unit>::new(1.2));
-    println!("Dozen: {}.", Measure::<f64, Dozen>::new(1.2));
-    println!("Mole: {}.", Measure::<f64, Mole>::new(1.2));
+    println!("JouleSecond: {}.", Measure::<JouleSecond, f64>::new(1.2));
+    println!("Unit: {}.", Measure::<Unit, f64>::new(1.2));
+    println!("Dozen: {}.", Measure::<Dozen, f64>::new(1.2));
+    println!("Mole: {}.", Measure::<Mole, f64>::new(1.2));
     println!(
         "RadianPerSquareSecond: {}.",
-        Measure::<f64, RadianPerSquareSecond>::new(1.2)
+        Measure::<RadianPerSquareSecond, f64>::new(1.2)
     );
     println!(
         "KilogramSquareMetrePerSecond: {}.",
-        Measure::<f64, KilogramSquareMetrePerSecond>::new(1.2)
+        Measure::<KilogramSquareMetrePerSecond, f64>::new(1.2)
     );
     println!(
         "GramSquareCentiMetrePerSecond: {}.",
-        Measure::<f64, GramSquareCentiMetrePerSecond>::new(1.2)
+        Measure::<GramSquareCentiMetrePerSecond, f64>::new(1.2)
     );
-    println!("SquareMetre: {}.", Measure::<f64, SquareMetre>::new(1.2));
+    println!("SquareMetre: {}.", Measure::<SquareMetre, f64>::new(1.2));
     println!(
         "SquareKiloMetre: {}.",
-        Measure::<f64, SquareKiloMetre>::new(1.2)
+        Measure::<SquareKiloMetre, f64>::new(1.2)
     );
-    println!("Hectare: {}.", Measure::<f64, Hectare>::new(1.2));
-    println!("Are: {}.", Measure::<f64, Are>::new(1.2));
+    println!("Hectare: {}.", Measure::<Hectare, f64>::new(1.2));
+    println!("Are: {}.", Measure::<Are, f64>::new(1.2));
     println!(
         "SquareDeciMetre: {}.",
-        Measure::<f64, SquareDeciMetre>::new(1.2)
+        Measure::<SquareDeciMetre, f64>::new(1.2)
     );
     println!(
         "SquareCentiMetre: {}.",
-        Measure::<f64, SquareCentiMetre>::new(1.2)
+        Measure::<SquareCentiMetre, f64>::new(1.2)
     );
     println!(
         "SquareMilliMetre: {}.",
-        Measure::<f64, SquareMilliMetre>::new(1.2)
+        Measure::<SquareMilliMetre, f64>::new(1.2)
     );
-    println!("SquareInch: {}.", Measure::<f64, SquareInch>::new(1.2));
-    println!("SquareFoot: {}.", Measure::<f64, SquareFoot>::new(1.2));
-    println!("SquareYard: {}.", Measure::<f64, SquareYard>::new(1.2));
-    println!("SquareMile: {}.", Measure::<f64, SquareMile>::new(1.2));
+    println!("SquareInch: {}.", Measure::<SquareInch, f64>::new(1.2));
+    println!("SquareFoot: {}.", Measure::<SquareFoot, f64>::new(1.2));
+    println!("SquareYard: {}.", Measure::<SquareYard, f64>::new(1.2));
+    println!("SquareMile: {}.", Measure::<SquareMile, f64>::new(1.2));
     println!(
         "KilogramPerSquareMetre: {}.",
-        Measure::<f64, KilogramPerSquareMetre>::new(1.2)
+        Measure::<KilogramPerSquareMetre, f64>::new(1.2)
     );
-    println!("Farad: {}.", Measure::<f64, Farad>::new(1.2));
-    println!("MilliFarad: {}.", Measure::<f64, MilliFarad>::new(1.2));
-    println!("MicroFarad: {}.", Measure::<f64, MicroFarad>::new(1.2));
-    println!("NanoFarad: {}.", Measure::<f64, NanoFarad>::new(1.2));
-    println!("PicoFarad: {}.", Measure::<f64, PicoFarad>::new(1.2));
-    println!("Katal: {}.", Measure::<f64, Katal>::new(1.2));
+    println!("Farad: {}.", Measure::<Farad, f64>::new(1.2));
+    println!("MilliFarad: {}.", Measure::<MilliFarad, f64>::new(1.2));
+    println!("MicroFarad: {}.", Measure::<MicroFarad, f64>::new(1.2));
+    println!("NanoFarad: {}.", Measure::<NanoFarad, f64>::new(1.2));
+    println!("PicoFarad: {}.", Measure::<PicoFarad, f64>::new(1.2));
+    println!("Katal: {}.", Measure::<Katal, f64>::new(1.2));
     println!(
         "KatalPerCubicMetre: {}.",
-        Measure::<f64, KatalPerCubicMetre>::new(1.2)
+        Measure::<KatalPerCubicMetre, f64>::new(1.2)
     );
-    println!("JoulePerMole: {}.", Measure::<f64, JoulePerMole>::new(1.2));
+    println!("JoulePerMole: {}.", Measure::<JoulePerMole, f64>::new(1.2));
     println!(
         "MolePerCubicMetre: {}.",
-        Measure::<f64, MolePerCubicMetre>::new(1.2)
+        Measure::<MolePerCubicMetre, f64>::new(1.2)
     );
     println!(
         "AmperePerSquareMetre: {}.",
-        Measure::<f64, AmperePerSquareMetre>::new(1.2)
+        Measure::<AmperePerSquareMetre, f64>::new(1.2)
     );
-    println!("Sievert: {}.", Measure::<f64, Sievert>::new(1.2));
-    println!("Rem: {}.", Measure::<f64, Rem>::new(1.2));
-    println!("PascalSecond: {}.", Measure::<f64, PascalSecond>::new(1.2));
-    println!("Coulomb: {}.", Measure::<f64, Coulomb>::new(1.2));
-    println!("MilliCoulomb: {}.", Measure::<f64, MilliCoulomb>::new(1.2));
-    println!("MicroCoulomb: {}.", Measure::<f64, MicroCoulomb>::new(1.2));
-    println!("NanoCoulomb: {}.", Measure::<f64, NanoCoulomb>::new(1.2));
-    println!("PicoCoulomb: {}.", Measure::<f64, PicoCoulomb>::new(1.2));
+    println!("Sievert: {}.", Measure::<Sievert, f64>::new(1.2));
+    println!("Rem: {}.", Measure::<Rem, f64>::new(1.2));
+    println!("PascalSecond: {}.", Measure::<PascalSecond, f64>::new(1.2));
+    println!("Coulomb: {}.", Measure::<Coulomb, f64>::new(1.2));
+    println!("MilliCoulomb: {}.", Measure::<MilliCoulomb, f64>::new(1.2));
+    println!("MicroCoulomb: {}.", Measure::<MicroCoulomb, f64>::new(1.2));
+    println!("NanoCoulomb: {}.", Measure::<NanoCoulomb, f64>::new(1.2));
+    println!("PicoCoulomb: {}.", Measure::<PicoCoulomb, f64>::new(1.2));
     println!(
         "CoulombPerMetre: {}.",
-        Measure::<f64, CoulombPerMetre>::new(1.2)
+        Measure::<CoulombPerMetre, f64>::new(1.2)
     );
     println!(
         "CoulombPerSquareMetre: {}.",
-        Measure::<f64, CoulombPerSquareMetre>::new(1.2)
+        Measure::<CoulombPerSquareMetre, f64>::new(1.2)
     );
     println!(
         "CoulombPerCubicMetre: {}.",
-        Measure::<f64, CoulombPerCubicMetre>::new(1.2)
+        Measure::<CoulombPerCubicMetre, f64>::new(1.2)
     );
-    println!("VoltMetre: {}.", Measure::<f64, VoltMetre>::new(1.2));
-    println!("Siemens: {}.", Measure::<f64, Siemens>::new(1.2));
+    println!("VoltPerMetre: {}.", Measure::<VoltPerMetre, f64>::new(1.2));
+    println!("Siemens: {}.", Measure::<Siemens, f64>::new(1.2));
     println!(
         "SiemensPerMetre: {}.",
-        Measure::<f64, SiemensPerMetre>::new(1.2)
+        Measure::<SiemensPerMetre, f64>::new(1.2)
     );
-    println!("Ampere: {}.", Measure::<f64, Ampere>::new(1.2));
-    println!("MilliAmpere: {}.", Measure::<f64, MilliAmpere>::new(1.2));
-    println!("MicroAmpere: {}.", Measure::<f64, MicroAmpere>::new(1.2));
-    println!("Volt: {}.", Measure::<f64, Volt>::new(1.2));
-    println!("KiloVolt: {}.", Measure::<f64, KiloVolt>::new(1.2));
-    println!("MilliVolt: {}.", Measure::<f64, MilliVolt>::new(1.2));
-    println!("MicroVolt: {}.", Measure::<f64, MicroVolt>::new(1.2));
-    println!("Ohm: {}.", Measure::<f64, Ohm>::new(1.2));
-    println!("KiloOhm: {}.", Measure::<f64, KiloOhm>::new(1.2));
-    println!("OhmMetre: {}.", Measure::<f64, OhmMetre>::new(1.2));
-    println!("Joule: {}.", Measure::<f64, Joule>::new(1.2));
-    println!("WattHour: {}.", Measure::<f64, WattHour>::new(1.2));
-    println!("KiloWattHour: {}.", Measure::<f64, KiloWattHour>::new(1.2));
-    println!("MegaWattHour: {}.", Measure::<f64, MegaWattHour>::new(1.2));
-    println!("Calorie: {}.", Measure::<f64, Calorie>::new(1.2));
-    println!("KiloCalorie: {}.", Measure::<f64, KiloCalorie>::new(1.2));
+    println!("Ampere: {}.", Measure::<Ampere, f64>::new(1.2));
+    println!("MilliAmpere: {}.", Measure::<MilliAmpere, f64>::new(1.2));
+    println!("MicroAmpere: {}.", Measure::<MicroAmpere, f64>::new(1.2));
+    println!("Volt: {}.", Measure::<Volt, f64>::new(1.2));
+    println!("KiloVolt: {}.", Measure::<KiloVolt, f64>::new(1.2));
+    println!("MilliVolt: {}.", Measure::<MilliVolt, f64>::new(1.2));
+    println!("MicroVolt: {}.", Measure::<MicroVolt, f64>::new(1.2));
+    println!("Ohm: {}.", Measure::<Ohm, f64>::new(1.2));
+    println!("KiloOhm: {}.", Measure::<KiloOhm, f64>::new(1.2));
+    println!("OhmMetre: {}.", Measure::<OhmMetre, f64>::new(1.2));
+    println!("Joule: {}.", Measure::<Joule, f64>::new(1.2));
+    println!("WattHour: {}.", Measure::<WattHour, f64>::new(1.2));
+    println!("KiloWattHour: {}.", Measure::<KiloWattHour, f64>::new(1.2));
+    println!("MegaWattHour: {}.", Measure::<MegaWattHour, f64>::new(1.2));
+    println!("Calorie: {}.", Measure::<Calorie, f64>::new(1.2));
+    println!("KiloCalorie: {}.", Measure::<KiloCalorie, f64>::new(1.2));
     println!(
         "JoulePerCubicMetre: {}.",
-        Measure::<f64, JoulePerCubicMetre>::new(1.2)
+        Measure::<JoulePerCubicMetre, f64>::new(1.2)
     );
     println!(
         "JoulePerKelvin: {}.",
-        Measure::<f64, JoulePerKelvin>::new(1.2)
+        Measure::<JoulePerKelvin, f64>::new(1.2)
     );
-    println!("Newton: {}.", Measure::<f64, Newton>::new(1.2));
-    println!("Dyne: {}.", Measure::<f64, Dyne>::new(1.2));
+    println!("Newton: {}.", Measure::<Newton, f64>::new(1.2));
+    println!("Dyne: {}.", Measure::<Dyne, f64>::new(1.2));
     println!(
         "KilogramForce: {}.",
-        Measure::<f64, KilogramForce>::new(1.2)
+        Measure::<KilogramForce, f64>::new(1.2)
     );
-    println!("PoundForce: {}.", Measure::<f64, PoundForce>::new(1.2));
-    println!("Poundal: {}.", Measure::<f64, Poundal>::new(1.2));
-    println!("Hertz: {}.", Measure::<f64, Hertz>::new(1.2));
-    println!("KiloHertz: {}.", Measure::<f64, KiloHertz>::new(1.2));
-    println!("MegaHertz: {}.", Measure::<f64, MegaHertz>::new(1.2));
-    println!("GigaHertz: {}.", Measure::<f64, GigaHertz>::new(1.2));
+    println!("PoundForce: {}.", Measure::<PoundForce, f64>::new(1.2));
+    println!("Poundal: {}.", Measure::<Poundal, f64>::new(1.2));
+    println!("Hertz: {}.", Measure::<Hertz, f64>::new(1.2));
+    println!("KiloHertz: {}.", Measure::<KiloHertz, f64>::new(1.2));
+    println!("MegaHertz: {}.", Measure::<MegaHertz, f64>::new(1.2));
+    println!("GigaHertz: {}.", Measure::<GigaHertz, f64>::new(1.2));
     println!(
         "RadianPerSecond: {}.",
-        Measure::<f64, RadianPerSecond>::new(1.2)
+        Measure::<RadianPerSecond, f64>::new(1.2)
     );
     println!(
         "TurnPerMinute: {}.",
-        Measure::<f64, TurnPerMinute>::new(1.2)
+        Measure::<TurnPerMinute, f64>::new(1.2)
     );
     println!(
         "WattPerSquareMetre: {}.",
-        Measure::<f64, WattPerSquareMetre>::new(1.2)
+        Measure::<WattPerSquareMetre, f64>::new(1.2)
     );
-    println!("Lux: {}.", Measure::<f64, Lux>::new(1.2));
-    println!("Phot: {}.", Measure::<f64, Phot>::new(1.2));
-    println!("FootCandle: {}.", Measure::<f64, FootCandle>::new(1.2));
-    println!("Henry: {}.", Measure::<f64, Henry>::new(1.2));
-    println!("Bit: {}.", Measure::<f64, Bit>::new(1.2));
-    println!("Byte: {}.", Measure::<f64, Byte>::new(1.2));
-    println!("KiloBit: {}.", Measure::<f64, KiloBit>::new(1.2));
-    println!("KiloByte: {}.", Measure::<f64, KiloByte>::new(1.2));
-    println!("KibiBit: {}.", Measure::<f64, KibiBit>::new(1.2));
-    println!("KibiByte: {}.", Measure::<f64, KibiByte>::new(1.2));
-    println!("MegaBit: {}.", Measure::<f64, MegaBit>::new(1.2));
-    println!("MegaByte: {}.", Measure::<f64, MegaByte>::new(1.2));
-    println!("MebiBit: {}.", Measure::<f64, MebiBit>::new(1.2));
-    println!("MebiByte: {}.", Measure::<f64, MebiByte>::new(1.2));
-    println!("GigaBit: {}.", Measure::<f64, GigaBit>::new(1.2));
-    println!("GigaByte: {}.", Measure::<f64, GigaByte>::new(1.2));
-    println!("GibiBit: {}.", Measure::<f64, GibiBit>::new(1.2));
-    println!("GibiByte: {}.", Measure::<f64, GibiByte>::new(1.2));
-    println!("TeraBit: {}.", Measure::<f64, TeraBit>::new(1.2));
-    println!("TeraByte: {}.", Measure::<f64, TeraByte>::new(1.2));
-    println!("TebiBit: {}.", Measure::<f64, TebiBit>::new(1.2));
-    println!("TebiByte: {}.", Measure::<f64, TebiByte>::new(1.2));
-    println!("BitPerSecond: {}.", Measure::<f64, BitPerSecond>::new(1.2));
+    println!("Lux: {}.", Measure::<Lux, f64>::new(1.2));
+    println!("Phot: {}.", Measure::<Phot, f64>::new(1.2));
+    println!("FootCandle: {}.", Measure::<FootCandle, f64>::new(1.2));
+    println!("Henry: {}.", Measure::<Henry, f64>::new(1.2));
+    println!("Bit: {}.", Measure::<Bit, f64>::new(1.2));
+    println!("Byte: {}.", Measure::<Byte, f64>::new(1.2));
+    println!("KiloBit: {}.", Measure::<KiloBit, f64>::new(1.2));
+    println!("KiloByte: {}.", Measure::<KiloByte, f64>::new(1.2));
+    println!("KibiBit: {}.", Measure::<KibiBit, f64>::new(1.2));
+    println!("KibiByte: {}.", Measure::<KibiByte, f64>::new(1.2));
+    println!("MegaBit: {}.", Measure::<MegaBit, f64>::new(1.2));
+    println!("MegaByte: {}.", Measure::<MegaByte, f64>::new(1.2));
+    println!("MebiBit: {}.", Measure::<MebiBit, f64>::new(1.2));
+    println!("MebiByte: {}.", Measure::<MebiByte, f64>::new(1.2));
+    println!("GigaBit: {}.", Measure::<GigaBit, f64>::new(1.2));
+    println!("GigaByte: {}.", Measure::<GigaByte, f64>::new(1.2));
+    println!("GibiBit: {}.", Measure::<GibiBit, f64>::new(1.2));
+    println!("GibiByte: {}.", Measure::<GibiByte, f64>::new(1.2));
+    println!("TeraBit: {}.", Measure::<TeraBit, f64>::new(1.2));
+    println!("TeraByte: {}.", Measure::<TeraByte, f64>::new(1.2));
+    println!("TebiBit: {}.", Measure::<TebiBit, f64>::new(1.2));
+    println!("TebiByte: {}.", Measure::<TebiByte, f64>::new(1.2));
+    println!("BitPerSecond: {}.", Measure::<BitPerSecond, f64>::new(1.2));
     println!(
         "BytePerSecond: {}.",
-        Measure::<f64, BytePerSecond>::new(1.2)
+        Measure::<BytePerSecond, f64>::new(1.2)
     );
     println!(
         "KiloBitPerSecond: {}.",
-        Measure::<f64, KiloBitPerSecond>::new(1.2)
+        Measure::<KiloBitPerSecond, f64>::new(1.2)
     );
     println!(
         "KiloBytePerSecond: {}.",
-        Measure::<f64, KiloBytePerSecond>::new(1.2)
+        Measure::<KiloBytePerSecond, f64>::new(1.2)
     );
     println!(
         "KibiBitPerSecond: {}.",
-        Measure::<f64, KibiBitPerSecond>::new(1.2)
+        Measure::<KibiBitPerSecond, f64>::new(1.2)
     );
     println!(
         "KibiBytePerSecond: {}.",
-        Measure::<f64, KibiBytePerSecond>::new(1.2)
+        Measure::<KibiBytePerSecond, f64>::new(1.2)
     );
     println!(
         "MegaBitPerSecond: {}.",
-        Measure::<f64, MegaBitPerSecond>::new(1.2)
+        Measure::<MegaBitPerSecond, f64>::new(1.2)
     );
     println!(
         "MegaBytePerSecond: {}.",
-        Measure::<f64, MegaBytePerSecond>::new(1.2)
+        Measure::<MegaBytePerSecond, f64>::new(1.2)
     );
     println!(
         "MebiBitPerSecond: {}.",
-        Measure::<f64, MebiBitPerSecond>::new(1.2)
+        Measure::<MebiBitPerSecond, f64>::new(1.2)
     );
     println!(
         "MebiBytePerSecond: {}.",
-        Measure::<f64, MebiBytePerSecond>::new(1.2)
+        Measure::<MebiBytePerSecond, f64>::new(1.2)
     );
     println!(
         "GigaBitPerSecond: {}.",
-        Measure::<f64, GigaBitPerSecond>::new(1.2)
+        Measure::<GigaBitPerSecond, f64>::new(1.2)
     );
     println!(
         "GigaBytePerSecond: {}.",
-        Measure::<f64, GigaBytePerSecond>::new(1.2)
+        Measure::<GigaBytePerSecond, f64>::new(1.2)
     );
     println!(
         "GibiBitPerSecond: {}.",
-        Measure::<f64, GibiBitPerSecond>::new(1.2)
+        Measure::<GibiBitPerSecond, f64>::new(1.2)
     );
     println!(
         "GibiBytePerSecond: {}.",
-        Measure::<f64, GibiBytePerSecond>::new(1.2)
+        Measure::<GibiBytePerSecond, f64>::new(1.2)
     );
     println!(
         "TeraBitPerSecond: {}.",
-        Measure::<f64, TeraBitPerSecond>::new(1.2)
+        Measure::<TeraBitPerSecond, f64>::new(1.2)
     );
     println!(
         "TeraBytePerSecond: {}.",
-        Measure::<f64, TeraBytePerSecond>::new(1.2)
+        Measure::<TeraBytePerSecond, f64>::new(1.2)
     );
     println!(
         "TebiBitPerSecond: {}.",
-        Measure::<f64, TebiBitPerSecond>::new(1.2)
+        Measure::<TebiBitPerSecond, f64>::new(1.2)
     );
     println!(
         "TebiBytePerSecond: {}.",
-        Measure::<f64, TebiBytePerSecond>::new(1.2)
+        Measure::<TebiBytePerSecond, f64>::new(1.2)
     );
     println!(
         "SquareMetrePerSecond: {}.",
-        Measure::<f64, SquareMetrePerSecond>::new(1.2)
+        Measure::<SquareMetrePerSecond, f64>::new(1.2)
     );
-    println!("Stoke: {}.", Measure::<f64, Stoke>::new(1.2));
-    println!("CentiStoke: {}.", Measure::<f64, CentiStoke>::new(1.2));
-    println!("Metre: {}.", Measure::<f64, Metre>::new(1.2));
+    println!("Stoke: {}.", Measure::<Stoke, f64>::new(1.2));
+    println!("CentiStoke: {}.", Measure::<CentiStoke, f64>::new(1.2));
+    println!("Metre: {}.", Measure::<Metre, f64>::new(1.2));
     println!(
         "AstronomicalUnit: {}.",
-        Measure::<f64, AstronomicalUnit>::new(1.2)
+        Measure::<AstronomicalUnit, f64>::new(1.2)
     );
-    println!("Parsec: {}.", Measure::<f64, Parsec>::new(1.2));
-    println!("LightYear: {}.", Measure::<f64, LightYear>::new(1.2));
-    println!("KiloMetre: {}.", Measure::<f64, KiloMetre>::new(1.2));
-    println!("HectoMetre: {}.", Measure::<f64, HectoMetre>::new(1.2));
-    println!("DecaMetre: {}.", Measure::<f64, DecaMetre>::new(1.2));
-    println!("DeciMetre: {}.", Measure::<f64, DeciMetre>::new(1.2));
-    println!("CentiMetre: {}.", Measure::<f64, CentiMetre>::new(1.2));
-    println!("MilliMetre: {}.", Measure::<f64, MilliMetre>::new(1.2));
-    println!("MicroMetre: {}.", Measure::<f64, MicroMetre>::new(1.2));
-    println!("NanoMetre: {}.", Measure::<f64, NanoMetre>::new(1.2));
-    println!("Angstrom: {}.", Measure::<f64, Angstrom>::new(1.2));
-    println!("Inch: {}.", Measure::<f64, Inch>::new(1.2));
-    println!("Foot: {}.", Measure::<f64, Foot>::new(1.2));
-    println!("Yard: {}.", Measure::<f64, Yard>::new(1.2));
-    println!("Mile: {}.", Measure::<f64, Mile>::new(1.2));
-    println!("NauticalMile: {}.", Measure::<f64, NauticalMile>::new(1.2));
+    println!("Parsec: {}.", Measure::<Parsec, f64>::new(1.2));
+    println!("LightYear: {}.", Measure::<LightYear, f64>::new(1.2));
+    println!("KiloMetre: {}.", Measure::<KiloMetre, f64>::new(1.2));
+    println!("HectoMetre: {}.", Measure::<HectoMetre, f64>::new(1.2));
+    println!("DecaMetre: {}.", Measure::<DecaMetre, f64>::new(1.2));
+    println!("DeciMetre: {}.", Measure::<DeciMetre, f64>::new(1.2));
+    println!("CentiMetre: {}.", Measure::<CentiMetre, f64>::new(1.2));
+    println!("MilliMetre: {}.", Measure::<MilliMetre, f64>::new(1.2));
+    println!("MicroMetre: {}.", Measure::<MicroMetre, f64>::new(1.2));
+    println!("NanoMetre: {}.", Measure::<NanoMetre, f64>::new(1.2));
+    println!("Angstrom: {}.", Measure::<Angstrom, f64>::new(1.2));
+    println!("Inch: {}.", Measure::<Inch, f64>::new(1.2));
+    println!("Foot: {}.", Measure::<Foot, f64>::new(1.2));
+    println!("Yard: {}.", Measure::<Yard, f64>::new(1.2));
+    println!("Mile: {}.", Measure::<Mile, f64>::new(1.2));
+    println!("NauticalMile: {}.", Measure::<NauticalMile, f64>::new(1.2));
     println!(
         "KilogramPerMetre: {}.",
-        Measure::<f64, KilogramPerMetre>::new(1.2)
+        Measure::<KilogramPerMetre, f64>::new(1.2)
     );
     println!(
         "CandelaPerSquareMetre: {}.",
-        Measure::<f64, CandelaPerSquareMetre>::new(1.2)
+        Measure::<CandelaPerSquareMetre, f64>::new(1.2)
     );
-    println!("Stilb: {}.", Measure::<f64, Stilb>::new(1.2));
-    println!("Lumen: {}.", Measure::<f64, Lumen>::new(1.2));
-    println!("Candela: {}.", Measure::<f64, Candela>::new(1.2));
+    println!("Stilb: {}.", Measure::<Stilb, f64>::new(1.2));
+    println!("Lumen: {}.", Measure::<Lumen, f64>::new(1.2));
+    println!("Candela: {}.", Measure::<Candela, f64>::new(1.2));
     println!(
         "AmperePerMetre: {}.",
-        Measure::<f64, AmperePerMetre>::new(1.2)
+        Measure::<AmperePerMetre, f64>::new(1.2)
     );
-    println!("Weber: {}.", Measure::<f64, Weber>::new(1.2));
-    println!("Tesla: {}.", Measure::<f64, Tesla>::new(1.2));
-    println!("Gauss: {}.", Measure::<f64, Gauss>::new(1.2));
-    println!("InverseHenry: {}.", Measure::<f64, InverseHenry>::new(1.2));
-    println!("KiloGram: {}.", Measure::<f64, KiloGram>::new(1.2));
-    println!("MetricTon: {}.", Measure::<f64, Tonne>::new(1.2));
-    println!("HectoGram: {}.", Measure::<f64, HectoGram>::new(1.2));
-    println!("DecaGram: {}.", Measure::<f64, DecaGram>::new(1.2));
-    println!("Gram: {}.", Measure::<f64, Gram>::new(1.2));
-    println!("MilliGram: {}.", Measure::<f64, MilliGram>::new(1.2));
-    println!("MicroGram: {}.", Measure::<f64, MicroGram>::new(1.2));
-    println!("NanoGram: {}.", Measure::<f64, NanoGram>::new(1.2));
-    println!("ImperialTon: {}.", Measure::<f64, ImperialTon>::new(1.2));
-    println!("USTon: {}.", Measure::<f64, USTon>::new(1.2));
-    println!("Stone: {}.", Measure::<f64, Stone>::new(1.2));
-    println!("Pound: {}.", Measure::<f64, Pound>::new(1.2));
-    println!("Ounce: {}.", Measure::<f64, Ounce>::new(1.2));
-    println!("Carat: {}.", Measure::<f64, Carat>::new(1.2));
+    println!("Weber: {}.", Measure::<Weber, f64>::new(1.2));
+    println!("Tesla: {}.", Measure::<Tesla, f64>::new(1.2));
+    println!("Gauss: {}.", Measure::<Gauss, f64>::new(1.2));
+    println!("InverseHenry: {}.", Measure::<InverseHenry, f64>::new(1.2));
+    println!("KiloGram: {}.", Measure::<KiloGram, f64>::new(1.2));
+    println!("MetricTon: {}.", Measure::<Tonne, f64>::new(1.2));
+    println!("HectoGram: {}.", Measure::<HectoGram, f64>::new(1.2));
+    println!("DecaGram: {}.", Measure::<DecaGram, f64>::new(1.2));
+    println!("Gram: {}.", Measure::<Gram, f64>::new(1.2));
+    println!("MilliGram: {}.", Measure::<MilliGram, f64>::new(1.2));
+    println!("MicroGram: {}.", Measure::<MicroGram, f64>::new(1.2));
+    println!("NanoGram: {}.", Measure::<NanoGram, f64>::new(1.2));
+    println!("ImperialTon: {}.", Measure::<ImperialTon, f64>::new(1.2));
+    println!("USTon: {}.", Measure::<USTon, f64>::new(1.2));
+    println!("Stone: {}.", Measure::<Stone, f64>::new(1.2));
+    println!("Pound: {}.", Measure::<Pound, f64>::new(1.2));
+    println!("Ounce: {}.", Measure::<Ounce, f64>::new(1.2));
+    println!("Carat: {}.", Measure::<Carat, f64>::new(1.2));
     println!(
         "KiloGramPerCubicMetre: {}.",
-        Measure::<f64, KiloGramPerCubicMetre>::new(1.2)
+        Measure::<KiloGramPerCubicMetre, f64>::new(1.2)
     );
     println!(
         "KiloGramPerSecond: {}.",
-        Measure::<f64, KiloGramPerSecond>::new(1.2)
+        Measure::<KiloGramPerSecond, f64>::new(1.2)
     );
     println!(
         "GramPerSecond: {}.",
-        Measure::<f64, GramPerSecond>::new(1.2)
+        Measure::<GramPerSecond, f64>::new(1.2)
     );
     println!(
         "JoulePerKelvinPerMole: {}.",
-        Measure::<f64, JoulePerKelvinPerMole>::new(1.2)
+        Measure::<JoulePerKelvinPerMole, f64>::new(1.2)
     );
     println!(
         "KiloGramSquareMetre: {}.",
-        Measure::<f64, KiloGramSquareMetre>::new(1.2)
+        Measure::<KiloGramSquareMetre, f64>::new(1.2)
     );
     println!(
         "GramSquareCentiMetre: {}.",
-        Measure::<f64, GramSquareCentiMetre>::new(1.2)
+        Measure::<GramSquareCentiMetre, f64>::new(1.2)
     );
-    println!("NewtonSecond: {}.", Measure::<f64, NewtonSecond>::new(1.2));
+    println!("NewtonSecond: {}.", Measure::<NewtonSecond, f64>::new(1.2));
     println!(
         "KiloGramMetrePerSecond: {}.",
-        Measure::<f64, KiloGramMetrePerSecond>::new(1.2)
+        Measure::<KiloGramMetrePerSecond, f64>::new(1.2)
     );
-    println!("DynSecond: {}.", Measure::<f64, DynSecond>::new(1.2));
+    println!("DynSecond: {}.", Measure::<DynSecond, f64>::new(1.2));
     println!(
         "GramCentiMetrePerSecond: {}.",
-        Measure::<f64, GramCentiMetrePerSecond>::new(1.2)
+        Measure::<GramCentiMetrePerSecond, f64>::new(1.2)
     );
     println!(
         "HenryPerMetre: {}.",
-        Measure::<f64, HenryPerMetre>::new(1.2)
+        Measure::<HenryPerMetre, f64>::new(1.2)
     );
     println!(
         "FaradPerMetre: {}.",
-        Measure::<f64, FaradPerMetre>::new(1.2)
+        Measure::<FaradPerMetre, f64>::new(1.2)
     );
-    println!("Watt: {}.", Measure::<f64, Watt>::new(1.2));
-    println!("MilliWatt: {}.", Measure::<f64, MilliWatt>::new(1.2));
-    println!("KiloWatt: {}.", Measure::<f64, KiloWatt>::new(1.2));
-    println!("MegaWatt: {}.", Measure::<f64, MegaWatt>::new(1.2));
-    println!("GigaWatt: {}.", Measure::<f64, GigaWatt>::new(1.2));
-    println!("HorsePower: {}.", Measure::<f64, HorsePower>::new(1.2));
-    println!("Pascal: {}.", Measure::<f64, Pascal>::new(1.2));
-    println!("HectoPascal: {}.", Measure::<f64, HectoPascal>::new(1.2));
-    println!("Atmosphere: {}.", Measure::<f64, Atmosphere>::new(1.2));
-    println!("Bar: {}.", Measure::<f64, Bar>::new(1.2));
-    println!("MilliBar: {}.", Measure::<f64, MilliBar>::new(1.2));
-    println!("MmHg: {}.", Measure::<f64, MmHg>::new(1.2));
+    println!("Watt: {}.", Measure::<Watt, f64>::new(1.2));
+    println!("MilliWatt: {}.", Measure::<MilliWatt, f64>::new(1.2));
+    println!("KiloWatt: {}.", Measure::<KiloWatt, f64>::new(1.2));
+    println!("MegaWatt: {}.", Measure::<MegaWatt, f64>::new(1.2));
+    println!("GigaWatt: {}.", Measure::<GigaWatt, f64>::new(1.2));
+    println!("HorsePower: {}.", Measure::<HorsePower, f64>::new(1.2));
+    println!("Pascal: {}.", Measure::<Pascal, f64>::new(1.2));
+    println!("HectoPascal: {}.", Measure::<HectoPascal, f64>::new(1.2));
+    println!("Atmosphere: {}.", Measure::<Atmosphere, f64>::new(1.2));
+    println!("Bar: {}.", Measure::<Bar, f64>::new(1.2));
+    println!("MilliBar: {}.", Measure::<MilliBar, f64>::new(1.2));
+    println!("MmHg: {}.", Measure::<MmHg, f64>::new(1.2));
     println!(
         "PoundForcePerSquareInch: {}.",
-        Measure::<f64, PoundForcePerSquareInch>::new(1.2)
+        Measure::<PoundForcePerSquareInch, f64>::new(1.2)
     );
     println!(
         "WattPerSquareMetrePerSteradian: {}.",
-        Measure::<f64, WattPerSquareMetrePerSteradian>::new(1.2)
+        Measure::<WattPerSquareMetrePerSteradian, f64>::new(1.2)
     );
     println!(
         "WattPerSteradian: {}.",
-        Measure::<f64, WattPerSteradian>::new(1.2)
+        Measure::<WattPerSteradian, f64>::new(1.2)
     );
-    println!("Becquerel: {}.", Measure::<f64, Becquerel>::new(1.2));
+    println!("Becquerel: {}.", Measure::<Becquerel, f64>::new(1.2));
     println!(
         "KiloBecquerel: {}.",
-        Measure::<f64, KiloBecquerel>::new(1.2)
+        Measure::<KiloBecquerel, f64>::new(1.2)
     );
     println!(
         "MegaBecquerel: {}.",
-        Measure::<f64, MegaBecquerel>::new(1.2)
+        Measure::<MegaBecquerel, f64>::new(1.2)
     );
     println!(
         "GigaBecquerel: {}.",
-        Measure::<f64, GigaBecquerel>::new(1.2)
+        Measure::<GigaBecquerel, f64>::new(1.2)
     );
-    println!("Gray: {}.", Measure::<f64, Gray>::new(1.2));
-    println!("Rad: {}.", Measure::<f64, Rad>::new(1.2));
+    println!("Gray: {}.", Measure::<Gray, f64>::new(1.2));
+    println!("Rad: {}.", Measure::<Rad, f64>::new(1.2));
     println!(
         "GrayPerSecond: {}.",
-        Measure::<f64, GrayPerSecond>::new(1.2)
+        Measure::<GrayPerSecond, f64>::new(1.2)
     );
     println!(
         "MolePerCubicMetrePerSecond: {}.",
-        Measure::<f64, MolePerCubicMetrePerSecond>::new(1.2)
+        Measure::<MolePerCubicMetrePerSecond, f64>::new(1.2)
     );
-    println!("Steradian: {}.", Measure::<f64, Steradian>::new(1.2));
-    println!("AllRound: {}.", Measure::<f64, AllRound>::new(1.2));
-    println!("SquareDegree: {}.", Measure::<f64, SquareDegree>::new(1.2));
+    println!("Steradian: {}.", Measure::<Steradian, f64>::new(1.2));
+    println!("AllRound: {}.", Measure::<AllRound, f64>::new(1.2));
+    println!("SquareDegree: {}.", Measure::<SquareDegree, f64>::new(1.2));
     println!(
         "JoulePerKiloGram: {}.",
-        Measure::<f64, JoulePerKiloGram>::new(1.2)
+        Measure::<JoulePerKiloGram, f64>::new(1.2)
     );
     println!(
         "JoulePerKiloGramPerKelvin: {}.",
-        Measure::<f64, JoulePerKiloGramPerKelvin>::new(1.2)
+        Measure::<JoulePerKiloGramPerKelvin, f64>::new(1.2)
     );
     println!(
         "CubicMetrePerKiloGram: {}.",
-        Measure::<f64, CubicMetrePerKiloGram>::new(1.2)
+        Measure::<CubicMetrePerKiloGram, f64>::new(1.2)
     );
-    println!("SquareSecond: {}.", Measure::<f64, SquareSecond>::new(1.2));
-    println!("HourSecond: {}.", Measure::<f64, HourSecond>::new(1.2));
-    println!("HourHour: {}.", Measure::<f64, HourHour>::new(1.2));
+    println!("SquareSecond: {}.", Measure::<SquareSecond, f64>::new(1.2));
+    println!("HourSecond: {}.", Measure::<HourSecond, f64>::new(1.2));
+    println!("HourHour: {}.", Measure::<HourHour, f64>::new(1.2));
     println!(
         "KiloGramPerSquareMetre: {}.",
-        Measure::<f64, KiloGramPerSquareMetre>::new(1.2)
+        Measure::<KiloGramPerSquareMetre, f64>::new(1.2)
     );
     println!(
         "JoulePerSquareMetre: {}.",
-        Measure::<f64, JoulePerSquareMetre>::new(1.2)
+        Measure::<JoulePerSquareMetre, f64>::new(1.2)
     );
-    println!("Kelvin: {}.", Measure::<f64, Kelvin>::new(1.2));
-    println!("Celsius: {}.", Measure::<f64, Celsius>::new(1.2));
-    println!("Fahrenheit: {}.", Measure::<f64, Fahrenheit>::new(1.2));
+    println!("Kelvin: {}.", Measure::<Kelvin, f64>::new(1.2));
+    println!("Celsius: {}.", Measure::<Celsius, f64>::new(1.2));
+    println!("Fahrenheit: {}.", Measure::<Fahrenheit, f64>::new(1.2));
     println!(
         "WattPerMetrePerKelvin: {}.",
-        Measure::<f64, WattPerMetrePerKelvin>::new(1.2)
+        Measure::<WattPerMetrePerKelvin, f64>::new(1.2)
     );
-    println!("Second: {}.", Measure::<f64, Second>::new(1.2));
-    println!("Year: {}.", Measure::<f64, Year>::new(1.2));
-    println!("Month: {}.", Measure::<f64, Month>::new(1.2));
-    println!("Week: {}.", Measure::<f64, Week>::new(1.2));
-    println!("Day: {}.", Measure::<f64, Day>::new(1.2));
-    println!("Hour: {}.", Measure::<f64, Hour>::new(1.2));
-    println!("Minute: {}.", Measure::<f64, Minute>::new(1.2));
-    println!("MilliSecond: {}.", Measure::<f64, MilliSecond>::new(1.2));
-    println!("MicroSecond: {}.", Measure::<f64, MicroSecond>::new(1.2));
-    println!("NanoSecond: {}.", Measure::<f64, NanoSecond>::new(1.2));
-    println!("PicoSecond: {}.", Measure::<f64, PicoSecond>::new(1.2));
-    println!("FemtoSecond: {}.", Measure::<f64, FemtoSecond>::new(1.2));
-    println!("NewtonMetre: {}.", Measure::<f64, NewtonMetre>::new(1.2));
+    println!("Second: {}.", Measure::<Second, f64>::new(1.2));
+    println!("Year: {}.", Measure::<Year, f64>::new(1.2));
+    println!("Month: {}.", Measure::<Month, f64>::new(1.2));
+    println!("Week: {}.", Measure::<Week, f64>::new(1.2));
+    println!("Day: {}.", Measure::<Day, f64>::new(1.2));
+    println!("Hour: {}.", Measure::<Hour, f64>::new(1.2));
+    println!("Minute: {}.", Measure::<Minute, f64>::new(1.2));
+    println!("MilliSecond: {}.", Measure::<MilliSecond, f64>::new(1.2));
+    println!("MicroSecond: {}.", Measure::<MicroSecond, f64>::new(1.2));
+    println!("NanoSecond: {}.", Measure::<NanoSecond, f64>::new(1.2));
+    println!("PicoSecond: {}.", Measure::<PicoSecond, f64>::new(1.2));
+    println!("FemtoSecond: {}.", Measure::<FemtoSecond, f64>::new(1.2));
+    println!("NewtonMetre: {}.", Measure::<NewtonMetre, f64>::new(1.2));
     println!(
         "MetrePerSecond: {}.",
-        Measure::<f64, MetrePerSecond>::new(1.2)
+        Measure::<MetrePerSecond, f64>::new(1.2)
     );
-    println!("Knot: {}.", Measure::<f64, Knot>::new(1.2));
+    println!("Knot: {}.", Measure::<Knot, f64>::new(1.2));
     println!(
         "KiloMetrePerHour: {}.",
-        Measure::<f64, KiloMetrePerHour>::new(1.2)
+        Measure::<KiloMetrePerHour, f64>::new(1.2)
     );
-    println!("MilePerHour: {}.", Measure::<f64, MilePerHour>::new(1.2));
-    println!("Mach: {}.", Measure::<f64, Mach>::new(1.2));
+    println!("MilePerHour: {}.", Measure::<MilePerHour, f64>::new(1.2));
+    println!("Mach: {}.", Measure::<Mach, f64>::new(1.2));
     println!(
         "CentiMetresPerSecond: {}.",
-        Measure::<f64, CentiMetresPerSecond>::new(1.2)
+        Measure::<CentiMetresPerSecond, f64>::new(1.2)
     );
-    println!("CubicMetre: {}.", Measure::<f64, CubicMetre>::new(1.2));
+    println!("CubicMetre: {}.", Measure::<CubicMetre, f64>::new(1.2));
     println!(
         "CubicKiloMetre: {}.",
-        Measure::<f64, CubicKiloMetre>::new(1.2)
+        Measure::<CubicKiloMetre, f64>::new(1.2)
     );
-    println!("CubicInch: {}.", Measure::<f64, CubicInch>::new(1.2));
-    println!("CubicFoot: {}.", Measure::<f64, CubicFoot>::new(1.2));
-    println!("CubicYard: {}.", Measure::<f64, CubicYard>::new(1.2));
-    println!("CubicMile: {}.", Measure::<f64, CubicMile>::new(1.2));
-    println!("Litre: {}.", Measure::<f64, Litre>::new(1.2));
-    println!("MilliLitre: {}.", Measure::<f64, MilliLitre>::new(1.2));
-    println!("MicroLitre: {}.", Measure::<f64, MicroLitre>::new(1.2));
-    println!("NanoLitre: {}.", Measure::<f64, NanoLitre>::new(1.2));
-    println!("PicoLitre: {}.", Measure::<f64, PicoLitre>::new(1.2));
-    println!("Pint: {}.", Measure::<f64, Pint>::new(1.2));
-    println!("Gallon: {}.", Measure::<f64, Gallon>::new(1.2));
+    println!("CubicInch: {}.", Measure::<CubicInch, f64>::new(1.2));
+    println!("CubicFoot: {}.", Measure::<CubicFoot, f64>::new(1.2));
+    println!("CubicYard: {}.", Measure::<CubicYard, f64>::new(1.2));
+    println!("CubicMile: {}.", Measure::<CubicMile, f64>::new(1.2));
+    println!("Litre: {}.", Measure::<Litre, f64>::new(1.2));
+    println!("MilliLitre: {}.", Measure::<MilliLitre, f64>::new(1.2));
+    println!("MicroLitre: {}.", Measure::<MicroLitre, f64>::new(1.2));
+    println!("NanoLitre: {}.", Measure::<NanoLitre, f64>::new(1.2));
+    println!("PicoLitre: {}.", Measure::<PicoLitre, f64>::new(1.2));
+    println!("Pint: {}.", Measure::<Pint, f64>::new(1.2));
+    println!("Gallon: {}.", Measure::<Gallon, f64>::new(1.2));
     println!(
         "CubicMetrePerSecond: {}.",
-        Measure::<f64, CubicMetrePerSecond>::new(1.2)
+        Measure::<CubicMetrePerSecond, f64>::new(1.2)
     );
     println!(
         "CubicCentiMetrePerSecond: {}.",
-        Measure::<f64, CubicCentiMetrePerSecond>::new(1.2)
+        Measure::<CubicCentiMetrePerSecond, f64>::new(1.2)
     );
     println!(
         "CyclePerMetre: {}.",
-        Measure::<f64, CyclePerMetre>::new(1.2)
+        Measure::<CyclePerMetre, f64>::new(1.2)
     );
     println!(
         "RadianPerMetre: {}.",
-        Measure::<f64, RadianPerMetre>::new(1.2)
+        Measure::<RadianPerMetre, f64>::new(1.2)
     );
 }
 
 //## Relationships among units
+use define_units_relation::define_units_relation;
 
-//// computer science ////
+// computer science //
 
-// Time * InformationRate = Information
+// InformationRate == Information / Time
 
-define_derived_measure_1_1! {Second, BitPerSecond, Bit}
-define_derived_measure_1_1! {Second, BytePerSecond, Byte}
-define_derived_measure_1_1! {Second, KiloBitPerSecond, KiloBit}
-define_derived_measure_1_1! {Second, KiloBytePerSecond, KiloByte}
-define_derived_measure_1_1! {Second, KibiBitPerSecond, KibiBit}
-define_derived_measure_1_1! {Second, KibiBytePerSecond, KibiByte}
-define_derived_measure_1_1! {Second, MegaBitPerSecond, MegaBit}
-define_derived_measure_1_1! {Second, MegaBytePerSecond, MegaByte}
-define_derived_measure_1_1! {Second, MebiBitPerSecond, MebiBit}
-define_derived_measure_1_1! {Second, MebiBytePerSecond, MebiByte}
-define_derived_measure_1_1! {Second, GigaBitPerSecond, GigaBit}
-define_derived_measure_1_1! {Second, GigaBytePerSecond, GigaByte}
-define_derived_measure_1_1! {Second, GibiBitPerSecond, GibiBit}
-define_derived_measure_1_1! {Second, GibiBytePerSecond, GibiByte}
-define_derived_measure_1_1! {Second, TeraBitPerSecond, TeraBit}
-define_derived_measure_1_1! {Second, TeraBytePerSecond, TeraByte}
-define_derived_measure_1_1! {Second, TebiBitPerSecond, TebiBit}
-define_derived_measure_1_1! {Second, TebiBytePerSecond, TebiByte}
+define_units_relation! {BitPerSecond == Bit / Second}
+define_units_relation! {BytePerSecond == Byte / Second}
+define_units_relation! {KiloBitPerSecond == KiloBit / Second}
+define_units_relation! {KiloBytePerSecond == KiloByte / Second}
+define_units_relation! {KibiBitPerSecond == KibiBit / Second}
+define_units_relation! {KibiBytePerSecond == KibiByte / Second}
+define_units_relation! {MegaBitPerSecond == MegaBit / Second}
+define_units_relation! {MegaBytePerSecond == MegaByte / Second}
+define_units_relation! {MebiBitPerSecond == MebiBit / Second}
+define_units_relation! {MebiBytePerSecond == MebiByte / Second}
+define_units_relation! {GigaBitPerSecond == GigaBit / Second}
+define_units_relation! {GigaBytePerSecond == GigaByte / Second}
+define_units_relation! {GibiBitPerSecond == GibiBit / Second}
+define_units_relation! {GibiBytePerSecond == GibiByte / Second}
+define_units_relation! {TeraBitPerSecond == TeraBit / Second}
+define_units_relation! {TeraBytePerSecond == TeraByte / Second}
+define_units_relation! {TebiBitPerSecond == TebiBit / Second}
+define_units_relation! {TebiBytePerSecond == TebiByte / Second}
 
-//// geometry ////
+// geometry //
 
-// sqr(Length) = Area
-define_derived_measure_squared_1! {Metre, SquareMetre}
-define_derived_measure_squared_1! {KiloMetre, SquareKiloMetre}
+// Area == Length * Length
+define_units_relation! {SquareMetre == Metre * Metre}
+//define_units_relation! {SquareKiloMetre == KiloMetre * KiloMetre}
+
+/*TODO
+define_derived_measure_squared_1! {}
 define_derived_measure_squared_1! {HectoMetre, Hectare}
 define_derived_measure_squared_1! {DecaMetre, Are}
 define_derived_measure_squared_1! {DeciMetre, SquareDeciMetre}
@@ -2968,13 +2913,14 @@ define_derived_measure_1_1! {Inch, SquareInch, CubicInch}
 define_derived_measure_1_1! {Foot, SquareFoot, CubicFoot}
 define_derived_measure_1_1! {Yard, SquareYard, CubicYard}
 define_derived_measure_1_1! {Mile, SquareMile, CubicMile}
+*/
+// kinematics //
 
-//// kinematics ////
-
-// Time * Velocity = Length
-define_derived_measure_1_1! {Second, MetrePerSecond, Metre}
-define_derived_measure_1_2! {Second, MetrePerSecond, Metre}
-define_derived_measure_1_3! {Second, MetrePerSecond, Metre}
+// Velocity == Length / Time
+define_units_relation! {Metre / Second == MetrePerSecond}
+define_units_relation! {Metre:2 / Second == MetrePerSecond:2}
+define_units_relation! {Metre:3 / Second == MetrePerSecond:3}
+/*
 define_derived_measure_1_1! {Hour, Knot, NauticalMile}
 define_derived_measure_1_2! {Hour, Knot, NauticalMile}
 define_derived_measure_1_3! {Hour, Knot, NauticalMile}
@@ -3016,7 +2962,7 @@ define_derived_measure_1_1! {Second, RadianPerSquareSecond, RadianPerSecond}
 // Time * KinematicViscosity = Area
 define_derived_measure_1_1! {Second, SquareMetrePerSecond, SquareMetre}
 
-//// mechanics ////
+// mechanics //
 
 // Length * LinearDensity = Mass
 define_derived_measure_1_1! {Metre, KilogramPerMetre, KiloGram}
@@ -3029,12 +2975,19 @@ define_derived_measure_1_1! {CubicMetre, KiloGramPerCubicMetre, KiloGram}
 
 // Mass * SpecificVolume = Volume
 define_derived_measure_1_1! {KiloGram, CubicMetrePerKiloGram, CubicMetre}
+*/
 
 // Force * Length = Energy, Torque
-define_derived_measure_1_1! {Newton, Metre, Joule}
-define_derived_measure_2_2! {Newton, Metre, Joule, NewtonMetre}
-define_derived_measure_3_3! {Newton, Metre, Joule, NewtonMetre}
+define_units_relation! {Metre * Newton == Joule}
+define_units_relation! {Metre:2 * Newton:2 == Joule}
+define_units_relation! {Metre:3 * Newton:3 == Joule}
+define_units_relation! {Metre:2 X Newton:2 == NewtonMetre}
+define_units_relation! {Metre:3 X Newton:3 == NewtonMetre:3}
 
+define_units_relation! {Metre:2 X Metre:2 == Metre}
+define_units_relation! {Metre:3 X Metre:3 == Metre:3}
+
+/*
 // Mass * Acceleration = Force
 define_derived_measure_1_1! {KiloGram, MetrePerSquareSecond, Newton}
 define_derived_measure_1_2! {KiloGram, MetrePerSquareSecond, Newton}
@@ -3060,12 +3013,12 @@ define_derived_measure_1_1! {CubicMetre, JoulePerCubicMetre, Joule}
 // Time * Pressure = DynamicViscosity
 define_derived_measure_1_1! {Second, Pascal, PascalSecond}
 
-//// termodynamics ////
+// thermodynamics //
 
 // Temperature * Entropy = Energy
 define_derived_measure_1_1! {Kelvin, JoulePerKelvin, Joule}
 
-//// optics ////
+// optics //
 
 // LuminousIntensity * SolidAngle = LuminousFlux
 define_derived_measure_1_1! {Candela, Steradian, Lumen}
@@ -3078,7 +3031,7 @@ define_derived_measure_1_1! {SquareFoot, FootCandle, Lumen}
 // Area * Irradiance = Power
 define_derived_measure_1_1! {SquareMetre, WattPerSquareMetre, Watt}
 
-//// electromagnetism ////
+// electromagnetism //
 
 // ElectricCurrent * Time = ElectricCharge
 define_derived_measure_1_1! {Ampere, Second, Coulomb}
@@ -3110,7 +3063,7 @@ define_derived_measure_inverse_1! {Siemens, Ohm}
 // Length * ElectricalConductivity = ElectricalConductance
 define_derived_measure_1_1! {Metre, SiemensPerMetre, Siemens}
 
-// Capacitance * EletricPotential = ElectricCharge
+// Capacitance * ElectricPotential = ElectricCharge
 define_derived_measure_1_1! {Farad, Volt, Coulomb}
 define_derived_measure_1_1! {MilliFarad, Volt, MilliCoulomb}
 define_derived_measure_1_1! {MicroFarad, Volt, MicroCoulomb}
@@ -3125,9 +3078,9 @@ define_derived_measure_1_2! {SquareMetre, AmperePerSquareMetre, Ampere}
 define_derived_measure_1_3! {SquareMetre, AmperePerSquareMetre, Ampere}
 
 // ElectricPotential * Length = ElectricFieldStrength
-define_derived_measure_1_1! {Volt, Metre, VoltMetre}
-define_derived_measure_1_2! {Volt, Metre, VoltMetre}
-define_derived_measure_1_3! {Volt, Metre, VoltMetre}
+define_derived_measure_1_1! {Volt, Metre, VoltPerMetre}
+define_derived_measure_1_2! {Volt, Metre, VoltPerMetre}
+define_derived_measure_1_3! {Volt, Metre, VoltPerMetre}
 
 // MagneticFieldStrength * Length = ElectricCurrent
 define_derived_measure_1_1! {AmperePerMetre, Metre, Ampere}
@@ -3146,7 +3099,7 @@ define_derived_measure_1_1! {InverseHenry, Weber, Ampere}
 // ElectricCurrent * Inductance = MagneticFlux
 define_derived_measure_1_1! {Ampere, Henry, Weber}
 
-//// chemistry ////
+// chemistry //
 
 // Time * CatalyticActivity = Amount
 define_derived_measure_1_1! {Second, Katal, Mole}
@@ -3160,18 +3113,19 @@ define_derived_measure_1_1! {Mole, JoulePerMole, Joule}
 // Volume * MolarConcentration = Amount
 define_derived_measure_1_1! {CubicMetre, MolePerCubicMetre, Mole}
 
-//// radioactivity ////
+// radioactivity //
 
 // Mass * DoseEquivalent = Energy
 define_derived_measure_1_1! {KiloGram, Sievert, Joule}
 
 // SquareTime * DoseEquivalent = Area
-define_derived_measure_1_1! {SquareSecond, Sievert, SquareMetre}
+define_derived_measure_1_1! {SquareSecond, Sievert, SquareMetre, Sievert}
 
 // Time * RadioactiveDoseRate = RadioactiveDose
 define_derived_measure_1_1! {Second, GrayPerSecond, Gray}
 
-//// Others ////
+// Others //
 
 //define_derived_measure_squared_2! {Metre, Metre, Metre}
 //define_derived_measure_squared_3! {Metre, Metre, Metre}
+*/

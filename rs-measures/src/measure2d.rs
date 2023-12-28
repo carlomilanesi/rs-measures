@@ -6,7 +6,6 @@ macro_rules! define_measure_2d {
 
         // Measure 2d
 
-        #[derive(Debug)]
         pub struct Measure2d<Unit, Number = f64> {
             x: Number,
             y: Number,
@@ -207,7 +206,6 @@ macro_rules! define_measure_2d {
 
         // Measure point 2d
 
-        #[derive(Debug)]
         pub struct MeasurePoint2d<Unit, Number = f64> {
             x: Number,
             y: Number,
@@ -359,7 +357,6 @@ macro_rules! define_measure_2d {
 
         // Linear map 2d
 
-        #[derive(Debug)]
         pub struct LinearMap2d<Number: ArithmeticOps> {
             c: [[Number; 2]; 2],
         }
@@ -584,7 +581,6 @@ macro_rules! define_measure_2d {
 
         // Affine map 2d
 
-        #[derive(Debug)]
         pub struct AffineMap2d<Unit: MeasurementUnit, Number: ArithmeticOps> {
             c: [[Number; 3]; 2],
             phantom: std::marker::PhantomData<Unit>,

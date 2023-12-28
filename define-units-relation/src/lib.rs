@@ -403,7 +403,7 @@ fn expand_3_3(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> TokenS
 fn expand_cross_2(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> TokenStream {
     let expanded = if unit1 == unit2 {
         quote! {
-            // Measure2<U1>.cross_product(Measure2<U1>) -> Measure<U3>
+            // Measure2d<U1>.cross_product(Measure2d<U1>) -> Measure<U3>
             impl<Number: ArithmeticOps> CrossProduct<Measure2d<#unit1, Number>> for Measure2d<#unit1, Number> {
                 type Output = Measure<#unit3, Number>;
                 fn cross_product(self, other: Measure2d<#unit1, Number>) -> Self::Output {
@@ -436,7 +436,7 @@ fn expand_cross_2(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
 fn expand_cross_3(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> TokenStream {
     let expanded = if unit1 == unit2 {
         quote! {
-            // Measure3<U1>.cross_product(Measure3<U1>) -> Measure<U3>
+            // Measure3d<U1>.cross_product(Measure3d<U1>) -> Measure<U3>
             impl<Number: ArithmeticOps> CrossProduct<Measure3d<#unit1, Number>> for Measure3d<#unit1, Number> {
                 type Output = Measure3d<#unit3, Number>;
                 fn cross_product(self, other: Measure3d<#unit1, Number>) -> Self::Output {

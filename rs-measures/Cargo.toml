@@ -8,6 +8,7 @@ repository = "https://github.com/carlomilanesi/rs-measures"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
 publish = false
+default-run = "full"
 
 [dependencies]
 define-units-relation = { path = "../define-units-relation" }
