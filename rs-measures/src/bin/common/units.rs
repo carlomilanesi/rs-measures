@@ -524,7 +524,6 @@ impl MeasurementUnit for Ampere {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " A";
 }
-impl VectorMeasurementUnit for Ampere {}
 
 pub struct MilliAmpere;
 impl MeasurementUnit for MilliAmpere {
@@ -837,9 +836,6 @@ impl MeasurementUnit for FootCandle {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " fc";
 }
-//luxes = candelas * steradians / square_Metres
-//luxes = lumens / square_Metres
-//foot_candles = lumens / square_feet
 
 // Property: inductance
 pub struct Inductance;
@@ -1468,7 +1464,7 @@ impl MeasurementUnit for HenryPerMetre {
     const SUFFIX: &'static str = " H/m";
 }
 
-// Property: mMagnetic reluctance, magnetic resistance
+// Property: magnetic reluctance, magnetic resistance
 pub struct MagneticReluctance;
 
 pub struct InverseHenry;
@@ -3129,3 +3125,8 @@ define_derived_measure_1_1! {Second, GrayPerSecond, Gray}
 //define_derived_measure_squared_2! {Metre, Metre, Metre}
 //define_derived_measure_squared_3! {Metre, Metre, Metre}
 */
+
+//TODO
+//luxes = candelas * steradians / square_Metres
+//luxes = lumens / square_Metres
+//foot_candles = lumens / square_feet

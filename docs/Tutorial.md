@@ -25,7 +25,6 @@ fn main() {
     println!("The distance is {distance}.");
 }
 ```
-
 Run your project. It should print: `The distance is 100 km`. Notice that the characters "` km`" are printed automatically because of the type of the value.
 
 The variable named `distance` encapsulate an `f64` number, whose value is `100`. The type of that variable is `Measure<KiloMetrePerHour, f64>`, which represents a *relative measure* (i.e. a *variation*).
@@ -111,4 +110,116 @@ let point2 = MeasurePoint<Celsius>::new(2);
 let _ = point1 + point2; // ILLEGAL
 let _ = point1 * 3.; // ILLEGAL
 
+```
+
+# Define your-own units of measurement
+
+The use of the module `units.rs` and `relations.rs` is useful for learning and for experimenting. Though, it is not recommended for production use, for the following reasons:
+* Such large files increase your code base.
+* Such large files increase compilation time.
+* Such files use words or output prefix you don't like.
+* Such files have names which conflicts with some names used in your project.
+* Such files miss some properties or units or relations you need.
+
+Therefore, the suggested procedure for production code is the following one:
+* Create two empty files for your project, named `units.rs` and `relations.rs`.
+* Search the provided files with the same names for the properties, the units, and the relations you need, or most similar to what you need. Copy and paste them into your own files.
+* Edit you files `units.rs` and `relations.rs` according your needs.
+
+To create a property means simply to define an empty `struct` with the desired name. For example: `pub struct Information;`.
+
+To create a unit for a property you first should decide, in case there will several units for that property, which is the *main* unit. For example, if we want to create the units `Bit` and `Byte` for property `Information`, we can decide that `Bit` is the main unit for you project.
+
+To create the main unit for a property, define a `struct` like this one:
+```
+pub struct Bit;
+impl MeasurementUnit for Bit {
+    type Property = Information;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " b";
+}
+```
+In the first and second lines, there must be the named of the unit (in this example, it is `Bit`).
+
+In the third line, the property must be specified (in this example, it is `Information`).
+
+In the fourth line, the ratio to the main unit must be specified (in this example, it is `1.`, because this is the main unit).
+
+In the fifth line, the offset of the origin with respect to the origin of the main unit must be specified (in this example, it is `0.`, because this is the main unit). Almost all units have a zero offset. The exceptions are the temperature scales and the calendars. This property is not to be used to define different geometrical coordinate systems, because OFFSET must be a compile-time constant, and, in case of plane or space measures, it must be the same for X, Y, and Z.
+
+In the sixth line, the SUFFIX to use when the measure is converted to a string. Consider that, to have that suffix separated from the number, you must begin it with a space.
+
+Then, if the unit has property `Angle`, a declaration like the following one must be added:
+```
+impl AngleMeasurementUnit for Degree {
+    const TURN_FRACTION: f64 = 360.;
+}
+```
+In the first line, the name of the unit must be specified (in this example, it is `Degree`).
+
+In the second line, the number of times this unit is contained in a full turn must be specified (in this example it is `360.`, because in a turn there are 360 degrees).
+
+Then, consider that for some property, like length, force, or electric field strength, it makes sense to have two-dimensional measures in a plane or three-dimensional measures in the space. For others, like time, mass or temperature, it does not make sense. The properties of the first kind are named *vector properties*, and the properties of the second kind are named *scalar properties*.
+
+To allow multidimensional measures only for the properties for which it makes sense, whenever you define a unit for a vector property, you should add a declaration tike the following one:
+```
+impl VectorMeasurementUnit for Inch {}
+```
+This statement specifies that `Inch` is a unit of a vector property, and so you are allowed to define 2D or 3D measures using this unit.
+
+After having defined all the needed units of measurement, in case you have units of different properties, and you want to perform multiplications or divisions between measures, you must define relations among units.
+
+You can search the edit the file `relations.rs`, so that it contains statements like this one:
+```
+define_units_relation! {BitPerSecond == Bit / Second}
+```
+It declares that if you divide a measure of one bit by a measure of one second, you get a measure of one bit per second.
+
+Actually, it is equivalent to each of these ones:
+```
+define_units_relation! {Bit == Second * BitPerSecond}
+define_units_relation! {Bit == BitPerSecond * Second}
+define_units_relation! {Bit / Second == BitPerSecond}
+define_units_relation! {Second * BitPerSecond == Bit}
+define_units_relation! {BitPerSecond * Second == Bit}
+```
+Choose just one these 6 possible forms.
+
+It is also possible to have the same unit in a multiplication:
+```
+define_units_relation! {SquareMetre == Metre * Metre}
+```
+It declares that if you multiply a measure of one metre by a measure of one metre, you get a measure of one square metre. In such a case, it is also allowed to call the method `squared` on a measure in metres, to obtain a measure in square metres, or to call the method `sqrt` on a measure in square metres, to obtain a measure in metres.
+
+For vector properties, you can write these statements:
+```
+define_units_relation! {MetrePerSecond:2 == Metre:2 / Second}
+define_units_relation! {MetrePerSecond:3 == Metre:3 / Second}
+```
+The first statement declares that if you divide a bi-dimensional measure of one metre by a measure of one second, you get a bi-dimensional measure of one metre per second.
+The second statement is similar, but for three-dimensional measures.
+
+Notice that if you multiply a bi-dimensional measure by another bi-dimensional measure, or a tri-dimensional measure by another tri-dimensional measure, it means to compute the dot product between them.
+
+Another possible case is this one:
+```
+define_units_relation! {Hertz == 1 / Second}
+```
+It declares that if you divide the number 1 by a measure of one second, you get a measure of one hertz.
+
+Finally, it is possible to write these statements:
+```
+define_units_relation! {Newton:2 X Metre:2 == NewtonMetre}
+define_units_relation! {Newton:3 X Metre:3 == NewtonMetre:3}
+```
+Notice that, instead of a symbol of multiplication ("`*`") or division ("`/`"), here there is a letter "`X`", representing the cross product.
+
+The first statement declares that if you compute the cross product between a bi-dimensional measure of one newton by a bi-dimensional measure of one metre, you get a (uni-dimensional) measure of one newton-metre.
+The second statement is similar, but for three-dimensional measures, resulting in a three-dimensional measure of one newton-metre.
+
+These definitions allow to write statements like this one:
+```
+let m: Measure3d<NewtonMetre> = Measure3d::<Newton>::new(1., 2., 3.)
+    .cross_product(Measure3d::<Metre>::new(4., 5., 6.));
 ```
