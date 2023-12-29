@@ -2492,13 +2492,13 @@ fn print_all_single_unit_operations_for_measure_1d() {
         m2 = m1.convert::<MilePerHour>()
     );
 
-    let m1 = Measure::<KiloMetrePerHour>::new(1.2345678901234567890);
+    let m1 = Measure::<KiloMetrePerHour>::new(1.234_567_890_123_456_7);
     println!(
         "{m1} can be lossy-converted to {m2}.",
         m2 = m1.lossy_into::<f32>()
     );
 
-    let m1 = Measure::<KiloMetrePerHour, f32>::new(1.2345678901234567890);
+    let m1 = Measure::<KiloMetrePerHour, f32>::new(1.234_567_9);
     println!(
         "{m1} can be lossless-converted to {m2}.",
         m2 = m1.lossless_into::<f64>(),
@@ -2550,8 +2550,9 @@ fn print_all_single_unit_operations_for_measure_1d() {
     println!("{m1} divided by {m2} is {m3}.", m3 = m1 / m2);
 
     let m1 = Measure::<KiloMetrePerHour>::new(12.);
-    println!("{m1} == {m1} is {m2}.", m2 = m1 == m1);
-    println!("{m1} < {m1} is {m2}.", m2 = m1 < m1);
+    let m2 = m1;
+    println!("{m1} == {m1} is {result}.", result = m1 == m2);
+    println!("{m1} < {m1} is {result}.", result = m1 < m2);
 }
 
 fn print_all_single_unit_operations_for_measure_point_1d() {
@@ -2561,13 +2562,13 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
         mp2 = mp1.convert::<Fahrenheit>()
     );
 
-    let mp1 = MeasurePoint::<Celsius>::new(1.2345678901234567890);
+    let mp1 = MeasurePoint::<Celsius>::new(1.234_567_890_123_456_7);
     println!(
         "{mp1} can be lossy-converted to {mp2}.",
         mp2 = mp1.lossy_into::<f32>()
     );
 
-    let mp1 = MeasurePoint::<Celsius, f32>::new(1.2345678901234567890);
+    let mp1 = MeasurePoint::<Celsius, f32>::new(1.234_567_9);
     println!(
         "{mp1} can be lossless-converted to {mp2}.",
         mp2 = mp1.lossless_into::<f64>(),
@@ -2605,8 +2606,9 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
     println!("The barycentric combination among {mp1} (with weight 10%), {mp2} (with weight 20%), and {mp3} (with weight 70%) is {mp4}.", mp4 = barycentric_combination(&[mp1, mp2, mp3], &[0.1, 0.2, 0.7]));
 
     let mp1 = MeasurePoint::<Celsius>::new(12.);
-    println!("{mp1} == {mp1} is {mp2}.", mp2 = mp1 == mp1);
-    println!("{mp1} < {mp1} is {mp2}.", mp2 = mp1 < mp1);
+    let mp2 = mp1;
+    println!("{mp1} == {mp1} is {result}.", result = mp1 == mp2);
+    println!("{mp1} < {mp1} is {result}.", result = mp1 < mp2);
 }
 
 fn print_all_single_unit_operations_for_unsigned_directions() {
@@ -2632,13 +2634,13 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
         ud2 = ud1.convert::<Radian>()
     );
 
-    let ud1 = UnsignedDirection::<Degree>::new(1.2345678901234567890);
+    let ud1 = UnsignedDirection::<Degree>::new(1.234_567_890_123_456_7);
     println!(
         "{ud1} can be lossy-converted to {ud2}.",
         ud2 = ud1.lossy_into::<f32>()
     );
 
-    let ud1 = UnsignedDirection::<Degree, f32>::new(1.2345678901234567890);
+    let ud1 = UnsignedDirection::<Degree, f32>::new(1.234_567_9);
     println!(
         "{ud1} can be lossless-converted to {ud2}.",
         ud2 = ud1.lossless_into::<f64>(),
@@ -2663,8 +2665,9 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
     println!("{ud1} minus {ud2} is {m3}.", m3 = ud1 - ud2);
 
     let ud1 = UnsignedDirection::<Degree>::new(12.);
-    println!("{ud1} == {ud1} is {ud2}.", ud2 = ud1 == ud1);
-    println!("{ud1} < {ud1} is {ud2}.", ud2 = ud1 < ud1);
+    let ud2 = ud1;
+    println!("{ud1} == {ud1} is {result}.", result = ud1 == ud2);
+    println!("{ud1} < {ud1} is {result}.", result = ud1 < ud2);
 }
 
 fn print_all_single_unit_operations_for_signed_directions() {
@@ -2690,13 +2693,13 @@ fn print_all_single_unit_operations_for_signed_directions() {
         sd2 = sd1.convert::<Radian>()
     );
 
-    let sd1 = SignedDirection::<Degree>::new(1.2345678901234567890);
+    let sd1 = SignedDirection::<Degree>::new(1.234_567_890_123_456_7);
     println!(
         "{sd1} can be lossy-converted to {sd2}.",
         sd2 = sd1.lossy_into::<f32>()
     );
 
-    let sd1 = SignedDirection::<Degree, f32>::new(1.2345678901234567890);
+    let sd1 = SignedDirection::<Degree, f32>::new(1.234_567_9);
     println!(
         "{sd1} can be lossless-converted to {sd2}.",
         sd2 = sd1.lossless_into::<f64>(),
@@ -2721,8 +2724,9 @@ fn print_all_single_unit_operations_for_signed_directions() {
     println!("{sd1} minus {sd2} is {m3}.", m3 = sd1 - sd2);
 
     let sd1 = SignedDirection::<Degree>::new(12.);
-    println!("{sd1} == {sd1} is {sd2}.", sd2 = sd1 == sd1);
-    println!("{sd1} < {sd1} is {sd2}.", sd2 = sd1 < sd1);
+    let sd2 = sd1;
+    println!("{sd1} == {sd1} is {result}.", result = sd1 == sd2);
+    println!("{sd1} < {sd1} is {result}.", result = sd1 < sd2);
 }
 
 fn print_all_single_unit_operations_for_measure_2d() {
@@ -2740,13 +2744,13 @@ fn print_all_single_unit_operations_for_measure_2d() {
         m2 = m1.convert::<MilePerHour>()
     );
 
-    let m1 = Measure2d::<KiloMetrePerHour>::new(1.2345678901234567890, 2.3456789012345678901);
+    let m1 = Measure2d::<KiloMetrePerHour>::new(1.234_567_890_123_456_7, 2.345_678_901_234_568);
     println!(
         "{m1} can be lossy-converted to {m2}.",
         m2 = m1.lossy_into::<f32>()
     );
 
-    let m1 = Measure2d::<KiloMetrePerHour, f32>::new(1.2345678901234567890, 2.3456789012345678901);
+    let m1 = Measure2d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8);
     println!(
         "{m1} can be lossless-converted to {m2}.",
         m2 = m1.lossless_into::<f64>(),
@@ -2812,7 +2816,8 @@ fn print_all_single_unit_operations_for_measure_2d() {
     println!(" and if divided by {divisor}, it becomes {m1}.");
 
     let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
-    println!("{m1} == {m1} is {m2}.", m2 = m1 == m1);
+    let m2 = m1;
+    println!("{m1} == {m1} is {result}.", result = m1 == m2);
 }
 
 fn print_all_single_unit_operations_for_measure_point_2d() {
