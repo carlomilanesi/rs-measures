@@ -420,7 +420,7 @@ macro_rules! define_measure_1d {
             }
         }
 
-        // Unsigned direction - Unsigned direction -> Unsigned direction
+        // unsigned direction - unsigned direction -> angle measure
         impl<Unit: AngleMeasurementUnit, Number: ArithmeticOps> Sub<UnsignedDirection<Unit, Number>>
             for UnsignedDirection<Unit, Number> {
             type Output = Measure<Unit, Number>;

@@ -2485,8 +2485,509 @@ fn print_all_units() {
     print_all_wave_number_units();
 }
 
-fn print_all_single_unit_operations() {
+fn print_all_single_unit_operations_for_measure_1d() {
+    let m1 = Measure::<KiloMetrePerHour>::new(12.);
+    println!(
+        "{m1} can be converted to {m2}.",
+        m2 = m1.convert::<MilePerHour>()
+    );
+
+    let m1 = Measure::<KiloMetrePerHour>::new(1.2345678901234567890);
+    println!(
+        "{m1} can be lossy-converted to {m2}.",
+        m2 = m1.lossy_into::<f32>()
+    );
+
+    let m1 = Measure::<KiloMetrePerHour, f32>::new(1.2345678901234567890);
+    println!(
+        "{m1} can be lossless-converted to {m2}.",
+        m2 = m1.lossless_into::<f64>(),
+    );
+
+    let m1 = Measure::<KiloMetrePerHour>::new(-12.);
+    println!("The squared norm of {m1} is {n}.", n = m1.squared_norm(),);
+
+    let m1 = Measure::<KiloMetrePerHour>::new(-12.);
+    println!("{m1} normalized is {n}.", n = m1.normalized());
+
+    let m1 = Measure::<KiloMetrePerHour>::new(12.);
+    println!("The opposite of {m1} is {m2}.", m2 = -m1);
+
+    let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
+    let m2 = Measure::<KiloMetrePerHour>::new(13.);
+    print!("{m1} plus {m2} is {m3},", m3 = m1 + m2);
+
+    m1 += m2;
+    println!(" and if incremented by {m2}, it becomes {m1}.");
+
+    let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
+    let m2 = Measure::<KiloMetrePerHour>::new(13.);
+    print!("{m1} minus {m2} is {m3},", m3 = m1 - m2);
+
+    m1 -= m2;
+    println!(" and if decremented by {m2}, it becomes {m1}.");
+
+    let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
+    let multiplier = 2.;
+    print!("{m1} times {multiplier} is {m2},", m2 = m1 * multiplier);
+
+    m1 *= multiplier;
+    println!(" and if multiplied by {multiplier}, it becomes {m1}.");
+
+    let m1 = Measure::<KiloMetrePerHour>::new(12.);
+    let multiplier = 2.;
+    println!("{multiplier} times {m1} is {m2}.", m2 = multiplier * m1);
+
+    let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
+    let divisor = 2.;
+    print!("{m1} divided by {divisor} is {m2},", m2 = m1 / divisor);
+
+    m1 /= divisor;
+    println!(" and if divided by {divisor}, it becomes {m1}.");
+
+    let m1 = Measure::<KiloMetrePerHour>::new(12.);
+    let m2 = Measure::<KiloMetrePerHour>::new(4.);
+    println!("{m1} divided by {m2} is {m3}.", m3 = m1 / m2);
+
+    let m1 = Measure::<KiloMetrePerHour>::new(12.);
+    println!("{m1} == {m1} is {m2}.", m2 = m1 == m1);
+    println!("{m1} < {m1} is {m2}.", m2 = m1 < m1);
+}
+
+fn print_all_single_unit_operations_for_measure_point_1d() {
+    let mp1 = MeasurePoint::<Celsius>::new(12.);
+    println!(
+        "{mp1} can be converted to {mp2}.",
+        mp2 = mp1.convert::<Fahrenheit>()
+    );
+
+    let mp1 = MeasurePoint::<Celsius>::new(1.2345678901234567890);
+    println!(
+        "{mp1} can be lossy-converted to {mp2}.",
+        mp2 = mp1.lossy_into::<f32>()
+    );
+
+    let mp1 = MeasurePoint::<Celsius, f32>::new(1.2345678901234567890);
+    println!(
+        "{mp1} can be lossless-converted to {mp2}.",
+        mp2 = mp1.lossless_into::<f64>(),
+    );
+
+    let mut mp1 = MeasurePoint::<Celsius>::new(12.);
+    let m2 = Measure::<Celsius>::new(13.);
+    print!("{mp1} plus {m2} is {mp3},", mp3 = mp1 + m2);
+
+    mp1 += m2;
+    println!(" and if incremented by {m2}, it becomes {mp1}.");
+
+    let mut mp1 = MeasurePoint::<Celsius>::new(12.);
+    let m2 = Measure::<Celsius>::new(13.);
+    print!("{mp1} minus {m2} is {mp3},", mp3 = mp1 - m2);
+
+    mp1 -= m2;
+    println!(" and if decremented by {m2}, it becomes {mp1}.");
+
+    let mp1 = MeasurePoint::<Celsius>::new(12.);
+    let mp2 = MeasurePoint::<Celsius>::new(13.);
+    println!("{mp1} minus {mp2} is {m3}.", m3 = mp1 - mp2);
+
+    let mp1 = MeasurePoint::<Celsius>::new(10.);
+    let mp2 = MeasurePoint::<Celsius>::new(20.);
+    println!("The weighted midpoint between {mp1} (with weight 40%) and {mp2} (with weight 60%) is {mp3}.", mp3 = weighted_midpoint(mp1, mp2, 0.4));
+    println!(
+        "The midpoint between {mp1} and {mp2} is {mp3}.",
+        mp3 = midpoint(mp1, mp2)
+    );
+
+    let mp1 = MeasurePoint::<Celsius>::new(10.);
+    let mp2 = MeasurePoint::<Celsius>::new(20.);
+    let mp3 = MeasurePoint::<Celsius>::new(40.);
+    println!("The barycentric combination among {mp1} (with weight 10%), {mp2} (with weight 20%), and {mp3} (with weight 70%) is {mp4}.", mp4 = barycentric_combination(&[mp1, mp2, mp3], &[0.1, 0.2, 0.7]));
+
+    let mp1 = MeasurePoint::<Celsius>::new(12.);
+    println!("{mp1} == {mp1} is {mp2}.", mp2 = mp1 == mp1);
+    println!("{mp1} < {mp1} is {mp2}.", mp2 = mp1 < mp1);
+}
+
+fn print_all_single_unit_operations_for_unsigned_directions() {
+    let ud1 = UnsignedDirection::<Degree>::new(12.);
+    let mp1 = MeasurePoint::<Degree>::new(12.);
+    println!(
+        "{ud2} can be created from {mp1}.",
+        ud2 = UnsignedDirection::<Degree>::from_measure_point(mp1)
+    );
+
+    println!(
+        "{ud1} can be converted to {mp2}.",
+        mp2 = ud1.to_measure_point()
+    );
+
+    println!(
+        "{ud1} can be converted to {sd2}.",
+        sd2 = ud1.to_signed_direction()
+    );
+
+    println!(
+        "{ud1} can be converted to {ud2}.",
+        ud2 = ud1.convert::<Radian>()
+    );
+
+    let ud1 = UnsignedDirection::<Degree>::new(1.2345678901234567890);
+    println!(
+        "{ud1} can be lossy-converted to {ud2}.",
+        ud2 = ud1.lossy_into::<f32>()
+    );
+
+    let ud1 = UnsignedDirection::<Degree, f32>::new(1.2345678901234567890);
+    println!(
+        "{ud1} can be lossless-converted to {ud2}.",
+        ud2 = ud1.lossless_into::<f64>(),
+    );
+
+    let mut ud1 = UnsignedDirection::<Degree>::new(12.);
+    let m2 = Measure::<Degree>::new(13.);
+    print!("{ud1} plus {m2} is {ud3},", ud3 = ud1 + m2);
+
+    ud1 += m2;
+    println!(" and if incremented by {m2}, it becomes {ud1}.");
+
+    let mut ud1 = UnsignedDirection::<Degree>::new(12.);
+    let m2 = Measure::<Degree>::new(13.);
+    print!("{ud1} minus {m2} is {ud3},", ud3 = ud1 - m2);
+
+    ud1 -= m2;
+    println!(" and if decremented by {m2}, it becomes {ud1}.");
+
+    let ud1 = UnsignedDirection::<Degree>::new(12.);
+    let ud2 = UnsignedDirection::<Degree>::new(13.);
+    println!("{ud1} minus {ud2} is {m3}.", m3 = ud1 - ud2);
+
+    let ud1 = UnsignedDirection::<Degree>::new(12.);
+    println!("{ud1} == {ud1} is {ud2}.", ud2 = ud1 == ud1);
+    println!("{ud1} < {ud1} is {ud2}.", ud2 = ud1 < ud1);
+}
+
+fn print_all_single_unit_operations_for_signed_directions() {
+    let sd1 = SignedDirection::<Degree>::new(12.);
+    let mp1 = MeasurePoint::<Degree>::new(12.);
+    println!(
+        "{sd2} can be created from {mp1}.",
+        sd2 = SignedDirection::<Degree>::from_measure_point(mp1)
+    );
+
+    println!(
+        "{sd1} can be converted to {mp2}.",
+        mp2 = sd1.to_measure_point()
+    );
+
+    println!(
+        "{sd1} can be converted to {ud2}.",
+        ud2 = sd1.to_unsigned_direction()
+    );
+
+    println!(
+        "{sd1} can be converted to {sd2}.",
+        sd2 = sd1.convert::<Radian>()
+    );
+
+    let sd1 = SignedDirection::<Degree>::new(1.2345678901234567890);
+    println!(
+        "{sd1} can be lossy-converted to {sd2}.",
+        sd2 = sd1.lossy_into::<f32>()
+    );
+
+    let sd1 = SignedDirection::<Degree, f32>::new(1.2345678901234567890);
+    println!(
+        "{sd1} can be lossless-converted to {sd2}.",
+        sd2 = sd1.lossless_into::<f64>(),
+    );
+
+    let mut sd1 = SignedDirection::<Degree>::new(12.);
+    let m2 = Measure::<Degree>::new(13.);
+    print!("{sd1} plus {m2} is {sd3},", sd3 = sd1 + m2);
+
+    sd1 += m2;
+    println!(" and if incremented by {m2}, it becomes {sd1}.");
+
+    let mut sd1 = SignedDirection::<Degree>::new(12.);
+    let m2 = Measure::<Degree>::new(13.);
+    print!("{sd1} minus {m2} is {sd3},", sd3 = sd1 - m2);
+
+    sd1 -= m2;
+    println!(" and if decremented by {m2}, it becomes {sd1}.");
+
+    let sd1 = SignedDirection::<Degree>::new(12.);
+    let sd2 = SignedDirection::<Degree>::new(13.);
+    println!("{sd1} minus {sd2} is {m3}.", m3 = sd1 - sd2);
+
+    let sd1 = SignedDirection::<Degree>::new(12.);
+    println!("{sd1} == {sd1} is {sd2}.", sd2 = sd1 == sd1);
+    println!("{sd1} < {sd1} is {sd2}.", sd2 = sd1 < sd1);
+}
+
+fn print_all_single_unit_operations_for_measure_2d() {
     // TODO
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    println!(
+        "{m1} has components X={m2} and Y={m3}.",
+        m2 = m1.x(),
+        m3 = m1.y(),
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    println!(
+        "{m1} can be converted to {m2}.",
+        m2 = m1.convert::<MilePerHour>()
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(1.2345678901234567890, 2.3456789012345678901);
+    println!(
+        "{m1} can be lossy-converted to {m2}.",
+        m2 = m1.lossy_into::<f32>()
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour, f32>::new(1.2345678901234567890, 2.3456789012345678901);
+    println!(
+        "{m1} can be lossless-converted to {m2}.",
+        m2 = m1.lossless_into::<f64>(),
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(-12., -13.);
+    println!("The squared norm of {m1} is {n}.", n = m1.squared_norm());
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(-12., -13.);
+    println!("{m1} normalized is {n}.", n = m1.normalized());
+
+    let mp1 = MeasurePoint::<Degree>::new(12.);
+    println!(
+        "{m1} can be created from angle {mp1}.",
+        m1 = Measure2d::<KiloMetrePerHour>::from_direction(mp1)
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    println!(
+        "{m1} has signed direction {sd2}.",
+        sd2 = m1.signed_direction::<Degree>()
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    println!(
+        "{m1} has unsigned direction {ud2}.",
+        ud2 = m1.unsigned_direction::<Degree>()
+    );
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., -13.);
+    println!("The opposite of {m1} is {m2}.", m2 = -m1);
+
+    let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    let m2 = Measure2d::<KiloMetrePerHour>::new(15., 19.);
+    print!("{m1} plus {m2} is {m3},", m3 = m1 + m2);
+
+    m1 += m2;
+    println!(" and if incremented by {m2}, it becomes {m1}.");
+
+    let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    let m2 = Measure2d::<KiloMetrePerHour>::new(15., 19.);
+    print!("{m1} minus {m2} is {m3},", m3 = m1 - m2);
+
+    m1 -= m2;
+    println!(" and if decremented by {m2}, it becomes {m1}.");
+
+    let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    let multiplier = 2.;
+    print!("{m1} times {multiplier} is {m2},", m2 = m1 * multiplier);
+
+    m1 *= multiplier;
+    println!(" and if multiplied by {multiplier}, it becomes {m1}.");
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    let multiplier = 2.;
+    println!("{multiplier} times {m1} is {m2}.", m2 = multiplier * m1);
+
+    let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    let divisor = 2.;
+    print!("{m1} divided by {divisor} is {m2},", m2 = m1 / divisor);
+
+    m1 /= divisor;
+    println!(" and if divided by {divisor}, it becomes {m1}.");
+
+    let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
+    println!("{m1} == {m1} is {m2}.", m2 = m1 == m1);
+}
+
+fn print_all_single_unit_operations_for_measure_point_2d() {
+    // TODO
+    /*
+        // Measure point 2d
+
+        pub struct MeasurePoint2d<Unit, Number = f64> {
+            x: Number,
+            y: Number,
+            phantom: PhantomData<Unit>,
+        }
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number> {
+            pub fn new(x: Number, y: Number) -> Self {
+                Self {
+                    x,
+                    y,
+                    phantom: PhantomData,
+                }
+            }
+
+            pub fn x(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.x) }
+
+            pub fn y(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.y) }
+
+            pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
+                &self,
+            ) -> MeasurePoint2d<DestUnit, Number> {
+                let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
+                let offset = Number::from_f64((Unit::OFFSET - DestUnit::OFFSET) / DestUnit::RATIO);
+                MeasurePoint2d::<DestUnit, Number> {
+                    x: self.x * factor + offset,
+                    y: self.y * factor + offset,
+                    phantom: PhantomData,
+                }
+            }
+            pub fn lossless_into<DestNumber: ArithmeticOps + From<Number>>(
+                &self,
+            ) -> MeasurePoint2d<Unit, DestNumber> {
+                MeasurePoint2d::<Unit, DestNumber> {
+                    x: DestNumber::from(self.x),
+                    y: DestNumber::from(self.y),
+                    phantom: PhantomData,
+                }
+            }
+            pub fn lossy_into<DestNumber: ArithmeticOps + LossyFrom<Number>>(
+                &self,
+            ) -> MeasurePoint2d<Unit, DestNumber> {
+                MeasurePoint2d::<Unit, DestNumber> {
+                    x: DestNumber::lossy_from(self.x),
+                    y: DestNumber::lossy_from(self.y),
+                    phantom: PhantomData,
+                }
+            }
+        }
+
+        // measure point + measure
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number>
+        {
+            type Output = Self;
+            fn add(self, other: Measure2d<Unit, Number>) -> Self::Output {
+                Self::new(self.x + other.x, self.y + other.y)
+            }
+        }
+
+        // measure point += measure
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number>
+        {
+            fn add_assign(&mut self, other: Measure2d<Unit, Number>) {
+                self.x += other.x;
+                self.y += other.y;
+            }
+        }
+
+        // measure point - measure
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number>
+        {
+            type Output = Self;
+            fn sub(self, other: Measure2d<Unit, Number>) -> Self::Output {
+                Self::new(self.x - other.x, self.y - other.y)
+            }
+        }
+
+        // measure point -= measure
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number>
+        {
+            fn sub_assign(&mut self, other: Measure2d<Unit, Number>) {
+                self.x -= other.x;
+                self.y -= other.y;
+            }
+        }
+
+        // measure point 2d - measure point 2d
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number> {
+            type Output = Measure2d<Unit, Number>;
+            fn sub(self, other: MeasurePoint2d<Unit, Number>) -> Self::Output {
+                Self::Output::new(self.x - other.x, self.y - other.y)
+            }
+        }
+
+        /// weighted_midpoint_2d(measure point 2d, measure point 2d, weight) -> measure point 2d
+        pub fn weighted_midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight2: Number) -> MeasurePoint2d<Unit, Number>
+        {
+            let weight1 = Number::ONE - weight2;
+            MeasurePoint2d::<Unit, Number>::new(
+                p1.x * weight1 + p2.x * weight2,
+                p1.y * weight1 + p2.y * weight2,
+            )
+        }
+
+        /// midpoint_2d(measure point 2d, measure point 2d) -> measure point 2d
+        pub fn midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>) -> MeasurePoint2d<Unit, Number>
+        {
+            MeasurePoint2d::<Unit, Number>::new(
+                (p1.x + p2.x) * Number::HALF,
+                (p1.y + p2.y) * Number::HALF,
+            )
+        }
+
+        /// barycentric_combination_2d(array of 2d measure points, array of weights) -> 2d measure point
+        pub fn barycentric_combination_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
+            points: &[MeasurePoint2d<Unit, Number>], weights: &[Number]) -> MeasurePoint2d<Unit, Number>
+        {
+            MeasurePoint2d::<Unit, Number>::new(
+                points.iter().zip(weights).map(|(p, &w)| p.x * w).sum(),
+                points.iter().zip(weights).map(|(p, &w)| p.y * w).sum(),
+            )
+        }
+
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint2d<Unit, Number>> for MeasurePoint2d<Unit, Number> {
+            fn eq(&self, other: &MeasurePoint2d<Unit, Number>) -> bool {
+                self.x == other.x && self.y == other.y
+            }
+        }
+
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint2d<Unit, Number> {
+            fn clone(&self) -> Self {
+                *self
+            }
+        }
+
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Copy for MeasurePoint2d<Unit, Number> { }
+
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint2d<Unit, Number> {
+            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(f, "at ({}, {}){}", self.x, self.y, Unit::SUFFIX)
+            }
+        }
+    */
+}
+
+fn print_all_single_unit_operations_for_measure_3d() {
+    // TODO
+}
+
+fn print_all_single_unit_operations_for_measure_point_3d() {
+    // TODO
+}
+
+fn print_all_single_unit_operations() {
+    print_all_single_unit_operations_for_measure_1d();
+    print_all_single_unit_operations_for_measure_point_1d();
+    print_all_single_unit_operations_for_unsigned_directions();
+    print_all_single_unit_operations_for_signed_directions();
+    print_all_single_unit_operations_for_measure_2d();
+    print_all_single_unit_operations_for_measure_point_2d();
+    print_all_single_unit_operations_for_measure_3d();
+    print_all_single_unit_operations_for_measure_point_3d();
 }
 
 fn print_all_mixed_operation() {

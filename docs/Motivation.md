@@ -1,4 +1,6 @@
-# Rs-Measures: Rationales for a Library to Handle Measures
+# Motivation
+
+This document describes the rationale for the Rs-Measures library.
 
 Using primitive Rust data types to store the value of physical or geometrical quantities, several programming errors are possible. But some of them can be avoided, at no run-time cost, by using the Rs-Measures crate.
 

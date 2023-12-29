@@ -97,6 +97,43 @@ macro_rules! define_measure_2d {
                 Self::new(-self.x, -self.y)
             }
         }
+
+        // Measure2d + Measure2d -> Measure2d
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure2d<Unit, Number>>
+            for Measure2d<Unit, Number>
+        {
+            type Output = Self;
+            fn add(self, other: Measure2d<Unit, Number>) -> Self::Output {
+                Self::new(self.x + other.x, self.y + other.y)
+            }
+        }
+
+        // Measure2d += Measure2d
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
+            fn add_assign(&mut self, other: Measure2d<Unit, Number>) {
+                self.x += other.x;
+                self.y += other.y;
+            }
+        }
+
+        // Measure2d - Measure2d -> Measure2d
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure2d<Unit, Number>>
+            for Measure2d<Unit, Number>
+        {
+            type Output = Self;
+            fn sub(self, other: Measure2d<Unit, Number>) -> Self::Output {
+                Self::new(self.x - other.x, self.y - other.y)
+            }
+        }
+
+        // Measure2d -= Measure2d
+        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
+            fn sub_assign(&mut self, other: Measure2d<Unit, Number>) {
+                self.x -= other.x;
+                self.y -= other.y;
+            }
+        }
+
         // Measure2d * Number -> Measure2d
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure2d<Unit, Number> {
             type Output = Self;
@@ -142,42 +179,6 @@ macro_rules! define_measure_2d {
             fn div_assign(&mut self, n: Number) {
                 self.x /= n;
                 self.y /= n;
-            }
-        }
-
-        // Measure2d + Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure2d<Unit, Number>>
-            for Measure2d<Unit, Number>
-        {
-            type Output = Self;
-            fn add(self, other: Measure2d<Unit, Number>) -> Self::Output {
-                Self::new(self.x + other.x, self.y + other.y)
-            }
-        }
-
-        // Measure2d += Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
-            fn add_assign(&mut self, other: Measure2d<Unit, Number>) {
-                self.x += other.x;
-                self.y += other.y;
-            }
-        }
-
-        // Measure2d - Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure2d<Unit, Number>>
-            for Measure2d<Unit, Number>
-        {
-            type Output = Self;
-            fn sub(self, other: Measure2d<Unit, Number>) -> Self::Output {
-                Self::new(self.x - other.x, self.y - other.y)
-            }
-        }
-
-        // Measure2d -= Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
-            fn sub_assign(&mut self, other: Measure2d<Unit, Number>) {
-                self.x -= other.x;
-                self.y -= other.y;
             }
         }
 
