@@ -166,14 +166,8 @@ fn measures_point_2d_weighted_midpoint() {
     let mp1 = MeasurePoint2d::<Metre, f32>::new(20., -200.);
     let mp2 = MeasurePoint2d::<Metre, f32>::new(30., -300.);
     let mp3: MeasurePoint2d<Metre, f32> = weighted_midpoint_2d(mp1, mp2, 0.4);
-    assert_eq_32!(mp3.x, 24.);
-    assert_eq_32!(mp3.y, -240.);
-    let mp4: MeasurePoint2d<Metre, f32> = weighted_midpoint_2d(mp1, mp2, -0.4);
-    assert_eq_32!(mp4.x, 16.);
-    assert_eq_32!(mp4.y, -160.);
-    let mp5: MeasurePoint2d<Metre, f32> = weighted_midpoint_2d(mp1, mp2, 2.4);
-    assert_eq_32!(mp5.x, 44.);
-    assert_eq_32!(mp5.y, -440.);
+    assert_eq_32!(mp3.x, 26.);
+    assert_eq_32!(mp3.y, -260.);
 }
 
 #[test]

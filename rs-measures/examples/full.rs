@@ -270,9 +270,9 @@ fn print_all_area_units() {
 fn print_all_area_density_units() {
     println!("* All AreaDensity units");
     println!(
-        "  KilogramPerSquareMetre: {}, {};",
-        Measure::<KilogramPerSquareMetre>::new(1.),
-        MeasurePoint::<KilogramPerSquareMetre>::new(1.),
+        "  KiloGramPerSquareMetre: {}, {};",
+        Measure::<KiloGramPerSquareMetre>::new(1.),
+        MeasurePoint::<KiloGramPerSquareMetre>::new(1.),
     );
     println!();
 }
@@ -3033,13 +3033,194 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
 
 fn print_all_single_unit_operations_for_measure_3d() {
     println!("* All single unit operations for measure 3d");
-    // TODO
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        println!(
+            "{m1} has components X={m2}, Y={m3}, and Z={m4}.",
+            m2 = m1.x(),
+            m3 = m1.y(),
+            m4 = m1.z(),
+        );
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        println!(
+            "{m1} can be converted to {m2}.",
+            m2 = m1.convert::<MilePerHour>()
+        );
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(
+            1.234_567_890_123_456_7,
+            2.345_678_901_234_568,
+            3.456_789_012_345_679,
+        );
+        println!(
+            "{m1} can be lossy-converted to {m2}.",
+            m2 = m1.lossy_into::<f32>()
+        );
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8, 3.456_789);
+        println!(
+            "{m1} can be lossless-converted to {m2}.",
+            m2 = m1.lossless_into::<f64>(),
+        );
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(-12., -13., -14.);
+        println!("The squared norm of {m1} is {n}.", n = m1.squared_norm());
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(-12., -13., -14.);
+        println!("{m1} normalized is {n}.", n = m1.normalized());
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(12., -13., -14.);
+        println!("The opposite of {m1} is {m2}.", m2 = -m1);
+    }
+
+    {
+        let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
+        print!("{m1} plus {m2} is {m3},", m3 = m1 + m2);
+
+        m1 += m2;
+        println!(" and if incremented by {m2}, it becomes {m1}.");
+    }
+
+    {
+        let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
+        print!("{m1} minus {m2} is {m3},", m3 = m1 - m2);
+
+        m1 -= m2;
+        println!(" and if decremented by {m2}, it becomes {m1}.");
+    }
+
+    {
+        let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let multiplier = 2.;
+        print!("{m1} times {multiplier} is {m2},", m2 = m1 * multiplier);
+
+        m1 *= multiplier;
+        println!(" and if multiplied by {multiplier}, it becomes {m1}.");
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let multiplier = 2.;
+        println!("{multiplier} times {m1} is {m2}.", m2 = multiplier * m1);
+    }
+
+    {
+        let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let divisor = 2.;
+        print!("{m1} divided by {divisor} is {m2},", m2 = m1 / divisor);
+
+        m1 /= divisor;
+        println!(" and if divided by {divisor}, it becomes {m1}.");
+    }
+
+    {
+        let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let m2 = m1;
+        println!("{m1} == {m1} is {result}.", result = m1 == m2);
+    }
     println!();
 }
 
 fn print_all_single_unit_operations_for_measure_point_3d() {
     println!("* All single unit operations for measure point 3d");
-    // TODO
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        println!(
+            "{mp1} has components X={mp2} and Y={mp3}.",
+            mp2 = mp1.x(),
+            mp3 = mp1.y(),
+        );
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        println!(
+            "{mp1} can be converted to {mp2}.",
+            mp2 = mp1.convert::<MilePerHour>()
+        );
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(
+            1.234_567_890_123_456_7,
+            2.345_678_901_234_568,
+            3.456_789_012_345_679,
+        );
+        println!(
+            "{mp1} can be lossy-converted to {mp2}.",
+            mp2 = mp1.lossy_into::<f32>()
+        );
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8, 3.456_789);
+        println!(
+            "{mp1} can be lossless-converted to {mp2}.",
+            mp2 = mp1.lossless_into::<f64>(),
+        );
+    }
+
+    {
+        let mut mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
+        print!("{mp1} plus {m2} is {mp3},", mp3 = mp1 + m2);
+
+        mp1 += m2;
+        println!(" and if incremented by {m2}, it becomes {mp1}.");
+    }
+
+    {
+        let mut mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
+        print!("{mp1} minus {m2} is {mp3},", mp3 = mp1 - m2);
+
+        mp1 -= m2;
+        println!(" and if decremented by {m2}, it becomes {mp1}.");
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let mp2 = MeasurePoint3d::<KiloMetrePerHour>::new(15., 19., 26.);
+        println!("{mp1} minus {mp2} is {m3},", m3 = mp1 - mp2);
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(10., -100., 40.);
+        let mp2 = MeasurePoint3d::<KiloMetrePerHour>::new(20., -200., 80.);
+        println!("The weighted midpoint between {mp1} (with weight 40%) and {mp2} (with weight 60%) is {mp3}.", mp3 = weighted_midpoint_3d(mp1, mp2, 0.4));
+        println!(
+            "The midpoint between {mp1} and {mp2} is {mp3}.",
+            mp3 = midpoint_3d(mp1, mp2)
+        );
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(10., -100., 40.);
+        let mp2 = MeasurePoint3d::<KiloMetrePerHour>::new(20., -200., 80.);
+        let mp3 = MeasurePoint3d::<KiloMetrePerHour>::new(40., -400., 160.);
+        println!("The barycentric combination among {mp1} (with weight 10%), {mp2} (with weight 20%), and {mp3} (with weight 70%) is {mp4}.", mp4 = barycentric_combination_3d(&[mp1, mp2, mp3], &[0.1, 0.2, 0.7]));
+    }
+
+    {
+        let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
+        let mp2 = mp1;
+        println!("{mp1} == {mp1} is {result}.", result = mp1 == mp2);
+    }
     println!();
 }
 

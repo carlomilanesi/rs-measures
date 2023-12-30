@@ -307,9 +307,9 @@ macro_rules! define_measure_2d {
 
         /// weighted_midpoint_2d(measure point 2d, measure point 2d, weight) -> measure point 2d
         pub fn weighted_midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight2: Number) -> MeasurePoint2d<Unit, Number>
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight1: Number) -> MeasurePoint2d<Unit, Number>
         {
-            let weight1 = Number::ONE - weight2;
+            let weight2 = Number::ONE - weight1;
             MeasurePoint2d::<Unit, Number>::new(
                 p1.x * weight1 + p2.x * weight2,
                 p1.y * weight1 + p2.y * weight2,

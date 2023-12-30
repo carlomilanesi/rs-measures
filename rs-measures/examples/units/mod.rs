@@ -250,17 +250,6 @@ impl MeasurementUnit for SquareMile {
     const SUFFIX: &'static str = " mi\u{b2}";
 }
 
-// Property: area density
-pub struct AreaDensity;
-
-pub struct KilogramPerSquareMetre;
-impl MeasurementUnit for KilogramPerSquareMetre {
-    type Property = AreaDensity;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " kg/m\u{b2}";
-}
-
 // Property: capacitance
 pub struct Capacitance;
 
@@ -2368,500 +2357,16 @@ impl MeasurementUnit for RadianPerMetre {
     const SUFFIX: &'static str = " rad/m";
 }
 
-#[test]
-fn print_them_all() {
-    println!("Turn: {}.", Measure::<Turn, f64>::new(1.2));
-    println!("Gradian: {}.", Measure::<Gradian, f64>::new(1.2));
-    println!("Degree: {}.", Measure::<Degree, f64>::new(1.2));
-    println!("ArcMinute: {}.", Measure::<ArcMinute, f64>::new(1.2));
-    println!("ArcSecond: {}.", Measure::<ArcSecond, f64>::new(1.2));
-    println!(
-        "MetrePerSquareSecond: {}.",
-        Measure::<MetrePerSquareSecond, f64>::new(1.2)
-    );
-    println!("GForce: {}.", Measure::<GForce, f64>::new(1.2));
-    println!(
-        "KiloMetrePerHourPerSecond: {}.",
-        Measure::<KiloMetrePerHourPerSecond, f64>::new(1.2)
-    );
-    println!("JouleSecond: {}.", Measure::<JouleSecond, f64>::new(1.2));
-    println!("Unit: {}.", Measure::<Unit, f64>::new(1.2));
-    println!("Dozen: {}.", Measure::<Dozen, f64>::new(1.2));
-    println!("Mole: {}.", Measure::<Mole, f64>::new(1.2));
-    println!(
-        "RadianPerSquareSecond: {}.",
-        Measure::<RadianPerSquareSecond, f64>::new(1.2)
-    );
-    println!(
-        "KilogramSquareMetrePerSecond: {}.",
-        Measure::<KilogramSquareMetrePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "GramSquareCentiMetrePerSecond: {}.",
-        Measure::<GramSquareCentiMetrePerSecond, f64>::new(1.2)
-    );
-    println!("SquareMetre: {}.", Measure::<SquareMetre, f64>::new(1.2));
-    println!(
-        "SquareKiloMetre: {}.",
-        Measure::<SquareKiloMetre, f64>::new(1.2)
-    );
-    println!("Hectare: {}.", Measure::<Hectare, f64>::new(1.2));
-    println!("Are: {}.", Measure::<Are, f64>::new(1.2));
-    println!(
-        "SquareDeciMetre: {}.",
-        Measure::<SquareDeciMetre, f64>::new(1.2)
-    );
-    println!(
-        "SquareCentiMetre: {}.",
-        Measure::<SquareCentiMetre, f64>::new(1.2)
-    );
-    println!(
-        "SquareMilliMetre: {}.",
-        Measure::<SquareMilliMetre, f64>::new(1.2)
-    );
-    println!("SquareInch: {}.", Measure::<SquareInch, f64>::new(1.2));
-    println!("SquareFoot: {}.", Measure::<SquareFoot, f64>::new(1.2));
-    println!("SquareYard: {}.", Measure::<SquareYard, f64>::new(1.2));
-    println!("SquareMile: {}.", Measure::<SquareMile, f64>::new(1.2));
-    println!(
-        "KilogramPerSquareMetre: {}.",
-        Measure::<KilogramPerSquareMetre, f64>::new(1.2)
-    );
-    println!("Farad: {}.", Measure::<Farad, f64>::new(1.2));
-    println!("MilliFarad: {}.", Measure::<MilliFarad, f64>::new(1.2));
-    println!("MicroFarad: {}.", Measure::<MicroFarad, f64>::new(1.2));
-    println!("NanoFarad: {}.", Measure::<NanoFarad, f64>::new(1.2));
-    println!("PicoFarad: {}.", Measure::<PicoFarad, f64>::new(1.2));
-    println!("Katal: {}.", Measure::<Katal, f64>::new(1.2));
-    println!(
-        "KatalPerCubicMetre: {}.",
-        Measure::<KatalPerCubicMetre, f64>::new(1.2)
-    );
-    println!("JoulePerMole: {}.", Measure::<JoulePerMole, f64>::new(1.2));
-    println!(
-        "MolePerCubicMetre: {}.",
-        Measure::<MolePerCubicMetre, f64>::new(1.2)
-    );
-    println!(
-        "AmperePerSquareMetre: {}.",
-        Measure::<AmperePerSquareMetre, f64>::new(1.2)
-    );
-    println!("Sievert: {}.", Measure::<Sievert, f64>::new(1.2));
-    println!("Rem: {}.", Measure::<Rem, f64>::new(1.2));
-    println!("PascalSecond: {}.", Measure::<PascalSecond, f64>::new(1.2));
-    println!("Coulomb: {}.", Measure::<Coulomb, f64>::new(1.2));
-    println!("MilliCoulomb: {}.", Measure::<MilliCoulomb, f64>::new(1.2));
-    println!("MicroCoulomb: {}.", Measure::<MicroCoulomb, f64>::new(1.2));
-    println!("NanoCoulomb: {}.", Measure::<NanoCoulomb, f64>::new(1.2));
-    println!("PicoCoulomb: {}.", Measure::<PicoCoulomb, f64>::new(1.2));
-    println!(
-        "CoulombPerMetre: {}.",
-        Measure::<CoulombPerMetre, f64>::new(1.2)
-    );
-    println!(
-        "CoulombPerSquareMetre: {}.",
-        Measure::<CoulombPerSquareMetre, f64>::new(1.2)
-    );
-    println!(
-        "CoulombPerCubicMetre: {}.",
-        Measure::<CoulombPerCubicMetre, f64>::new(1.2)
-    );
-    println!("VoltPerMetre: {}.", Measure::<VoltPerMetre, f64>::new(1.2));
-    println!("Siemens: {}.", Measure::<Siemens, f64>::new(1.2));
-    println!(
-        "SiemensPerMetre: {}.",
-        Measure::<SiemensPerMetre, f64>::new(1.2)
-    );
-    println!("Ampere: {}.", Measure::<Ampere, f64>::new(1.2));
-    println!("MilliAmpere: {}.", Measure::<MilliAmpere, f64>::new(1.2));
-    println!("MicroAmpere: {}.", Measure::<MicroAmpere, f64>::new(1.2));
-    println!("Volt: {}.", Measure::<Volt, f64>::new(1.2));
-    println!("KiloVolt: {}.", Measure::<KiloVolt, f64>::new(1.2));
-    println!("MilliVolt: {}.", Measure::<MilliVolt, f64>::new(1.2));
-    println!("MicroVolt: {}.", Measure::<MicroVolt, f64>::new(1.2));
-    println!("Ohm: {}.", Measure::<Ohm, f64>::new(1.2));
-    println!("KiloOhm: {}.", Measure::<KiloOhm, f64>::new(1.2));
-    println!("OhmMetre: {}.", Measure::<OhmMetre, f64>::new(1.2));
-    println!("Joule: {}.", Measure::<Joule, f64>::new(1.2));
-    println!("WattHour: {}.", Measure::<WattHour, f64>::new(1.2));
-    println!("KiloWattHour: {}.", Measure::<KiloWattHour, f64>::new(1.2));
-    println!("MegaWattHour: {}.", Measure::<MegaWattHour, f64>::new(1.2));
-    println!("Calorie: {}.", Measure::<Calorie, f64>::new(1.2));
-    println!("KiloCalorie: {}.", Measure::<KiloCalorie, f64>::new(1.2));
-    println!(
-        "JoulePerCubicMetre: {}.",
-        Measure::<JoulePerCubicMetre, f64>::new(1.2)
-    );
-    println!(
-        "JoulePerKelvin: {}.",
-        Measure::<JoulePerKelvin, f64>::new(1.2)
-    );
-    println!("Newton: {}.", Measure::<Newton, f64>::new(1.2));
-    println!("Dyne: {}.", Measure::<Dyne, f64>::new(1.2));
-    println!(
-        "KilogramForce: {}.",
-        Measure::<KilogramForce, f64>::new(1.2)
-    );
-    println!("PoundForce: {}.", Measure::<PoundForce, f64>::new(1.2));
-    println!("Poundal: {}.", Measure::<Poundal, f64>::new(1.2));
-    println!("Hertz: {}.", Measure::<Hertz, f64>::new(1.2));
-    println!("KiloHertz: {}.", Measure::<KiloHertz, f64>::new(1.2));
-    println!("MegaHertz: {}.", Measure::<MegaHertz, f64>::new(1.2));
-    println!("GigaHertz: {}.", Measure::<GigaHertz, f64>::new(1.2));
-    println!(
-        "RadianPerSecond: {}.",
-        Measure::<RadianPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "TurnPerMinute: {}.",
-        Measure::<TurnPerMinute, f64>::new(1.2)
-    );
-    println!(
-        "WattPerSquareMetre: {}.",
-        Measure::<WattPerSquareMetre, f64>::new(1.2)
-    );
-    println!("Lux: {}.", Measure::<Lux, f64>::new(1.2));
-    println!("Phot: {}.", Measure::<Phot, f64>::new(1.2));
-    println!("FootCandle: {}.", Measure::<FootCandle, f64>::new(1.2));
-    println!("Henry: {}.", Measure::<Henry, f64>::new(1.2));
-    println!("Bit: {}.", Measure::<Bit, f64>::new(1.2));
-    println!("Byte: {}.", Measure::<Byte, f64>::new(1.2));
-    println!("KiloBit: {}.", Measure::<KiloBit, f64>::new(1.2));
-    println!("KiloByte: {}.", Measure::<KiloByte, f64>::new(1.2));
-    println!("KibiBit: {}.", Measure::<KibiBit, f64>::new(1.2));
-    println!("KibiByte: {}.", Measure::<KibiByte, f64>::new(1.2));
-    println!("MegaBit: {}.", Measure::<MegaBit, f64>::new(1.2));
-    println!("MegaByte: {}.", Measure::<MegaByte, f64>::new(1.2));
-    println!("MebiBit: {}.", Measure::<MebiBit, f64>::new(1.2));
-    println!("MebiByte: {}.", Measure::<MebiByte, f64>::new(1.2));
-    println!("GigaBit: {}.", Measure::<GigaBit, f64>::new(1.2));
-    println!("GigaByte: {}.", Measure::<GigaByte, f64>::new(1.2));
-    println!("GibiBit: {}.", Measure::<GibiBit, f64>::new(1.2));
-    println!("GibiByte: {}.", Measure::<GibiByte, f64>::new(1.2));
-    println!("TeraBit: {}.", Measure::<TeraBit, f64>::new(1.2));
-    println!("TeraByte: {}.", Measure::<TeraByte, f64>::new(1.2));
-    println!("TebiBit: {}.", Measure::<TebiBit, f64>::new(1.2));
-    println!("TebiByte: {}.", Measure::<TebiByte, f64>::new(1.2));
-    println!("BitPerSecond: {}.", Measure::<BitPerSecond, f64>::new(1.2));
-    println!(
-        "BytePerSecond: {}.",
-        Measure::<BytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "KiloBitPerSecond: {}.",
-        Measure::<KiloBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "KiloBytePerSecond: {}.",
-        Measure::<KiloBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "KibiBitPerSecond: {}.",
-        Measure::<KibiBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "KibiBytePerSecond: {}.",
-        Measure::<KibiBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "MegaBitPerSecond: {}.",
-        Measure::<MegaBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "MegaBytePerSecond: {}.",
-        Measure::<MegaBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "MebiBitPerSecond: {}.",
-        Measure::<MebiBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "MebiBytePerSecond: {}.",
-        Measure::<MebiBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "GigaBitPerSecond: {}.",
-        Measure::<GigaBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "GigaBytePerSecond: {}.",
-        Measure::<GigaBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "GibiBitPerSecond: {}.",
-        Measure::<GibiBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "GibiBytePerSecond: {}.",
-        Measure::<GibiBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "TeraBitPerSecond: {}.",
-        Measure::<TeraBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "TeraBytePerSecond: {}.",
-        Measure::<TeraBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "TebiBitPerSecond: {}.",
-        Measure::<TebiBitPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "TebiBytePerSecond: {}.",
-        Measure::<TebiBytePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "SquareMetrePerSecond: {}.",
-        Measure::<SquareMetrePerSecond, f64>::new(1.2)
-    );
-    println!("Stoke: {}.", Measure::<Stoke, f64>::new(1.2));
-    println!("CentiStoke: {}.", Measure::<CentiStoke, f64>::new(1.2));
-    println!("Metre: {}.", Measure::<Metre, f64>::new(1.2));
-    println!(
-        "AstronomicalUnit: {}.",
-        Measure::<AstronomicalUnit, f64>::new(1.2)
-    );
-    println!("Parsec: {}.", Measure::<Parsec, f64>::new(1.2));
-    println!("LightYear: {}.", Measure::<LightYear, f64>::new(1.2));
-    println!("KiloMetre: {}.", Measure::<KiloMetre, f64>::new(1.2));
-    println!("HectoMetre: {}.", Measure::<HectoMetre, f64>::new(1.2));
-    println!("DecaMetre: {}.", Measure::<DecaMetre, f64>::new(1.2));
-    println!("DeciMetre: {}.", Measure::<DeciMetre, f64>::new(1.2));
-    println!("CentiMetre: {}.", Measure::<CentiMetre, f64>::new(1.2));
-    println!("MilliMetre: {}.", Measure::<MilliMetre, f64>::new(1.2));
-    println!("MicroMetre: {}.", Measure::<MicroMetre, f64>::new(1.2));
-    println!("NanoMetre: {}.", Measure::<NanoMetre, f64>::new(1.2));
-    println!("Angstrom: {}.", Measure::<Angstrom, f64>::new(1.2));
-    println!("Inch: {}.", Measure::<Inch, f64>::new(1.2));
-    println!("Foot: {}.", Measure::<Foot, f64>::new(1.2));
-    println!("Yard: {}.", Measure::<Yard, f64>::new(1.2));
-    println!("Mile: {}.", Measure::<Mile, f64>::new(1.2));
-    println!("NauticalMile: {}.", Measure::<NauticalMile, f64>::new(1.2));
-    println!(
-        "KilogramPerMetre: {}.",
-        Measure::<KilogramPerMetre, f64>::new(1.2)
-    );
-    println!(
-        "CandelaPerSquareMetre: {}.",
-        Measure::<CandelaPerSquareMetre, f64>::new(1.2)
-    );
-    println!("Stilb: {}.", Measure::<Stilb, f64>::new(1.2));
-    println!("Lumen: {}.", Measure::<Lumen, f64>::new(1.2));
-    println!("Candela: {}.", Measure::<Candela, f64>::new(1.2));
-    println!(
-        "AmperePerMetre: {}.",
-        Measure::<AmperePerMetre, f64>::new(1.2)
-    );
-    println!("Weber: {}.", Measure::<Weber, f64>::new(1.2));
-    println!("Tesla: {}.", Measure::<Tesla, f64>::new(1.2));
-    println!("Gauss: {}.", Measure::<Gauss, f64>::new(1.2));
-    println!("InverseHenry: {}.", Measure::<InverseHenry, f64>::new(1.2));
-    println!("KiloGram: {}.", Measure::<KiloGram, f64>::new(1.2));
-    println!("MetricTon: {}.", Measure::<Tonne, f64>::new(1.2));
-    println!("HectoGram: {}.", Measure::<HectoGram, f64>::new(1.2));
-    println!("DecaGram: {}.", Measure::<DecaGram, f64>::new(1.2));
-    println!("Gram: {}.", Measure::<Gram, f64>::new(1.2));
-    println!("MilliGram: {}.", Measure::<MilliGram, f64>::new(1.2));
-    println!("MicroGram: {}.", Measure::<MicroGram, f64>::new(1.2));
-    println!("NanoGram: {}.", Measure::<NanoGram, f64>::new(1.2));
-    println!("ImperialTon: {}.", Measure::<ImperialTon, f64>::new(1.2));
-    println!("USTon: {}.", Measure::<USTon, f64>::new(1.2));
-    println!("Stone: {}.", Measure::<Stone, f64>::new(1.2));
-    println!("Pound: {}.", Measure::<Pound, f64>::new(1.2));
-    println!("Ounce: {}.", Measure::<Ounce, f64>::new(1.2));
-    println!("Carat: {}.", Measure::<Carat, f64>::new(1.2));
-    println!(
-        "KiloGramPerCubicMetre: {}.",
-        Measure::<KiloGramPerCubicMetre, f64>::new(1.2)
-    );
-    println!(
-        "KiloGramPerSecond: {}.",
-        Measure::<KiloGramPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "GramPerSecond: {}.",
-        Measure::<GramPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "JoulePerKelvinPerMole: {}.",
-        Measure::<JoulePerKelvinPerMole, f64>::new(1.2)
-    );
-    println!(
-        "KiloGramSquareMetre: {}.",
-        Measure::<KiloGramSquareMetre, f64>::new(1.2)
-    );
-    println!(
-        "GramSquareCentiMetre: {}.",
-        Measure::<GramSquareCentiMetre, f64>::new(1.2)
-    );
-    println!("NewtonSecond: {}.", Measure::<NewtonSecond, f64>::new(1.2));
-    println!(
-        "KiloGramMetrePerSecond: {}.",
-        Measure::<KiloGramMetrePerSecond, f64>::new(1.2)
-    );
-    println!("DynSecond: {}.", Measure::<DynSecond, f64>::new(1.2));
-    println!(
-        "GramCentiMetrePerSecond: {}.",
-        Measure::<GramCentiMetrePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "HenryPerMetre: {}.",
-        Measure::<HenryPerMetre, f64>::new(1.2)
-    );
-    println!(
-        "FaradPerMetre: {}.",
-        Measure::<FaradPerMetre, f64>::new(1.2)
-    );
-    println!("Watt: {}.", Measure::<Watt, f64>::new(1.2));
-    println!("MilliWatt: {}.", Measure::<MilliWatt, f64>::new(1.2));
-    println!("KiloWatt: {}.", Measure::<KiloWatt, f64>::new(1.2));
-    println!("MegaWatt: {}.", Measure::<MegaWatt, f64>::new(1.2));
-    println!("GigaWatt: {}.", Measure::<GigaWatt, f64>::new(1.2));
-    println!("HorsePower: {}.", Measure::<HorsePower, f64>::new(1.2));
-    println!("Pascal: {}.", Measure::<Pascal, f64>::new(1.2));
-    println!("HectoPascal: {}.", Measure::<HectoPascal, f64>::new(1.2));
-    println!("Atmosphere: {}.", Measure::<Atmosphere, f64>::new(1.2));
-    println!("Bar: {}.", Measure::<Bar, f64>::new(1.2));
-    println!("MilliBar: {}.", Measure::<MilliBar, f64>::new(1.2));
-    println!("MmHg: {}.", Measure::<MmHg, f64>::new(1.2));
-    println!(
-        "PoundForcePerSquareInch: {}.",
-        Measure::<PoundForcePerSquareInch, f64>::new(1.2)
-    );
-    println!(
-        "WattPerSquareMetrePerSteradian: {}.",
-        Measure::<WattPerSquareMetrePerSteradian, f64>::new(1.2)
-    );
-    println!(
-        "WattPerSteradian: {}.",
-        Measure::<WattPerSteradian, f64>::new(1.2)
-    );
-    println!("Becquerel: {}.", Measure::<Becquerel, f64>::new(1.2));
-    println!(
-        "KiloBecquerel: {}.",
-        Measure::<KiloBecquerel, f64>::new(1.2)
-    );
-    println!(
-        "MegaBecquerel: {}.",
-        Measure::<MegaBecquerel, f64>::new(1.2)
-    );
-    println!(
-        "GigaBecquerel: {}.",
-        Measure::<GigaBecquerel, f64>::new(1.2)
-    );
-    println!("Gray: {}.", Measure::<Gray, f64>::new(1.2));
-    println!("Rad: {}.", Measure::<Rad, f64>::new(1.2));
-    println!(
-        "GrayPerSecond: {}.",
-        Measure::<GrayPerSecond, f64>::new(1.2)
-    );
-    println!(
-        "MolePerCubicMetrePerSecond: {}.",
-        Measure::<MolePerCubicMetrePerSecond, f64>::new(1.2)
-    );
-    println!("Steradian: {}.", Measure::<Steradian, f64>::new(1.2));
-    println!("AllRound: {}.", Measure::<AllRound, f64>::new(1.2));
-    println!("SquareDegree: {}.", Measure::<SquareDegree, f64>::new(1.2));
-    println!(
-        "JoulePerKiloGram: {}.",
-        Measure::<JoulePerKiloGram, f64>::new(1.2)
-    );
-    println!(
-        "JoulePerKiloGramPerKelvin: {}.",
-        Measure::<JoulePerKiloGramPerKelvin, f64>::new(1.2)
-    );
-    println!(
-        "CubicMetrePerKiloGram: {}.",
-        Measure::<CubicMetrePerKiloGram, f64>::new(1.2)
-    );
-    println!("SquareSecond: {}.", Measure::<SquareSecond, f64>::new(1.2));
-    println!("HourSecond: {}.", Measure::<HourSecond, f64>::new(1.2));
-    println!("HourHour: {}.", Measure::<HourHour, f64>::new(1.2));
-    println!(
-        "KiloGramPerSquareMetre: {}.",
-        Measure::<KiloGramPerSquareMetre, f64>::new(1.2)
-    );
-    println!(
-        "JoulePerSquareMetre: {}.",
-        Measure::<JoulePerSquareMetre, f64>::new(1.2)
-    );
-    println!("Kelvin: {}.", Measure::<Kelvin, f64>::new(1.2));
-    println!("Celsius: {}.", Measure::<Celsius, f64>::new(1.2));
-    println!("Fahrenheit: {}.", Measure::<Fahrenheit, f64>::new(1.2));
-    println!(
-        "WattPerMetrePerKelvin: {}.",
-        Measure::<WattPerMetrePerKelvin, f64>::new(1.2)
-    );
-    println!("Second: {}.", Measure::<Second, f64>::new(1.2));
-    println!("Year: {}.", Measure::<Year, f64>::new(1.2));
-    println!("Month: {}.", Measure::<Month, f64>::new(1.2));
-    println!("Week: {}.", Measure::<Week, f64>::new(1.2));
-    println!("Day: {}.", Measure::<Day, f64>::new(1.2));
-    println!("Hour: {}.", Measure::<Hour, f64>::new(1.2));
-    println!("Minute: {}.", Measure::<Minute, f64>::new(1.2));
-    println!("MilliSecond: {}.", Measure::<MilliSecond, f64>::new(1.2));
-    println!("MicroSecond: {}.", Measure::<MicroSecond, f64>::new(1.2));
-    println!("NanoSecond: {}.", Measure::<NanoSecond, f64>::new(1.2));
-    println!("PicoSecond: {}.", Measure::<PicoSecond, f64>::new(1.2));
-    println!("FemtoSecond: {}.", Measure::<FemtoSecond, f64>::new(1.2));
-    println!("NewtonMetre: {}.", Measure::<NewtonMetre, f64>::new(1.2));
-    println!(
-        "MetrePerSecond: {}.",
-        Measure::<MetrePerSecond, f64>::new(1.2)
-    );
-    println!("Knot: {}.", Measure::<Knot, f64>::new(1.2));
-    println!(
-        "KiloMetrePerHour: {}.",
-        Measure::<KiloMetrePerHour, f64>::new(1.2)
-    );
-    println!("MilePerHour: {}.", Measure::<MilePerHour, f64>::new(1.2));
-    println!("Mach: {}.", Measure::<Mach, f64>::new(1.2));
-    println!(
-        "CentiMetresPerSecond: {}.",
-        Measure::<CentiMetresPerSecond, f64>::new(1.2)
-    );
-    println!("CubicMetre: {}.", Measure::<CubicMetre, f64>::new(1.2));
-    println!(
-        "CubicKiloMetre: {}.",
-        Measure::<CubicKiloMetre, f64>::new(1.2)
-    );
-    println!("CubicInch: {}.", Measure::<CubicInch, f64>::new(1.2));
-    println!("CubicFoot: {}.", Measure::<CubicFoot, f64>::new(1.2));
-    println!("CubicYard: {}.", Measure::<CubicYard, f64>::new(1.2));
-    println!("CubicMile: {}.", Measure::<CubicMile, f64>::new(1.2));
-    println!("Litre: {}.", Measure::<Litre, f64>::new(1.2));
-    println!("MilliLitre: {}.", Measure::<MilliLitre, f64>::new(1.2));
-    println!("MicroLitre: {}.", Measure::<MicroLitre, f64>::new(1.2));
-    println!("NanoLitre: {}.", Measure::<NanoLitre, f64>::new(1.2));
-    println!("PicoLitre: {}.", Measure::<PicoLitre, f64>::new(1.2));
-    println!("Pint: {}.", Measure::<Pint, f64>::new(1.2));
-    println!("Gallon: {}.", Measure::<Gallon, f64>::new(1.2));
-    println!(
-        "CubicMetrePerSecond: {}.",
-        Measure::<CubicMetrePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "CubicCentiMetrePerSecond: {}.",
-        Measure::<CubicCentiMetrePerSecond, f64>::new(1.2)
-    );
-    println!(
-        "CyclePerMetre: {}.",
-        Measure::<CyclePerMetre, f64>::new(1.2)
-    );
-    println!(
-        "RadianPerMetre: {}.",
-        Measure::<RadianPerMetre, f64>::new(1.2)
-    );
-}
-
 //## Relationships among units
 use define_units_relation::define_units_relation;
 
-// computer science //
+// Computer science
+
+// Properties:
+// * Information
+// * InformationRate
 
 // InformationRate == Information / Time
-
 define_units_relation! {BitPerSecond == Bit / Second}
 define_units_relation! {BytePerSecond == Byte / Second}
 define_units_relation! {KiloBitPerSecond == KiloBit / Second}
@@ -2881,11 +2386,219 @@ define_units_relation! {TeraBytePerSecond == TeraByte / Second}
 define_units_relation! {TebiBitPerSecond == TebiBit / Second}
 define_units_relation! {TebiBytePerSecond == TebiByte / Second}
 
+// Geometry
+
+// Properties:
+// * Angle
+// * Area
+// * Length
+// * SolidAngle
+// * Volume
+// * WaveNumber
+
+// Area == Length * Length
+define_units_relation! {Hectare == HectoMetre * HectoMetre}
+define_units_relation! {Are == DecaMetre * DecaMetre}
+define_units_relation! {SquareDeciMetre == DeciMetre * DeciMetre}
+define_units_relation! {SquareCentiMetre == CentiMetre * CentiMetre}
+define_units_relation! {SquareMilliMetre == MilliMetre * MilliMetre}
+define_units_relation! {SquareInch == Inch * Inch}
+define_units_relation! {SquareFoot == Foot * Foot}
+define_units_relation! {SquareYard == Yard * Yard}
+define_units_relation! {SquareMile == Mile * Mile}
+
+// Volume == Area * Length
+// SolidAngle == Angle * Angle
+// WaveNumber == Angle / Length
+
+// Kinematics
+
+// Properties:
+// * Acceleration
+// * AngularAcceleration
+// * Frequency
+// * KinematicViscosity
+// * SquareTime
+// * Time
+// * Velocity
+// * VolumetricFlowRate
+
+// Acceleration == Velocity / Time
+// Acceleration == Length / SquareTime
+// Velocity == Length / Time
+// AngularAcceleration == AngularVelocity / Time
+// Frequency == Angle / Time
+// Frequency == 1 / Time
+// KinematicViscosity == Area / Time
+// SquareTime = Time * Time
+// VolumetricFlowRate == Volume / Time
+
+// Dynamics
+
+// Properties:
+// * Action
+// * AngularMomentum
+// * DynamicViscosity
+// * Energy
+// * EnergyDensity
+// * Force
+// * KinematicViscosity
+// * LinearDensity
+// * Mass
+// * MassDensity
+// * MassFlowRate
+// * MomentOfInertia
+// * Momentum
+// * Power
+// * Pressure
+// * SpecificEnergy
+// * SpecificVolume
+// * SurfaceDensity
+// * SurfaceTension
+// * Torque
+
+// Action == Energy * Time
+// AngularMomentum == Momentum * Length
+// DynamicViscosity == Pressure * Time
+// Energy == Force * Length
+// EnergyDensity == Energy / Volume
+// Force == Mass * Acceleration
+// LinearDensity == Mass / Length
+// MassDensity == Mass / Volume
+// MassFlowRate == Mass / Time
+// MomentOfInertia == Mass * Area
+// Momentum == Force * Time
+// Momentum == Mass * Velocity
+// Power == Energy / Time
+// Pressure == Force / Area
+// SpecificEnergy == Joule / Volume
+// SpecificVolume == Volume / Mass
+// SpecificVolume == 1 / MassDensity
+// SurfaceDensity == Mass / Area
+// SurfaceTension == Energy / Area
+// Torque == Force * Length
+
+// Thermodynamics
+
+// Properties:
+// * Entropy
+// * SpecificHeatCapacity
+// * Temperature
+// * ThermalConductivity
+
+// Entropy == Energy / Temperature
+// SpecificHeatCapacity == Entropy / Mass
+// TODO: ThermalConductivity == Power / Length / Temperature
+
+// Chemistry
+
+// Properties:
+// * CatalyticActivity
+// * CatalyticActivityConcentration
+// * ChemicalPotential
+// * MolarConcentration
+// * MolarHeatCapacity
+// * ReactionRate
+
+// CatalyticActivity == Amount / Time
+// CatalyticActivityConcentration == CatalyticActivity / Volume
+// ChemicalPotential == Energy / Amount
+// MolarConcentration == Amount / Volume
+// MolarHeatCapacity == ChemicalPotential / Temperature
+// ReactionRate == MolarConcentration / Time
+// ReactionRate == CatalyticActivity / Volume
+
+// Radioactivity
+
+// Properties:
+// * DoseEquivalent
+// * RadioactiveActivity
+// * RadioactiveDose
+// * RadioactiveDoseRate
+
+// DoseEquivalent == Energy / Mass
+// RadioactiveDoseRate == RadioactiveDose / Time
+
+// Lighting
+
+// Properties:
+// * Illuminance
+// * Irradiance
+// * Luminance
+// * LuminousFlux
+// * LuminousIntensity
+// * Radiance
+// * RadiantIntensity
+
+// Illuminance == LuminousFlux / Area
+// Irradiance == Power / Area
+// Luminance == LuminousIntensity / Area
+// LuminousFlux == LuminousIntensity * SolidAngle
+// Radiance == RadiantIntensity / Area
+// Radiance == Irradiance / SolidAngle
+// RadiantIntensity == Power / SolidAngle
+
+// Electricity
+
+// Properties:
+// * Capacitance
+// * CurrentDensity
+// * ElectricalConductance
+// * ElectricalConductivity
+// * ElectricalResistance
+// * ElectricCharge
+// * ElectricChargeDensity
+// * ElectricCurrent
+// * ElectricDisplacement
+// * ElectricFieldStrength
+// * ElectricPotential
+// * LinearElectricChargeDensity
+// * Permittivity
+
+// Capacitance == ElectricCharge / ElectricPotential
+// CurrentDensity == ElectricCurrent / Area
+// ElectricalConductance == ElectricCurrent / ElectricPotential
+// ElectricalConductance == 1 / ElectricalResistance
+// ElectricalConductivity == ElectricalConductance / Length
+// ElectricalResistance == ElectricPotential / ElectricCurrent
+// ElectricCurrent == ElectricCharge / Time
+// ElectricChargeDensity == ElectricCharge / Volume
+// ElectricDisplacement == ElectricCharge / Area
+// ElectricFieldStrength == ElectricPotential * Length
+// ElectricPotential == Power / ElectricCurrent
+// LinearElectricChargeDensity == ElectricCharge / Length
+// Permittivity == Capacitance / Length
+
+// Magnetism
+
+// Properties:
+// * Inductance
+// * MagneticFieldStrength
+// * MagneticFlux
+// * MagneticFluxDensity
+// * MagneticPermeability
+// * MagneticReluctance
+
+// Inductance == MagneticFlux / ElectricCurrent
+// MagneticFieldStrength == ElectricCurrent / Length
+// MagneticFlux == ElectricCurrent * Inductance
+// TODO: MagneticFlux == Mass * Area / SquareTime / Current
+// MagneticFluxDensity == MagneticFlux / Area
+// TODO: MagneticFluxDensity == Mass / SquareTime / Current
+// MagneticPermeability == Inductance / Length
+// MagneticReluctance == 1 / Inductance
+
+// Others
+
+// Properties:
+// * Amount
+// * Dimensionless
+
 // geometry //
 
 // Area == Length * Length
 define_units_relation! {SquareMetre == Metre * Metre}
-//define_units_relation! {SquareKiloMetre == KiloMetre * KiloMetre}
+define_units_relation! {SquareKiloMetre == KiloMetre * KiloMetre}
 
 /*TODO
 define_derived_measure_squared_1! {}
@@ -2963,8 +2676,8 @@ define_derived_measure_1_1! {Second, SquareMetrePerSecond, SquareMetre}
 // Length * LinearDensity = Mass
 define_derived_measure_1_1! {Metre, KilogramPerMetre, KiloGram}
 
-// Area * AreaDensity = Mass
-define_derived_measure_1_1! {SquareMetre, KilogramPerSquareMetre, KiloGram}
+// Area * SurfaceDensity = Mass
+define_derived_measure_1_1! {SquareMetre, KiloGramPerSquareMetre, KiloGram}
 
 // Volume * MassDensity = Mass
 define_derived_measure_1_1! {CubicMetre, KiloGramPerCubicMetre, KiloGram}

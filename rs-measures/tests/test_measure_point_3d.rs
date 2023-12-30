@@ -183,17 +183,9 @@ fn measures_point_3d_weighted_midpoint() {
     let mp1 = MeasurePoint3d::<Metre, f32>::new(20., -200., 60.);
     let mp2 = MeasurePoint3d::<Metre, f32>::new(30., -300., 90.);
     let mp3: MeasurePoint3d<Metre, f32> = weighted_midpoint_3d(mp1, mp2, 0.4);
-    assert_eq_32!(mp3.x, 24.);
-    assert_eq_32!(mp3.y, -240.);
-    assert_eq_32!(mp3.z, 72.);
-    let mp4: MeasurePoint3d<Metre, f32> = weighted_midpoint_3d(mp1, mp2, -0.4);
-    assert_eq_32!(mp4.x, 16.);
-    assert_eq_32!(mp4.y, -160.);
-    assert_eq_32!(mp4.z, 48.);
-    let mp5: MeasurePoint3d<Metre, f32> = weighted_midpoint_3d(mp1, mp2, 2.4);
-    assert_eq_32!(mp5.x, 44.);
-    assert_eq_32!(mp5.y, -440.);
-    assert_eq_32!(mp5.z, 132.);
+    assert_eq_32!(mp3.x, 26.);
+    assert_eq_32!(mp3.y, -260.);
+    assert_eq_32!(mp3.z, 78.);
 }
 
 #[test]

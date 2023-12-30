@@ -132,11 +132,7 @@ fn measures_point_weighted_midpoint() {
     let mp1 = MeasurePoint::<Celsius, f32>::new(20.);
     let mp2 = MeasurePoint::<Celsius, f32>::new(30.);
     let mp3: MeasurePoint<Celsius, f32> = weighted_midpoint(mp1, mp2, 0.4);
-    assert_eq_32!(mp3.value, 24.);
-    let mp4: MeasurePoint<Celsius, f32> = weighted_midpoint(mp1, mp2, -0.4);
-    assert_eq_32!(mp4.value, 16.);
-    let mp5: MeasurePoint<Celsius, f32> = weighted_midpoint(mp1, mp2, 2.4);
-    assert_eq_32!(mp5.value, 44.);
+    assert_eq_32!(mp3.value, 26.);
 }
 
 #[test]

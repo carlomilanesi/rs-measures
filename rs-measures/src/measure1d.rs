@@ -273,10 +273,10 @@ macro_rules! define_measure_1d {
 
         // weighted_midpoint(MeasurePoint, MeasurePoint, weight) -> MeasurePoint
         pub fn weighted_midpoint<Unit: MeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint<Unit, Number>, p2: MeasurePoint<Unit, Number>, weight2: Number) -> MeasurePoint<Unit, Number>
+            p1: MeasurePoint<Unit, Number>, p2: MeasurePoint<Unit, Number>, weight1: Number) -> MeasurePoint<Unit, Number>
         {
             MeasurePoint::<Unit, Number>::new(
-                p1.value * (Number::ONE - weight2) + p2.value * weight2)
+                p1.value * weight1 + p2.value * (Number::ONE - weight1))
         }
 
         // midpoint(MeasurePoint, MeasurePoint) -> MeasurePoint

@@ -288,9 +288,9 @@ macro_rules! define_measure_3d {
 
         /// weighted_midpoint_3d(measure point 3d, measure point 3d, weight) -> measure point 3d
         pub fn weighted_midpoint_3d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint3d<Unit, Number>, p2: MeasurePoint3d<Unit, Number>, weight2: Number) -> MeasurePoint3d<Unit, Number>
+            p1: MeasurePoint3d<Unit, Number>, p2: MeasurePoint3d<Unit, Number>, weight1: Number) -> MeasurePoint3d<Unit, Number>
         {
-            let weight1 = Number::ONE - weight2;
+            let weight2 = Number::ONE - weight1;
             MeasurePoint3d::<Unit, Number>::new(
                 p1.x * weight1 + p2.x * weight2,
                 p1.y * weight1 + p2.y * weight2,
