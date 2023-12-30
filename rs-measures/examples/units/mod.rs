@@ -2974,11 +2974,11 @@ define_derived_measure_1_1! {KiloGram, CubicMetrePerKiloGram, CubicMetre}
 */
 
 // Force * Length = Energy, Torque
-define_units_relation! {Metre * Newton == Joule}
-define_units_relation! {Metre:2 * Newton:2 == Joule}
-define_units_relation! {Metre:3 * Newton:3 == Joule}
-define_units_relation! {Metre:2 X Newton:2 == NewtonMetre}
-define_units_relation! {Metre:3 X Newton:3 == NewtonMetre:3}
+define_units_relation! {Newton * Metre == Joule}
+define_units_relation! {Newton:2 * Metre:2 == Joule}
+define_units_relation! {Newton:3 * Metre:3 == Joule}
+define_units_relation! {Newton:2 X Metre:2 == NewtonMetre}
+define_units_relation! {Newton:3 X Metre:3 == NewtonMetre:3}
 
 define_units_relation! {Metre:2 X Metre:2 == Metre}
 define_units_relation! {Metre:3 X Metre:3 == Metre:3}

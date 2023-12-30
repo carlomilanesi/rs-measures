@@ -7,8 +7,8 @@ macro_rules! define_measure_2d {
         // Measure 2d
 
         pub struct Measure2d<Unit, Number = f64> {
-            x: Number,
-            y: Number,
+            pub x: Number,
+            pub y: Number,
             phantom: std::marker::PhantomData<Unit>,
         }
 
@@ -208,8 +208,8 @@ macro_rules! define_measure_2d {
         // Measure point 2d
 
         pub struct MeasurePoint2d<Unit, Number = f64> {
-            x: Number,
-            y: Number,
+            pub x: Number,
+            pub y: Number,
             phantom: PhantomData<Unit>,
         }
         impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number> {

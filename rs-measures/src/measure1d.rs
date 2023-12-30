@@ -9,7 +9,7 @@ macro_rules! define_measure_1d {
         // Measure
 
         pub struct Measure<Unit, Number: ArithmeticOps = f64> {
-            value: Number,
+            pub value: Number,
             phantom: PhantomData<Unit>,
         }
 
@@ -324,7 +324,7 @@ macro_rules! define_measure_1d {
         // UnsignedDirection
 
         pub struct UnsignedDirection<Unit, Number = f64> {
-            value: Number,
+            pub value: Number,
             phantom: PhantomData<Unit>,
         }
 
@@ -460,7 +460,7 @@ macro_rules! define_measure_1d {
         // SignedDirection
 
         pub struct SignedDirection<Unit, Number = f64> {
-            value: Number,
+            pub value: Number,
             phantom: PhantomData<Unit>,
         }
 
