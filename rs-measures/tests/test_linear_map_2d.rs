@@ -22,7 +22,7 @@ impl MeasurementUnit for Degree {
     const SUFFIX: &'static str = " deg";
 }
 impl AngleMeasurementUnit for Degree {
-    const TURN_FRACTION: f64 = 360.;
+    const CYCLE_FRACTION: f64 = 360.;
 }
 
 #[test]

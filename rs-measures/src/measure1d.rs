@@ -330,11 +330,11 @@ macro_rules! define_measure_1d {
 
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> UnsignedDirection<Unit, Number> {
             /// Returns the only value that in the current Unit represents `x` and
-            /// is between minus half turn included and plus half turn excluded.
+            /// is between minus half cycle included and plus half cycle excluded.
             fn normalize(x: Number) -> Number {
-                let one_turn = Number::from_f64(Unit::TURN_FRACTION);
-                let x2 = x % one_turn;
-                if x2 >= Number::ZERO { x2 } else { x2 + one_turn }
+                let one_cycle = Number::from_f64(Unit::CYCLE_FRACTION);
+                let x2 = x % one_cycle;
+                if x2 >= Number::ZERO { x2 } else { x2 + one_cycle }
             }
 
             /// UnsignedDirection::new(Number) -> UnsignedDirection
@@ -426,9 +426,9 @@ macro_rules! define_measure_1d {
             type Output = Measure<Unit, Number>;
             fn sub(self, other: UnsignedDirection<Unit, Number>) -> Self::Output {
                 let diff = self.value - other.value;
-                let turn = Number::from_f64(Unit::TURN_FRACTION);
-                let half_turn = turn * Number::HALF;
-                Self::Output::new(if diff > half_turn { diff - turn } else if diff < -half_turn { diff + turn } else { diff })
+                let cycle = Number::from_f64(Unit::CYCLE_FRACTION);
+                let half_cycle = cycle * Number::HALF;
+                Self::Output::new(if diff > half_cycle { diff - cycle } else if diff < -half_cycle { diff + cycle } else { diff })
             }
         }
 
@@ -465,13 +465,13 @@ macro_rules! define_measure_1d {
         }
 
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> SignedDirection<Unit, Number> {
-            // Returns the only value that in the current Unit represents `x`, and
-            // is between 0 included and one turn excluded.
+            /// Returns the only value that in the current Unit represents `x`, and
+            /// is between 0 included and one cycle excluded.
             fn normalize(x: Number) -> Number {
-                let one_turn = Number::from_f64(Unit::TURN_FRACTION);
-                let half_turn = one_turn * Number::HALF;
-                let x2 = (x + half_turn) % one_turn;
-                if x2 >= Number::ZERO { x2 - half_turn } else { x2 + half_turn }
+                let one_cycle = Number::from_f64(Unit::CYCLE_FRACTION);
+                let half_cycle = one_cycle * Number::HALF;
+                let x2 = (x + half_cycle) % one_cycle;
+                if x2 >= Number::ZERO { x2 - half_cycle } else { x2 + half_cycle }
             }
 
             pub fn new(value: Number) -> Self {
@@ -561,9 +561,9 @@ macro_rules! define_measure_1d {
             type Output = Measure<Unit, Number>;
             fn sub(self, other: SignedDirection<Unit, Number>) -> Self::Output {
                 let diff = self.value - other.value;
-                let turn = Number::from_f64(Unit::TURN_FRACTION);
-                let half_turn = turn * Number::HALF;
-                Self::Output::new(if diff > half_turn { diff - turn } else if diff < -half_turn { diff + turn } else { diff })
+                let cycle = Number::from_f64(Unit::CYCLE_FRACTION);
+                let half_cycle = cycle * Number::HALF;
+                Self::Output::new(if diff > half_cycle { diff - cycle } else if diff < -half_cycle { diff + cycle } else { diff })
             }
         }
 

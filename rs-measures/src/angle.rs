@@ -10,5 +10,5 @@ impl MeasurementUnit for Radian {
     const SUFFIX: &'static str = " rad";
 }
 impl AngleMeasurementUnit for Radian {
-    const TURN_FRACTION: f64 = std::f64::consts::TAU;
+    const CYCLE_FRACTION: f64 = std::f64::consts::TAU;
 }

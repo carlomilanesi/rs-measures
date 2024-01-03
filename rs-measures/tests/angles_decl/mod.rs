@@ -4,15 +4,15 @@ use rs_measures::{
 };
 use std::f64::consts::TAU;
 
-pub struct Turn;
-impl MeasurementUnit for Turn {
+pub struct Cycle;
+impl MeasurementUnit for Cycle {
     type Property = Angle;
     const RATIO: f64 = TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rev";
 }
-impl AngleMeasurementUnit for Turn {
-    const TURN_FRACTION: f64 = 1.;
+impl AngleMeasurementUnit for Cycle {
+    const CYCLE_FRACTION: f64 = 1.;
 }
 
 pub struct Gradian;
@@ -23,7 +23,7 @@ impl MeasurementUnit for Gradian {
     const SUFFIX: &'static str = " grad";
 }
 impl AngleMeasurementUnit for Gradian {
-    const TURN_FRACTION: f64 = 400.;
+    const CYCLE_FRACTION: f64 = 400.;
 }
 
 pub struct Degree;
@@ -34,5 +34,5 @@ impl MeasurementUnit for Degree {
     const SUFFIX: &'static str = " deg";
 }
 impl AngleMeasurementUnit for Degree {
-    const TURN_FRACTION: f64 = 360.;
+    const CYCLE_FRACTION: f64 = 360.;
 }

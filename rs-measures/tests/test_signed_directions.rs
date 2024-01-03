@@ -9,22 +9,22 @@ impl MeasurementUnit for Degree {
     const SUFFIX: &'static str = " deg";
 }
 impl AngleMeasurementUnit for Degree {
-    const TURN_FRACTION: f64 = 360.;
+    const CYCLE_FRACTION: f64 = 360.;
 }
 
-pub struct Turn;
-impl MeasurementUnit for Turn {
+pub struct Cycle;
+impl MeasurementUnit for Cycle {
     type Property = Angle;
     const RATIO: f64 = core::f64::consts::TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rev";
 }
-impl AngleMeasurementUnit for Turn {
-    const TURN_FRACTION: f64 = 1.;
+impl AngleMeasurementUnit for Cycle {
+    const CYCLE_FRACTION: f64 = 1.;
 }
 
 #[test]
-fn signed_direction_integer_turns() {
+fn signed_direction_integer_cycles() {
     let ud = SignedDirection::<Degree, f32>::new(3600.);
     assert_eq!(ud.value, 0.);
 }
@@ -119,14 +119,14 @@ fn signed_direction_negative_to_unsigned_direction() {
 #[test]
 fn signed_direction_convert_positive() {
     let ud1 = SignedDirection::<Degree, f32>::new(90.);
-    let ud2: SignedDirection<Turn, f32> = ud1.convert::<Turn>();
+    let ud2: SignedDirection<Cycle, f32> = ud1.convert::<Cycle>();
     assert_eq!(ud2.value, 0.25);
 }
 
 #[test]
 fn signed_direction_convert_negative() {
     let ud1 = SignedDirection::<Degree, f32>::new(-90.);
-    let ud2: SignedDirection<Turn, f32> = ud1.convert::<Turn>();
+    let ud2: SignedDirection<Cycle, f32> = ud1.convert::<Cycle>();
     assert_eq!(ud2.value, -0.25);
 }
 
@@ -210,8 +210,8 @@ fn signed_direction_subtraction_of_vector_assignment() {
 }
 
 #[test]
-fn signed_directions_subtraction_with_diff_greater_than_half_turn() {
-    // if diff > half_turn { diff - turn }
+fn signed_directions_subtraction_with_diff_greater_than_half_cycle() {
+    // if diff > half_cycle { diff - cycle }
     let ud1 = SignedDirection::<Degree, f32>::new(-160.);
     let ud2 = SignedDirection::<Degree, f32>::new(10.);
     let m: Measure<Degree, f32> = ud1 - ud2;
@@ -219,8 +219,8 @@ fn signed_directions_subtraction_with_diff_greater_than_half_turn() {
 }
 
 #[test]
-fn signed_directions_subtraction_with_diff_less_than_minus_half_turn() {
-    // if diff < -half_turn { diff + turn }
+fn signed_directions_subtraction_with_diff_less_than_minus_half_cycle() {
+    // if diff < -half_cycle { diff + cycle }
     let ud1 = SignedDirection::<Degree, f32>::new(10.);
     let ud2 = SignedDirection::<Degree, f32>::new(-160.);
     let m: Measure<Degree, f32> = ud1 - ud2;
@@ -229,7 +229,7 @@ fn signed_directions_subtraction_with_diff_less_than_minus_half_turn() {
 
 #[test]
 fn signed_directions_subtraction_with_small_positive_diff() {
-    // if 0 < diff && diff < half_turn { diff }
+    // if 0 < diff && diff < half_cycle { diff }
     let ud1 = SignedDirection::<Degree, f32>::new(170.);
     let ud2 = SignedDirection::<Degree, f32>::new(10.);
     let m: Measure<Degree, f32> = ud1 - ud2;
@@ -238,7 +238,7 @@ fn signed_directions_subtraction_with_small_positive_diff() {
 
 #[test]
 fn signed_directions_subtraction_with_small_negative_diff() {
-    // if -half_turn < diff && diff < 0 { diff }
+    // if -half_cycle < diff && diff < 0 { diff }
     let ud1 = SignedDirection::<Degree, f32>::new(10.);
     let ud2 = SignedDirection::<Degree, f32>::new(170.);
     let m: Measure<Degree, f32> = ud1 - ud2;
@@ -246,8 +246,8 @@ fn signed_directions_subtraction_with_small_negative_diff() {
 }
 
 #[test]
-fn signed_directions_subtraction_with_minus_half_turn_diff() {
-    // if -half_turn == diff { diff }
+fn signed_directions_subtraction_with_minus_half_cycle_diff() {
+    // if -half_cycle == diff { diff }
     let ud1 = SignedDirection::<Degree, f32>::new(10.);
     let ud2 = SignedDirection::<Degree, f32>::new(-170.);
     let m: Measure<Degree, f32> = ud1 - ud2;
@@ -255,8 +255,8 @@ fn signed_directions_subtraction_with_minus_half_turn_diff() {
 }
 
 #[test]
-fn signed_directions_subtraction_with_half_turn_diff() {
-    // if diff == half_turn { diff }
+fn signed_directions_subtraction_with_half_cycle_diff() {
+    // if diff == half_cycle { diff }
     let ud1 = SignedDirection::<Degree, f32>::new(-170.);
     let ud2 = SignedDirection::<Degree, f32>::new(10.);
     let m: Measure<Degree, f32> = ud1 - ud2;

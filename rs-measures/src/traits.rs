@@ -281,7 +281,7 @@ pub trait MeasurementUnit {
 }
 
 pub trait AngleMeasurementUnit: MeasurementUnit {
-    const TURN_FRACTION: f64;
+    const CYCLE_FRACTION: f64;
 }
 
 pub trait VectorMeasurementUnit: MeasurementUnit {}

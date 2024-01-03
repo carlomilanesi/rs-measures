@@ -1,5 +1,3 @@
-use std::f64::consts::TAU;
-
 use rs_measures::define_measure_3d;
 define_measure_3d! {}
 
@@ -15,10 +13,19 @@ impl MeasurementUnit for MetrePerSquareSecond {
 }
 impl VectorMeasurementUnit for MetrePerSquareSecond {}
 
+pub struct CentiMetrePerSquareSecond;
+impl MeasurementUnit for CentiMetrePerSquareSecond {
+    type Property = Acceleration;
+    const RATIO: f64 = 1e-2;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " m/s\u{b2}";
+}
+impl VectorMeasurementUnit for CentiMetrePerSquareSecond {}
+
 pub struct GForce;
 impl MeasurementUnit for GForce {
     type Property = Acceleration;
-    const RATIO: f64 = 9.8;
+    const RATIO: f64 = 9.80665;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g";
 }
@@ -72,59 +79,59 @@ impl MeasurementUnit for Mole {
 }
 
 // Property: angle
-pub struct Turn;
-impl MeasurementUnit for Turn {
+pub struct Cycle;
+impl MeasurementUnit for Cycle {
     type Property = Angle;
-    const RATIO: f64 = TAU;
+    const RATIO: f64 = core::f64::consts::TAU;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " rev";
+    const SUFFIX: &'static str = " cycle";
 }
-impl AngleMeasurementUnit for Turn {
-    const TURN_FRACTION: f64 = 1.;
+impl AngleMeasurementUnit for Cycle {
+    const CYCLE_FRACTION: f64 = 1.;
 }
 
 pub struct Gradian;
 impl MeasurementUnit for Gradian {
     type Property = Angle;
-    const RATIO: f64 = TAU / 400.;
+    const RATIO: f64 = core::f64::consts::TAU / 400.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " grad";
 }
 impl AngleMeasurementUnit for Gradian {
-    const TURN_FRACTION: f64 = 400.;
+    const CYCLE_FRACTION: f64 = 400.;
 }
 
 pub struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;
-    const RATIO: f64 = TAU / 360.;
+    const RATIO: f64 = core::f64::consts::TAU / 360.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg";
 }
 impl AngleMeasurementUnit for Degree {
-    const TURN_FRACTION: f64 = 360.;
+    const CYCLE_FRACTION: f64 = 360.;
 }
 
 pub struct ArcMinute;
 impl MeasurementUnit for ArcMinute {
     type Property = Angle;
-    const RATIO: f64 = TAU / 360. / 60.;
+    const RATIO: f64 = core::f64::consts::TAU / 360. / 60.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg'";
 }
 impl AngleMeasurementUnit for ArcMinute {
-    const TURN_FRACTION: f64 = 360. * 60.;
+    const CYCLE_FRACTION: f64 = 360. * 60.;
 }
 
 pub struct ArcSecond;
 impl MeasurementUnit for ArcSecond {
     type Property = Angle;
-    const RATIO: f64 = TAU / 360. / 60. / 60.;
+    const RATIO: f64 = core::f64::consts::TAU / 360. / 60. / 60.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg\"";
 }
 impl AngleMeasurementUnit for ArcSecond {
-    const TURN_FRACTION: f64 = 360. * 60. * 60.;
+    const CYCLE_FRACTION: f64 = 360. * 60. * 60.;
 }
 
 // Property: angular acceleration
@@ -141,14 +148,14 @@ impl MeasurementUnit for RadianPerSquareSecond {
 // Property: angular momentum, spin
 pub struct AngularMomentum;
 
-pub struct KilogramSquareMetrePerSecond;
-impl MeasurementUnit for KilogramSquareMetrePerSecond {
+pub struct KiloGramSquareMetrePerSecond;
+impl MeasurementUnit for KiloGramSquareMetrePerSecond {
     type Property = AngularMomentum;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg\u{b7}m\u{b2}/s";
 }
-impl VectorMeasurementUnit for KilogramSquareMetrePerSecond {}
+impl VectorMeasurementUnit for KiloGramSquareMetrePerSecond {}
 
 pub struct GramSquareCentiMetrePerSecond;
 impl MeasurementUnit for GramSquareCentiMetrePerSecond {
@@ -218,6 +225,22 @@ impl MeasurementUnit for SquareMilliMetre {
     const SUFFIX: &'static str = " mm\u{b2}";
 }
 
+pub struct SquareMicroMetre;
+impl MeasurementUnit for SquareMicroMetre {
+    type Property = Area;
+    const RATIO: f64 = 1e-12;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " \u{b5}m\u{b2}";
+}
+
+pub struct SquareNanoMetre;
+impl MeasurementUnit for SquareNanoMetre {
+    type Property = Area;
+    const RATIO: f64 = 1e-18;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " nm\u{b2}";
+}
+
 pub struct SquareInch;
 impl MeasurementUnit for SquareInch {
     type Property = Area;
@@ -274,7 +297,7 @@ impl MeasurementUnit for MicroFarad {
     type Property = Capacitance;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}F";
+    const SUFFIX: &'static str = " \u{b5}F";
 }
 
 pub struct NanoFarad;
@@ -302,17 +325,6 @@ impl MeasurementUnit for Katal {
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kat";
-}
-
-// Property: catalytic activity concentration
-pub struct CatalyticActivityConcentration;
-
-pub struct KatalPerCubicMetre;
-impl MeasurementUnit for KatalPerCubicMetre {
-    type Property = CatalyticActivityConcentration;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " kat/m\u{B3}";
 }
 
 // Property: chemical potential, molar energy
@@ -419,7 +431,7 @@ impl MeasurementUnit for Ohm {
     type Property = ElectricalResistance;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{3A9}";
+    const SUFFIX: &'static str = " \u{3a9}";
 }
 
 pub struct MilliOhm;
@@ -427,7 +439,7 @@ impl MeasurementUnit for MilliOhm {
     type Property = ElectricalResistance;
     const RATIO: f64 = 1e-3;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " m\u{3A9}";
+    const SUFFIX: &'static str = " m\u{3a9}";
 }
 
 pub struct KiloOhm;
@@ -435,7 +447,7 @@ impl MeasurementUnit for KiloOhm {
     type Property = ElectricalResistance;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " k\u{3A9}";
+    const SUFFIX: &'static str = " k\u{3a9}";
 }
 
 // Property: electrical resistivity
@@ -446,7 +458,7 @@ impl MeasurementUnit for OhmMetre {
     type Property = ElectricalResistivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{3A9}\u{b7}m";
+    const SUFFIX: &'static str = " \u{3a9}\u{b7}m";
 }
 
 // Property: electric charge
@@ -473,7 +485,7 @@ impl MeasurementUnit for MicroCoulomb {
     type Property = ElectricCharge;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}C";
+    const SUFFIX: &'static str = " \u{b5}C";
 }
 
 pub struct NanoCoulomb;
@@ -500,7 +512,7 @@ impl MeasurementUnit for CoulombPerCubicMetre {
     type Property = ElectricChargeDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " C/m\u{B3}";
+    const SUFFIX: &'static str = " C/m\u{b3}";
 }
 
 // Property: electric current
@@ -527,7 +539,7 @@ impl MeasurementUnit for MicroAmpere {
     type Property = ElectricCurrent;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}A";
+    const SUFFIX: &'static str = " \u{b5}A";
 }
 
 // Property: electric displacement, surface electric charge density
@@ -544,7 +556,7 @@ impl MeasurementUnit for CoulombPerSquareMetre {
 // Property: electric field strength
 pub struct ElectricFieldStrength;
 
-pub struct VoltPerMetre; // a.k.a. newton per coulomb
+pub struct VoltPerMetre;
 impl MeasurementUnit for VoltPerMetre {
     type Property = ElectricFieldStrength;
     const RATIO: f64 = 1.;
@@ -552,6 +564,15 @@ impl MeasurementUnit for VoltPerMetre {
     const SUFFIX: &'static str = " V/m";
 }
 impl VectorMeasurementUnit for VoltPerMetre {}
+
+pub struct NewtonPerCoulomb;
+impl MeasurementUnit for NewtonPerCoulomb {
+    type Property = ElectricFieldStrength;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " N/C";
+}
+impl VectorMeasurementUnit for NewtonPerCoulomb {}
 
 // Property: electric potential
 pub struct ElectricPotential;
@@ -585,7 +606,7 @@ impl MeasurementUnit for MicroVolt {
     type Property = ElectricPotential;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}V";
+    const SUFFIX: &'static str = " \u{b5}V";
 }
 
 // Property: energy, work, heat
@@ -597,6 +618,14 @@ impl MeasurementUnit for Joule {
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " J";
+}
+
+pub struct Erg;
+impl MeasurementUnit for Erg {
+    type Property = Energy;
+    const RATIO: f64 = 1e-7;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " erg";
 }
 
 pub struct WattHour;
@@ -687,7 +716,7 @@ impl MeasurementUnit for JoulePerCubicMetre {
     type Property = EnergyDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " J/m\u{B3}";
+    const SUFFIX: &'static str = " J/m\u{b3}";
 }
 
 // Property: entropy, heat capacity
@@ -698,7 +727,7 @@ impl MeasurementUnit for JoulePerKelvin {
     type Property = Entropy;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " J/\u{B0}K";
+    const SUFFIX: &'static str = " J/\u{b0}K";
 }
 
 // Property: force, weight
@@ -722,14 +751,14 @@ impl MeasurementUnit for Dyne {
 }
 impl VectorMeasurementUnit for Dyne {}
 
-pub struct KilogramForce;
-impl MeasurementUnit for KilogramForce {
+pub struct KiloGramForce;
+impl MeasurementUnit for KiloGramForce {
     type Property = Force;
     const RATIO: f64 = 9.80665;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kgf";
 }
-impl VectorMeasurementUnit for KilogramForce {}
+impl VectorMeasurementUnit for KiloGramForce {}
 
 pub struct PoundForce;
 impl MeasurementUnit for PoundForce {
@@ -760,6 +789,14 @@ impl MeasurementUnit for Hertz {
     const SUFFIX: &'static str = " Hz";
 }
 
+pub struct CyclePerSecond;
+impl MeasurementUnit for CyclePerSecond {
+    type Property = Frequency;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " c/s";
+}
+
 pub struct KiloHertz;
 impl MeasurementUnit for KiloHertz {
     type Property = Frequency;
@@ -787,13 +824,13 @@ impl MeasurementUnit for GigaHertz {
 pub struct RadianPerSecond;
 impl MeasurementUnit for RadianPerSecond {
     type Property = Frequency;
-    const RATIO: f64 = 1. / TAU;
+    const RATIO: f64 = 1. / core::f64::consts::TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rad/s";
 }
 
-pub struct TurnPerMinute;
-impl MeasurementUnit for TurnPerMinute {
+pub struct CyclePerMinute;
+impl MeasurementUnit for CyclePerMinute {
     type Property = Frequency;
     const RATIO: f64 = 1. / 60.;
     const OFFSET: f64 = 0.;
@@ -1267,7 +1304,7 @@ impl MeasurementUnit for MicroMetre {
     type Property = Length;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}m";
+    const SUFFIX: &'static str = " \u{b5}m";
 }
 impl VectorMeasurementUnit for MicroMetre {}
 
@@ -1285,7 +1322,7 @@ impl MeasurementUnit for Angstrom {
     type Property = Length;
     const RATIO: f64 = 1e-10;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{212B}";
+    const SUFFIX: &'static str = " \u{212b}";
 }
 impl VectorMeasurementUnit for Angstrom {}
 
@@ -1337,12 +1374,20 @@ impl VectorMeasurementUnit for NauticalMile {}
 // Property: linear density
 pub struct LinearDensity;
 
-pub struct KilogramPerMetre;
-impl MeasurementUnit for KilogramPerMetre {
+pub struct KiloGramPerMetre;
+impl MeasurementUnit for KiloGramPerMetre {
     type Property = LinearDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg/m";
+}
+
+pub struct GramPerCentiMetre;
+impl MeasurementUnit for GramPerCentiMetre {
+    type Property = LinearDensity;
+    const RATIO: f64 = 1e-1;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " g/cm";
 }
 
 // Property: linear electric charge density
@@ -1359,7 +1404,7 @@ impl MeasurementUnit for CoulombPerMetre {
 // Property: luminance
 pub struct Luminance;
 
-pub struct CandelaPerSquareMetre; // a.k.a. nit
+pub struct CandelaPerSquareMetre;
 impl MeasurementUnit for CandelaPerSquareMetre {
     type Property = Luminance;
     const RATIO: f64 = 1.;
@@ -1367,10 +1412,26 @@ impl MeasurementUnit for CandelaPerSquareMetre {
     const SUFFIX: &'static str = " cd/m\u{b2}";
 }
 
+pub struct Nit;
+impl MeasurementUnit for Nit {
+    type Property = Luminance;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " nt";
+}
+
 pub struct Stilb;
 impl MeasurementUnit for Stilb {
     type Property = Luminance;
     const RATIO: f64 = 10000.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " stilb";
+}
+
+pub struct CandelaPerSquareFoot;
+impl MeasurementUnit for CandelaPerSquareFoot {
+    type Property = Luminance;
+    const RATIO: f64 = 10.764;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " stilb";
 }
@@ -1475,12 +1536,22 @@ impl MeasurementUnit for KiloGram {
     const SUFFIX: &'static str = " kg";
 }
 
-pub struct Tonne; // a.k.a. metric ton or megagram
+pub struct Tonne;
 impl MeasurementUnit for Tonne {
     type Property = Mass;
     const RATIO: f64 = 1e3;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " t";
+}
+
+pub type MetricTon = Tonne;
+
+pub struct MegaGram;
+impl MeasurementUnit for MegaGram {
+    type Property = Mass;
+    const RATIO: f64 = 1e3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " Mg";
 }
 
 pub struct HectoGram;
@@ -1520,7 +1591,7 @@ impl MeasurementUnit for MicroGram {
     type Property = Mass;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}g";
+    const SUFFIX: &'static str = " \u{b5}g";
 }
 
 pub struct NanoGram;
@@ -1531,7 +1602,7 @@ impl MeasurementUnit for NanoGram {
     const SUFFIX: &'static str = " ng";
 }
 
-pub struct ImperialTon; // a.k.a. long ton or weight ton
+pub struct ImperialTon;
 impl MeasurementUnit for ImperialTon {
     type Property = Mass;
     const RATIO: f64 = 1016.0469;
@@ -1539,13 +1610,17 @@ impl MeasurementUnit for ImperialTon {
     const SUFFIX: &'static str = " t";
 }
 
-pub struct USTon; // a.k.a. short ton
+pub type LongTon = ImperialTon;
+
+pub struct USTon;
 impl MeasurementUnit for USTon {
     type Property = Mass;
     const RATIO: f64 = 907.18474;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " t";
 }
+
+pub type ShortTon = USTon;
 
 pub struct Stone;
 impl MeasurementUnit for Stone {
@@ -1587,7 +1662,15 @@ impl MeasurementUnit for KiloGramPerCubicMetre {
     type Property = MassDensity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " kg/m\u{B3}";
+    const SUFFIX: &'static str = " kg/m\u{b3}";
+}
+
+pub struct GramPerMilliLitre;
+impl MeasurementUnit for GramPerMilliLitre {
+    type Property = MassDensity;
+    const RATIO: f64 = 1e3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " g/ml";
 }
 
 // Property: mass flow rate
@@ -1617,7 +1700,7 @@ impl MeasurementUnit for MolePerCubicMetre {
     type Property = MolarConcentration;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mol/m\u{B3}";
+    const SUFFIX: &'static str = " mol/m\u{b3}";
 }
 
 // Property: molar heat capacity, molar entropy
@@ -1628,7 +1711,7 @@ impl MeasurementUnit for JoulePerKelvinPerMole {
     type Property = MolarHeatCapacity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " J/\u{B0}K/mol";
+    const SUFFIX: &'static str = " J/\u{b0}K/mol";
 }
 
 // Property: moment of inertia, rotational inertia
@@ -1671,14 +1754,14 @@ impl MeasurementUnit for KiloGramMetrePerSecond {
 }
 impl VectorMeasurementUnit for KiloGramMetrePerSecond {}
 
-pub struct DynSecond;
-impl MeasurementUnit for DynSecond {
+pub struct DyneSecond;
+impl MeasurementUnit for DyneSecond {
     type Property = Momentum;
     const RATIO: f64 = 1e-5;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dyn\u{b7}s";
 }
-impl VectorMeasurementUnit for DynSecond {}
+impl VectorMeasurementUnit for DyneSecond {}
 
 pub struct GramCentiMetrePerSecond;
 impl MeasurementUnit for GramCentiMetrePerSecond {
@@ -1741,6 +1824,14 @@ impl MeasurementUnit for GigaWatt {
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " GW";
+}
+
+pub struct ErgPerSecond;
+impl MeasurementUnit for ErgPerSecond {
+    type Property = Power;
+    const RATIO: f64 = 1e-7;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " erg/s";
 }
 
 pub struct HorsePower;
@@ -1895,7 +1986,7 @@ impl MeasurementUnit for GrayPerSecond {
     const SUFFIX: &'static str = " Gy/s";
 }
 
-// Property: reaction rate
+// Property: reaction rate, catalytic activity concentration
 pub struct ReactionRate;
 
 pub struct MolePerCubicMetrePerSecond;
@@ -1903,7 +1994,7 @@ impl MeasurementUnit for MolePerCubicMetrePerSecond {
     type Property = ReactionRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mol/m\u{B3}/s";
+    const SUFFIX: &'static str = " mol/m\u{b3}/s";
 }
 
 // Property: solid angle
@@ -1917,10 +2008,18 @@ impl MeasurementUnit for Steradian {
     const SUFFIX: &'static str = " sr";
 }
 
-pub struct AllRound;
-impl MeasurementUnit for AllRound {
+pub struct Spat;
+impl MeasurementUnit for Spat {
     type Property = SolidAngle;
-    const RATIO: f64 = 2. * TAU;
+    const RATIO: f64 = 2. * core::f64::consts::TAU;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " sp";
+}
+
+pub struct Sphere;
+impl MeasurementUnit for Sphere {
+    type Property = SolidAngle;
+    const RATIO: f64 = 2. * core::f64::consts::TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " sphere";
 }
@@ -1928,7 +2027,7 @@ impl MeasurementUnit for AllRound {
 pub struct SquareDegree;
 impl MeasurementUnit for SquareDegree {
     type Property = SolidAngle;
-    const RATIO: f64 = TAU * TAU / 360. / 360.;
+    const RATIO: f64 = core::f64::consts::TAU * core::f64::consts::TAU / 360. / 360.;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " deg\u{b2}";
 }
@@ -1952,7 +2051,7 @@ impl MeasurementUnit for JoulePerKiloGramPerKelvin {
     type Property = SpecificHeatCapacity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " J/kg/\u{B0}K";
+    const SUFFIX: &'static str = " J/kg/\u{b0}K";
 }
 
 // Property: specific volume
@@ -1963,7 +2062,7 @@ impl MeasurementUnit for CubicMetrePerKiloGram {
     type Property = SpecificVolume;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " m\u{B3}/kg";
+    const SUFFIX: &'static str = " m\u{b3}/kg";
 }
 
 // Property: square time
@@ -2023,7 +2122,7 @@ impl MeasurementUnit for Kelvin {
     type Property = Temperature;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B0}K";
+    const SUFFIX: &'static str = " \u{b0}K";
 }
 
 pub struct Celsius;
@@ -2031,7 +2130,7 @@ impl MeasurementUnit for Celsius {
     type Property = Temperature;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 273.15;
-    const SUFFIX: &'static str = " \u{B0}C";
+    const SUFFIX: &'static str = " \u{b0}C";
 }
 
 pub struct Fahrenheit;
@@ -2039,7 +2138,7 @@ impl MeasurementUnit for Fahrenheit {
     type Property = Temperature;
     const RATIO: f64 = 5. / 9.;
     const OFFSET: f64 = 273.15 - 32. * 5. / 9.;
-    const SUFFIX: &'static str = " \u{B0}F";
+    const SUFFIX: &'static str = " \u{b0}F";
 }
 
 // Property: thermal conductivity
@@ -2050,7 +2149,7 @@ impl MeasurementUnit for WattPerMetrePerKelvin {
     type Property = ThermalConductivity;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " W/m/\u{B0}K";
+    const SUFFIX: &'static str = " W/m/\u{b0}K";
 }
 
 // Property: time, mean lifetime
@@ -2125,7 +2224,7 @@ impl MeasurementUnit for MicroSecond {
     type Property = Time;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}s";
+    const SUFFIX: &'static str = " \u{b5}s";
 }
 
 pub struct NanoSecond;
@@ -2163,6 +2262,24 @@ impl MeasurementUnit for NewtonMetre {
     const SUFFIX: &'static str = " N\u{b7}m";
 }
 impl VectorMeasurementUnit for NewtonMetre {}
+
+pub struct PoundFoot;
+impl MeasurementUnit for PoundFoot {
+    type Property = Torque;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " lbf-ft";
+}
+impl VectorMeasurementUnit for PoundFoot {}
+
+pub struct PoundInch;
+impl MeasurementUnit for PoundInch {
+    type Property = Torque;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " lbf-in";
+}
+impl VectorMeasurementUnit for PoundInch {}
 
 // Property: velocity, speed
 pub struct Velocity;
@@ -2203,14 +2320,14 @@ impl MeasurementUnit for MilePerHour {
 }
 impl VectorMeasurementUnit for MilePerHour {}
 
-pub struct CentiMetresPerSecond;
-impl MeasurementUnit for CentiMetresPerSecond {
+pub struct CentiMetrePerSecond;
+impl MeasurementUnit for CentiMetrePerSecond {
     type Property = Velocity;
     const RATIO: f64 = 0.01;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm/s";
 }
-impl VectorMeasurementUnit for CentiMetresPerSecond {}
+impl VectorMeasurementUnit for CentiMetrePerSecond {}
 
 // Property: volume
 pub struct Volume;
@@ -2220,7 +2337,7 @@ impl MeasurementUnit for CubicMetre {
     type Property = Volume;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " m\u{B3}";
+    const SUFFIX: &'static str = " m\u{b3}";
 }
 
 pub struct CubicKiloMetre;
@@ -2228,7 +2345,23 @@ impl MeasurementUnit for CubicKiloMetre {
     type Property = Volume;
     const RATIO: f64 = 1e9;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " km\u{B3}";
+    const SUFFIX: &'static str = " km\u{b3}";
+}
+
+pub struct CubicMicroMetre;
+impl MeasurementUnit for CubicMicroMetre {
+    type Property = Volume;
+    const RATIO: f64 = 1e-18;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " \u{b5}m\u{b3}?";
+}
+
+pub struct CubicNanoMetre;
+impl MeasurementUnit for CubicNanoMetre {
+    type Property = Volume;
+    const RATIO: f64 = 1e-27;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " nm\u{b3}?";
 }
 
 pub struct CubicInch;
@@ -2236,7 +2369,7 @@ impl MeasurementUnit for CubicInch {
     type Property = Volume;
     const RATIO: f64 = 0.0254 * 0.0254 * 0.0254;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " in\u{B3}";
+    const SUFFIX: &'static str = " in\u{b3}";
 }
 
 pub struct CubicFoot;
@@ -2244,7 +2377,7 @@ impl MeasurementUnit for CubicFoot {
     type Property = Volume;
     const RATIO: f64 = 0.3048 * 0.3048 * 0.3048;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " ft\u{B3}";
+    const SUFFIX: &'static str = " ft\u{b3}";
 }
 
 pub struct CubicYard;
@@ -2252,7 +2385,7 @@ impl MeasurementUnit for CubicYard {
     type Property = Volume;
     const RATIO: f64 = 0.9144 * 0.9144 * 0.9144;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " yd\u{B3}";
+    const SUFFIX: &'static str = " yd\u{b3}";
 }
 
 pub struct CubicMile;
@@ -2260,10 +2393,10 @@ impl MeasurementUnit for CubicMile {
     type Property = Volume;
     const RATIO: f64 = 1609. * 1609. * 1609.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " mi\u{B3}";
+    const SUFFIX: &'static str = " mi\u{b3}";
 }
 
-pub struct Litre; // a.k.a. cubic decimetre or dm\u{B3}
+pub struct Litre;
 impl MeasurementUnit for Litre {
     type Property = Volume;
     const RATIO: f64 = 1e-3;
@@ -2271,7 +2404,15 @@ impl MeasurementUnit for Litre {
     const SUFFIX: &'static str = " l";
 }
 
-pub struct MilliLitre; // a.k.a. cubic centimetre or cm\u{B3}
+pub struct CubicDecimetre;
+impl MeasurementUnit for CubicDecimetre {
+    type Property = Volume;
+    const RATIO: f64 = 1e-3;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " dm\u{b3}";
+}
+
+pub struct MilliLitre;
 impl MeasurementUnit for MilliLitre {
     type Property = Volume;
     const RATIO: f64 = 1e-6;
@@ -2279,12 +2420,28 @@ impl MeasurementUnit for MilliLitre {
     const SUFFIX: &'static str = " ml";
 }
 
-pub struct MicroLitre; // a.k.a. cubic millimetre or mm\u{B3}
+pub struct CubicCentimetre;
+impl MeasurementUnit for CubicCentimetre {
+    type Property = Volume;
+    const RATIO: f64 = 1e-6;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " cm\u{b3}";
+}
+
+pub struct MicroLitre;
 impl MeasurementUnit for MicroLitre {
     type Property = Volume;
     const RATIO: f64 = 1e-9;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " \u{B5}l";
+    const SUFFIX: &'static str = " \u{b5}l";
+}
+
+pub struct CubicMillimetre;
+impl MeasurementUnit for CubicMillimetre {
+    type Property = Volume;
+    const RATIO: f64 = 1e-9;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " mm\u{b3}";
 }
 
 pub struct NanoLitre;
@@ -2327,15 +2484,23 @@ impl MeasurementUnit for CubicMetrePerSecond {
     type Property = VolumetricFlowRate;
     const RATIO: f64 = 1.;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " m\u{B3}/s";
+    const SUFFIX: &'static str = " m\u{b3}/s";
 }
 
-pub struct CubicCentiMetrePerSecond;
-impl MeasurementUnit for CubicCentiMetrePerSecond {
+pub struct MilliLitrePerSecond;
+impl MeasurementUnit for MilliLitrePerSecond {
     type Property = VolumetricFlowRate;
     const RATIO: f64 = 1e-6;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " cm\u{B3}/s";
+    const SUFFIX: &'static str = " ml/s";
+}
+
+pub struct CubicCentimetrePerSecond;
+impl MeasurementUnit for CubicCentimetrePerSecond {
+    type Property = VolumetricFlowRate;
+    const RATIO: f64 = 1e-6;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " cm\u{b3}/s";
 }
 
 // Property: wave number
@@ -2352,12 +2517,12 @@ impl MeasurementUnit for CyclePerMetre {
 pub struct RadianPerMetre;
 impl MeasurementUnit for RadianPerMetre {
     type Property = WaveNumber;
-    const RATIO: f64 = 1. / TAU;
+    const RATIO: f64 = 1. / core::f64::consts::TAU;
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " rad/m";
 }
 
-//## Relationships among units
+// Relationships among units
 use define_units_relation::define_units_relation;
 
 // Computer science
@@ -2397,19 +2562,36 @@ define_units_relation! {TebiBytePerSecond == TebiByte / Second}
 // * WaveNumber
 
 // Area == Length * Length
+define_units_relation! {SquareMetre == Metre * Metre}
+define_units_relation! {SquareKiloMetre == KiloMetre * KiloMetre}
 define_units_relation! {Hectare == HectoMetre * HectoMetre}
 define_units_relation! {Are == DecaMetre * DecaMetre}
 define_units_relation! {SquareDeciMetre == DeciMetre * DeciMetre}
 define_units_relation! {SquareCentiMetre == CentiMetre * CentiMetre}
 define_units_relation! {SquareMilliMetre == MilliMetre * MilliMetre}
+define_units_relation! {SquareMicroMetre == MicroMetre * MicroMetre}
+define_units_relation! {SquareNanoMetre == NanoMetre * NanoMetre}
 define_units_relation! {SquareInch == Inch * Inch}
 define_units_relation! {SquareFoot == Foot * Foot}
 define_units_relation! {SquareYard == Yard * Yard}
 define_units_relation! {SquareMile == Mile * Mile}
 
 // Volume == Area * Length
-// SolidAngle == Angle * Angle
+define_units_relation! {CubicMetre == SquareMetre * Metre}
+define_units_relation! {CubicKiloMetre == SquareKiloMetre * KiloMetre}
+define_units_relation! {Litre == SquareDeciMetre * DeciMetre}
+define_units_relation! {MilliLitre == SquareCentiMetre * CentiMetre}
+define_units_relation! {MicroLitre == SquareMilliMetre * MilliMetre}
+define_units_relation! {CubicMicroMetre == SquareMicroMetre * MicroMetre}
+define_units_relation! {CubicNanoMetre == SquareNanoMetre * NanoMetre}
+define_units_relation! {CubicInch == SquareInch * Inch}
+define_units_relation! {CubicFoot == SquareFoot * Foot}
+define_units_relation! {CubicYard == SquareYard * Yard}
+define_units_relation! {CubicMile == SquareMile * Mile}
+
 // WaveNumber == Angle / Length
+define_units_relation! {CyclePerMetre == Cycle / Metre}
+define_units_relation! {RadianPerMetre == Radian / Metre}
 
 // Kinematics
 
@@ -2424,14 +2606,81 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * VolumetricFlowRate
 
 // Acceleration == Velocity / Time
+define_units_relation! {MetrePerSquareSecond == MetrePerSecond / Second}
+define_units_relation! {MetrePerSquareSecond:2 == MetrePerSecond:2 / Second}
+define_units_relation! {MetrePerSquareSecond:3 == MetrePerSecond:3 / Second}
+define_units_relation! {CentiMetrePerSquareSecond == CentiMetrePerSecond / Second}
+define_units_relation! {CentiMetrePerSquareSecond:2 == CentiMetrePerSecond:2 / Second}
+define_units_relation! {CentiMetrePerSquareSecond:3 == CentiMetrePerSecond:3 / Second}
+define_units_relation! {KiloMetrePerHourPerSecond == KiloMetrePerHour / Second}
+define_units_relation! {KiloMetrePerHourPerSecond:2 == KiloMetrePerHour:2 / Second}
+define_units_relation! {KiloMetrePerHourPerSecond:3 == KiloMetrePerHour:3 / Second}
+
 // Acceleration == Length / SquareTime
+define_units_relation! {MetrePerSquareSecond == Metre / SquareSecond}
+define_units_relation! {MetrePerSquareSecond:2 == Metre:2 / SquareSecond}
+define_units_relation! {MetrePerSquareSecond:3 == Metre:3 / SquareSecond}
+define_units_relation! {CentiMetrePerSquareSecond == CentiMetre / SquareSecond}
+define_units_relation! {CentiMetrePerSquareSecond:2 == CentiMetre:2 / SquareSecond}
+define_units_relation! {CentiMetrePerSquareSecond:3 == CentiMetre:3 / SquareSecond}
+define_units_relation! {KiloMetrePerHourPerSecond == KiloMetre / HourSecond}
+define_units_relation! {KiloMetrePerHourPerSecond:2 == KiloMetre:2 / HourSecond}
+define_units_relation! {KiloMetrePerHourPerSecond:3 == KiloMetre:3 / HourSecond}
+
 // Velocity == Length / Time
-// AngularAcceleration == AngularVelocity / Time
+define_units_relation! {MetrePerSecond == Metre / Second}
+define_units_relation! {MetrePerSecond:2 == Metre:2 / Second}
+define_units_relation! {MetrePerSecond:3 == Metre:3 / Second}
+define_units_relation! {Knot == NauticalMile / Hour}
+define_units_relation! {Knot:2 == NauticalMile:2 / Hour}
+define_units_relation! {Knot:3 == NauticalMile:3 / Hour}
+define_units_relation! {KiloMetrePerHour == KiloMetre / Hour}
+define_units_relation! {KiloMetrePerHour:2 == KiloMetre:2 / Hour}
+define_units_relation! {KiloMetrePerHour:3 == KiloMetre:3 / Hour}
+define_units_relation! {MilePerHour == Mile / Hour}
+define_units_relation! {MilePerHour:2 == Mile:2 / Hour}
+define_units_relation! {MilePerHour:3 == Mile:3 / Hour}
+define_units_relation! {CentiMetrePerSecond == CentiMetre / Second}
+define_units_relation! {CentiMetrePerSecond:2 == CentiMetre:2 / Second}
+define_units_relation! {CentiMetrePerSecond:3 == CentiMetre:3 / Second}
+
+// AngularAcceleration == Frequency / Time
+define_units_relation! {RadianPerSquareSecond == RadianPerSecond / Second}
+
+// AngularAcceleration == Angle / SquareTime
+define_units_relation! {RadianPerSquareSecond == Radian / SquareSecond}
+
 // Frequency == Angle / Time
-// Frequency == 1 / Time
+define_units_relation! {Hertz == Cycle / Second}
+define_units_relation! {RadianPerSecond == Radian / Second}
+define_units_relation! {CyclePerMinute == Cycle / Minute}
+
 // KinematicViscosity == Area / Time
-// SquareTime = Time * Time
+define_units_relation! {SquareMetrePerSecond == SquareMetre / Second}
+define_units_relation! {SquareMetrePerSecond == SquareMilliMetre / MicroSecond}
+define_units_relation! {SquareMetrePerSecond == SquareMicroMetre / PicoSecond}
+define_units_relation! {Stoke == SquareCentiMetre / Second}
+define_units_relation! {CentiStoke == SquareMilliMetre / Second}
+define_units_relation! {CentiStoke == SquareMicroMetre / MicroSecond}
+define_units_relation! {CentiStoke == SquareNanoMetre / PicoSecond}
+
+// KinematicViscosity == Length * Velocity
+define_units_relation! {SquareMetrePerSecond == Metre * MetrePerSecond}
+define_units_relation! {SquareMetrePerSecond == HectoMetre * CentiMetrePerSecond}
+define_units_relation! {Stoke == CentiMetre * CentiMetrePerSecond}
+
+// SquareTime == Time * Time
+define_units_relation! {SquareSecond == Second * Second}
+define_units_relation! {HourSecond == Hour * Second}
+define_units_relation! {HourHour == Hour * Hour}
+
 // VolumetricFlowRate == Volume / Time
+define_units_relation! {CubicMetrePerSecond == CubicMetre / Second}
+define_units_relation! {MilliLitrePerSecond == MilliLitre / Second}
+
+// VolumetricFlowRate == Area * Velocity
+define_units_relation! {CubicMetrePerSecond == SquareMetre * MetrePerSecond}
+define_units_relation! {MilliLitrePerSecond == SquareCentiMetre * CentiMetrePerSecond}
 
 // Dynamics
 
@@ -2458,25 +2707,120 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * Torque
 
 // Action == Energy * Time
+define_units_relation! {JouleSecond == Joule * Second}
+
+// Action == Power * SquareTime
+define_units_relation! {JouleSecond == Watt * SquareSecond}
+
 // AngularMomentum == Momentum * Length
+define_units_relation! {KiloGramSquareMetrePerSecond == KiloGramMetrePerSecond * Metre}
+define_units_relation! {KiloGramSquareMetrePerSecond == KiloGramMetrePerSecond:2 X Metre:2}
+define_units_relation! {KiloGramSquareMetrePerSecond:3 == KiloGramMetrePerSecond:3 X Metre:3}
+
+// AngularMomentum == MomentOfInertia / Time
+define_units_relation! {KiloGramSquareMetrePerSecond == KiloGramSquareMetre / Second}
+
 // DynamicViscosity == Pressure * Time
+define_units_relation! {PascalSecond == Pascal * Second}
+
 // Energy == Force * Length
+define_units_relation! {Joule == Newton * Metre}
+define_units_relation! {Joule == Newton:2 * Metre:2}
+define_units_relation! {Joule == Newton:3 * Metre:3}
+define_units_relation! {Erg == Dyne * CentiMetre}
+define_units_relation! {Erg == Dyne:2 * CentiMetre:2}
+define_units_relation! {Erg == Dyne:3 * CentiMetre:3}
+
+// Energy == Momentum * Velocity
+define_units_relation! {Joule == NewtonSecond * MetrePerSecond}
+define_units_relation! {Joule == NewtonSecond:2 * MetrePerSecond:2}
+define_units_relation! {Joule == NewtonSecond:3 * MetrePerSecond:3}
+define_units_relation! {Erg == DyneSecond * CentiMetrePerSecond}
+define_units_relation! {Erg == DyneSecond:2 * CentiMetrePerSecond:2}
+define_units_relation! {Erg == DyneSecond:3 * CentiMetrePerSecond:3}
+
+// Energy == MomentOfInertia / SquareTime
+define_units_relation! {Joule == KiloGramSquareMetre / SquareSecond}
+
 // EnergyDensity == Energy / Volume
+define_units_relation! {JoulePerCubicMetre == Joule / CubicMetre}
+
 // Force == Mass * Acceleration
+define_units_relation! {Newton == KiloGram * MetrePerSquareSecond}
+define_units_relation! {Newton:2 == KiloGram * MetrePerSquareSecond:2}
+define_units_relation! {Newton:3 == KiloGram * MetrePerSquareSecond:3}
+define_units_relation! {Dyne == Gram * CentiMetrePerSquareSecond}
+define_units_relation! {Dyne:2 == Gram * CentiMetrePerSquareSecond:2}
+define_units_relation! {Dyne:3 == Gram * CentiMetrePerSquareSecond:3}
+define_units_relation! {KiloGramForce == KiloGram * GForce}
+define_units_relation! {KiloGramForce:2 == KiloGram * GForce:2}
+define_units_relation! {KiloGramForce:3 == KiloGram * GForce:3}
+
 // LinearDensity == Mass / Length
+define_units_relation! {KiloGramPerMetre == KiloGram / Metre}
+define_units_relation! {GramPerCentiMetre == Gram / CentiMetre}
+
 // MassDensity == Mass / Volume
+define_units_relation! {KiloGramPerCubicMetre == KiloGram / CubicMetre}
+define_units_relation! {GramPerMilliLitre == Gram / MilliLitre}
+
 // MassFlowRate == Mass / Time
+define_units_relation! {KiloGramPerSecond == KiloGram / Second}
+define_units_relation! {GramPerSecond == Gram / Second}
+
 // MomentOfInertia == Mass * Area
+define_units_relation! {KiloGramSquareMetre == KiloGram * SquareMetre}
+define_units_relation! {GramSquareCentiMetre == Gram * SquareCentiMetre}
+
 // Momentum == Force * Time
+define_units_relation! {NewtonSecond == Newton * Second}
+define_units_relation! {NewtonSecond:2 == Newton:2 * Second}
+define_units_relation! {NewtonSecond:3 == Newton:3 * Second}
+define_units_relation! {DyneSecond == Dyne * Second}
+define_units_relation! {DyneSecond:2 == Dyne:2 * Second}
+define_units_relation! {DyneSecond:3 == Dyne:3 * Second}
+
 // Momentum == Mass * Velocity
+define_units_relation! {NewtonSecond == KiloGram * MetrePerSecond}
+define_units_relation! {NewtonSecond:2 == KiloGram * MetrePerSecond:2}
+define_units_relation! {NewtonSecond:3 == KiloGram * MetrePerSecond:3}
+define_units_relation! {DyneSecond == Gram * CentiMetrePerSecond}
+define_units_relation! {DyneSecond:2 == Gram * CentiMetrePerSecond:2}
+define_units_relation! {DyneSecond:3 == Gram * CentiMetrePerSecond:3}
+
 // Power == Energy / Time
+define_units_relation! {Watt == Joule / Second}
+define_units_relation! {Watt == WattHour / Hour}
+define_units_relation! {KiloWatt == KiloWattHour / Hour}
+define_units_relation! {ErgPerSecond == Erg / Second}
+
 // Pressure == Force / Area
-// SpecificEnergy == Joule / Volume
+define_units_relation! {Pascal == Newton / SquareMetre}
+define_units_relation! {PoundForcePerSquareInch == PoundForce / SquareInch}
+define_units_relation! {HectoPascal == Newton / SquareDeciMetre}
+
+// SpecificEnergy == Joule / Mass
+define_units_relation! {JoulePerKiloGram == Joule / KiloGram}
+
 // SpecificVolume == Volume / Mass
+define_units_relation! {CubicMetrePerKiloGram == CubicMetre / KiloGram}
+
 // SpecificVolume == 1 / MassDensity
+define_units_relation! {CubicMetrePerKiloGram == 1 / KiloGramPerCubicMetre}
+
 // SurfaceDensity == Mass / Area
+define_units_relation! {KiloGramPerSquareMetre == KiloGram / SquareMetre}
+
 // SurfaceTension == Energy / Area
+define_units_relation! {JoulePerSquareMetre == Joule / SquareMetre}
+
 // Torque == Force * Length
+define_units_relation! {NewtonMetre == Newton:2 X Metre:2}
+define_units_relation! {NewtonMetre:3 == Newton:3 X Metre:3}
+define_units_relation! {PoundFoot == PoundForce:2 X Foot:2}
+define_units_relation! {PoundFoot:3 == PoundForce:3 X Foot:3}
+define_units_relation! {PoundInch == PoundForce:2 X Inch:2}
+define_units_relation! {PoundInch:3 == PoundForce:3 X Inch:3}
 
 // Thermodynamics
 
@@ -2487,26 +2831,40 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * ThermalConductivity
 
 // Entropy == Energy / Temperature
+define_units_relation! {JoulePerKelvin == Joule / Kelvin}
+
 // SpecificHeatCapacity == Entropy / Mass
+define_units_relation! {JoulePerKiloGramPerKelvin == JoulePerKelvin / KiloGram}
+
 // TODO: ThermalConductivity == Power / Length / Temperature
+// TODO: define_units_relation! {WattPerMetrePerKelvin == ?}
 
 // Chemistry
 
 // Properties:
 // * CatalyticActivity
-// * CatalyticActivityConcentration
 // * ChemicalPotential
 // * MolarConcentration
 // * MolarHeatCapacity
 // * ReactionRate
 
 // CatalyticActivity == Amount / Time
-// CatalyticActivityConcentration == CatalyticActivity / Volume
+define_units_relation! {Katal == Mole / Second}
+
 // ChemicalPotential == Energy / Amount
+define_units_relation! {JoulePerMole == Joule / Mole}
+
 // MolarConcentration == Amount / Volume
+define_units_relation! {MolePerCubicMetre == Mole / CubicMetre}
+
 // MolarHeatCapacity == ChemicalPotential / Temperature
+define_units_relation! {JoulePerKelvinPerMole == JoulePerMole / Kelvin}
+
 // ReactionRate == MolarConcentration / Time
+define_units_relation! {MolePerCubicMetrePerSecond == MolePerCubicMetre / Second}
+
 // ReactionRate == CatalyticActivity / Volume
+define_units_relation! {MolePerCubicMetrePerSecond == Katal / CubicMetre}
 
 // Radioactivity
 
@@ -2516,10 +2874,10 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * RadioactiveDose
 // * RadioactiveDoseRate
 
-// DoseEquivalent == Energy / Mass
 // RadioactiveDoseRate == RadioactiveDose / Time
+define_units_relation! {GrayPerSecond == Gray / Second}
 
-// Lighting
+// Optics
 
 // Properties:
 // * Illuminance
@@ -2531,12 +2889,32 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * RadiantIntensity
 
 // Illuminance == LuminousFlux / Area
+define_units_relation! {Lux == Lumen / SquareMetre}
+define_units_relation! {Lux == CandelaPerSquareMetre * Steradian}
+define_units_relation! {Phot == Lumen / SquareCentiMetre}
+define_units_relation! {Phot == Stilb * Steradian}
+define_units_relation! {FootCandle == Lumen / SquareFoot}
+define_units_relation! {FootCandle == CandelaPerSquareFoot * Steradian}
+
 // Irradiance == Power / Area
+define_units_relation! {WattPerSquareMetre == Watt / SquareMetre}
+
 // Luminance == LuminousIntensity / Area
+define_units_relation! {CandelaPerSquareMetre == Candela / SquareMetre}
+define_units_relation! {Stilb == Candela / SquareCentiMetre}
+define_units_relation! {CandelaPerSquareFoot == Candela / SquareFoot}
+
 // LuminousFlux == LuminousIntensity * SolidAngle
+define_units_relation! {Lumen == Candela * Steradian}
+
 // Radiance == RadiantIntensity / Area
+define_units_relation! {WattPerSquareMetrePerSteradian == WattPerSteradian / SquareMetre}
+
 // Radiance == Irradiance / SolidAngle
+define_units_relation! {WattPerSquareMetrePerSteradian == WattPerSquareMetre / Steradian}
+
 // RadiantIntensity == Power / SolidAngle
+define_units_relation! {WattPerSteradian == Watt / Steradian}
 
 // Electricity
 
@@ -2556,18 +2934,70 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * Permittivity
 
 // Capacitance == ElectricCharge / ElectricPotential
-// CurrentDensity == ElectricCurrent / Area
+define_units_relation! {Farad == Coulomb / Volt}
+define_units_relation! {MilliFarad == MilliCoulomb / Volt}
+define_units_relation! {MilliFarad == Coulomb / KiloVolt}
+define_units_relation! {MicroFarad == MicroCoulomb / Volt}
+define_units_relation! {MicroFarad == MilliCoulomb / KiloVolt}
+define_units_relation! {NanoFarad == NanoCoulomb / Volt}
+define_units_relation! {NanoFarad == MicroCoulomb / KiloVolt}
+define_units_relation! {PicoFarad == PicoCoulomb / Volt}
+define_units_relation! {PicoFarad == NanoCoulomb / KiloVolt}
+
+// CurrentDensity == ElectricCurrent * Area
+define_units_relation! {AmperePerSquareMetre == Ampere / SquareMetre}
+
 // ElectricalConductance == ElectricCurrent / ElectricPotential
+define_units_relation! {Siemens == Ampere / Volt}
+define_units_relation! {Siemens == MilliAmpere / KiloVolt}
+
 // ElectricalConductance == 1 / ElectricalResistance
+define_units_relation! {Siemens == 1 / Ohm}
+
 // ElectricalConductivity == ElectricalConductance / Length
+define_units_relation! {SiemensPerMetre == Siemens / Metre}
+
 // ElectricalResistance == ElectricPotential / ElectricCurrent
+define_units_relation! {Ohm == Volt / Ampere}
+
 // ElectricCurrent == ElectricCharge / Time
+define_units_relation! {Ampere == Coulomb / Second}
+define_units_relation! {Ampere == MilliCoulomb / MilliSecond}
+define_units_relation! {MilliAmpere == MilliCoulomb / Second}
+define_units_relation! {MilliAmpere == MicroCoulomb / MilliSecond}
+define_units_relation! {MicroAmpere == MicroCoulomb / Second}
+
 // ElectricChargeDensity == ElectricCharge / Volume
+define_units_relation! {CoulombPerCubicMetre == Coulomb / CubicMetre}
+define_units_relation! {CoulombPerCubicMetre == MilliCoulomb / Litre}
+define_units_relation! {CoulombPerCubicMetre == MicroCoulomb / MilliLitre}
+
 // ElectricDisplacement == ElectricCharge / Area
+define_units_relation! {CoulombPerSquareMetre == Coulomb / SquareMetre}
+define_units_relation! {CoulombPerSquareMetre == MicroCoulomb / SquareMilliMetre}
+
 // ElectricFieldStrength == ElectricPotential * Length
+define_units_relation! {VoltPerMetre == Volt / Metre}
+define_units_relation! {NewtonPerCoulomb == Newton / Coulomb}
+
 // ElectricPotential == Power / ElectricCurrent
+define_units_relation! {Volt == Watt / Ampere}
+define_units_relation! {Volt == MilliWatt / MilliAmpere}
+define_units_relation! {KiloVolt == Watt / MilliAmpere}
+define_units_relation! {KiloVolt == MilliWatt / MicroAmpere}
+define_units_relation! {KiloVolt == KiloWatt / Ampere}
+define_units_relation! {MilliVolt == MilliWatt / Ampere}
+
 // LinearElectricChargeDensity == ElectricCharge / Length
+define_units_relation! {CoulombPerMetre == Coulomb / Metre}
+define_units_relation! {CoulombPerMetre == MilliCoulomb / MilliMetre}
+define_units_relation! {CoulombPerMetre == MicroCoulomb / MicroMetre}
+
 // Permittivity == Capacitance / Length
+define_units_relation! {FaradPerMetre == Farad / Metre}
+define_units_relation! {FaradPerMetre == MilliFarad / MilliMetre}
+define_units_relation! {FaradPerMetre == MicroFarad / MicroMetre}
+define_units_relation! {FaradPerMetre == NanoFarad / NanoMetre}
 
 // Magnetism
 
@@ -2580,13 +3010,24 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * MagneticReluctance
 
 // Inductance == MagneticFlux / ElectricCurrent
+define_units_relation! {Henry == Weber / Ampere}
+
 // MagneticFieldStrength == ElectricCurrent / Length
-// MagneticFlux == ElectricCurrent * Inductance
+define_units_relation! {AmperePerMetre == Ampere / Metre}
+define_units_relation! {AmperePerMetre == MilliAmpere / MilliMetre}
+define_units_relation! {AmperePerMetre == MicroAmpere / MicroMetre}
+
 // TODO: MagneticFlux == Mass * Area / SquareTime / Current
+// TODO: MagneticFlux == Force * Length / Current
+
 // MagneticFluxDensity == MagneticFlux / Area
 // TODO: MagneticFluxDensity == Mass / SquareTime / Current
+// TODO: MagneticFluxDensity == Force / Length / Current
+
 // MagneticPermeability == Inductance / Length
+
 // MagneticReluctance == 1 / Inductance
+define_units_relation! {InverseHenry == 1 / Henry}
 
 // Others
 
@@ -2594,252 +3035,15 @@ define_units_relation! {SquareMile == Mile * Mile}
 // * Amount
 // * Dimensionless
 
-// geometry //
-
-// Area == Length * Length
-define_units_relation! {SquareMetre == Metre * Metre}
-define_units_relation! {SquareKiloMetre == KiloMetre * KiloMetre}
-
-/*TODO
-define_derived_measure_squared_1! {}
-define_derived_measure_squared_1! {HectoMetre, Hectare}
-define_derived_measure_squared_1! {DecaMetre, Are}
-define_derived_measure_squared_1! {DeciMetre, SquareDeciMetre}
-define_derived_measure_squared_1! {CentiMetre, SquareCentiMetre}
-define_derived_measure_squared_1! {MilliMetre, SquareMilliMetre}
-define_derived_measure_squared_1! {Inch, SquareInch}
-define_derived_measure_squared_1! {Foot, SquareFoot}
-define_derived_measure_squared_1! {Yard, SquareYard}
-define_derived_measure_squared_1! {Mile, SquareMile}
-
-// Length * Area = Volume
-define_derived_measure_1_1! {Metre, SquareMetre, CubicMetre}
-define_derived_measure_1_1! {KiloMetre, SquareKiloMetre, CubicKiloMetre}
-define_derived_measure_1_1! {DeciMetre, SquareDeciMetre, Litre}
-define_derived_measure_1_1! {CentiMetre, SquareCentiMetre, MilliLitre}
-define_derived_measure_1_1! {MilliMetre, SquareMilliMetre, MicroLitre}
-define_derived_measure_1_1! {Inch, SquareInch, CubicInch}
-define_derived_measure_1_1! {Foot, SquareFoot, CubicFoot}
-define_derived_measure_1_1! {Yard, SquareYard, CubicYard}
-define_derived_measure_1_1! {Mile, SquareMile, CubicMile}
-*/
-// kinematics //
-
-// Velocity == Length / Time
-define_units_relation! {Metre / Second == MetrePerSecond}
-define_units_relation! {Metre:2 / Second == MetrePerSecond:2}
-define_units_relation! {Metre:3 / Second == MetrePerSecond:3}
-/*
-define_derived_measure_1_1! {Hour, Knot, NauticalMile}
-define_derived_measure_1_2! {Hour, Knot, NauticalMile}
-define_derived_measure_1_3! {Hour, Knot, NauticalMile}
-define_derived_measure_1_1! {Hour, KiloMetrePerHour, KiloMetre}
-define_derived_measure_1_2! {Hour, KiloMetrePerHour, KiloMetre}
-define_derived_measure_1_3! {Hour, KiloMetrePerHour, KiloMetre}
-define_derived_measure_1_1! {Hour, MilePerHour, Mile}
-define_derived_measure_1_2! {Hour, MilePerHour, Mile}
-define_derived_measure_1_3! {Hour, MilePerHour, Mile}
-
-// SquareTime * Acceleration = Length
-define_derived_measure_1_1! {SquareSecond, MetrePerSquareSecond, Metre}
-define_derived_measure_1_2! {SquareSecond, MetrePerSquareSecond, Metre}
-define_derived_measure_1_3! {SquareSecond, MetrePerSquareSecond, Metre}
-define_derived_measure_1_1! {HourSecond, KiloMetrePerHourPerSecond, KiloMetre}
-define_derived_measure_1_2! {HourSecond, KiloMetrePerHourPerSecond, KiloMetre}
-define_derived_measure_1_3! {HourSecond, KiloMetrePerHourPerSecond, KiloMetre}
-
-// Time * Acceleration = Velocity
-define_derived_measure_1_1! {Second, MetrePerSquareSecond, MetrePerSecond}
-define_derived_measure_1_2! {Second, MetrePerSquareSecond, MetrePerSecond}
-define_derived_measure_1_3! {Second, MetrePerSquareSecond, MetrePerSecond}
-define_derived_measure_1_1! {Second, KiloMetrePerHourPerSecond, KiloMetrePerHour}
-define_derived_measure_1_2! {Second, KiloMetrePerHourPerSecond, KiloMetrePerHour}
-define_derived_measure_1_3! {Second, KiloMetrePerHourPerSecond, KiloMetrePerHour}
-
-// Time * AngularVelocity = Angle
-define_derived_measure_1_1! {Second, RadianPerSecond, Radian}
-define_derived_measure_1_1! {Second, Hertz, Turn}
-define_derived_measure_1_1! {Minute, TurnPerMinute, Turn}
-define_derived_measure_1_1! {MilliSecond, KiloHertz, Turn}
-define_derived_measure_1_1! {MicroSecond, MegaHertz, Turn}
-define_derived_measure_1_1! {NanoSecond, GigaHertz, Turn}
-
-// SquareTime * AngularAcceleration = Angle
-define_derived_measure_1_1! {SquareSecond, RadianPerSquareSecond, Radian}
-define_derived_measure_1_1! {Second, RadianPerSquareSecond, RadianPerSecond}
-
-// Time * KinematicViscosity = Area
-define_derived_measure_1_1! {Second, SquareMetrePerSecond, SquareMetre}
-
-// mechanics //
-
-// Length * LinearDensity = Mass
-define_derived_measure_1_1! {Metre, KilogramPerMetre, KiloGram}
-
-// Area * SurfaceDensity = Mass
-define_derived_measure_1_1! {SquareMetre, KiloGramPerSquareMetre, KiloGram}
-
-// Volume * MassDensity = Mass
-define_derived_measure_1_1! {CubicMetre, KiloGramPerCubicMetre, KiloGram}
-
-// Mass * SpecificVolume = Volume
-define_derived_measure_1_1! {KiloGram, CubicMetrePerKiloGram, CubicMetre}
-*/
-
-// Force * Length = Energy, Torque
-define_units_relation! {Newton * Metre == Joule}
-define_units_relation! {Newton:2 * Metre:2 == Joule}
-define_units_relation! {Newton:3 * Metre:3 == Joule}
-define_units_relation! {Newton:2 X Metre:2 == NewtonMetre}
-define_units_relation! {Newton:3 X Metre:3 == NewtonMetre:3}
-
-define_units_relation! {Metre:2 X Metre:2 == Metre}
-define_units_relation! {Metre:3 X Metre:3 == Metre:3}
-
-/*
-// Mass * Acceleration = Force
-define_derived_measure_1_1! {KiloGram, MetrePerSquareSecond, Newton}
-define_derived_measure_1_2! {KiloGram, MetrePerSquareSecond, Newton}
-define_derived_measure_1_3! {KiloGram, MetrePerSquareSecond, Newton}
-
-// Time * Power = Energy
-define_derived_measure_1_1! {Second, Watt, Joule}
-define_derived_measure_1_1! {SquareMetre, Pascal, Newton}
-
-// Mass * Velocity = Momentum
-define_derived_measure_1_1! {KiloGram, MetrePerSecond, KiloGramMetrePerSecond}
-define_derived_measure_1_2! {KiloGram, MetrePerSecond, KiloGramMetrePerSecond}
-define_derived_measure_1_3! {KiloGram, MetrePerSecond, KiloGramMetrePerSecond}
-
-// Momentum * Length = AngularMomentum
-define_derived_measure_1_1! {KiloGramMetrePerSecond, Metre, KilogramSquareMetrePerSecond}
-define_derived_measure_1_2! {KiloGramMetrePerSecond, Metre, KilogramSquareMetrePerSecond}
-define_derived_measure_1_3! {KiloGramMetrePerSecond, Metre, KilogramSquareMetrePerSecond}
-
-// Volume * EnergyDensity = Energy
-define_derived_measure_1_1! {CubicMetre, JoulePerCubicMetre, Joule}
-
-// Time * Pressure = DynamicViscosity
-define_derived_measure_1_1! {Second, Pascal, PascalSecond}
-
-// thermodynamics //
-
-// Temperature * Entropy = Energy
-define_derived_measure_1_1! {Kelvin, JoulePerKelvin, Joule}
-
-// optics //
-
-// LuminousIntensity * SolidAngle = LuminousFlux
-define_derived_measure_1_1! {Candela, Steradian, Lumen}
-
-// Area * Illuminance = LuminousFlux
-define_derived_measure_1_1! {SquareMetre, Lux, Lumen}
-define_derived_measure_1_1! {SquareCentiMetre, Phot, Lumen}
-define_derived_measure_1_1! {SquareFoot, FootCandle, Lumen}
-
-// Area * Irradiance = Power
-define_derived_measure_1_1! {SquareMetre, WattPerSquareMetre, Watt}
-
-// electromagnetism //
-
-// ElectricCurrent * Time = ElectricCharge
-define_derived_measure_1_1! {Ampere, Second, Coulomb}
-define_derived_measure_1_1! {MilliAmpere, Second, MilliCoulomb}
-define_derived_measure_1_1! {MicroAmpere, Second, MicroCoulomb}
-define_derived_measure_1_1! {Ampere, MilliSecond, MilliCoulomb}
-
-// Length * LinearElectricChargeDensity = ElectricCharge
-define_derived_measure_1_1! {Metre, CoulombPerMetre, Coulomb}
-
-// Area * ElectricDisplacement = ElectricCharge
-define_derived_measure_1_1! {SquareMetre, CoulombPerSquareMetre, Coulomb}
-
-// Volume * ElectricChargeDensity = ElectricCharge
-define_derived_measure_1_1! {CubicMetre, CoulombPerCubicMetre, Coulomb}
-
-// ElectricalResistance * ElectricCurrent = ElectricPotential
-define_derived_measure_1_1! {Ohm, Ampere, Volt}
-define_derived_measure_1_1! {Ohm, MilliAmpere, MilliVolt}
-define_derived_measure_1_1! {MilliOhm, Ampere, MilliVolt}
-define_derived_measure_1_1! {KiloOhm, MilliAmpere, Volt}
-
-// ElectricalConductance * ElectricPotential = ElectricCurrent
-define_derived_measure_1_1! {Siemens, Volt, Ampere}
-
-// ElectricalConductance * ElectricalResistance = Number
-define_derived_measure_inverse_1! {Siemens, Ohm}
-
-// Length * ElectricalConductivity = ElectricalConductance
-define_derived_measure_1_1! {Metre, SiemensPerMetre, Siemens}
-
-// Capacitance * ElectricPotential = ElectricCharge
-define_derived_measure_1_1! {Farad, Volt, Coulomb}
-define_derived_measure_1_1! {MilliFarad, Volt, MilliCoulomb}
-define_derived_measure_1_1! {MicroFarad, Volt, MicroCoulomb}
-define_derived_measure_1_1! {NanoFarad, Volt, NanoCoulomb}
-define_derived_measure_1_1! {NanoFarad, MilliVolt, MicroCoulomb}
-define_derived_measure_1_1! {PicoFarad, Volt, PicoCoulomb}
-define_derived_measure_1_1! {PicoFarad, MilliVolt, NanoCoulomb}
-
-// Area * CurrentDensity = ElectricCurrent
-define_derived_measure_1_1! {SquareMetre, AmperePerSquareMetre, Ampere}
-define_derived_measure_1_2! {SquareMetre, AmperePerSquareMetre, Ampere}
-define_derived_measure_1_3! {SquareMetre, AmperePerSquareMetre, Ampere}
-
-// ElectricPotential * Length = ElectricFieldStrength
-define_derived_measure_1_1! {Volt, Metre, VoltPerMetre}
-define_derived_measure_1_2! {Volt, Metre, VoltPerMetre}
-define_derived_measure_1_3! {Volt, Metre, VoltPerMetre}
-
-// MagneticFieldStrength * Length = ElectricCurrent
-define_derived_measure_1_1! {AmperePerMetre, Metre, Ampere}
-define_derived_measure_2_2! {AmperePerMetre, Metre, Ampere, Ampere}
-define_derived_measure_3_3! {AmperePerMetre, Metre, Ampere, Ampere}
-
-// Inductance * MagneticReluctance = number
-define_derived_measure_inverse_1! {Henry, InverseHenry}
-
-// Length * MagneticPermeability = Inductance
-define_derived_measure_1_1! {Metre, HenryPerMetre, Henry}
-
-// MagneticReluctance * MagneticFlux = ElectricCurrent
-define_derived_measure_1_1! {InverseHenry, Weber, Ampere}
-
-// ElectricCurrent * Inductance = MagneticFlux
-define_derived_measure_1_1! {Ampere, Henry, Weber}
-
-// chemistry //
-
-// Time * CatalyticActivity = Amount
-define_derived_measure_1_1! {Second, Katal, Mole}
-
-// Volume * CatalyticActivityConcentration = CatalyticActivity
-define_derived_measure_1_1! {CubicMetre, KatalPerCubicMetre, Katal}
-
-// Amount * ChemicalPotential = Energy
-define_derived_measure_1_1! {Mole, JoulePerMole, Joule}
-
-// Volume * MolarConcentration = Amount
-define_derived_measure_1_1! {CubicMetre, MolePerCubicMetre, Mole}
-
-// radioactivity //
-
-// Mass * DoseEquivalent = Energy
-define_derived_measure_1_1! {KiloGram, Sievert, Joule}
-
-// SquareTime * DoseEquivalent = Area
-define_derived_measure_1_1! {SquareSecond, Sievert, SquareMetre, Sievert}
-
-// Time * RadioactiveDoseRate = RadioactiveDose
-define_derived_measure_1_1! {Second, GrayPerSecond, Gray}
-
-// Others //
-
-//define_derived_measure_squared_2! {Metre, Metre, Metre}
-//define_derived_measure_squared_3! {Metre, Metre, Metre}
-*/
-
-//TODO
-//luxes = candelas * steradians / square_Metres
-//luxes = lumens / square_Metres
-//foot_candles = lumens / square_feet
+// Dimensionless == Dimensionless * Dimensionless
+define_units_relation! {Unspecified == Unspecified:2 * Unspecified:2}
+define_units_relation! {Unspecified == Unspecified:2 X Unspecified:2}
+define_units_relation! {Unspecified == Unspecified:3 * Unspecified:3}
+define_units_relation! {Unspecified:3 == Unspecified:3 X Unspecified:3}
+// N.B.: The following definition is not allowed:
+// ```
+// define_units_relation! {Unspecified == Unspecified * Unspecified}
+// ```
+// This is because it would imply that `Measure<Unspecified> / Measure<Unspecified>`
+// is a `Measure<Unspecified>`. Though, in general, that division is already defined
+// to be a number.

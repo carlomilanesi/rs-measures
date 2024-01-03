@@ -91,15 +91,15 @@ fn print_all_angle_units() {
         UnsignedDirection::<Radian>::new(1.),
     );
     println!(
-        "  Turn: {} == {}, {} == {}, {} == {}, {} == {};",
-        Measure::<Turn>::new(1.),
-        Measure::<Turn>::new(1.).convert::<Radian>(),
-        MeasurePoint::<Turn>::new(1.),
-        MeasurePoint::<Turn>::new(1.).convert::<Radian>(),
-        SignedDirection::<Turn>::new(1.),
-        SignedDirection::<Turn>::new(1.).convert::<Radian>(),
-        UnsignedDirection::<Turn>::new(1.),
-        UnsignedDirection::<Turn>::new(1.).convert::<Radian>(),
+        "  Cycle: {} == {}, {} == {}, {} == {}, {} == {};",
+        Measure::<Cycle>::new(1.),
+        Measure::<Cycle>::new(1.).convert::<Radian>(),
+        MeasurePoint::<Cycle>::new(1.),
+        MeasurePoint::<Cycle>::new(1.).convert::<Radian>(),
+        SignedDirection::<Cycle>::new(1.),
+        SignedDirection::<Cycle>::new(1.).convert::<Radian>(),
+        UnsignedDirection::<Cycle>::new(1.),
+        UnsignedDirection::<Cycle>::new(1.).convert::<Radian>(),
     );
     println!(
         "  Gradian: {} == {}, {} == {}, {} == {}, {} == {};",
@@ -161,28 +161,28 @@ fn print_all_angular_acceleration_units() {
 fn print_all_angular_momentum_units() {
     println!("* All AngularMomentum units");
     println!(
-        "  KilogramSquareMetrePerSecond: {}, {}, {}, {}, {}, {};",
-        Measure::<KilogramSquareMetrePerSecond>::new(1.),
-        MeasurePoint::<KilogramSquareMetrePerSecond>::new(1.),
-        Measure2d::<KilogramSquareMetrePerSecond>::new(1., 2.),
-        MeasurePoint2d::<KilogramSquareMetrePerSecond>::new(1., 2.),
-        Measure3d::<KilogramSquareMetrePerSecond>::new(1., 2., 3.),
-        MeasurePoint3d::<KilogramSquareMetrePerSecond>::new(1., 2., 3.),
+        "  KiloGramSquareMetrePerSecond: {}, {}, {}, {}, {}, {};",
+        Measure::<KiloGramSquareMetrePerSecond>::new(1.),
+        MeasurePoint::<KiloGramSquareMetrePerSecond>::new(1.),
+        Measure2d::<KiloGramSquareMetrePerSecond>::new(1., 2.),
+        MeasurePoint2d::<KiloGramSquareMetrePerSecond>::new(1., 2.),
+        Measure3d::<KiloGramSquareMetrePerSecond>::new(1., 2., 3.),
+        MeasurePoint3d::<KiloGramSquareMetrePerSecond>::new(1., 2., 3.),
     );
     println!(
         "  GramSquareCentiMetrePerSecond: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
         Measure::<GramSquareCentiMetrePerSecond>::new(1.),
-        Measure::<GramSquareCentiMetrePerSecond>::new(1.).convert::<KilogramSquareMetrePerSecond>(),
+        Measure::<GramSquareCentiMetrePerSecond>::new(1.).convert::<KiloGramSquareMetrePerSecond>(),
         MeasurePoint::<GramSquareCentiMetrePerSecond>::new(1.),
-        MeasurePoint::<GramSquareCentiMetrePerSecond>::new(1.).convert::<KilogramSquareMetrePerSecond>(),
+        MeasurePoint::<GramSquareCentiMetrePerSecond>::new(1.).convert::<KiloGramSquareMetrePerSecond>(),
         Measure2d::<GramSquareCentiMetrePerSecond>::new(1., 2.),
-        Measure2d::<GramSquareCentiMetrePerSecond>::new(1., 2.).convert::<KilogramSquareMetrePerSecond>(),
+        Measure2d::<GramSquareCentiMetrePerSecond>::new(1., 2.).convert::<KiloGramSquareMetrePerSecond>(),
         MeasurePoint2d::<GramSquareCentiMetrePerSecond>::new(1., 2.),
-        MeasurePoint2d::<GramSquareCentiMetrePerSecond>::new(1., 2.).convert::<KilogramSquareMetrePerSecond>(),
+        MeasurePoint2d::<GramSquareCentiMetrePerSecond>::new(1., 2.).convert::<KiloGramSquareMetrePerSecond>(),
         Measure3d::<GramSquareCentiMetrePerSecond>::new(1., 2., 3.),
-        Measure3d::<GramSquareCentiMetrePerSecond>::new(1., 2., 3.).convert::<KilogramSquareMetrePerSecond>(),
+        Measure3d::<GramSquareCentiMetrePerSecond>::new(1., 2., 3.).convert::<KiloGramSquareMetrePerSecond>(),
         MeasurePoint3d::<GramSquareCentiMetrePerSecond>::new(1., 2., 3.),
-        MeasurePoint3d::<GramSquareCentiMetrePerSecond>::new(1., 2., 3.).convert::<KilogramSquareMetrePerSecond>(),
+        MeasurePoint3d::<GramSquareCentiMetrePerSecond>::new(1., 2., 3.).convert::<KiloGramSquareMetrePerSecond>(),
     );
     println!();
 }
@@ -321,16 +321,6 @@ fn print_all_catalytic_activity_units() {
         "  Katal: {}, {};",
         Measure::<Katal>::new(1.),
         MeasurePoint::<Katal>::new(1.),
-    );
-    println!();
-}
-
-fn print_all_catalytic_activity_concentration_units() {
-    println!("* All CatalyticActivityConcentration units");
-    println!(
-        "  KatalPerCubicMetre: {}, {};",
-        Measure::<KatalPerCubicMetre>::new(1.),
-        MeasurePoint::<KatalPerCubicMetre>::new(1.),
     );
     println!();
 }
@@ -723,19 +713,19 @@ fn print_all_force_units() {
         MeasurePoint3d::<Dyne>::new(1., 2., 3.).convert::<Newton>(),
     );
     println!(
-        "  KilogramForce: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
-        Measure::<KilogramForce>::new(1.),
-        Measure::<KilogramForce>::new(1.).convert::<Newton>(),
-        MeasurePoint::<KilogramForce>::new(1.),
-        MeasurePoint::<KilogramForce>::new(1.).convert::<Newton>(),
-        Measure2d::<KilogramForce>::new(1., 2.),
-        Measure2d::<KilogramForce>::new(1., 2.).convert::<Newton>(),
-        MeasurePoint2d::<KilogramForce>::new(1., 2.),
-        MeasurePoint2d::<KilogramForce>::new(1., 2.).convert::<Newton>(),
-        Measure3d::<KilogramForce>::new(1., 2., 3.),
-        Measure3d::<KilogramForce>::new(1., 2., 3.).convert::<Newton>(),
-        MeasurePoint3d::<KilogramForce>::new(1., 2., 3.),
-        MeasurePoint3d::<KilogramForce>::new(1., 2., 3.).convert::<Newton>(),
+        "  KiloGramForce: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
+        Measure::<KiloGramForce>::new(1.),
+        Measure::<KiloGramForce>::new(1.).convert::<Newton>(),
+        MeasurePoint::<KiloGramForce>::new(1.),
+        MeasurePoint::<KiloGramForce>::new(1.).convert::<Newton>(),
+        Measure2d::<KiloGramForce>::new(1., 2.),
+        Measure2d::<KiloGramForce>::new(1., 2.).convert::<Newton>(),
+        MeasurePoint2d::<KiloGramForce>::new(1., 2.),
+        MeasurePoint2d::<KiloGramForce>::new(1., 2.).convert::<Newton>(),
+        Measure3d::<KiloGramForce>::new(1., 2., 3.),
+        Measure3d::<KiloGramForce>::new(1., 2., 3.).convert::<Newton>(),
+        MeasurePoint3d::<KiloGramForce>::new(1., 2., 3.),
+        MeasurePoint3d::<KiloGramForce>::new(1., 2., 3.).convert::<Newton>(),
     );
     println!(
         "  PoundForce: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
@@ -806,11 +796,11 @@ fn print_all_frequency_units() {
         MeasurePoint::<RadianPerSecond>::new(1.).convert::<Hertz>(),
     );
     println!(
-        "  TurnPerMinute: {} == {}, {} == {};",
-        Measure::<TurnPerMinute>::new(1.),
-        Measure::<TurnPerMinute>::new(1.).convert::<Hertz>(),
-        MeasurePoint::<TurnPerMinute>::new(1.),
-        MeasurePoint::<TurnPerMinute>::new(1.).convert::<Hertz>(),
+        "  CyclePerMinute: {} == {}, {} == {};",
+        Measure::<CyclePerMinute>::new(1.),
+        Measure::<CyclePerMinute>::new(1.).convert::<Hertz>(),
+        MeasurePoint::<CyclePerMinute>::new(1.),
+        MeasurePoint::<CyclePerMinute>::new(1.).convert::<Hertz>(),
     );
     println!();
 }
@@ -1417,9 +1407,9 @@ fn print_all_length_units() {
 fn print_all_linear_density_units() {
     println!("* All LinearDensity units");
     println!(
-        "  KilogramPerMetre: {}, {};",
-        Measure::<KilogramPerMetre>::new(1.),
-        MeasurePoint::<KilogramPerMetre>::new(1.),
+        "  KiloGramPerMetre: {}, {};",
+        Measure::<KiloGramPerMetre>::new(1.),
+        MeasurePoint::<KiloGramPerMetre>::new(1.),
     );
     println!();
 }
@@ -1563,6 +1553,13 @@ fn print_all_mass_units() {
         MeasurePoint::<Tonne>::new(1.).convert::<KiloGram>(),
     );
     println!(
+        "  MetricTon: {} == {}, {} == {};",
+        Measure::<MetricTon>::new(1.),
+        Measure::<MetricTon>::new(1.).convert::<KiloGram>(),
+        MeasurePoint::<MetricTon>::new(1.),
+        MeasurePoint::<MetricTon>::new(1.).convert::<KiloGram>(),
+    );
+    println!(
         "  HectoGram: {} == {}, {} == {};",
         Measure::<HectoGram>::new(1.),
         Measure::<HectoGram>::new(1.).convert::<KiloGram>(),
@@ -1612,11 +1609,25 @@ fn print_all_mass_units() {
         MeasurePoint::<ImperialTon>::new(1.).convert::<KiloGram>(),
     );
     println!(
+        "  LongTon: {} == {}, {} == {};",
+        Measure::<LongTon>::new(1.),
+        Measure::<LongTon>::new(1.).convert::<KiloGram>(),
+        MeasurePoint::<LongTon>::new(1.),
+        MeasurePoint::<LongTon>::new(1.).convert::<KiloGram>(),
+    );
+    println!(
         "  USTon: {} == {}, {} == {};",
         Measure::<USTon>::new(1.),
         Measure::<USTon>::new(1.).convert::<KiloGram>(),
         MeasurePoint::<USTon>::new(1.),
         MeasurePoint::<USTon>::new(1.).convert::<KiloGram>(),
+    );
+    println!(
+        "  ShortTon: {} == {}, {} == {};",
+        Measure::<ShortTon>::new(1.),
+        Measure::<ShortTon>::new(1.).convert::<KiloGram>(),
+        MeasurePoint::<ShortTon>::new(1.),
+        MeasurePoint::<ShortTon>::new(1.).convert::<KiloGram>(),
     );
     println!(
         "  Stone: {} == {}, {} == {};",
@@ -1741,18 +1752,18 @@ fn print_all_momentum_units() {
     );
     println!(
         "  DynSecond: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
-        Measure::<DynSecond>::new(1.),
-        Measure::<DynSecond>::new(1.).convert::<NewtonSecond>(),
-        MeasurePoint::<DynSecond>::new(1.),
-        MeasurePoint::<DynSecond>::new(1.).convert::<NewtonSecond>(),
-        Measure2d::<DynSecond>::new(1., 2.),
-        Measure2d::<DynSecond>::new(1., 2.).convert::<NewtonSecond>(),
-        MeasurePoint2d::<DynSecond>::new(1., 2.),
-        MeasurePoint2d::<DynSecond>::new(1., 2.).convert::<NewtonSecond>(),
-        Measure3d::<DynSecond>::new(1., 2., 3.),
-        Measure3d::<DynSecond>::new(1., 2., 3.).convert::<NewtonSecond>(),
-        MeasurePoint3d::<DynSecond>::new(1., 2., 3.),
-        MeasurePoint3d::<DynSecond>::new(1., 2., 3.).convert::<NewtonSecond>(),
+        Measure::<DyneSecond>::new(1.),
+        Measure::<DyneSecond>::new(1.).convert::<NewtonSecond>(),
+        MeasurePoint::<DyneSecond>::new(1.),
+        MeasurePoint::<DyneSecond>::new(1.).convert::<NewtonSecond>(),
+        Measure2d::<DyneSecond>::new(1., 2.),
+        Measure2d::<DyneSecond>::new(1., 2.).convert::<NewtonSecond>(),
+        MeasurePoint2d::<DyneSecond>::new(1., 2.),
+        MeasurePoint2d::<DyneSecond>::new(1., 2.).convert::<NewtonSecond>(),
+        Measure3d::<DyneSecond>::new(1., 2., 3.),
+        Measure3d::<DyneSecond>::new(1., 2., 3.).convert::<NewtonSecond>(),
+        MeasurePoint3d::<DyneSecond>::new(1., 2., 3.),
+        MeasurePoint3d::<DyneSecond>::new(1., 2., 3.).convert::<NewtonSecond>(),
     );
     println!(
         "  GramCentiMetrePerSecond: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
@@ -1975,11 +1986,11 @@ fn print_all_solid_angle_units() {
         MeasurePoint::<Steradian>::new(1.),
     );
     println!(
-        "  AllRound: {} == {}, {} == {};",
-        Measure::<AllRound>::new(1.),
-        Measure::<AllRound>::new(1.).convert::<Steradian>(),
-        MeasurePoint::<AllRound>::new(1.),
-        MeasurePoint::<AllRound>::new(1.).convert::<Steradian>(),
+        "  Spat: {} == {}, {} == {};",
+        Measure::<Spat>::new(1.),
+        Measure::<Spat>::new(1.).convert::<Steradian>(),
+        MeasurePoint::<Spat>::new(1.),
+        MeasurePoint::<Spat>::new(1.).convert::<Steradian>(),
     );
     println!(
         "  SquareDegree: {} == {}, {} == {};",
@@ -2257,19 +2268,19 @@ fn print_all_velocity_units() {
         MeasurePoint3d::<MilePerHour>::new(1., 2., 3.).convert::<MetrePerSecond>(),
     );
     println!(
-        "  CentiMetresPerSecond: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
-        Measure::<CentiMetresPerSecond>::new(1.),
-        Measure::<CentiMetresPerSecond>::new(1.).convert::<MetrePerSecond>(),
-        MeasurePoint::<CentiMetresPerSecond>::new(1.),
-        MeasurePoint::<CentiMetresPerSecond>::new(1.).convert::<MetrePerSecond>(),
-        Measure2d::<CentiMetresPerSecond>::new(1., 2.),
-        Measure2d::<CentiMetresPerSecond>::new(1., 2.).convert::<MetrePerSecond>(),
-        MeasurePoint2d::<CentiMetresPerSecond>::new(1., 2.),
-        MeasurePoint2d::<CentiMetresPerSecond>::new(1., 2.).convert::<MetrePerSecond>(),
-        Measure3d::<CentiMetresPerSecond>::new(1., 2., 3.),
-        Measure3d::<CentiMetresPerSecond>::new(1., 2., 3.).convert::<MetrePerSecond>(),
-        MeasurePoint3d::<CentiMetresPerSecond>::new(1., 2., 3.),
-        MeasurePoint3d::<CentiMetresPerSecond>::new(1., 2., 3.).convert::<MetrePerSecond>(),
+        "  CentiMetrePerSecond: {} == {}, {} == {}, {} == {}, {} == {}, {} == {}, {} == {};",
+        Measure::<CentiMetrePerSecond>::new(1.),
+        Measure::<CentiMetrePerSecond>::new(1.).convert::<MetrePerSecond>(),
+        MeasurePoint::<CentiMetrePerSecond>::new(1.),
+        MeasurePoint::<CentiMetrePerSecond>::new(1.).convert::<MetrePerSecond>(),
+        Measure2d::<CentiMetrePerSecond>::new(1., 2.),
+        Measure2d::<CentiMetrePerSecond>::new(1., 2.).convert::<MetrePerSecond>(),
+        MeasurePoint2d::<CentiMetrePerSecond>::new(1., 2.),
+        MeasurePoint2d::<CentiMetrePerSecond>::new(1., 2.).convert::<MetrePerSecond>(),
+        Measure3d::<CentiMetrePerSecond>::new(1., 2., 3.),
+        Measure3d::<CentiMetrePerSecond>::new(1., 2., 3.).convert::<MetrePerSecond>(),
+        MeasurePoint3d::<CentiMetrePerSecond>::new(1., 2., 3.),
+        MeasurePoint3d::<CentiMetrePerSecond>::new(1., 2., 3.).convert::<MetrePerSecond>(),
     );
     println!();
 }
@@ -2377,10 +2388,10 @@ fn print_all_volumetric_flow_rate_units() {
     );
     println!(
         "  CubicCentiMetrePerSecond: {} == {}, {} == {};",
-        Measure::<CubicCentiMetrePerSecond>::new(1.),
-        Measure::<CubicCentiMetrePerSecond>::new(1.).convert::<CubicMetrePerSecond>(),
-        MeasurePoint::<CubicCentiMetrePerSecond>::new(1.),
-        MeasurePoint::<CubicCentiMetrePerSecond>::new(1.).convert::<CubicMetrePerSecond>(),
+        Measure::<MilliLitrePerSecond>::new(1.),
+        Measure::<MilliLitrePerSecond>::new(1.).convert::<CubicMetrePerSecond>(),
+        MeasurePoint::<MilliLitrePerSecond>::new(1.),
+        MeasurePoint::<MilliLitrePerSecond>::new(1.).convert::<CubicMetrePerSecond>(),
     );
     println!();
 }
@@ -2413,7 +2424,6 @@ fn print_all_units() {
     print_all_area_density_units();
     print_all_capacitance_units();
     print_all_catalytic_activity_units();
-    print_all_catalytic_activity_concentration_units();
     print_all_chemical_potential_units();
     print_all_current_density_units();
     print_all_dimensionless_units();
@@ -2493,7 +2503,6 @@ fn print_all_single_unit_operations_for_measure_1d() {
             m2 = m1.convert::<MilePerHour>()
         );
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour>::new(1.234_567_890_123_456_7);
         println!(
@@ -2501,7 +2510,6 @@ fn print_all_single_unit_operations_for_measure_1d() {
             m2 = m1.lossy_into::<f32>()
         );
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour, f32>::new(1.234_567_9);
         println!(
@@ -2509,22 +2517,18 @@ fn print_all_single_unit_operations_for_measure_1d() {
             m2 = m1.lossless_into::<f64>(),
         );
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour>::new(-12.);
         println!("The squared norm of {m1} is {n}.", n = m1.squared_norm(),);
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour>::new(-12.);
         println!("{m1} normalized is {n}.", n = m1.normalized());
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour>::new(12.);
         println!("The opposite of {m1} is {m2}.", m2 = -m1);
     }
-
     {
         let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
         let m2 = Measure::<KiloMetrePerHour>::new(13.);
@@ -2533,7 +2537,6 @@ fn print_all_single_unit_operations_for_measure_1d() {
         m1 += m2;
         println!(" and if incremented by {m2}, it becomes {m1}.");
     }
-
     {
         let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
         let m2 = Measure::<KiloMetrePerHour>::new(13.);
@@ -2542,7 +2545,6 @@ fn print_all_single_unit_operations_for_measure_1d() {
         m1 -= m2;
         println!(" and if decremented by {m2}, it becomes {m1}.");
     }
-
     {
         let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
         let multiplier = 2.;
@@ -2551,13 +2553,11 @@ fn print_all_single_unit_operations_for_measure_1d() {
         m1 *= multiplier;
         println!(" and if multiplied by {multiplier}, it becomes {m1}.");
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour>::new(12.);
         let multiplier = 2.;
         println!("{multiplier} times {m1} is {m2}.", m2 = multiplier * m1);
     }
-
     {
         let mut m1 = Measure::<KiloMetrePerHour>::new(12.);
         let divisor = 2.;
@@ -2566,12 +2566,12 @@ fn print_all_single_unit_operations_for_measure_1d() {
         m1 /= divisor;
         println!(" and if divided by {divisor}, it becomes {m1}.");
     }
-
     {
         let m1 = Measure::<KiloMetrePerHour>::new(12.);
         let m2 = Measure::<KiloMetrePerHour>::new(4.);
         println!("{m1} divided by {m2} is {m3}.", m3 = m1 / m2);
-
+    }
+    {
         let m1 = Measure::<KiloMetrePerHour>::new(12.);
         let m2 = m1;
         println!("{m1} == {m1} is {result}.", result = m1 == m2);
@@ -2589,7 +2589,6 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
             mp2 = mp1.convert::<Fahrenheit>()
         );
     }
-
     {
         let mp1 = MeasurePoint::<Celsius>::new(1.234_567_890_123_456_7);
         println!(
@@ -2597,7 +2596,6 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
             mp2 = mp1.lossy_into::<f32>()
         );
     }
-
     {
         let mp1 = MeasurePoint::<Celsius, f32>::new(1.234_567_9);
         println!(
@@ -2605,7 +2603,6 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
             mp2 = mp1.lossless_into::<f64>(),
         );
     }
-
     {
         let mut mp1 = MeasurePoint::<Celsius>::new(12.);
         let m2 = Measure::<Celsius>::new(13.);
@@ -2614,7 +2611,6 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
         mp1 += m2;
         println!(" and if incremented by {m2}, it becomes {mp1}.");
     }
-
     {
         let mut mp1 = MeasurePoint::<Celsius>::new(12.);
         let m2 = Measure::<Celsius>::new(13.);
@@ -2623,13 +2619,11 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
         mp1 -= m2;
         println!(" and if decremented by {m2}, it becomes {mp1}.");
     }
-
     {
         let mp1 = MeasurePoint::<Celsius>::new(12.);
         let mp2 = MeasurePoint::<Celsius>::new(13.);
         println!("{mp1} minus {mp2} is {m3}.", m3 = mp1 - mp2);
     }
-
     {
         let mp1 = MeasurePoint::<Celsius>::new(10.);
         let mp2 = MeasurePoint::<Celsius>::new(20.);
@@ -2639,14 +2633,12 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
             mp3 = midpoint(mp1, mp2)
         );
     }
-
     {
         let mp1 = MeasurePoint::<Celsius>::new(10.);
         let mp2 = MeasurePoint::<Celsius>::new(20.);
         let mp3 = MeasurePoint::<Celsius>::new(40.);
         println!("The barycentric combination among {mp1} (with weight 10%), {mp2} (with weight 20%), and {mp3} (with weight 70%) is {mp4}.", mp4 = barycentric_combination(&[mp1, mp2, mp3], &[0.1, 0.2, 0.7]));
     }
-
     {
         let mp1 = MeasurePoint::<Celsius>::new(12.);
         let mp2 = mp1;
@@ -2665,7 +2657,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
             ud2 = UnsignedDirection::<Degree>::from_measure_point(mp1)
         );
     }
-
     {
         let ud1 = UnsignedDirection::<Degree>::new(12.);
         println!(
@@ -2673,7 +2664,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
             mp2 = ud1.to_measure_point()
         );
     }
-
     {
         let ud1 = UnsignedDirection::<Degree>::new(12.);
         println!(
@@ -2681,7 +2671,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
             sd2 = ud1.to_signed_direction()
         );
     }
-
     {
         let ud1 = UnsignedDirection::<Degree>::new(12.);
         println!(
@@ -2689,7 +2678,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
             ud2 = ud1.convert::<Radian>()
         );
     }
-
     {
         let ud1 = UnsignedDirection::<Degree>::new(1.234_567_890_123_456_7);
         println!(
@@ -2697,7 +2685,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
             ud2 = ud1.lossy_into::<f32>()
         );
     }
-
     {
         let ud1 = UnsignedDirection::<Degree, f32>::new(1.234_567_9);
         println!(
@@ -2705,7 +2692,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
             ud2 = ud1.lossless_into::<f64>(),
         );
     }
-
     {
         let mut ud1 = UnsignedDirection::<Degree>::new(12.);
         let m2 = Measure::<Degree>::new(13.);
@@ -2714,7 +2700,6 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
         ud1 += m2;
         println!(" and if incremented by {m2}, it becomes {ud1}.");
     }
-
     {
         let mut ud1 = UnsignedDirection::<Degree>::new(12.);
         let m2 = Measure::<Degree>::new(13.);
@@ -2723,13 +2708,11 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
         ud1 -= m2;
         println!(" and if decremented by {m2}, it becomes {ud1}.");
     }
-
     {
         let ud1 = UnsignedDirection::<Degree>::new(12.);
         let ud2 = UnsignedDirection::<Degree>::new(13.);
         println!("{ud1} minus {ud2} is {m3}.", m3 = ud1 - ud2);
     }
-
     {
         let ud1 = UnsignedDirection::<Degree>::new(12.);
         let ud2 = ud1;
@@ -2748,7 +2731,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
             sd2 = SignedDirection::<Degree>::from_measure_point(mp1)
         );
     }
-
     {
         let sd1 = SignedDirection::<Degree>::new(12.);
         println!(
@@ -2756,7 +2738,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
             mp2 = sd1.to_measure_point()
         );
     }
-
     {
         let sd1 = SignedDirection::<Degree>::new(12.);
         println!(
@@ -2764,7 +2745,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
             ud2 = sd1.to_unsigned_direction()
         );
     }
-
     {
         let sd1 = SignedDirection::<Degree>::new(12.);
         println!(
@@ -2772,7 +2752,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
             sd2 = sd1.convert::<Radian>()
         );
     }
-
     {
         let sd1 = SignedDirection::<Degree>::new(1.234_567_890_123_456_7);
         println!(
@@ -2780,7 +2759,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
             sd2 = sd1.lossy_into::<f32>()
         );
     }
-
     {
         let sd1 = SignedDirection::<Degree, f32>::new(1.234_567_9);
         println!(
@@ -2788,7 +2766,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
             sd2 = sd1.lossless_into::<f64>(),
         );
     }
-
     {
         let mut sd1 = SignedDirection::<Degree>::new(12.);
         let m2 = Measure::<Degree>::new(13.);
@@ -2797,7 +2774,6 @@ fn print_all_single_unit_operations_for_signed_directions() {
         sd1 += m2;
         println!(" and if incremented by {m2}, it becomes {sd1}.");
     }
-
     {
         let mut sd1 = SignedDirection::<Degree>::new(12.);
         let m2 = Measure::<Degree>::new(13.);
@@ -2806,13 +2782,11 @@ fn print_all_single_unit_operations_for_signed_directions() {
         sd1 -= m2;
         println!(" and if decremented by {m2}, it becomes {sd1}.");
     }
-
     {
         let sd1 = SignedDirection::<Degree>::new(12.);
         let sd2 = SignedDirection::<Degree>::new(13.);
         println!("{sd1} minus {sd2} is {m3}.", m3 = sd1 - sd2);
     }
-
     {
         let sd1 = SignedDirection::<Degree>::new(12.);
         let sd2 = sd1;
@@ -2832,7 +2806,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
             m3 = m1.y(),
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         println!(
@@ -2840,7 +2813,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
             m2 = m1.convert::<MilePerHour>()
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(1.234_567_890_123_456_7, 2.345_678_901_234_568);
         println!(
@@ -2848,7 +2820,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
             m2 = m1.lossy_into::<f32>()
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8);
         println!(
@@ -2856,17 +2827,14 @@ fn print_all_single_unit_operations_for_measure_2d() {
             m2 = m1.lossless_into::<f64>(),
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(-12., -13.);
         println!("The squared norm of {m1} is {n}.", n = m1.squared_norm());
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(-12., -13.);
         println!("{m1} normalized is {n}.", n = m1.normalized());
     }
-
     {
         let mp1 = MeasurePoint::<Degree>::new(12.);
         println!(
@@ -2874,7 +2842,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
             m1 = Measure2d::<KiloMetrePerHour>::from_direction(mp1)
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         println!(
@@ -2882,7 +2849,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
             sd2 = m1.signed_direction::<Degree>()
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         println!(
@@ -2890,12 +2856,10 @@ fn print_all_single_unit_operations_for_measure_2d() {
             ud2 = m1.unsigned_direction::<Degree>()
         );
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., -13.);
         println!("The opposite of {m1} is {m2}.", m2 = -m1);
     }
-
     {
         let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         let m2 = Measure2d::<KiloMetrePerHour>::new(15., 19.);
@@ -2904,7 +2868,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
         m1 += m2;
         println!(" and if incremented by {m2}, it becomes {m1}.");
     }
-
     {
         let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         let m2 = Measure2d::<KiloMetrePerHour>::new(15., 19.);
@@ -2913,7 +2876,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
         m1 -= m2;
         println!(" and if decremented by {m2}, it becomes {m1}.");
     }
-
     {
         let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         let multiplier = 2.;
@@ -2922,13 +2884,11 @@ fn print_all_single_unit_operations_for_measure_2d() {
         m1 *= multiplier;
         println!(" and if multiplied by {multiplier}, it becomes {m1}.");
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         let multiplier = 2.;
         println!("{multiplier} times {m1} is {m2}.", m2 = multiplier * m1);
     }
-
     {
         let mut m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         let divisor = 2.;
@@ -2937,7 +2897,6 @@ fn print_all_single_unit_operations_for_measure_2d() {
         m1 /= divisor;
         println!(" and if divided by {divisor}, it becomes {m1}.");
     }
-
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         let m2 = m1;
@@ -2956,7 +2915,6 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
             mp3 = mp1.y(),
         );
     }
-
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(12., 13.);
         println!(
@@ -2964,7 +2922,6 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
             mp2 = mp1.convert::<MilePerHour>()
         );
     }
-
     {
         let mp1 =
             MeasurePoint2d::<KiloMetrePerHour>::new(1.234_567_890_123_456_7, 2.345_678_901_234_568);
@@ -2973,7 +2930,6 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
             mp2 = mp1.lossy_into::<f32>()
         );
     }
-
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8);
         println!(
@@ -2981,7 +2937,6 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
             mp2 = mp1.lossless_into::<f64>(),
         );
     }
-
     {
         let mut mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(12., 13.);
         let m2 = Measure2d::<KiloMetrePerHour>::new(15., 19.);
@@ -2990,7 +2945,6 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
         mp1 += m2;
         println!(" and if incremented by {m2}, it becomes {mp1}.");
     }
-
     {
         let mut mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(12., 13.);
         let m2 = Measure2d::<KiloMetrePerHour>::new(15., 19.);
@@ -2999,13 +2953,11 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
         mp1 -= m2;
         println!(" and if decremented by {m2}, it becomes {mp1}.");
     }
-
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(12., 13.);
         let mp2 = MeasurePoint2d::<KiloMetrePerHour>::new(15., 19.);
         println!("{mp1} minus {mp2} is {m3},", m3 = mp1 - mp2);
     }
-
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(10., -100.);
         let mp2 = MeasurePoint2d::<KiloMetrePerHour>::new(20., -200.);
@@ -3015,14 +2967,12 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
             mp3 = midpoint_2d(mp1, mp2)
         );
     }
-
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(10., -100.);
         let mp2 = MeasurePoint2d::<KiloMetrePerHour>::new(20., -200.);
         let mp3 = MeasurePoint2d::<KiloMetrePerHour>::new(40., -400.);
         println!("The barycentric combination among {mp1} (with weight 10%), {mp2} (with weight 20%), and {mp3} (with weight 70%) is {mp4}.", mp4 = barycentric_combination_2d(&[mp1, mp2, mp3], &[0.1, 0.2, 0.7]));
     }
-
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(12., 13.);
         let mp2 = mp1;
@@ -3042,7 +2992,6 @@ fn print_all_single_unit_operations_for_measure_3d() {
             m4 = m1.z(),
         );
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         println!(
@@ -3050,7 +2999,6 @@ fn print_all_single_unit_operations_for_measure_3d() {
             m2 = m1.convert::<MilePerHour>()
         );
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(
             1.234_567_890_123_456_7,
@@ -3062,7 +3010,6 @@ fn print_all_single_unit_operations_for_measure_3d() {
             m2 = m1.lossy_into::<f32>()
         );
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8, 3.456_789);
         println!(
@@ -3070,22 +3017,18 @@ fn print_all_single_unit_operations_for_measure_3d() {
             m2 = m1.lossless_into::<f64>(),
         );
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(-12., -13., -14.);
         println!("The squared norm of {m1} is {n}.", n = m1.squared_norm());
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(-12., -13., -14.);
         println!("{m1} normalized is {n}.", n = m1.normalized());
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(12., -13., -14.);
         println!("The opposite of {m1} is {m2}.", m2 = -m1);
     }
-
     {
         let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
@@ -3094,7 +3037,6 @@ fn print_all_single_unit_operations_for_measure_3d() {
         m1 += m2;
         println!(" and if incremented by {m2}, it becomes {m1}.");
     }
-
     {
         let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
@@ -3103,7 +3045,6 @@ fn print_all_single_unit_operations_for_measure_3d() {
         m1 -= m2;
         println!(" and if decremented by {m2}, it becomes {m1}.");
     }
-
     {
         let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let multiplier = 2.;
@@ -3112,13 +3053,11 @@ fn print_all_single_unit_operations_for_measure_3d() {
         m1 *= multiplier;
         println!(" and if multiplied by {multiplier}, it becomes {m1}.");
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let multiplier = 2.;
         println!("{multiplier} times {m1} is {m2}.", m2 = multiplier * m1);
     }
-
     {
         let mut m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let divisor = 2.;
@@ -3127,7 +3066,6 @@ fn print_all_single_unit_operations_for_measure_3d() {
         m1 /= divisor;
         println!(" and if divided by {divisor}, it becomes {m1}.");
     }
-
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let m2 = m1;
@@ -3146,7 +3084,6 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
             mp3 = mp1.y(),
         );
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
         println!(
@@ -3154,7 +3091,6 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
             mp2 = mp1.convert::<MilePerHour>()
         );
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(
             1.234_567_890_123_456_7,
@@ -3166,7 +3102,6 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
             mp2 = mp1.lossy_into::<f32>()
         );
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour, f32>::new(1.234_567_9, 2.345_678_8, 3.456_789);
         println!(
@@ -3174,7 +3109,6 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
             mp2 = mp1.lossless_into::<f64>(),
         );
     }
-
     {
         let mut mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
@@ -3183,7 +3117,6 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
         mp1 += m2;
         println!(" and if incremented by {m2}, it becomes {mp1}.");
     }
-
     {
         let mut mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let m2 = Measure3d::<KiloMetrePerHour>::new(15., 19., 26.);
@@ -3192,13 +3125,11 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
         mp1 -= m2;
         println!(" and if decremented by {m2}, it becomes {mp1}.");
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let mp2 = MeasurePoint3d::<KiloMetrePerHour>::new(15., 19., 26.);
         println!("{mp1} minus {mp2} is {m3},", m3 = mp1 - mp2);
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(10., -100., 40.);
         let mp2 = MeasurePoint3d::<KiloMetrePerHour>::new(20., -200., 80.);
@@ -3208,14 +3139,12 @@ fn print_all_single_unit_operations_for_measure_point_3d() {
             mp3 = midpoint_3d(mp1, mp2)
         );
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(10., -100., 40.);
         let mp2 = MeasurePoint3d::<KiloMetrePerHour>::new(20., -200., 80.);
         let mp3 = MeasurePoint3d::<KiloMetrePerHour>::new(40., -400., 160.);
         println!("The barycentric combination among {mp1} (with weight 10%), {mp2} (with weight 20%), and {mp3} (with weight 70%) is {mp4}.", mp4 = barycentric_combination_3d(&[mp1, mp2, mp3], &[0.1, 0.2, 0.7]));
     }
-
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
         let mp2 = mp1;
@@ -3235,8 +3164,122 @@ fn print_all_single_unit_operations() {
     print_all_single_unit_operations_for_measure_point_3d();
 }
 
+fn print_all_computer_science_mixed_operations() {
+    println!("all computer science mixed operations");
+    {
+        let information = Measure::<Bit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<BitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<Byte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<BytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<KiloBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<KiloBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<KiloByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<KiloBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<KibiBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<KibiBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<KibiByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<KibiBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<MegaBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<MegaBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<MegaByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<MegaBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<MebiBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<MebiBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<MebiByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<MebiBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<GigaBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<GigaBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<GigaByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<GigaBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<GibiBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<GibiBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<GibiByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<GibiBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<TeraBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<TeraBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<TeraByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<TeraBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<TebiBit>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<TebiBitPerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    {
+        let information = Measure::<TebiByte>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let information_rate: Measure<TebiBytePerSecond> = information / time;
+        println!("{information} every {time} is a rate of {information_rate}")
+    }
+    println!();
+}
+
 fn print_all_mixed_operation() {
     // TODO
+    print_all_computer_science_mixed_operations();
 }
 
 fn print_all_transformations() {

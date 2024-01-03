@@ -1,8 +1,43 @@
 // To run this, type:
 // cargo run --release --example bench
 
-mod units;
-use units::*;
+use rs_measures::define_measure_1d;
+define_measure_1d! {}
+
+pub struct Length;
+
+pub struct Metre;
+impl MeasurementUnit for Metre {
+    type Property = Length;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " m";
+}
+impl VectorMeasurementUnit for Metre {}
+
+pub struct Force;
+
+pub struct Newton;
+impl MeasurementUnit for Newton {
+    type Property = Force;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " N";
+}
+impl VectorMeasurementUnit for Newton {}
+
+pub struct Energy;
+
+pub struct Joule;
+impl MeasurementUnit for Joule {
+    type Property = Energy;
+    const RATIO: f64 = 1.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " J";
+}
+
+use define_units_relation::define_units_relation;
+define_units_relation! {Joule == Newton * Metre}
 
 const BENCH_MATRIX_SIZE: usize = 120;
 const TINY_BENCH_MATRIX_SIZE: usize = 4;
