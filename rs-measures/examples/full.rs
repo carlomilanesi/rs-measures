@@ -1,5 +1,5 @@
 mod units;
-use rs_measures::angle::Radian;
+use rs_measures::{angle::Radian, traits::CrossProduct};
 use units::*;
 
 fn print_all_acceleration_units() {
@@ -3662,7 +3662,196 @@ fn print_all_kinematics_mixed_operations() {
 
 fn print_all_dynamics_mixed_operations() {
     println!("* Dynamics mixed operations");
-    //TODO
+    // TODO Action == Energy * Time
+    // TODO Action == Power * SquareTime
+    {
+        let impulse = Measure::<KiloGramMetrePerSecond>::new(6.);
+        let radius = Measure::<Metre>::new(2.);
+        let angular_momentum: Measure<KiloGramSquareMetrePerSecond> = impulse * radius;
+        println!("If some object constrained to rotate around an axis receives an impulse of {impulse} orthogonal to the rotation radius, and such radius is {radius}, that causes a variation of the angular momentum by {angular_momentum}.")
+    }
+    {
+        let impulse = Measure2d::<KiloGramMetrePerSecond>::new(6., 2.);
+        let radius = Measure2d::<Metre>::new(1., 4.);
+        let angular_momentum: Measure<KiloGramSquareMetrePerSecond> = impulse.cross_product(radius);
+        println!("If some object constrained to rotate around an axis receives an impulse of {impulse} laying in the plane orthogonal to the axis, applied at a position from the rotation axis of {radius}, that causes a variation of the angular momentum by {angular_momentum}.")
+    }
+    {
+        let impulse = Measure3d::<KiloGramMetrePerSecond>::new(6., 2., -3.);
+        let radius = Measure3d::<Metre>::new(1., 4., 6.);
+        let angular_momentum: Measure3d<KiloGramSquareMetrePerSecond> =
+            impulse.cross_product(radius);
+        println!("If some object constrained to rotate around a point receives an impulse of {impulse}, applied at a position from the rotation point of {radius}, that causes a variation of the angular momentum by {angular_momentum}.")
+    }
+    // TODO AngularMomentum == MomentOfInertia / Time
+    // TODO DynamicViscosity == Pressure * Time
+    {
+        let force = Measure::<Newton>::new(6.);
+        let movement = Measure::<Metre>::new(2.);
+        let work: Measure<Joule> = force * movement;
+        println!("If a force of {force} is applied to an object while it moves in the same direction by {movement}, that force gives to that object an energy of {work}.")
+    }
+    {
+        let force = Measure2d::<Newton>::new(6., -3.);
+        let movement = Measure2d::<Metre>::new(2., 5.);
+        let work: Measure<Joule> = force * movement;
+        println!("If a planar force of {force} is applied to an object while it moves in the same plane by {movement}, that force gives to that object an energy of {work}.")
+    }
+    {
+        let force = Measure3d::<Newton>::new(6., -3., 5.);
+        let movement = Measure3d::<Metre>::new(2., 5., 7.);
+        let work: Measure<Joule> = force * movement;
+        println!("If a force of {force} is applied to an object while it moves in space by {movement}, that force gives to that object an energy of {work}.")
+    }
+    {
+        let force = Measure::<Dyne>::new(6.);
+        let movement = Measure::<CentiMetre>::new(2.);
+        let work: Measure<Erg> = force * movement;
+        println!("If a force of {force} is applied to an object while it moves in the same direction by {movement}, that force gives to that object an energy of {work}.")
+    }
+    {
+        let force = Measure2d::<Dyne>::new(6., -3.);
+        let movement = Measure2d::<CentiMetre>::new(2., 5.);
+        let work: Measure<Erg> = force * movement;
+        println!("If a planar force of {force} is applied to an object while it moves in the same plane by {movement}, that force gives to that object an energy of {work}.")
+    }
+    {
+        let force = Measure3d::<Dyne>::new(6., -3., 5.);
+        let movement = Measure3d::<CentiMetre>::new(2., 5., 7.);
+        let work: Measure<Erg> = force * movement;
+        println!("If a force of {force} is applied to an object while it moves in space by {movement}, that force gives to that object an energy of {work}.")
+    }
+    // TODO Energy == Momentum * Velocity
+    // TODO Energy == MomentOfInertia / SquareTime
+    // EnergyDensity == Energy / Volume
+    {
+        let energy = Measure::<Joule>::new(6.);
+        let volume = Measure::<CubicMetre>::new(2.);
+        let energy_density: Measure<JoulePerCubicMetre> = energy / volume;
+        println!("If an energy of {energy} is contained in a volume of {volume}, it has an average energy density of {energy_density}.")
+    }
+
+    {
+        let force = Measure::<Newton>::new(6.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let acceleration: Measure<MetrePerSquareSecond> = force / mass;
+        println!("If a force of {force} is applied to an object having mass {mass}, that object is accelerated along the direction of the force by {acceleration}.")
+    }
+    {
+        let force = Measure2d::<Newton>::new(6., -3.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let acceleration: Measure2d<MetrePerSquareSecond> = force / mass;
+        println!("If a force of {force} is applied in a plane to an object having mass {mass}, that object is accelerated in that plane by {acceleration}.")
+    }
+    {
+        let force = Measure3d::<Newton>::new(6., -3., 5.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let acceleration: Measure3d<MetrePerSquareSecond> = force / mass;
+        println!("If a force of {force} is applied in space to an object having mass {mass}, that object is accelerated by {acceleration}.")
+    }
+    {
+        let force = Measure::<Dyne>::new(6.);
+        let mass = Measure::<Gram>::new(2.);
+        let acceleration: Measure<CentiMetrePerSquareSecond> = force / mass;
+        println!("If a force of {force} is applied to an object having mass {mass}, that object is accelerated along the direction of the force by {acceleration}.")
+    }
+    {
+        let force = Measure2d::<Dyne>::new(6., -3.);
+        let mass = Measure::<Gram>::new(2.);
+        let acceleration: Measure2d<CentiMetrePerSquareSecond> = force / mass;
+        println!("If a force of {force} is applied in a plane to an object having mass {mass}, that object is accelerated in that plane by {acceleration}.")
+    }
+    {
+        let force = Measure3d::<Dyne>::new(6., -3., 5.);
+        let mass = Measure::<Gram>::new(2.);
+        let acceleration: Measure3d<CentiMetrePerSquareSecond> = force / mass;
+        println!("If a force of {force} is applied in space to an object having mass {mass}, that object is accelerated by {acceleration}.")
+    }
+    {
+        let force = Measure::<KiloGramForce>::new(6.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let acceleration: Measure<GForce> = force / mass;
+        println!("If a force of {force} is applied to an object having mass {mass}, that object is accelerated along the direction of the force by {acceleration}.")
+    }
+    {
+        let force = Measure2d::<KiloGramForce>::new(6., -3.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let acceleration: Measure2d<GForce> = force / mass;
+        println!("If a force of {force} is applied in a plane to an object having mass {mass}, that object is accelerated in that plane by {acceleration}.")
+    }
+    {
+        let force = Measure3d::<KiloGramForce>::new(6., -3., 5.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let acceleration: Measure3d<GForce> = force / mass;
+        println!("If a force of {force} is applied in space to an object having mass {mass}, that object is accelerated by {acceleration}.")
+    }
+    /*
+    // LinearDensity == Mass / Length
+    define_units_relation! {KiloGramPerMetre == KiloGram / Metre}
+    define_units_relation! {GramPerCentiMetre == Gram / CentiMetre}
+
+    // MassDensity == Mass / Volume
+    define_units_relation! {KiloGramPerCubicMetre == KiloGram / CubicMetre}
+    define_units_relation! {GramPerMilliLitre == Gram / MilliLitre}
+
+    // MassFlowRate == Mass / Time
+    define_units_relation! {KiloGramPerSecond == KiloGram / Second}
+    define_units_relation! {GramPerSecond == Gram / Second}
+
+    // MomentOfInertia == Mass * Area
+    define_units_relation! {KiloGramSquareMetre == KiloGram * SquareMetre}
+    define_units_relation! {GramSquareCentiMetre == Gram * SquareCentiMetre}
+
+    // Momentum == Force * Time
+    define_units_relation! {NewtonSecond == Newton * Second}
+    define_units_relation! {NewtonSecond:2 == Newton:2 * Second}
+    define_units_relation! {NewtonSecond:3 == Newton:3 * Second}
+    define_units_relation! {DyneSecond == Dyne * Second}
+    define_units_relation! {DyneSecond:2 == Dyne:2 * Second}
+    define_units_relation! {DyneSecond:3 == Dyne:3 * Second}
+
+    // Momentum == Mass * Velocity
+    define_units_relation! {NewtonSecond == KiloGram * MetrePerSecond}
+    define_units_relation! {NewtonSecond:2 == KiloGram * MetrePerSecond:2}
+    define_units_relation! {NewtonSecond:3 == KiloGram * MetrePerSecond:3}
+    define_units_relation! {DyneSecond == Gram * CentiMetrePerSecond}
+    define_units_relation! {DyneSecond:2 == Gram * CentiMetrePerSecond:2}
+    define_units_relation! {DyneSecond:3 == Gram * CentiMetrePerSecond:3}
+
+    // Power == Energy / Time
+    define_units_relation! {Watt == Joule / Second}
+    define_units_relation! {Watt == WattHour / Hour}
+    define_units_relation! {KiloWatt == KiloWattHour / Hour}
+    define_units_relation! {ErgPerSecond == Erg / Second}
+
+    // Pressure == Force / Area
+    define_units_relation! {Pascal == Newton / SquareMetre}
+    define_units_relation! {PoundForcePerSquareInch == PoundForce / SquareInch}
+    define_units_relation! {HectoPascal == Newton / SquareDeciMetre}
+
+    // SpecificEnergy == Joule / Mass
+    define_units_relation! {JoulePerKiloGram == Joule / KiloGram}
+
+    // SpecificVolume == Volume / Mass
+    define_units_relation! {CubicMetrePerKiloGram == CubicMetre / KiloGram}
+
+    // SpecificVolume == 1 / MassDensity
+    define_units_relation! {CubicMetrePerKiloGram == 1 / KiloGramPerCubicMetre}
+
+    // SurfaceDensity == Mass / Area
+    define_units_relation! {KiloGramPerSquareMetre == KiloGram / SquareMetre}
+
+    // SurfaceTension == Energy / Area
+    define_units_relation! {JoulePerSquareMetre == Joule / SquareMetre}
+
+    // Torque == Force * Length
+    define_units_relation! {NewtonMetre == Newton:2 X Metre:2}
+    define_units_relation! {NewtonMetre:3 == Newton:3 X Metre:3}
+    define_units_relation! {PoundFoot == PoundForce:2 X Foot:2}
+    define_units_relation! {PoundFoot:3 == PoundForce:3 X Foot:3}
+    define_units_relation! {PoundInch == PoundForce:2 X Inch:2}
+    define_units_relation! {PoundInch:3 == PoundForce:3 X Inch:3}
+        */
     println!();
 }
 
