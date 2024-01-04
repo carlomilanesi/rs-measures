@@ -84,7 +84,7 @@ impl MeasurementUnit for Cycle {
     type Property = Angle;
     const RATIO: f64 = core::f64::consts::TAU;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " cycle";
+    const SUFFIX: &'static str = " cycles";
 }
 impl AngleMeasurementUnit for Cycle {
     const CYCLE_FRACTION: f64 = 1.;
@@ -2616,17 +2616,6 @@ define_units_relation! {KiloMetrePerHourPerSecond == KiloMetrePerHour / Second}
 define_units_relation! {KiloMetrePerHourPerSecond:2 == KiloMetrePerHour:2 / Second}
 define_units_relation! {KiloMetrePerHourPerSecond:3 == KiloMetrePerHour:3 / Second}
 
-// Acceleration == Length / SquareTime
-define_units_relation! {MetrePerSquareSecond == Metre / SquareSecond}
-define_units_relation! {MetrePerSquareSecond:2 == Metre:2 / SquareSecond}
-define_units_relation! {MetrePerSquareSecond:3 == Metre:3 / SquareSecond}
-define_units_relation! {CentiMetrePerSquareSecond == CentiMetre / SquareSecond}
-define_units_relation! {CentiMetrePerSquareSecond:2 == CentiMetre:2 / SquareSecond}
-define_units_relation! {CentiMetrePerSquareSecond:3 == CentiMetre:3 / SquareSecond}
-define_units_relation! {KiloMetrePerHourPerSecond == KiloMetre / HourSecond}
-define_units_relation! {KiloMetrePerHourPerSecond:2 == KiloMetre:2 / HourSecond}
-define_units_relation! {KiloMetrePerHourPerSecond:3 == KiloMetre:3 / HourSecond}
-
 // Velocity == Length / Time
 define_units_relation! {MetrePerSecond == Metre / Second}
 define_units_relation! {MetrePerSecond:2 == Metre:2 / Second}
@@ -2646,9 +2635,6 @@ define_units_relation! {CentiMetrePerSecond:3 == CentiMetre:3 / Second}
 
 // AngularAcceleration == Frequency / Time
 define_units_relation! {RadianPerSquareSecond == RadianPerSecond / Second}
-
-// AngularAcceleration == Angle / SquareTime
-define_units_relation! {RadianPerSquareSecond == Radian / SquareSecond}
 
 // Frequency == Angle / Time
 define_units_relation! {Hertz == Cycle / Second}

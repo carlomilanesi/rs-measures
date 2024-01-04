@@ -3,7 +3,7 @@ use rs_measures::angle::Radian;
 use units::*;
 
 fn print_all_acceleration_units() {
-    println!("* All Acceleration units");
+    println!("* Acceleration units");
     println!(
         "  MetrePerSquareSecond: {}, {}, {}, {}, {}, {};",
         Measure::<MetrePerSquareSecond>::new(1.),
@@ -48,7 +48,7 @@ fn print_all_acceleration_units() {
 }
 
 fn print_all_action_units() {
-    println!("* All Action units");
+    println!("* Action units");
     println!(
         "  JouleSecond: {}, {};",
         Measure::<JouleSecond>::new(1.),
@@ -58,7 +58,7 @@ fn print_all_action_units() {
 }
 
 fn print_all_amount_units() {
-    println!("* All Amount units");
+    println!("* Amount units");
     println!(
         "  Unit: {}, {};",
         Measure::<Unit>::new(1.),
@@ -82,7 +82,7 @@ fn print_all_amount_units() {
 }
 
 fn print_all_angle_units() {
-    println!("** All Angle units **");
+    println!("** Angle units **");
     println!(
         "  Radian: {}, {}, {}, {};",
         Measure::<Radian>::new(1.),
@@ -149,7 +149,7 @@ fn print_all_angle_units() {
 }
 
 fn print_all_angular_acceleration_units() {
-    println!("* All AngularAcceleration units");
+    println!("* AngularAcceleration units");
     println!(
         "  RadianPerSquareSecond: {}, {};",
         Measure::<RadianPerSquareSecond>::new(1.),
@@ -159,7 +159,7 @@ fn print_all_angular_acceleration_units() {
 }
 
 fn print_all_angular_momentum_units() {
-    println!("* All AngularMomentum units");
+    println!("* AngularMomentum units");
     println!(
         "  KiloGramSquareMetrePerSecond: {}, {}, {}, {}, {}, {};",
         Measure::<KiloGramSquareMetrePerSecond>::new(1.),
@@ -188,7 +188,7 @@ fn print_all_angular_momentum_units() {
 }
 
 fn print_all_area_units() {
-    println!("* All Area units");
+    println!("* Area units");
     println!(
         "  SquareMetre: {}, {};",
         Measure::<SquareMetre>::new(1.),
@@ -268,7 +268,7 @@ fn print_all_area_units() {
 }
 
 fn print_all_area_density_units() {
-    println!("* All AreaDensity units");
+    println!("* AreaDensity units");
     println!(
         "  KiloGramPerSquareMetre: {}, {};",
         Measure::<KiloGramPerSquareMetre>::new(1.),
@@ -278,7 +278,7 @@ fn print_all_area_density_units() {
 }
 
 fn print_all_capacitance_units() {
-    println!("* All Capacitance units");
+    println!("* Capacitance units");
     println!(
         "  Farad: {}, {};",
         Measure::<Farad>::new(1.),
@@ -316,7 +316,7 @@ fn print_all_capacitance_units() {
 }
 
 fn print_all_catalytic_activity_units() {
-    println!("* All CatalyticActivity units");
+    println!("* CatalyticActivity units");
     println!(
         "  Katal: {}, {};",
         Measure::<Katal>::new(1.),
@@ -326,7 +326,7 @@ fn print_all_catalytic_activity_units() {
 }
 
 fn print_all_chemical_potential_units() {
-    println!("* All ChemicalPotential units");
+    println!("* ChemicalPotential units");
     println!(
         "  JoulePerMole: {}, {};",
         Measure::<JoulePerMole>::new(1.),
@@ -336,7 +336,7 @@ fn print_all_chemical_potential_units() {
 }
 
 fn print_all_current_density_units() {
-    println!("* All CurrentDensity units");
+    println!("* CurrentDensity units");
     println!(
         "  AmperePerSquareMetre: {}, {}, {}, {}, {}, {};",
         Measure::<AmperePerSquareMetre>::new(1.),
@@ -350,7 +350,7 @@ fn print_all_current_density_units() {
 }
 
 fn print_all_dimensionless_units() {
-    println!("* All Dimensionless units");
+    println!("* Dimensionless units");
     println!(
         "  Unspecified: {}, {}, {}, {}, {}, {};",
         Measure::<Unspecified>::new(1.),
@@ -379,7 +379,7 @@ fn print_all_dimensionless_units() {
 }
 
 fn print_all_dose_equivalent_units() {
-    println!("* All DoseEquivalent units");
+    println!("* DoseEquivalent units");
     println!(
         "  Sievert: {}, {};",
         Measure::<Sievert>::new(1.),
@@ -396,7 +396,7 @@ fn print_all_dose_equivalent_units() {
 }
 
 fn print_all_dynamic_viscosity_units() {
-    println!("* All DynamicViscosity units");
+    println!("* DynamicViscosity units");
     println!(
         "  PascalSecond: {}, {};",
         Measure::<PascalSecond>::new(1.),
@@ -406,7 +406,7 @@ fn print_all_dynamic_viscosity_units() {
 }
 
 fn print_all_electrical_conductance_units() {
-    println!("* All ElectricalConductance units");
+    println!("* ElectricalConductance units");
     println!(
         "  Siemens: {}, {};",
         Measure::<Siemens>::new(1.),
@@ -416,7 +416,7 @@ fn print_all_electrical_conductance_units() {
 }
 
 fn print_all_electrical_conductivity_units() {
-    println!("* All ElectricalConductivity units");
+    println!("* ElectricalConductivity units");
     println!(
         "  SiemensPerMetre: {}, {};",
         Measure::<SiemensPerMetre>::new(1.),
@@ -426,7 +426,7 @@ fn print_all_electrical_conductivity_units() {
 }
 
 fn print_all_electrical_resistance_units() {
-    println!("* All ElectricalResistance units");
+    println!("* ElectricalResistance units");
     println!(
         "  Ohm: {}, {};",
         Measure::<Ohm>::new(1.),
@@ -450,7 +450,7 @@ fn print_all_electrical_resistance_units() {
 }
 
 fn print_all_electrical_resistivity_units() {
-    println!("* All ElectricalResistivity units");
+    println!("* ElectricalResistivity units");
     println!(
         "  OhmMetre: {}, {};",
         Measure::<OhmMetre>::new(1.),
@@ -460,7 +460,7 @@ fn print_all_electrical_resistivity_units() {
 }
 
 fn print_all_electric_charge_units() {
-    println!("* All ElectricCharge units");
+    println!("* ElectricCharge units");
     println!(
         "  Coulomb: {}, {};",
         Measure::<Coulomb>::new(1.),
@@ -498,7 +498,7 @@ fn print_all_electric_charge_units() {
 }
 
 fn print_all_electric_charge_density_units() {
-    println!("* All ElectricChargeDensity units");
+    println!("* ElectricChargeDensity units");
     println!(
         "  CoulombPerCubicMetre: {}, {};",
         Measure::<CoulombPerCubicMetre>::new(1.),
@@ -508,7 +508,7 @@ fn print_all_electric_charge_density_units() {
 }
 
 fn print_all_electric_current_units() {
-    println!("* All ElectricCurrent units");
+    println!("* ElectricCurrent units");
     println!(
         "  Ampere: {}, {};",
         Measure::<Ampere>::new(1.),
@@ -532,7 +532,7 @@ fn print_all_electric_current_units() {
 }
 
 fn print_all_electric_displacement_units() {
-    println!("* All ElectricDisplacement units");
+    println!("* ElectricDisplacement units");
     println!(
         "  CoulombPerSquareMetre: {}, {};",
         Measure::<CoulombPerSquareMetre>::new(1.),
@@ -542,7 +542,7 @@ fn print_all_electric_displacement_units() {
 }
 
 fn print_all_electric_field_strength_units() {
-    println!("* All ElectricFieldStrength units");
+    println!("* ElectricFieldStrength units");
     println!(
         "  VoltPerMetre: {}, {}, {}, {}, {}, {};",
         Measure::<VoltPerMetre>::new(1.),
@@ -556,7 +556,7 @@ fn print_all_electric_field_strength_units() {
 }
 
 fn print_all_electric_potential_units() {
-    println!("* All ElectricPotential units");
+    println!("* ElectricPotential units");
     println!(
         "  Volt: {}, {};",
         Measure::<Volt>::new(1.),
@@ -587,7 +587,7 @@ fn print_all_electric_potential_units() {
 }
 
 fn print_all_energy_units() {
-    println!("* All Energy units");
+    println!("* Energy units");
     println!(
         "  Joule: {}, {};",
         Measure::<Joule>::new(1.),
@@ -667,7 +667,7 @@ fn print_all_energy_units() {
 }
 
 fn print_all_energy_density_units() {
-    println!("* All EnergyDensity units");
+    println!("* EnergyDensity units");
     println!(
         "  JoulePerCubicMetre: {}, {};",
         Measure::<JoulePerCubicMetre>::new(1.),
@@ -677,7 +677,7 @@ fn print_all_energy_density_units() {
 }
 
 fn print_all_entropy_units() {
-    println!("* All Entropy units");
+    println!("* Entropy units");
     println!(
         "  JoulePerKelvin: {}, {};",
         Measure::<JoulePerKelvin>::new(1.),
@@ -687,7 +687,7 @@ fn print_all_entropy_units() {
 }
 
 fn print_all_force_units() {
-    println!("* All Force units");
+    println!("* Force units");
     println!(
         "  Newton: {}, {}, {}, {}, {}, {};",
         Measure::<Newton>::new(1.),
@@ -806,7 +806,7 @@ fn print_all_frequency_units() {
 }
 
 fn print_all_illuminance_units() {
-    println!("* All Illuminance units");
+    println!("* Illuminance units");
     println!(
         "  Lux: {}, {};",
         Measure::<Lux>::new(1.),
@@ -830,7 +830,7 @@ fn print_all_illuminance_units() {
 }
 
 fn print_all_inductance_units() {
-    println!("* All Inductance units");
+    println!("* Inductance units");
     println!(
         "  Henry: {}, {};",
         Measure::<Henry>::new(1.),
@@ -840,7 +840,7 @@ fn print_all_inductance_units() {
 }
 
 fn print_all_information_units() {
-    println!("* All Information units");
+    println!("* Information units");
     println!(
         "  Bit: {}, {};",
         Measure::<Bit>::new(1.),
@@ -969,7 +969,7 @@ fn print_all_information_units() {
 }
 
 fn print_all_information_rate_units() {
-    println!("* All InformationRate units");
+    println!("* InformationRate units");
     println!(
         "  BitPerSecond: {}, {};",
         Measure::<BitPerSecond>::new(1.),
@@ -1102,7 +1102,7 @@ fn print_all_information_rate_units() {
 }
 
 fn print_all_irradiance_units() {
-    println!("* All Irradiance units");
+    println!("* Irradiance units");
     println!(
         "  WattPerSquareMetre: {}, {};",
         Measure::<WattPerSquareMetre>::new(1.),
@@ -1112,7 +1112,7 @@ fn print_all_irradiance_units() {
 }
 
 fn print_all_kinematic_viscosity_units() {
-    println!("* All KinematicViscosity units");
+    println!("* KinematicViscosity units");
     println!(
         "  SquareMetrePerSecond: {}, {};",
         Measure::<SquareMetrePerSecond>::new(1.),
@@ -1136,7 +1136,7 @@ fn print_all_kinematic_viscosity_units() {
 }
 
 fn print_all_length_units() {
-    println!("* All Length units");
+    println!("* Length units");
     println!(
         "  Metre: {}, {}, {}, {}, {}, {};",
         Measure::<Metre>::new(1.),
@@ -1405,7 +1405,7 @@ fn print_all_length_units() {
 }
 
 fn print_all_linear_density_units() {
-    println!("* All LinearDensity units");
+    println!("* LinearDensity units");
     println!(
         "  KiloGramPerMetre: {}, {};",
         Measure::<KiloGramPerMetre>::new(1.),
@@ -1415,7 +1415,7 @@ fn print_all_linear_density_units() {
 }
 
 fn print_all_linear_electric_charge_density_units() {
-    println!("* All LinearElectricChargeDensity units");
+    println!("* LinearElectricChargeDensity units");
     println!(
         "  CoulombPerMetre: {}, {};",
         Measure::<CoulombPerMetre>::new(1.),
@@ -1425,7 +1425,7 @@ fn print_all_linear_electric_charge_density_units() {
 }
 
 fn print_all_luminance_units() {
-    println!("* All Luminance units");
+    println!("* Luminance units");
     println!(
         "  CandelaPerSquareMetre: {}, {};",
         Measure::<CandelaPerSquareMetre>::new(1.),
@@ -1442,7 +1442,7 @@ fn print_all_luminance_units() {
 }
 
 fn print_all_luminous_flux_units() {
-    println!("* All LuminousFlux units");
+    println!("* LuminousFlux units");
     println!(
         "  Lumen: {}, {}, {}, {}, {}, {};",
         Measure::<Lumen>::new(1.),
@@ -1456,7 +1456,7 @@ fn print_all_luminous_flux_units() {
 }
 
 fn print_all_luminous_intensity_units() {
-    println!("* All LuminousIntensity units");
+    println!("* LuminousIntensity units");
     println!(
         "  Candela: {}, {};",
         Measure::<Candela>::new(1.),
@@ -1466,7 +1466,7 @@ fn print_all_luminous_intensity_units() {
 }
 
 fn print_all_magnetic_field_strength_units() {
-    println!("* All MagneticFieldStrength units");
+    println!("* MagneticFieldStrength units");
     println!(
         "  AmperePerMetre: {}, {}, {}, {}, {}, {};",
         Measure::<AmperePerMetre>::new(1.),
@@ -1480,7 +1480,7 @@ fn print_all_magnetic_field_strength_units() {
 }
 
 fn print_all_magnetic_flux_units() {
-    println!("* All MagneticFlux units");
+    println!("* MagneticFlux units");
     println!(
         "  Weber: {}, {};",
         Measure::<Weber>::new(1.),
@@ -1490,7 +1490,7 @@ fn print_all_magnetic_flux_units() {
 }
 
 fn print_all_magnetic_flux_density_units() {
-    println!("* All MagneticFluxDensity units");
+    println!("* MagneticFluxDensity units");
     println!(
         "  Tesla: {}, {}, {}, {}, {}, {};",
         Measure::<Tesla>::new(1.),
@@ -1519,7 +1519,7 @@ fn print_all_magnetic_flux_density_units() {
 }
 
 fn print_all_magnetic_permeability_units() {
-    println!("* All MagneticPermeability units");
+    println!("* MagneticPermeability units");
     println!(
         "  HenryPerMetre: {}, {};",
         Measure::<HenryPerMetre>::new(1.),
@@ -1529,7 +1529,7 @@ fn print_all_magnetic_permeability_units() {
 }
 
 fn print_all_magnetic_reluctance_units() {
-    println!("* All MagneticReluctance units");
+    println!("* MagneticReluctance units");
     println!(
         "  InverseHenry: {}, {};",
         Measure::<InverseHenry>::new(1.),
@@ -1539,7 +1539,7 @@ fn print_all_magnetic_reluctance_units() {
 }
 
 fn print_all_mass_units() {
-    println!("* All Mass units");
+    println!("* Mass units");
     println!(
         "  KiloGram: {}, {};",
         Measure::<KiloGram>::new(1.),
@@ -1661,7 +1661,7 @@ fn print_all_mass_units() {
 }
 
 fn print_all_mass_density_units() {
-    println!("* All MassDensity units");
+    println!("* MassDensity units");
     println!(
         "  KiloGramPerCubicMetre: {}, {};",
         Measure::<KiloGramPerCubicMetre>::new(1.),
@@ -1671,7 +1671,7 @@ fn print_all_mass_density_units() {
 }
 
 fn print_all_mass_flow_rate_units() {
-    println!("* All MassFlowRate units");
+    println!("* MassFlowRate units");
     println!(
         "  KiloGramPerSecond: {}, {};",
         Measure::<KiloGramPerSecond>::new(1.),
@@ -1688,7 +1688,7 @@ fn print_all_mass_flow_rate_units() {
 }
 
 fn print_all_molar_concentration_units() {
-    println!("* All MolarConcentration units");
+    println!("* MolarConcentration units");
     println!(
         "  MolePerCubicMetre: {}, {};",
         Measure::<MolePerCubicMetre>::new(1.),
@@ -1698,7 +1698,7 @@ fn print_all_molar_concentration_units() {
 }
 
 fn print_all_molar_heat_capacity_units() {
-    println!("* All MolarHeatCapacity units");
+    println!("* MolarHeatCapacity units");
     println!(
         "  JoulePerKelvinPerMole: {}, {};",
         Measure::<JoulePerKelvinPerMole>::new(1.),
@@ -1708,7 +1708,7 @@ fn print_all_molar_heat_capacity_units() {
 }
 
 fn print_all_moment_of_inertia_units() {
-    println!("* All MomentOfInertia units");
+    println!("* MomentOfInertia units");
     println!(
         "  KiloGramSquareMetre: {}, {};",
         Measure::<KiloGramSquareMetre>::new(1.),
@@ -1725,7 +1725,7 @@ fn print_all_moment_of_inertia_units() {
 }
 
 fn print_all_momentum_units() {
-    println!("* All Momentum units");
+    println!("* Momentum units");
     println!(
         "  NewtonSecond: {}, {}, {}, {}, {}, {};",
         Measure::<NewtonSecond>::new(1.),
@@ -1784,7 +1784,7 @@ fn print_all_momentum_units() {
 }
 
 fn print_all_permittivity_units() {
-    println!("* All Permittivity units");
+    println!("* Permittivity units");
     println!(
         "  FaradPerMetre: {}, {};",
         Measure::<FaradPerMetre>::new(1.),
@@ -1794,7 +1794,7 @@ fn print_all_permittivity_units() {
 }
 
 fn print_all_power_units() {
-    println!("* All Power units");
+    println!("* Power units");
     println!(
         "  Watt: {}, {};",
         Measure::<Watt>::new(1.),
@@ -1839,7 +1839,7 @@ fn print_all_power_units() {
 }
 
 fn print_all_pressure_units() {
-    println!("* All Pressure units");
+    println!("* Pressure units");
     println!(
         "  Pascal: {}, {};",
         Measure::<Pascal>::new(1.),
@@ -1891,7 +1891,7 @@ fn print_all_pressure_units() {
 }
 
 fn print_all_radiance_units() {
-    println!("* All Radiance units");
+    println!("* Radiance units");
     println!(
         "  WattPerSquareMetrePerSteradian: {}, {};",
         Measure::<WattPerSquareMetrePerSteradian>::new(1.),
@@ -1901,7 +1901,7 @@ fn print_all_radiance_units() {
 }
 
 fn print_all_radiant_intensity_units() {
-    println!("* All RadiantIntensity units");
+    println!("* RadiantIntensity units");
     println!(
         "  WattPerSteradian: {}, {};",
         Measure::<WattPerSteradian>::new(1.),
@@ -1911,7 +1911,7 @@ fn print_all_radiant_intensity_units() {
 }
 
 fn print_all_radioactive_activity_units() {
-    println!("* All RadioactiveActivity units");
+    println!("* RadioactiveActivity units");
     println!(
         "  Becquerel: {}, {};",
         Measure::<Becquerel>::new(1.),
@@ -1942,7 +1942,7 @@ fn print_all_radioactive_activity_units() {
 }
 
 fn print_all_radioactive_dose_units() {
-    println!("* All RadioactiveDose units");
+    println!("* RadioactiveDose units");
     println!(
         "  Gray: {}, {};",
         Measure::<Gray>::new(1.),
@@ -1959,7 +1959,7 @@ fn print_all_radioactive_dose_units() {
 }
 
 fn print_all_radioactive_dose_rate_units() {
-    println!("* All RadioactiveDoseRate units");
+    println!("* RadioactiveDoseRate units");
     println!(
         "  GrayPerSecond: {}, {};",
         Measure::<GrayPerSecond>::new(1.),
@@ -1969,7 +1969,7 @@ fn print_all_radioactive_dose_rate_units() {
 }
 
 fn print_all_reaction_rate_units() {
-    println!("* All ReactionRate units");
+    println!("* ReactionRate units");
     println!(
         "  MolePerCubicMetrePerSecond: {}, {};",
         Measure::<MolePerCubicMetrePerSecond>::new(1.),
@@ -1979,7 +1979,7 @@ fn print_all_reaction_rate_units() {
 }
 
 fn print_all_solid_angle_units() {
-    println!("* All SolidAngle units");
+    println!("* SolidAngle units");
     println!(
         "  Steradian: {}, {};",
         Measure::<Steradian>::new(1.),
@@ -2003,7 +2003,7 @@ fn print_all_solid_angle_units() {
 }
 
 fn print_all_specific_energy_units() {
-    println!("* All SpecificEnergy units");
+    println!("* SpecificEnergy units");
     println!(
         "  JoulePerKiloGram: {}, {};",
         Measure::<JoulePerKiloGram>::new(1.),
@@ -2013,7 +2013,7 @@ fn print_all_specific_energy_units() {
 }
 
 fn print_all_specific_heat_capacity_units() {
-    println!("* All SpecificHeatCapacity units");
+    println!("* SpecificHeatCapacity units");
     println!(
         "  JoulePerKiloGramPerKelvin: {}, {};",
         Measure::<JoulePerKiloGramPerKelvin>::new(1.),
@@ -2023,7 +2023,7 @@ fn print_all_specific_heat_capacity_units() {
 }
 
 fn print_all_specific_volume_units() {
-    println!("* All SpecificVolume units");
+    println!("* SpecificVolume units");
     println!(
         "  CubicMetrePerKiloGram: {}, {};",
         Measure::<CubicMetrePerKiloGram>::new(1.),
@@ -2033,7 +2033,7 @@ fn print_all_specific_volume_units() {
 }
 
 fn print_all_square_time_units() {
-    println!("* All SquareTime units");
+    println!("* SquareTime units");
     println!(
         "  SquareSecond: {}, {};",
         Measure::<SquareSecond>::new(1.),
@@ -2057,7 +2057,7 @@ fn print_all_square_time_units() {
 }
 
 fn print_all_surface_density_units() {
-    println!("* All SurfaceDensity units");
+    println!("* SurfaceDensity units");
     println!(
         "  KiloGramPerSquareMetre: {}, {};",
         Measure::<KiloGramPerSquareMetre>::new(1.),
@@ -2067,7 +2067,7 @@ fn print_all_surface_density_units() {
 }
 
 fn print_all_surface_tension_units() {
-    println!("* All SurfaceTension units");
+    println!("* SurfaceTension units");
     println!(
         "  JoulePerSquareMetre: {}, {};",
         Measure::<JoulePerSquareMetre>::new(1.),
@@ -2077,7 +2077,7 @@ fn print_all_surface_tension_units() {
 }
 
 fn print_all_temperature_units() {
-    println!("* All Temperature units");
+    println!("* Temperature units");
     println!(
         "  Kelvin: {}, {};",
         Measure::<Kelvin>::new(1.),
@@ -2101,7 +2101,7 @@ fn print_all_temperature_units() {
 }
 
 fn print_all_thermal_conductivity_units() {
-    println!("* All ThermalConductivity units");
+    println!("* ThermalConductivity units");
     println!(
         "  WattPerMetrePerKelvin: {}, {};",
         Measure::<WattPerMetrePerKelvin>::new(1.),
@@ -2111,7 +2111,7 @@ fn print_all_thermal_conductivity_units() {
 }
 
 fn print_all_time_units() {
-    println!("* All Time units");
+    println!("* Time units");
     println!(
         "  Second: {}, {};",
         Measure::<Second>::new(1.),
@@ -2198,7 +2198,7 @@ fn print_all_time_units() {
 }
 
 fn print_all_torque_units() {
-    println!("* All Torque units");
+    println!("* Torque units");
     println!(
         "  NewtonMetre: {}, {}, {}, {}, {}, {};",
         Measure::<NewtonMetre>::new(1.),
@@ -2212,7 +2212,7 @@ fn print_all_torque_units() {
 }
 
 fn print_all_velocity_units() {
-    println!("* All Velocity units");
+    println!("* Velocity units");
     println!(
         "  MetrePerSecond: {}, {}, {}, {}, {}, {};",
         Measure::<MetrePerSecond>::new(1.),
@@ -2286,7 +2286,7 @@ fn print_all_velocity_units() {
 }
 
 fn print_all_volume_units() {
-    println!("* All Volume units");
+    println!("* Volume units");
     println!(
         "  CubicMetre: {}, {};",
         Measure::<CubicMetre>::new(1.),
@@ -2380,7 +2380,7 @@ fn print_all_volume_units() {
 }
 
 fn print_all_volumetric_flow_rate_units() {
-    println!("* All VolumetricFlowRate units");
+    println!("* VolumetricFlowRate units");
     println!(
         "  CubicMetrePerSecond: {}, {};",
         Measure::<CubicMetrePerSecond>::new(1.),
@@ -2397,7 +2397,7 @@ fn print_all_volumetric_flow_rate_units() {
 }
 
 fn print_all_wave_number_units() {
-    println!("* All WaveNumber units");
+    println!("* WaveNumber units");
     println!(
         "  CyclePerMetre: {}, {};",
         Measure::<CyclePerMetre>::new(1.),
@@ -2495,7 +2495,7 @@ fn print_all_units() {
 }
 
 fn print_all_single_unit_operations_for_measure_1d() {
-    println!("* All single unit operations for measure 1d");
+    println!("* Single unit operations for measure 1d");
     {
         let m1 = Measure::<KiloMetrePerHour>::new(12.);
         println!(
@@ -2581,7 +2581,7 @@ fn print_all_single_unit_operations_for_measure_1d() {
 }
 
 fn print_all_single_unit_operations_for_measure_point_1d() {
-    println!("* All single unit operations for measure point 1d");
+    println!("* Single unit operations for measure point 1d");
     {
         let mp1 = MeasurePoint::<Celsius>::new(12.);
         println!(
@@ -2649,7 +2649,7 @@ fn print_all_single_unit_operations_for_measure_point_1d() {
 }
 
 fn print_all_single_unit_operations_for_unsigned_directions() {
-    println!("* All single unit operations for unsigned directions");
+    println!("* Single unit operations for unsigned directions");
     {
         let mp1 = MeasurePoint::<Degree>::new(12.);
         println!(
@@ -2723,7 +2723,7 @@ fn print_all_single_unit_operations_for_unsigned_directions() {
 }
 
 fn print_all_single_unit_operations_for_signed_directions() {
-    println!("* All single unit operations for signed directions");
+    println!("* Single unit operations for signed directions");
     {
         let mp1 = MeasurePoint::<Degree>::new(12.);
         println!(
@@ -2797,7 +2797,7 @@ fn print_all_single_unit_operations_for_signed_directions() {
 }
 
 fn print_all_single_unit_operations_for_measure_2d() {
-    println!("* All single unit operations for measure 2d");
+    println!("* Single unit operations for measure 2d");
     {
         let m1 = Measure2d::<KiloMetrePerHour>::new(12., 13.);
         println!(
@@ -2906,7 +2906,7 @@ fn print_all_single_unit_operations_for_measure_2d() {
 }
 
 fn print_all_single_unit_operations_for_measure_point_2d() {
-    println!("* All single unit operations for measure point 2d");
+    println!("* Single unit operations for measure point 2d");
     {
         let mp1 = MeasurePoint2d::<KiloMetrePerHour>::new(12., 13.);
         println!(
@@ -2982,7 +2982,7 @@ fn print_all_single_unit_operations_for_measure_point_2d() {
 }
 
 fn print_all_single_unit_operations_for_measure_3d() {
-    println!("* All single unit operations for measure 3d");
+    println!("* Single unit operations for measure 3d");
     {
         let m1 = Measure3d::<KiloMetrePerHour>::new(12., 13., 14.);
         println!(
@@ -3075,7 +3075,7 @@ fn print_all_single_unit_operations_for_measure_3d() {
 }
 
 fn print_all_single_unit_operations_for_measure_point_3d() {
-    println!("* All single unit operations for measure point 3d");
+    println!("* Single unit operations for measure point 3d");
     {
         let mp1 = MeasurePoint3d::<KiloMetrePerHour>::new(12., 13., 14.);
         println!(
@@ -3165,48 +3165,48 @@ fn print_all_single_unit_operations() {
 }
 
 fn print_all_computer_science_mixed_operations() {
-    println!("all computer science mixed operations");
+    println!("* Computer science mixed operations");
     {
         let information = Measure::<Bit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<BitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<Byte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<BytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<KiloBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<KiloBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<KiloByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<KiloBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<KibiBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<KibiBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<KibiByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<KibiBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<MegaBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<MegaBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<MegaByte>::new(6.);
@@ -3218,68 +3218,508 @@ fn print_all_computer_science_mixed_operations() {
         let information = Measure::<MebiBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<MebiBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<MebiByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<MebiBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<GigaBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<GigaBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<GigaByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<GigaBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<GibiBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<GibiBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<GibiByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<GibiBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<TeraBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<TeraBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<TeraByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<TeraBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<TebiBit>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<TebiBitPerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     {
         let information = Measure::<TebiByte>::new(6.);
         let time = Measure::<Second>::new(2.);
         let information_rate: Measure<TebiBytePerSecond> = information / time;
-        println!("{information} every {time} is a rate of {information_rate}")
+        println!("{information} every {time} is a rate of {information_rate}.")
     }
     println!();
 }
 
+fn print_all_geometry_mixed_operations() {
+    println!("* Geometry mixed operations");
+    {
+        let length = Measure::<Metre>::new(6.);
+        let width = Measure::<Metre>::new(2.);
+        let area: Measure<SquareMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<KiloMetre>::new(6.);
+        let width = Measure::<KiloMetre>::new(2.);
+        let area: Measure<SquareKiloMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<HectoMetre>::new(6.);
+        let width = Measure::<HectoMetre>::new(2.);
+        let area: Measure<Hectare> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<DecaMetre>::new(6.);
+        let width = Measure::<DecaMetre>::new(2.);
+        let area: Measure<Are> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<DeciMetre>::new(6.);
+        let width = Measure::<DeciMetre>::new(2.);
+        let area: Measure<SquareDeciMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<CentiMetre>::new(6.);
+        let width = Measure::<CentiMetre>::new(2.);
+        let area: Measure<SquareCentiMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<MilliMetre>::new(6.);
+        let width = Measure::<MilliMetre>::new(2.);
+        let area: Measure<SquareMilliMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<MicroMetre>::new(6.);
+        let width = Measure::<MicroMetre>::new(2.);
+        let area: Measure<SquareMicroMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<NanoMetre>::new(6.);
+        let width = Measure::<NanoMetre>::new(2.);
+        let area: Measure<SquareNanoMetre> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<Inch>::new(6.);
+        let width = Measure::<Inch>::new(2.);
+        let area: Measure<SquareInch> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<Foot>::new(6.);
+        let width = Measure::<Foot>::new(2.);
+        let area: Measure<SquareFoot> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<Yard>::new(6.);
+        let width = Measure::<Yard>::new(2.);
+        let area: Measure<SquareYard> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let length = Measure::<Mile>::new(6.);
+        let width = Measure::<Mile>::new(2.);
+        let area: Measure<SquareMile> = length * width;
+        println!("A rectangle {length} long and {width} wide has an area of {area}.")
+    }
+    {
+        let base = Measure::<SquareMetre>::new(6.);
+        let height = Measure::<Metre>::new(2.);
+        let volume: Measure<CubicMetre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareKiloMetre>::new(6.);
+        let height = Measure::<KiloMetre>::new(2.);
+        let volume: Measure<CubicKiloMetre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareDeciMetre>::new(6.);
+        let height = Measure::<DeciMetre>::new(2.);
+        let volume: Measure<Litre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareCentiMetre>::new(6.);
+        let height = Measure::<CentiMetre>::new(2.);
+        let volume: Measure<MilliLitre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareMilliMetre>::new(6.);
+        let height = Measure::<MilliMetre>::new(2.);
+        let volume: Measure<MicroLitre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareMicroMetre>::new(6.);
+        let height = Measure::<MicroMetre>::new(2.);
+        let volume: Measure<CubicMicroMetre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareNanoMetre>::new(6.);
+        let height = Measure::<NanoMetre>::new(2.);
+        let volume: Measure<CubicNanoMetre> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareInch>::new(6.);
+        let height = Measure::<Inch>::new(2.);
+        let volume: Measure<CubicInch> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareFoot>::new(6.);
+        let height = Measure::<Foot>::new(2.);
+        let volume: Measure<CubicFoot> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareYard>::new(6.);
+        let height = Measure::<Yard>::new(2.);
+        let volume: Measure<CubicYard> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+    {
+        let base = Measure::<SquareMile>::new(6.);
+        let height = Measure::<Mile>::new(2.);
+        let volume: Measure<CubicMile> = base * height;
+        println!(
+            "A prism having a base of {base} and a height of {height} has a volume of {volume}."
+        )
+    }
+
+    {
+        let phase = Measure::<Cycle>::new(6.);
+        let length = Measure::<Metre>::new(2.);
+        let wave_number: Measure<CyclePerMetre> = phase / length;
+        println!("A portion of wave having a phase of {phase} for a length of {length} has a wave number of {wave_number}.")
+    }
+    {
+        let phase = Measure::<Radian>::new(6.);
+        let length = Measure::<Metre>::new(2.);
+        let wave_number: Measure<RadianPerMetre> = phase / length;
+        println!("A portion of wave having a phase of {phase} for a length of {length} has a wave number of {wave_number}.")
+    }
+    println!();
+}
+
+fn print_all_kinematics_mixed_operations() {
+    println!("* Kinematics mixed operations");
+    {
+        let velocity = Measure::<MetrePerSecond>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure<MetrePerSquareSecond> = velocity / time;
+        println!("If an object in a line changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure2d::<MetrePerSecond>::new(6., 20.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure2d<MetrePerSquareSecond> = velocity / time;
+        println!("If an object in a plane changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure3d::<MetrePerSecond>::new(6., 20., 36.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure3d<MetrePerSquareSecond> = velocity / time;
+        println!("If an object in the space changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure::<CentiMetrePerSecond>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure<CentiMetrePerSquareSecond> = velocity / time;
+        println!("If an object in a line changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure2d::<CentiMetrePerSecond>::new(6., 20.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure2d<CentiMetrePerSquareSecond> = velocity / time;
+        println!("If an object in a plane changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure3d::<CentiMetrePerSecond>::new(6., 20., 36.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure3d<CentiMetrePerSquareSecond> = velocity / time;
+        println!("If an object in the space changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure::<KiloMetrePerHour>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure<KiloMetrePerHourPerSecond> = velocity / time;
+        println!("If an object in a line changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure2d::<KiloMetrePerHour>::new(6., 20.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure2d<KiloMetrePerHourPerSecond> = velocity / time;
+        println!("If an object in a plane changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let velocity = Measure3d::<KiloMetrePerHour>::new(6., 20., 36.);
+        let time = Measure::<Second>::new(2.);
+        let acceleration: Measure3d<KiloMetrePerHourPerSecond> = velocity / time;
+        println!("If an object in the space changes its velocity of {velocity} in a time interval of {time}, it has an average acceleration of {acceleration}.")
+    }
+    {
+        let length = Measure::<Metre>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let velocity: Measure<MetrePerSecond> = length / time;
+        println!("If an object moves in a line by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure2d::<Metre>::new(6., 20.);
+        let time = Measure::<Second>::new(2.);
+        let velocity: Measure2d<MetrePerSecond> = length / time;
+        println!("If an object moves in a plane by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure3d::<Metre>::new(6., 20., 36.);
+        let time = Measure::<Second>::new(2.);
+        let velocity: Measure3d<MetrePerSecond> = length / time;
+        println!("If an object moves in the space by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure::<NauticalMile>::new(6.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure<Knot> = length / time;
+        println!("If an object moves in a line by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure2d::<NauticalMile>::new(6., 20.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure2d<Knot> = length / time;
+        println!("If an object moves in a plane by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure3d::<NauticalMile>::new(6., 20., 36.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure3d<Knot> = length / time;
+        println!("If an object moves in the space by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure::<KiloMetre>::new(6.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure<KiloMetrePerHour> = length / time;
+        println!("If an object moves in a line by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure2d::<KiloMetre>::new(6., 20.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure2d<KiloMetrePerHour> = length / time;
+        println!("If an object moves in a plane by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure3d::<KiloMetre>::new(6., 20., 36.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure3d<KiloMetrePerHour> = length / time;
+        println!("If an object moves in the space by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure::<Mile>::new(6.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure<MilePerHour> = length / time;
+        println!("If an object moves in a line by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure2d::<Mile>::new(6., 20.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure2d<MilePerHour> = length / time;
+        println!("If an object moves in a plane by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure3d::<Mile>::new(6., 20., 36.);
+        let time = Measure::<Hour>::new(2.);
+        let velocity: Measure3d<MilePerHour> = length / time;
+        println!("If an object moves in the space by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure::<CentiMetre>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let velocity: Measure<CentiMetrePerSecond> = length / time;
+        println!("If an object moves in a line by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure2d::<CentiMetre>::new(6., 20.);
+        let time = Measure::<Second>::new(2.);
+        let velocity: Measure2d<CentiMetrePerSecond> = length / time;
+        println!("If an object moves in a plane by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let length = Measure3d::<CentiMetre>::new(6., 20., 36.);
+        let time = Measure::<Second>::new(2.);
+        let velocity: Measure3d<CentiMetrePerSecond> = length / time;
+        println!("If an object moves in the space by a distance of {length} in a time interval of {time}, it has an average velocity of {velocity}.")
+    }
+    {
+        let angular_velocity = Measure::<RadianPerSecond>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let angular_acceleration: Measure<RadianPerSquareSecond> = angular_velocity / time;
+        println!("If an object changes its angular velocity by {angular_velocity} in a time interval of {time}, it has an average angular acceleration of {angular_acceleration}.")
+    }
+    {
+        let angular_position = Measure::<Cycle>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let angular_velocity: Measure<Hertz> = angular_position / time;
+        println!("If an object changes its angular position (or phase) by {angular_position} in a time interval of {time}, it has an average angular velocity (or average frequency) of {angular_velocity}.")
+    }
+    {
+        let angular_position = Measure::<Radian>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let angular_velocity: Measure<RadianPerSecond> = angular_position / time;
+        println!("If an object changes its angular position (or phase) by {angular_position} in a time interval of {time}, it has an average angular velocity (or average frequency) of {angular_velocity}.")
+    }
+    {
+        let angular_position = Measure::<Cycle>::new(6.);
+        let time = Measure::<Minute>::new(2.);
+        let angular_velocity: Measure<CyclePerMinute> = angular_position / time;
+        println!("If an object changes its angular position (or phase) by {angular_position} in a time interval of {time}, it has an average angular velocity (or average frequency) of {angular_velocity}.")
+    }
+    // TODO KinematicViscosity
+    // TODO SquareTime
+    {
+        let volume = Measure::<CubicMetre>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let flow_rate: Measure<CubicMetrePerSecond> = volume / time;
+        println!("If some fluid having a volume of {volume} crosses a surface in a time interval of {time}, that fluid has an average volumetric flow rate of {flow_rate}.")
+    }
+    {
+        let volume = Measure::<MilliLitre>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let flow_rate: Measure<MilliLitrePerSecond> = volume / time;
+        println!("If some fluid having a volume of {volume} crosses a surface in a time interval of {time}, that fluid has an average volumetric flow rate of {flow_rate}.")
+    }
+    {
+        let area = Measure::<SquareMetre>::new(6.);
+        let velocity = Measure::<MetrePerSecond>::new(2.);
+        let flow_rate: Measure<CubicMetrePerSecond> = area * velocity;
+        println!("If some fluid crosses a surface with area {area} having a velocity of {velocity}, that fluid has an average volumetric flow rate of {flow_rate}.")
+    }
+    {
+        let area = Measure::<SquareCentiMetre>::new(6.);
+        let velocity = Measure::<CentiMetrePerSecond>::new(2.);
+        let flow_rate: Measure<MilliLitrePerSecond> = area * velocity;
+        println!("If some fluid crosses a surface with area {area} having a velocity of {velocity}, that fluid has an average volumetric flow rate of {flow_rate}.")
+    }
+    println!();
+}
+
+fn print_all_dynamics_mixed_operations() {
+    println!("* Dynamics mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_thermodynamics_mixed_operations() {
+    println!("* Thermodynamics mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_chemistry_mixed_operations() {
+    println!("* Chemistry mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_radioactivity_mixed_operations() {
+    println!("* Radioactivity mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_optics_mixed_operations() {
+    println!("* Optics mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_electricity_mixed_operations() {
+    println!("* Electricity mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_magnetism_mixed_operations() {
+    println!("* Magnetism mixed operations");
+    //TODO
+    println!();
+}
+
+fn print_all_other_mixed_operations() {
+    println!("* Other mixed operations");
+    //TODO
+    println!();
+}
+
 fn print_all_mixed_operation() {
-    // TODO
     print_all_computer_science_mixed_operations();
+    print_all_geometry_mixed_operations();
+    print_all_kinematics_mixed_operations();
+    print_all_dynamics_mixed_operations();
+    print_all_thermodynamics_mixed_operations();
+    print_all_chemistry_mixed_operations();
+    print_all_radioactivity_mixed_operations();
+    print_all_optics_mixed_operations();
+    print_all_electricity_mixed_operations();
+    print_all_magnetism_mixed_operations();
+    print_all_other_mixed_operations();
 }
 
 fn print_all_transformations() {
