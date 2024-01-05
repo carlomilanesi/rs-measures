@@ -10,7 +10,7 @@ readme = "README.md"
 publish = true
 
 [dependencies]
-define-units-relation = { path = "../define-units-relation" }
+define-units-relation = { path = "../define-units-relation", version = "0.1.0" }
 
 [dev-dependencies]
 nalgebra = "0.32.*"

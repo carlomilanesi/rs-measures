@@ -7,7 +7,7 @@ description = "A procedural macro to be used with the library Rs-Measures to def
 repository = "https://github.com/carlomilanesi/rs-measures"
 license = "MIT OR Apache-2.0"
 readme = "README.md"
-publish = false
+publish = true
 
 [lib]
 proc-macro = true
@@ -19,4 +19,4 @@ syn = "1.0.73"
 
 [dev-dependencies]
 trybuild = { version = "1.0", features = ["diff"] }
-rs-measures = { path = "../rs-measures" }
+rs-measures = { path = "../rs-measures", version = "0.1.0" }
