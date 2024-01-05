@@ -2699,7 +2699,6 @@ define_units_relation! {JouleSecond == Joule * Second}
 define_units_relation! {JouleSecond == Watt * SquareSecond}
 
 // AngularMomentum == Momentum * Length
-define_units_relation! {KiloGramSquareMetrePerSecond == KiloGramMetrePerSecond * Metre}
 define_units_relation! {KiloGramSquareMetrePerSecond == KiloGramMetrePerSecond:2 X Metre:2}
 define_units_relation! {KiloGramSquareMetrePerSecond:3 == KiloGramMetrePerSecond:3 X Metre:3}
 
@@ -2785,7 +2784,7 @@ define_units_relation! {Pascal == Newton / SquareMetre}
 define_units_relation! {PoundForcePerSquareInch == PoundForce / SquareInch}
 define_units_relation! {HectoPascal == Newton / SquareDeciMetre}
 
-// SpecificEnergy == Joule / Mass
+// SpecificEnergy == Energy / Mass
 define_units_relation! {JoulePerKiloGram == Joule / KiloGram}
 
 // SpecificVolume == Volume / Mass

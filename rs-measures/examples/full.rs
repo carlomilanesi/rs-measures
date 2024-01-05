@@ -3665,23 +3665,16 @@ fn print_all_dynamics_mixed_operations() {
     // TODO Action == Energy * Time
     // TODO Action == Power * SquareTime
     {
-        let impulse = Measure::<KiloGramMetrePerSecond>::new(6.);
-        let radius = Measure::<Metre>::new(2.);
-        let angular_momentum: Measure<KiloGramSquareMetrePerSecond> = impulse * radius;
-        println!("If some object constrained to rotate around an axis receives an impulse of {impulse} orthogonal to the rotation radius, and such radius is {radius}, that causes a variation of the angular momentum by {angular_momentum}.")
-    }
-    {
         let impulse = Measure2d::<KiloGramMetrePerSecond>::new(6., 2.);
-        let radius = Measure2d::<Metre>::new(1., 4.);
-        let angular_momentum: Measure<KiloGramSquareMetrePerSecond> = impulse.cross_product(radius);
-        println!("If some object constrained to rotate around an axis receives an impulse of {impulse} laying in the plane orthogonal to the axis, applied at a position from the rotation axis of {radius}, that causes a variation of the angular momentum by {angular_momentum}.")
+        let arm = Measure2d::<Metre>::new(1., 4.);
+        let angular_momentum: Measure<KiloGramSquareMetrePerSecond> = impulse.cross_product(arm);
+        println!("If some object constrained to rotate around an axis receives an impulse of {impulse} laying in the plane orthogonal to the axis, applied at a position from the rotation axis of {arm}, that causes a variation of the angular momentum by {angular_momentum}.")
     }
     {
         let impulse = Measure3d::<KiloGramMetrePerSecond>::new(6., 2., -3.);
-        let radius = Measure3d::<Metre>::new(1., 4., 6.);
-        let angular_momentum: Measure3d<KiloGramSquareMetrePerSecond> =
-            impulse.cross_product(radius);
-        println!("If some object constrained to rotate around a point receives an impulse of {impulse}, applied at a position from the rotation point of {radius}, that causes a variation of the angular momentum by {angular_momentum}.")
+        let arm = Measure3d::<Metre>::new(1., 4., 6.);
+        let angular_momentum: Measure3d<KiloGramSquareMetrePerSecond> = impulse.cross_product(arm);
+        println!("If some object constrained to rotate around a point receives an impulse of {impulse}, applied at a position from the rotation point of {arm}, that causes a variation of the angular momentum by {angular_momentum}.")
     }
     // TODO AngularMomentum == MomentOfInertia / Time
     // TODO DynamicViscosity == Pressure * Time
@@ -3785,79 +3778,198 @@ fn print_all_dynamics_mixed_operations() {
         let acceleration: Measure3d<GForce> = force / mass;
         println!("If a force of {force} is applied in space to an object having mass {mass}, that object is accelerated by {acceleration}.")
     }
-    /*
-    // LinearDensity == Mass / Length
-    define_units_relation! {KiloGramPerMetre == KiloGram / Metre}
-    define_units_relation! {GramPerCentiMetre == Gram / CentiMetre}
 
-    // MassDensity == Mass / Volume
-    define_units_relation! {KiloGramPerCubicMetre == KiloGram / CubicMetre}
-    define_units_relation! {GramPerMilliLitre == Gram / MilliLitre}
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let length = Measure::<Metre>::new(2.);
+        let linear_density: Measure<KiloGramPerMetre> = mass / length;
+        println!("If a mass of {mass} is distributed along a length of {length}, that mass has a linear density by {linear_density}.")
+    }
+    {
+        let mass = Measure::<Gram>::new(6.);
+        let length = Measure::<CentiMetre>::new(2.);
+        let linear_density: Measure<GramPerCentiMetre> = mass / length;
+        println!("If a mass of {mass} is distributed along a length of {length}, that mass has a linear density by {linear_density}.")
+    }
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let volume = Measure::<CubicMetre>::new(2.);
+        let space_density: Measure<KiloGramPerCubicMetre> = mass / volume;
+        println!("If a mass of {mass} occupies a volume of {volume}, it has a density by {space_density}.")
+    }
+    {
+        let mass = Measure::<Gram>::new(6.);
+        let volume = Measure::<MilliLitre>::new(2.);
+        let space_density: Measure<GramPerMilliLitre> = mass / volume;
+        println!("If a mass of {mass} occupies a volume of {volume}, it has a density by {space_density}.")
+    }
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let mass_flow_rate: Measure<KiloGramPerSecond> = mass / time;
+        println!("If a mass of {mass} crosses a surface in a time interval of {time}, it has a mass flow rate of {mass_flow_rate}.")
+    }
+    {
+        let mass = Measure::<Gram>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let mass_flow_rate: Measure<GramPerSecond> = mass / time;
+        println!("If a mass of {mass} crosses a surface in a time interval of {time}, it has a mass flow rate of {mass_flow_rate}.")
+    }
+    // TODO MomentOfInertia == Mass * Area
+    // TODO Momentum == Force * Time
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let velocity = Measure::<MetrePerSecond>::new(2.);
+        let momentum: Measure<NewtonSecond> = mass * velocity;
+        println!("A mass of {mass} having a velocity in a line of {velocity} has a momentum of {momentum}.")
+    }
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let velocity = Measure2d::<MetrePerSecond>::new(2., 5.);
+        let momentum: Measure2d<NewtonSecond> = mass * velocity;
+        println!("A mass of {mass} having a velocity in a plane of {velocity} has a momentum of {momentum}.")
+    }
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let velocity = Measure3d::<MetrePerSecond>::new(2., 5., -3.);
+        let momentum: Measure3d<NewtonSecond> = mass * velocity;
+        println!("A mass of {mass} having a velocity in space of {velocity} has a momentum of {momentum}.")
+    }
+    {
+        let mass = Measure::<Gram>::new(6.);
+        let velocity = Measure::<CentiMetrePerSecond>::new(2.);
+        let momentum: Measure<DyneSecond> = mass * velocity;
+        println!("A mass of {mass} having a velocity in a line of {velocity} has a momentum of {momentum}.")
+    }
+    {
+        let mass = Measure::<Gram>::new(6.);
+        let velocity = Measure2d::<CentiMetrePerSecond>::new(2., 5.);
+        let momentum: Measure2d<DyneSecond> = mass * velocity;
+        println!("A mass of {mass} having a velocity in a plane of {velocity} has a momentum of {momentum}.")
+    }
+    {
+        let mass = Measure::<Gram>::new(6.);
+        let velocity = Measure3d::<CentiMetrePerSecond>::new(2., 5., -3.);
+        let momentum: Measure3d<DyneSecond> = mass * velocity;
+        println!("A mass of {mass} having a velocity in space of {velocity} has a momentum of {momentum}.")
+    }
+    {
+        let energy = Measure::<Joule>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let power: Measure<Watt> = energy / time;
+        println!("A system generating or consuming the energy of {energy} every time interval of {time} has a power of {power}.")
+    }
+    {
+        let energy = Measure::<WattHour>::new(6.);
+        let time = Measure::<Hour>::new(2.);
+        let power: Measure<Watt> = energy / time;
+        println!("A system generating or consuming the energy of {energy} every time interval of {time} has a power of {power}.")
+    }
+    {
+        let energy = Measure::<KiloWattHour>::new(6.);
+        let time = Measure::<Hour>::new(2.);
+        let power: Measure<KiloWatt> = energy / time;
+        println!("A system generating or consuming the energy of {energy} every time interval of {time} has a power of {power}.")
+    }
+    {
+        let energy = Measure::<Erg>::new(6.);
+        let time = Measure::<Second>::new(2.);
+        let power: Measure<ErgPerSecond> = energy / time;
+        println!("A system generating or consuming the energy of {energy} every time interval of {time} has a power of {power}.")
+    }
+    {
+        let force = Measure::<Newton>::new(6.);
+        let area = Measure::<SquareMetre>::new(2.);
+        let pressure: Measure<Pascal> = force / area;
+        println!("A force of {force} applied to an area of {area} exerts a pressure of {pressure}.")
+    }
+    {
+        let force = Measure::<PoundForce>::new(6.);
+        let area = Measure::<SquareInch>::new(2.);
+        let pressure: Measure<PoundForcePerSquareInch> = force / area;
+        println!("A force of {force} applied to an area of {area} exerts a pressure of {pressure}.")
+    }
+    {
+        let force = Measure::<Newton>::new(6.);
+        let area = Measure::<SquareDeciMetre>::new(2.);
+        let pressure: Measure<HectoPascal> = force / area;
+        println!("A force of {force} applied to an area of {area} exerts a pressure of {pressure}.")
+    }
+    {
+        let energy = Measure::<Joule>::new(6.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let specific_energy: Measure<JoulePerKiloGram> = energy / mass;
+        println!("An energy of {energy} contained in a mass of {mass} has a specific energy of {specific_energy}.")
+    }
+    {
+        let volume = Measure::<CubicMetre>::new(6.);
+        let mass = Measure::<KiloGram>::new(2.);
+        let specific_volume: Measure<CubicMetrePerKiloGram> = volume / mass;
+        println!("A volume of {volume} containing a mass of {mass} has a specific volume of {specific_volume}.")
+    }
+    {
+        let mass_density = Measure::<KiloGramPerCubicMetre>::new(2.);
+        let specific_volume: Measure<CubicMetrePerKiloGram> = 1. / mass_density;
+        println!("A mass density of {mass_density} is equivalent to a specific volume of {specific_volume}.")
+    }
+    {
+        let mass = Measure::<KiloGram>::new(6.);
+        let area = Measure::<SquareMetre>::new(6.);
+        let surface_density: Measure<KiloGramPerSquareMetre> = mass / area;
+        println!("A mass of {mass} distributed over an area of {area} has a surface density of {surface_density}.")
+    }
+    {
+        let energy = Measure::<Joule>::new(6.);
+        let area = Measure::<SquareMetre>::new(6.);
+        let surface_tension: Measure<JoulePerSquareMetre> = energy / area;
+        println!("An energy of {energy} distributed over an area of {area} has a surface tension of {surface_tension}.")
+    }
+    {
+        let force = Measure2d::<Newton>::new(6., 2.);
+        let arm = Measure2d::<Metre>::new(1., 4.);
+        let torque: Measure<NewtonMetre> = force.cross_product(arm);
+        println!("If some object constrained to rotate around an axis receives a force of {force} laying in the plane orthogonal to the axis, applied at a position from the rotation axis of {arm}, that causes a torque (a.k.a. moment of force) of {torque}.")
+    }
+    {
+        let force = Measure3d::<Newton>::new(6., 2., -3.);
+        let arm = Measure3d::<Metre>::new(1., 4., 6.);
+        let torque: Measure3d<NewtonMetre> = force.cross_product(arm);
+        println!("If some object constrained to rotate around a point receives a force of {force}, applied at a position from the rotation point of {arm}, that causes a torque (a.k.a. moment of force) of {torque}.")
+    }
 
-    // MassFlowRate == Mass / Time
-    define_units_relation! {KiloGramPerSecond == KiloGram / Second}
-    define_units_relation! {GramPerSecond == Gram / Second}
+    {
+        let force = Measure2d::<PoundForce>::new(6., 2.);
+        let arm = Measure2d::<Foot>::new(1., 4.);
+        let torque: Measure<PoundFoot> = force.cross_product(arm);
+        println!("If some object constrained to rotate around an axis receives a force of {force} laying in the plane orthogonal to the axis, applied at a position from the rotation axis of {arm}, that causes a torque (a.k.a. moment of force) of {torque}.")
+    }
+    {
+        let force = Measure3d::<PoundForce>::new(6., 2., -3.);
+        let arm = Measure3d::<Foot>::new(1., 4., 6.);
+        let torque: Measure3d<PoundFoot> = force.cross_product(arm);
+        println!("If some object constrained to rotate around a point receives a force of {force}, applied at a position from the rotation point of {arm}, that causes a torque (a.k.a. moment of force) of {torque}.")
+    }
 
-    // MomentOfInertia == Mass * Area
-    define_units_relation! {KiloGramSquareMetre == KiloGram * SquareMetre}
-    define_units_relation! {GramSquareCentiMetre == Gram * SquareCentiMetre}
-
-    // Momentum == Force * Time
-    define_units_relation! {NewtonSecond == Newton * Second}
-    define_units_relation! {NewtonSecond:2 == Newton:2 * Second}
-    define_units_relation! {NewtonSecond:3 == Newton:3 * Second}
-    define_units_relation! {DyneSecond == Dyne * Second}
-    define_units_relation! {DyneSecond:2 == Dyne:2 * Second}
-    define_units_relation! {DyneSecond:3 == Dyne:3 * Second}
-
-    // Momentum == Mass * Velocity
-    define_units_relation! {NewtonSecond == KiloGram * MetrePerSecond}
-    define_units_relation! {NewtonSecond:2 == KiloGram * MetrePerSecond:2}
-    define_units_relation! {NewtonSecond:3 == KiloGram * MetrePerSecond:3}
-    define_units_relation! {DyneSecond == Gram * CentiMetrePerSecond}
-    define_units_relation! {DyneSecond:2 == Gram * CentiMetrePerSecond:2}
-    define_units_relation! {DyneSecond:3 == Gram * CentiMetrePerSecond:3}
-
-    // Power == Energy / Time
-    define_units_relation! {Watt == Joule / Second}
-    define_units_relation! {Watt == WattHour / Hour}
-    define_units_relation! {KiloWatt == KiloWattHour / Hour}
-    define_units_relation! {ErgPerSecond == Erg / Second}
-
-    // Pressure == Force / Area
-    define_units_relation! {Pascal == Newton / SquareMetre}
-    define_units_relation! {PoundForcePerSquareInch == PoundForce / SquareInch}
-    define_units_relation! {HectoPascal == Newton / SquareDeciMetre}
-
-    // SpecificEnergy == Joule / Mass
-    define_units_relation! {JoulePerKiloGram == Joule / KiloGram}
-
-    // SpecificVolume == Volume / Mass
-    define_units_relation! {CubicMetrePerKiloGram == CubicMetre / KiloGram}
-
-    // SpecificVolume == 1 / MassDensity
-    define_units_relation! {CubicMetrePerKiloGram == 1 / KiloGramPerCubicMetre}
-
-    // SurfaceDensity == Mass / Area
-    define_units_relation! {KiloGramPerSquareMetre == KiloGram / SquareMetre}
-
-    // SurfaceTension == Energy / Area
-    define_units_relation! {JoulePerSquareMetre == Joule / SquareMetre}
-
-    // Torque == Force * Length
-    define_units_relation! {NewtonMetre == Newton:2 X Metre:2}
-    define_units_relation! {NewtonMetre:3 == Newton:3 X Metre:3}
-    define_units_relation! {PoundFoot == PoundForce:2 X Foot:2}
-    define_units_relation! {PoundFoot:3 == PoundForce:3 X Foot:3}
-    define_units_relation! {PoundInch == PoundForce:2 X Inch:2}
-    define_units_relation! {PoundInch:3 == PoundForce:3 X Inch:3}
-        */
+    {
+        let force = Measure2d::<PoundForce>::new(6., 2.);
+        let arm = Measure2d::<Inch>::new(1., 4.);
+        let torque: Measure<PoundInch> = force.cross_product(arm);
+        println!("If some object constrained to rotate around an axis receives a force of {force} laying in the plane orthogonal to the axis, applied at a position from the rotation axis of {arm}, that causes a torque (a.k.a. moment of force) of {torque}.")
+    }
+    {
+        let force = Measure3d::<PoundForce>::new(6., 2., -3.);
+        let arm = Measure3d::<Inch>::new(1., 4., 6.);
+        let torque: Measure3d<PoundInch> = force.cross_product(arm);
+        println!("If some object constrained to rotate around a point receives a force of {force}, applied at a position from the rotation point of {arm}, that causes a torque (a.k.a. moment of force) of {torque}.")
+    }
     println!();
 }
 
 fn print_all_thermodynamics_mixed_operations() {
     println!("* Thermodynamics mixed operations");
-    //TODO
+    // TODO Entropy == Energy / Temperature
+    // TODO SpecificHeatCapacity == Entropy / Mass
+    // TODO ThermalConductivity == Power / Length / Temperature
     println!();
 }
 
