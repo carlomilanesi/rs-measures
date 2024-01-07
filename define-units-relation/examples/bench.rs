@@ -1,8 +1,7 @@
 // To run this, type:
 // cargo run --release --example bench
 
-use rs_measures::define_measure_1d;
-define_measure_1d! {}
+rs_measures::define_measure_1d! {}
 
 pub struct Length;
 

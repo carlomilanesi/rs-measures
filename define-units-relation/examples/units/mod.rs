@@ -1,5 +1,4 @@
-use rs_measures::define_measure_3d;
-define_measure_3d! {}
+rs_measures::define_measure_3d! {}
 
 // Property: acceleration
 pub struct Acceleration;

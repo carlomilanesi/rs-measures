@@ -1,6 +1,4 @@
-use rs_measures::define_measure_2d;
-
-define_measure_2d! {}
+rs_measures::define_measure_1d! {}
 
 pub struct Length;
 
@@ -45,51 +43,53 @@ impl MeasurementUnit for SquareMetre {
 }
 
 #[test]
-fn test_u1_2_mul_u1_2_equals_u3() {
-    //expand_1_2 ==
-    // Measure2d<U1> * Measure2d<U1> -> Measure<U3>
-    // Measure2d<U3>.sqr() -> Measure<U1>
-    // Measure2d<U1>.cross_product(Measure2d<U1>) -> Measure<U3>
+fn test_u1_mul_u1_equals_u3() {
+    //expand_1_1 ==
+    // Measure<U1> * Measure<U1> -> Measure<U2>
+    // Measure<U2> / Measure<U1> -> Measure<U1>
+    // Measure<U1>.squared() -> Measure<U2>
+    // Measure<U2>.sqrt() -> Measure<U1>
 
     use define_units_relation::define_units_relation;
-    define_units_relation! { Metre: 2 * Metre: 2 == SquareMetre }
+    define_units_relation! { Metre * Metre == SquareMetre }
 
-    let distance1 = Measure2d::<Metre>::new(2., 3.);
-    assert_eq!(distance1.to_string(), "(2, 3) m");
-    let distance2 = Measure2d::<Metre>::new(4., 5.);
-    assert_eq!(distance2.to_string(), "(4, 5) m");
+    let distance1 = Measure::<Metre>::new(2.);
+    assert_eq!(distance1.to_string(), "2 m");
+    let distance2 = Measure::<Metre>::new(3.);
+    assert_eq!(distance2.to_string(), "3 m");
     let area1: Measure<SquareMetre> = distance1 * distance2;
-    assert_eq!(area1.to_string(), "23 m\u{b2}");
+    assert_eq!(area1.to_string(), "6 m\u{b2}");
+    let distance3: Measure<Metre> = area1 / distance1;
+    assert_eq!(distance3.to_string(), "3 m");
     let area2: Measure<SquareMetre> = distance1.squared();
-    assert_eq!(area2.to_string(), "13 m\u{b2}");
-    //let distance4: Measure::<Metre> = distance1.cross_product(distance2);
-    //assert_eq!(distance4.to_string(), "-2 m");
+    assert_eq!(area2.to_string(), "4 m\u{b2}");
+    let distance4: Measure<Metre> = area2.sqrt();
+    assert_eq!(distance4.to_string(), "2 m");
 }
 
 #[test]
-fn test_u1_mul_u2_2_equals_u3_2() {
-    //expand_1_2 !=
-    // Measure<U1> * Measure2d<U2> -> Measure2d<U3>
-    // Measure2d<U2> * Measure<U1> -> Measure2d<U3>
-    // Measure2d<U3> / Measure<U1> -> Measure2d<U2>
+fn test_u1_mul_u2_equals_u3() {
+    //expand_1_1 !=
+    // Measure<U1> * Measure<U2> -> Measure<U3>
+    // Measure<U2> * Measure<U1> -> Measure<U3>
+    // Measure<U3> / Measure<U1> -> Measure<U2>
+    // Measure<U3> / Measure<U2> -> Measure<U1>
 
     use define_units_relation::define_units_relation;
-    define_units_relation! { Second * MetrePerSecond: 2 == Metre: 2 }
+    define_units_relation! { MetrePerSecond * Second == Metre }
 
-    /*
     let velocity1 = Measure::<MetrePerSecond>::new(2.);
     assert_eq!(velocity1.to_string(), "2 m/s");
     let interval1 = Measure::<Second>::new(5.);
     assert_eq!(interval1.to_string(), "5 s");
-    let distance1: Measure::<Metre> = velocity1 * interval1;
+    let distance1: Measure<Metre> = velocity1 * interval1;
     assert_eq!(distance1.to_string(), "10 m");
-    let distance2: Measure::<Metre> = interval1 * velocity1;
+    let distance2: Measure<Metre> = interval1 * velocity1;
     assert_eq!(distance2.to_string(), "10 m");
-    let interval2: Measure::<Second> = distance1 / velocity1;
+    let interval2: Measure<Second> = distance1 / velocity1;
     assert_eq!(interval2.to_string(), "5 s");
-    let interval3: Measure::<Second> = distance1 / velocity1;
+    let interval3: Measure<Second> = distance1 / velocity1;
     assert_eq!(interval3.to_string(), "5 s");
-    */
 }
 
 /*

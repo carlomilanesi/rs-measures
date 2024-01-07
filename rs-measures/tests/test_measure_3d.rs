@@ -43,7 +43,7 @@ fn measure_3d_new() {
 }
 
 #[test]
-fn measure_3d_xy_functions() {
+fn measure_3d_xyz_functions() {
     let m: Measure3d<Metre, f32> = Measure3d::<Metre, f32>::new(12., 23., 34.);
     let mx: Measure<Metre, f32> = m.x();
     let my: Measure<Metre, f32> = m.y();
