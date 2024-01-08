@@ -1,4 +1,4 @@
-rs_measures::define_measure_3d!{}
+rs_measures::define_measure_3d! {}
 
 pub struct P1;
 
@@ -32,8 +32,11 @@ impl MeasurementUnit for U3 {
 }
 impl VectorMeasurementUnit for U3 {}
 
-define_units_relation::define_units_relation! { U1:3 == U2 * U3:3 }
+units_relation::define_units_relation! { U1:3 == U2 * U3:3 }
 
 fn main() {
-    let _: Measure3d<U1> = Measure::<U2>::new(1.2) * Measure3d::<U3>::new(2.3, 2.4, 2.5);
+    let u1: Measure3d<U1> = Measure::<U2>::new(3.) * Measure3d::<U3>::new(6., -2., 7.);
+    assert_eq!(u1.x, 18.);
+    assert_eq!(u1.y, -6.);
+    assert_eq!(u1.z, 21.);
 }

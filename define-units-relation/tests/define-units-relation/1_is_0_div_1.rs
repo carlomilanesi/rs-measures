@@ -20,7 +20,7 @@ impl MeasurementUnit for U2 {
     const SUFFIX: &'static str = " u2";
 }
 
-define_units_relation::define_units_relation! { U1 == 1 / U2 }
+units_relation::define_units_relation! { U1 == 1 / U2 }
 
 fn main() {
     let u1: Measure<U1> = 24. / Measure::<U2>::new(6.);

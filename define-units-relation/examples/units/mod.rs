@@ -2522,7 +2522,7 @@ impl MeasurementUnit for RadianPerMetre {
 }
 
 // Relationships among units
-use define_units_relation::define_units_relation;
+use units_relation::define_units_relation;
 
 // Computer science
 

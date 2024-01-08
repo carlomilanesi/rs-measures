@@ -479,181 +479,25 @@ fn expand_cross_3(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
 }
 
 fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenStream, syn::Error> {
-    //let mut iter = input.into_iter();
-    use UnitDimensions::*;
-    use UnitsItem::*;
-    use UnitsOperation::*;
+    use UnitDimensions::{D1, D2, D3};
+    use UnitsItem::{Id, One};
+    use UnitsOperation::{Cross, Div, Eq, Mul};
 
     // The supported cases are these:
-    // id1:1 * id2:1 == id3:1  =>  expand_1_1(id1, id2, id3)
-    // id1:1 * id2:2 == id3:2  =>  expand_1_2(id1, id2, id3)
-    // id1:2 * id2:1 == id3:2  =>  expand_1_2(id2, id1, id3)
-    // id1:1 * id2:3 == id3:3  =>  expand_1_3(id1, id2, id3)
-    // id1:3 * id2:1 == id3:3  =>  expand_1_3(id2, id1, id3)
-    // id1:1 * id2:1 == 1      =>  expand_inverse(id1, id2)
-    // id1:2 * id2:2 == id3:1  =>  expand_2_2(id1, id2, id3)
-    // id1:3 * id2:3 == id3:1  =>  expand_3_3(id1, id2, id3)
-
-    // id1:1 / id2:1 == id3:1  =>  expand_1_1(id2, id3, id1)
-    // id1:2 / id2:1 == id3:2  =>  expand_1_2(id2, id3, id1)
-    // id1:3 / id2:1 == id3:3  =>  expand_1_3(id2, id3, id1)
-    // 1 / id2:1 == id3:1      =>  expand_inverse(id2, id3)
-
     // id1:1 == id2:1 * id3:1  =>  expand_1_1(id2, id3, id1)
     // id1:2 == id2:1 * id3:2  =>  expand_1_2(id2, id3, id1)
     // id1:2 == id2:2 * id3:1  =>  expand_1_2(id3, id2, id1)
     // id1:3 == id2:1 * id3:3  =>  expand_1_3(id2, id3, id1)
     // id1:3 == id2:3 * id3:1  =>  expand_1_3(id3, id2, id1)
-    // 1 == id2:1 * id3:1      =>  expand_inverse(id2, id3)
     // id1:1 == id2:2 * id3:2  =>  expand_2_2(id2, id3, id1)
     // id1:1 == id2:3 * id3:3  =>  expand_3_3(id2, id3, id1)
-
     // id1:1 == id2:1 / id3:1  =>  expand_1_1(id3, id1, id2)
     // id1:2 == id2:2 / id3:1  =>  expand_1_2(id3, id1, id2)
     // id1:3 == id2:3 / id3:1  =>  expand_1_3(id3, id1, id2)
     // id1:1 == 1 / id3:1      =>  expand_inverse(id1, id3)
-
     // id1:1 == id2:2 X id3:2  =>  expand_cross_2(id2, id3, id1)
     // id1:3 == id2:3 X id3:3  =>  expand_cross_3(id2, id3, id1)
-
-    // id1:2 X id2:2 == id3:1  =>  expand_cross_2(id1, id2, id3)
-    // id1:3 X id2:3 == id3:3  =>  expand_cross_3(id1, id2, id3)
-
     Ok(match syn::parse::<UnitsRelation>(input)? {
-        // id:1 * id:1 == id:1
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D1,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_1_1(id1, id2, id3),
-        // id:1 * id:2 == id:2
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D1,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D2,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D2,
-        } => expand_1_2(id1, id2, id3),
-        // id:2 * id:1 == id:2
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D2,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D2,
-        } => expand_1_2(id2, id1, id3),
-        // id:1 * id:3 == id:3
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D1,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D3,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D3,
-        } => expand_1_3(id1, id2, id3),
-        // id:3 * id:1 == id:3
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D3,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D3,
-        } => expand_1_3(id2, id1, id3),
-        // id:1 * id:1 == 1
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D1,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: One,
-            dim3: _,
-        } => expand_inverse(id1, id2),
-        // id:2 * id:2 == id:1
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D2,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D2,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_2_2(id1, id2, id3),
-        // id:3 * id:3 == id:1
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D3,
-            operator1: Mul,
-            unit2: Id(id2),
-            dim2: D3,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_3_3(id1, id2, id3),
-
-        // id:1 / id:1 == id:1
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D1,
-            operator1: Div,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_1_1(id2, id3, id1),
-        // id:2 / id:1 == id:2
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D2,
-            operator1: Div,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D2,
-        } => expand_1_2(id2, id3, id1),
-        // id:3 / id:1 == id:3
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D3,
-            operator1: Div,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D3,
-        } => expand_1_3(id2, id3, id1),
-        // 1 / id:1 == id:1
-        UnitsRelation {
-            unit1: One,
-            dim1: _,
-            operator1: Div,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_inverse(id2, id3),
-
         // id:1 == id:1 * id:1
         UnitsRelation {
             unit1: Id(id1),
@@ -665,6 +509,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D1,
         } => expand_1_1(id2, id3, id1),
+
         // id:2 == id:1 * id:2
         UnitsRelation {
             unit1: Id(id1),
@@ -676,6 +521,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D2,
         } => expand_1_2(id2, id3, id1),
+
         // id:2 == id:2 * id:1
         UnitsRelation {
             unit1: Id(id1),
@@ -687,6 +533,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D1,
         } => expand_1_2(id3, id2, id1),
+
         // id:3 == id:1 * id:3
         UnitsRelation {
             unit1: Id(id1),
@@ -698,6 +545,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D3,
         } => expand_1_3(id2, id3, id1),
+
         // id:3 == id:3 * id:1
         UnitsRelation {
             unit1: Id(id1),
@@ -709,17 +557,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D1,
         } => expand_1_3(id3, id2, id1),
-        // 1 == id:1 * id:1
-        UnitsRelation {
-            unit1: One,
-            dim1: _,
-            operator1: Eq,
-            unit2: Id(id2),
-            dim2: D1,
-            operator2: Mul,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_inverse(id2, id3),
+
         // id:1 == id:2 * id:2
         UnitsRelation {
             unit1: Id(id1),
@@ -731,6 +569,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D2,
         } => expand_2_2(id2, id3, id1),
+
         // id:1 == id:3 * id:3
         UnitsRelation {
             unit1: Id(id1),
@@ -754,6 +593,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D1,
         } => expand_1_1(id3, id1, id2),
+
         // id:2 == id:2 / id:1
         UnitsRelation {
             unit1: Id(id1),
@@ -765,6 +605,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D1,
         } => expand_1_2(id3, id1, id2),
+
         // id:3 == id:3 / id:1
         UnitsRelation {
             unit1: Id(id1),
@@ -776,6 +617,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D1,
         } => expand_1_3(id3, id1, id2),
+
         // id:1 == 1 / id:1
         UnitsRelation {
             unit1: Id(id1),
@@ -799,6 +641,7 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             unit3: Id(id3),
             dim3: D2,
         } => expand_cross_2(id2, id3, id1),
+
         // id:3 == id:3 X id:3
         UnitsRelation {
             unit1: Id(id1),
@@ -811,28 +654,6 @@ fn define_units_relation_impl(input: TokenStream) -> std::result::Result<TokenSt
             dim3: D3,
         } => expand_cross_3(id2, id3, id1),
 
-        // id:2 X id:2 == id:1
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D2,
-            operator1: Cross,
-            unit2: Id(id2),
-            dim2: D2,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D1,
-        } => expand_cross_2(id1, id2, id3),
-        // id:3 X id:3 == id:3
-        UnitsRelation {
-            unit1: Id(id1),
-            dim1: D3,
-            operator1: Cross,
-            unit2: Id(id2),
-            dim2: D3,
-            operator2: Eq,
-            unit3: Id(id3),
-            dim3: D3,
-        } => expand_cross_3(id1, id2, id3),
         _ => {
             return Err(syn::Error::new(
                 proc_macro2::Span::call_site(),

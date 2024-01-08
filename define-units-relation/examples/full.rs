@@ -1,3 +1,6 @@
+// To run this, type:
+// cargo run --example full
+
 mod units;
 use rs_measures::{angle::Radian, traits::CrossProduct};
 use units::*;

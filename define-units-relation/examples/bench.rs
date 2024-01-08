@@ -35,7 +35,7 @@ impl MeasurementUnit for Joule {
     const SUFFIX: &'static str = " J";
 }
 
-use define_units_relation::define_units_relation;
+use units_relation::define_units_relation;
 define_units_relation! {Joule == Newton * Metre}
 
 const BENCH_MATRIX_SIZE: usize = 120;

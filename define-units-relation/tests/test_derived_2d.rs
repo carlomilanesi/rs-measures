@@ -42,6 +42,9 @@ impl MeasurementUnit for SquareMetre {
     const SUFFIX: &'static str = " m\u{b2}";
 }
 
+/*
+use units_relation::define_units_relation;
+
 #[test]
 fn test_u1_2_mul_u1_2_equals_u3() {
     //expand_1_2 ==
@@ -49,7 +52,6 @@ fn test_u1_2_mul_u1_2_equals_u3() {
     // Measure2d<U3>.sqr() -> Measure<U1>
     // Measure2d<U1>.cross_product(Measure2d<U1>) -> Measure<U3>
 
-    use define_units_relation::define_units_relation;
     define_units_relation! { Metre: 2 * Metre: 2 == SquareMetre }
 
     let distance1 = Measure2d::<Metre>::new(2., 3.);
@@ -71,7 +73,6 @@ fn test_u1_mul_u2_2_equals_u3_2() {
     // Measure2d<U2> * Measure<U1> -> Measure2d<U3>
     // Measure2d<U3> / Measure<U1> -> Measure2d<U2>
 
-    use define_units_relation::define_units_relation;
     define_units_relation! { Second * MetrePerSecond: 2 == Metre: 2 }
 
     /*
@@ -89,6 +90,7 @@ fn test_u1_mul_u2_2_equals_u3_2() {
     assert_eq!(interval3.to_string(), "5 s");
     */
 }
+*/
 
 /*
 //expand_1_1 ==

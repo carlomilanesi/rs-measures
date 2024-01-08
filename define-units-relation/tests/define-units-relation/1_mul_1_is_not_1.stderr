@@ -1,5 +1,0 @@
-error: expected one of: `*`, `/`, `==`, identifier
-  --> tests/define-units-relation/1_mul_1_is_not_1.rs:35:57
-   |
-35 | define_units_relation::define_units_relation! { U1 * U2 != U3 }
-   |                                                         ^

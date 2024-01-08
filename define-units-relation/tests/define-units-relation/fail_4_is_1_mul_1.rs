@@ -1,4 +1,4 @@
-rs_measures::define_measure_3d! {}
+rs_measures::define_measure_1d! {}
 
 pub struct P1;
 
@@ -9,6 +9,7 @@ impl MeasurementUnit for U1 {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " u1";
 }
+impl VectorMeasurementUnit for U1 {}
 
 pub struct P2;
 
@@ -30,13 +31,7 @@ impl MeasurementUnit for U3 {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " u3";
 }
-impl VectorMeasurementUnit for U3 {}
 
-define_units_relation::define_units_relation! { U1 * U2:3 == U3:3 }
+units_relation::define_units_relation! { U1:4 == U2 * U3 }
 
-fn main() {
-    let u3: Measure3d<U3> = Measure::<U1>::new(6.) * Measure3d::<U2>::new(4., 5., 7.);
-    assert_eq!(u3.x, 24.);
-    assert_eq!(u3.y, 30.);
-    assert_eq!(u3.z, 42.);
-}
+fn main() {}

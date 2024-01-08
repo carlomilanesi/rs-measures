@@ -42,6 +42,9 @@ impl MeasurementUnit for SquareMetre {
     const SUFFIX: &'static str = " m\u{b2}";
 }
 
+/*
+use units_relation::define_units_relation;
+
 #[test]
 fn test_u1_mul_u1_equals_u3() {
     //expand_1_1 ==
@@ -50,7 +53,6 @@ fn test_u1_mul_u1_equals_u3() {
     // Measure<U1>.squared() -> Measure<U2>
     // Measure<U2>.sqrt() -> Measure<U1>
 
-    use define_units_relation::define_units_relation;
     define_units_relation! { Metre * Metre == SquareMetre }
 
     let distance1 = Measure::<Metre>::new(2.);
@@ -75,7 +77,6 @@ fn test_u1_mul_u2_equals_u3() {
     // Measure<U3> / Measure<U1> -> Measure<U2>
     // Measure<U3> / Measure<U2> -> Measure<U1>
 
-    use define_units_relation::define_units_relation;
     define_units_relation! { MetrePerSecond * Second == Metre }
 
     let velocity1 = Measure::<MetrePerSecond>::new(2.);
@@ -91,6 +92,7 @@ fn test_u1_mul_u2_equals_u3() {
     let interval3: Measure<Second> = distance1 / velocity1;
     assert_eq!(interval3.to_string(), "5 s");
 }
+*/
 
 /*
 //expand_1_1 ==

@@ -1,4 +1,4 @@
-rs_measures::define_measure_2d!{}
+rs_measures::define_measure_2d! {}
 
 pub struct P1;
 
@@ -21,8 +21,9 @@ impl MeasurementUnit for U2 {
 }
 impl VectorMeasurementUnit for U2 {}
 
-define_units_relation::define_units_relation! { U1 == U2:2 * U2:2 }
+units_relation::define_units_relation! { U1 == U2:2 * U2:2 }
 
 fn main() {
-    let _: Measure<U1> = Measure2d::<U2>::new(1.2, 1.3) * Measure2d::<U2>::new(2.3, 2.4);
+    let u1: Measure<U1> = Measure2d::<U2>::new(6., 4.) * Measure2d::<U2>::new(7., 8.);
+    assert_eq!(u1.value, 74.);
 }

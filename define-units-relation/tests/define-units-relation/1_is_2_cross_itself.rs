@@ -21,7 +21,7 @@ impl MeasurementUnit for U2 {
 }
 impl VectorMeasurementUnit for U2 {}
 
-define_units_relation::define_units_relation! { U1 == U2:2 X U2:2 }
+units_relation::define_units_relation! { U1 == U2:2 X U2:2 }
 
 fn main() {
     let u1: Measure<U1> = Measure2d::<U2>::new(6., 5.).cross_product(Measure2d::<U2>::new(7., 4.));

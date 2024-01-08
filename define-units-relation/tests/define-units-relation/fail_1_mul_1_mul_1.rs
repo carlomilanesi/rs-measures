@@ -1,4 +1,4 @@
-rs_measures::define_measure_3d!{}
+rs_measures::define_measure_1d! {}
 
 pub struct P1;
 
@@ -32,8 +32,6 @@ impl MeasurementUnit for U3 {
     const SUFFIX: &'static str = " u3";
 }
 
-define_units_relation::define_units_relation! { U1:3 * U2:3 == U3 }
+units_relation::define_units_relation! { U1 * U2 * U3 }
 
-fn main() {
-    let _: Measure<U3> = Measure3d::<U1>::new(1.2, 1.3, 1.4) * Measure3d::<U2>::new(2.3, 2.4, 2.5);
-}
+fn main() {}

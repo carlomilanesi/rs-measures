@@ -22,16 +22,6 @@ impl MeasurementUnit for U2 {
 }
 impl VectorMeasurementUnit for U2 {}
 
-pub struct P3;
-
-pub struct U3;
-impl MeasurementUnit for U3 {
-    type Property = P3;
-    const RATIO: f64 = 1.;
-    const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " u3";
-}
-
-define_units_relation::define_units_relation! { U1 * U2 != U3 }
+units_relation::define_units_relation! { U1 == 2 / U2 }
 
 fn main() {}
