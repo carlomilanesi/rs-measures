@@ -9,7 +9,7 @@ fn compile_fail(tester: &TestCases, case: &str) {
 }
 
 #[test]
-fn passing_tests() {
+fn tests() {
     let t = TestCases::new();
     pass(&t, "1_is_1_mul_1"); // id1:1 == id2:1 * id3:1  =>  expand_1_1(id2, id3, id1)
     pass(&t, "1_is_1_mul_itself"); // id1:1 == id2:1 * id3:1  =>  expand_1_1(id2, id3, id1)
@@ -29,13 +29,8 @@ fn passing_tests() {
     pass(&t, "1_is_2_cross_itself"); // id1:1 == id2:2 X id2:2  =>  expand_cross_2(id2, id2, id1)
     pass(&t, "3_is_3_cross_3"); // id1:3 == id2:3 X id3:3  =>  expand_cross_3(id2, id3, id1)
     pass(&t, "3_is_3_cross_itself"); // id1:3 == id2:3 X id2:3  =>  expand_cross_3(id2, id2, id1)
-}
-
-#[test]
-fn failing_tests() {
-    let t = TestCases::new();
-    compile_fail(&t, "fail_1_is_1_mul_2");
-    compile_fail(&t, "fail_1_is_bad_literal_div_1");
-    compile_fail(&t, "fail_1_mul_1_mul_1");
-    compile_fail(&t, "fail_4_is_1_mul_1");
+    compile_fail(&t, "fail_1_is_1_mul_2"); // id1:1 == id2:1 * id3:2
+    compile_fail(&t, "fail_1_is_bad_literal_div_1"); // id1:1 == 2 / id2:1
+    compile_fail(&t, "fail_1_mul_1_mul_1"); // id1:1 * id2:1 * id3:1
+    compile_fail(&t, "fail_4_is_1_mul_1"); // id1:4 == id2:1 * id3:1
 }

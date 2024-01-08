@@ -5,14 +5,6 @@
 [![CI](https://github.com/carlomilanesi/rs-measures/workflows/Continuous%20Integration/badge.svg)](https://github.com/carlomilanesi/rs-measures/actions)
 [![Coverage Status](https://coveralls.io/repos/github/carlomilanesi/rs-measures/badge.svg?branch=master)](https://coveralls.io/github/carlomilanesi/rs-measures?branch=master)
 
-## Installation
-
-### Cargo
-
-* Install the rust toolchain in order to have cargo installed by following
-  [this](https://www.rust-lang.org/tools/install) guide.
-* run `cargo install rs-measures`
-
 ## License
 
 Licensed under either of

@@ -1,5 +1,5 @@
 [package]
-name = "define-units-relation"
+name = "units-relation"
 version = "0.0.0"
 authors = ["Carlo Milanesi <carlo.milanesi@libero.it>"]
 edition = "2018"

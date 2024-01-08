@@ -1,5 +1,5 @@
 [workspace]
 members = [
-    "define-units-relation",
+    "units-relation",
     "rs-measures",
 ]
