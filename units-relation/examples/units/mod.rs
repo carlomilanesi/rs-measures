@@ -1543,6 +1543,7 @@ impl MeasurementUnit for Tonne {
     const SUFFIX: &'static str = " t";
 }
 
+#[allow(dead_code)]
 pub type MetricTon = Tonne;
 
 pub struct MegaGram;
@@ -1609,6 +1610,7 @@ impl MeasurementUnit for ImperialTon {
     const SUFFIX: &'static str = " t";
 }
 
+#[allow(dead_code)]
 pub type LongTon = ImperialTon;
 
 pub struct USTon;
@@ -1619,6 +1621,7 @@ impl MeasurementUnit for USTon {
     const SUFFIX: &'static str = " t";
 }
 
+#[allow(dead_code)]
 pub type ShortTon = USTon;
 
 pub struct Stone;

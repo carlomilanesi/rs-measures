@@ -1,8 +1,8 @@
 # Motivation
 
-This document describes the rationale for the Rs-Measures library.
+This document describes the rationale for the crates `rs-measures` and `units-relation`.
 
-Using primitive Rust data types to store the value of physical or geometrical quantities, several programming errors are possible. But some of them can be avoided, at no run-time cost, by using the Rs-Measures crate.
+Using primitive Rust data types to store the value of physical or geometrical quantities, several programming errors are possible. But some of them can be avoided, at no run-time cost, by encapsulating these values in custom types.
 
 ## Mixing measures having different unit of measurement
 
@@ -30,7 +30,7 @@ set_mass(mass1); // Compilation error.
 
 The third and the last statements cause compilation errors for type mismatch, as the values are encapsulated in objects whose types is characterized by a unit of measurement, and any value must have the same type of the variable to which it is assigned.
 
-## Bad unit conversions
+## Unit conversions
 
 Consider the following Rust code:
 
@@ -53,17 +53,21 @@ mass2 = mass1.convert();
 let mass3 = mass1.convert::<Pound>();
 ```
 
-The third statement simply invokes the `convert` method. The correct formula is inferred by using the type of the destination variable. The last statement must specify the destination unit of measurement, as for the destination variable no type is specified.
+The third statement simply invokes the `convert` method. The correct formula is inferred by using the type of the destination variable. The last statement must specify the destination unit of measurement, because otherwise no type can be inferred for the destination variable.
 
-## User-specified properties and units of measurement
+## Non-standard units of measurement
 
-Some existing libraries, for example the UOM crate, solve the previous issues by defining a set of standard units, typically taken from the SI international standard, and, at run-time, they convert all input values from the user-chosen units to such standard units, and they convert all output values from such standard units to user-chosen units.
+Some existing libraries, for example the UOM crate, encapsulate each value in an object which represents that value in a standard unit of measurement, typically taken from the SI international standard.
+This raises the problem of how to handle non-standard units, like milligrams or pounds for mass.
+These libraries use always internally a standard unit, and so, at run-time, they can convert any input value from a user-chosen unit to a standard unit, and they can convert any output value from a standard unit to a user-chosen unit.
 
 Such technique has the following drawbacks:
 
-1. It forces programmers to use units that are different from the ones actually seen by users. For example, a developer wants to use everywhere only pounds. But if he tries to explore with a debugger the contents of a weight object, he finds a value in kilograms.
+1. It forces developers to use units that are different from the ones actually seen by users. For example, a developer wants to use only the pound as a unit of mass. But if he tries to explore with a debugger the contents of a mass object, he finds a value in kilograms.
 2. It may introduce rounding errors.
-3. It introduces a small conversion overhead for every I/O operation. Instead, when using Rs-Measures, if the input is always in pounds, the number is always stored in pounds, and the output is always in pounds, and so no run-time conversion operations are needed.
+3. It introduces a small conversion overhead for every I/O operation.
+
+Instead, when using rs-measures, the developer can choose the pound as a unit of the mass, so that the input is in pounds, the computations are in pounds, and the output is in pounds. This eases debugging, avoids unexpected rounding errors, and avoids run-time conversion overhead.
 
 Regarding the rounding errors, consider, for example, the following Rust code using the UOM crate:
 
@@ -87,11 +91,11 @@ fn main() {
 }
 ```
 
-It defines the `mass1` and `mass2` variables by specifying a value in grams and a value in pounds, but it stores internally those values in kilograms. Then it prints the first variable using two different formatters, one for grams, and one for kilograms, and the second variable using the formatter for pounds. The output is: `8030.0005 g, 8.030001 kg, 27.000002 lb.`.
+It defines the variables `mass1` and `mass2` by specifying a value in grams and a value in pounds, but it stores internally those values in kilograms. Then it prints the first variable using two different formatters, one for grams, and one for kilograms, and the second variable using the formatter for pounds. The output is: `8030.0005 g, 8.030001 kg, 27.000002 lb.`.
 
-As you can see, even the value in grams and the value in pounds are different from the original values. This happens even they being small integer values, which usually do not introduce rounding errors in floating-point numbers.
+As you can see, even the value in grams and the value in pounds are different from the original values. This happens even with such small integer values, which usually do not introduce rounding errors in floating-point numbers.
 
-The corresponding program using Rs-Measures is this:
+The corresponding program using rs-measures is this:
 
 ```rust
 using measures::{Measure, units::{Gram, KiloGram, Pound}};
@@ -106,16 +110,39 @@ It will print `8030 g, 8.030001 kg, 27 lb.`.
 
 Only the value in kilograms is not exact, because its value is stored internally in grams, and the conversion to kilograms introduced a rounding error.
 
-In addition, trying to define in a library all possible properties and units has the following drawbacks:
+## All-encompassing libraries
 
-1. It makes the library unnecessarily heavy to compile, as the resulting types are very complex.
-2. Because of the complexity of the resulting types, the compiler error messages are quite verbose.
-3. If the library is not extensible, it may be incomplete, as there are some little used units that some application may require and that have not been included in the library. If it is extensible, it is usually somewhat difficult to do.
-4. It forces programmers to use a specific natural language to name the properties and their units of measurements, instead of the natural language of the programmer. For example, some people prefer to write "metre" and others prefer to write "meter".
+To represent all possible physical or geometrical properties, such libraries try to define inside them all existing properties and all existing units.
+This has the following drawbacks:
+1. It makes the library heavy to compile, as the resulting types are quite numerous.
+2. If the library is not extensible, it may be incomplete, as there are some little used units that some applications may require and which have not been included in the library. If it is extensible, it is usually somewhat difficult to extend it.
+3. It forces developers to use a specific natural language to name the properties and their units of measurements, instead of the natural language of the developers. For example, some people prefer to write "metre" and others prefer to write "meter", for the same unit.
 
-Therefore, it is better to allow the application programmers to define only the units of measurement they need, and which they are going to use in their software application, instead of trying to cover all existing units of measurement.
+Instead, the library `rs-measures` has just one built-in property, Angle, and just one built-in unit of measurement for it, Radian.
+Every other unit and every other unit of measurement can be easily defined by the application developers.
+In this way:
+1. The library uses little compile-time and run-time resources, because it will include only the few properties and units needed by the application.
+2. If the library is by-design easily extensible, by adding custom properties and units.
+3. The developers can define their preferred names for the properties and the units of measurement, and also the preferred suffixes for the units of measurement.
 
-Regarding the compilation error messages, let's see some examples. If, using the UOM crate, we write the statement `let _: Length = Mass::new::<gram>(0.);`, that tries to assign a mass to a length, we get the following compilation error message:
+## Specifying derived units
+
+If you have a value representing a mass and another value representing a volume, the division of the first value by the second must represent a mass density.
+This can be enforced by some rules.
+In existing libraries, these rules are built-in, and implemented in very complex types, in a way that cannot be modified by the application developers.
+This has the following drawbacks:
+1. The complexity of the resulting types makes the application heavy to compile.
+2. The complexity of the resulting types makes the compiler error messages quite cryptic.
+3. No rules can be added by application developers.
+
+Instead, the library `rs-measures` has no built-in rules to define derived properties.
+Every derivation rule can be easily defined by the application developers.
+In this way:
+1. The simplicity of the resulting types makes the application quick to compile.
+2. The complexity of the resulting types makes the compiler error messages quite clear.
+3. Application developers can define rules for exotic properties or units of measurement.
+
+Regarding the compilation error messages, let's see some examples. If, using the UOM crate, we write the statement `let _: Length = Mass::new::<gram>(0.);`, which tries to assign a mass to a length, we get the following compilation error message:
 
 ```text
   --> src/main.rs:106:21
@@ -129,30 +156,31 @@ Regarding the compilation error messages, let's see some examples. If, using the
               found struct `uom::si::Quantity<(dyn uom::si::Dimension<T = uom::typenum::Z0, Th = uom::typenum::Z0, N = uom::typenum::Z0, J = uom::typenum::Z0, M = uom::typenum::PInt<uom::typenum::UInt<uom::typenum::UTerm, uom::typenum::B1>>, I = uom::typenum::Z0, L = uom::typenum::Z0, Kind = (dyn uom::Kind + 'static)> + 'static), dyn uom::si::Units<f32, length = uom::si::length::meter, mass = uom::si::mass::kilogram, electric_current = uom::si::electric_current::ampere, time = uom::si::time::second, thermodynamic_temperature = uom::si::thermodynamic_temperature::kelvin, luminous_intensity = uom::si::luminous_intensity::candela, amount_of_substance = uom::si::amount_of_substance::mole>, _>`
 ```
 
-Instead, if, using the Rs-Measures crate, we write the statement `let _: Measure<Metre, f32> = Measure::<Gram, f32>::new(0.);`, that tries to assign a mass in grams to a length in metres, the generated error message is:
+Instead, if, using the library rs-measures, we write the statement `let _: Measure<Metre> = Measure::<Gram>::new(0.);`, that tries to assign a mass in grams to a length in metres, the generated error message is:
 
 ```text
 error[E0308]: mismatched types
   --> src/main.rs:50:34
    |
-50 |     let _: Measure<Metre, f32> = Measure::<Gram, f32>::new(0.);
-   |            -------------------   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ expected struct `Metre`, found struct `Gram`
+50 |     let _: Measure<Metre> = Measure::<Gram>::new(0.);
+   |            --------------   ^^^^^^^^^^^^^^^^^^^^^^^^ expected struct `Metre`, found struct `Gram`
    |            |
    |            expected due to this
    |
-   = note: expected struct `Measure<Metre, _>`
-              found struct `Measure<Gram, _>`
+   = note: expected struct `Measure<Metre>`
+              found struct `Measure<Gram>`
 ```
 
-From it, it is clear that it was used a Gram unit where a Metre unit was expected (or vice versa).
+From it, it is clear that it was used unit `Gram` where unit `Metre` was expected (or vice versa).
 
-Instead, if we write the statement `let _ = Measure::<Metre, f32>::new(0.).convert::<Second>();`, that tries to convert a measure in metres into a measure in seconds, the generated error message is:
+Instead, if we write the statement `let _ = Measure::<Metre>::new(0.).convert::<Second>();`, that tries to convert a measure in metres into a measure in seconds, the generated error message is:
 
 ```text
+error[E0271]: type mismatch resolving `<Second as MeasurementUnit>::Property == Length`
    --> rs-measures/src/bin/main.rs:104:54
     |
-104 |     let _ = Measure::<Metre, f32>::new(0.).convert::<Second>();
-    |                                                      ^^^^^^ type mismatch resolving `<Second as MeasurementUnit>::Property == Length`
+104 |     let _ = Measure::<Metre>::new(0.).convert::<Second>();
+    |                                                 ^^^^^^ type mismatch resolving `<Second as MeasurementUnit>::Property == Length`
     |
 note: expected this to be `Length`
    --> rs-measures/src/bin/main.rs:22:21
@@ -162,14 +190,16 @@ note: expected this to be `Length`
 note: required by a bound in `Measure::<Unit, Number>::convert`
    --> rs-measures/src/bin/main.rs:4:1
     |
-4   | define_measure_2d! {}
-    | ^^^^^^^^^^^^^^^^^^^^^ required by this bound in `Measure::<Unit, Number>::convert`
-    = note: this error originates in the macro `rs_measures::define_measure_1d` which comes from the expansion of the macro `define_measure_2d` (in Nightly builds, run with -Z macro-backtrace for more info)
+4   | rs_measures::define_measure_1d! {}
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `Measure::<Unit, Number>::convert`
+    = note: this error originates in the macro `rs_measures::define_measure_1d` (in Nightly builds, run with -Z macro-backtrace for more info)
 ```
 
-From it, it is clear that, for the destination unit of the conversion, a Time unit was specified, but a Length unit was expected.
+From it, it is clear that, for the destination unit of the conversion, a unit of `Length` was expected, but a unit of `Time` was specified.
 
 ## Meaningless operations for measure points
+
+The usefulness of this library does not end here.
 
 Consider the following Rust code:
 
@@ -178,29 +208,29 @@ let position1 = 1.2;
 let position2 = 2.3;
 let displacement1 = 0.3;
 let position3 = position1 + displacement1; // Meaniningful.
-let _ = position1 + position2; // Meaniningless.
+let what1 = position1 + position2; // Meaniningless.
 let displacement2 = position2 - position1; // Meaniningful.
-let _ = position1 * 2.; // Meaniningless.
+let what2 = position1 * 2.; // Meaniningless.
 ```
 
-In the fourth statement, a position is incremented by a displacement, obtaining another position. It is a meaningful operation.
+The value of the variable `position3` is a position, obtained by incrementing another position by a displacement. It is a meaningful operation.
 
-In the fifth statement, a position in incremented by another position. It is a meaningless operation, but it is allowed by the compiler.
+Instead, the value of the variable `what1` is obtained by incrementing a position by another position. It is a meaningless operation, but it is allowed by the compiler.
 
-In the sixth line, the difference between two positions is computed, obtaining the displacement to go from the `position1` to `position2`. It is a meaningful operation.
+The value of the variable `displacement2` is a displacement, obtained by computing the difference between two positions. It is the movement to go from the `position1` to `position2`. It is a meaningful operation.
 
-In the seventh line, a position is multiplied by 2. It is a meaningless operation, but it is allowed by the compiler.
+Instead, the variable `what2` is obtained by multiplying a position by 2. It is a meaningless operation, but it is allowed by the compiler.
 
-This is avoided by using this code:
+This can be avoided by using this code:
 
 ```rust
 let position1 = MeasurePoint::<Metre, f64>::new(1.2);
 let position2 = MeasurePoint::<Metre, f64>::new(2.3);
 let displacement1 = Measure::<Metre, f64>::new(0.3);
 let position3 = position1 + displacement1; // Allowed.
-let position3 = position1 + position2; // Compilation error.
+let what1 = position1 + position2; // Compilation error.
 let displacement2 = position2 - position1; // Allowed.
-let _ = position1 * 2.; // Compilation error.
+let what2 = position1 * 2.; // Compilation error.
 ```
 
 In this code, displacements are encapsulated in objects of type `Measure`, and positions are encapsulated in objects of type `MeasurePoint`. Using such types, the attempts to add two positions or to multiply a position by a number cause compilation errors.
@@ -218,16 +248,19 @@ let celsius_temperature_point = fahrenheit_temperature_point
     / 9. * 5.; // Wrong; different scale origin.
 ```
 
-The second statement correctly converts a temperature variation from the Fahrenheit scale to the Celsius scale. Though, the last statement applies the same formula to convert a temperature point from the Celsius scale to the Fahrenheit scale. It is wrong, because it does not take into account the fact that these two scales have different origins.
+To compute the value to assign to the variable `celsius_temperature_variation`, a temperature variation is correctly converted from the Fahrenheit scale to the Celsius scale.
+Instead, to compute the value to assign to the variable `celsius_temperature_point`, the same formula is wrongly applied to convert a temperature point from the Celsius scale to the Fahrenheit scale.
+It is wrong, because it does not take into account the fact that these two scales have different origins.
 
 This is avoided by using this code:
 
 ```rust
-let fahrenheit_temperature_variation = Measure::<Fahrenheit, f64>::new(3.);
-let celsius_temperature_variation = fahrenheit_temperature_variation
-    .convert::<Celsius>();
-let fahrenheit_temperature_point = MeasurePoint::<Fahrenheit, f64>::new(3.);
-let celsius_temperature_point = fahrenheit_temperature_point.convert::<Celsius>();
+let fahrenheit_temperature_variation = Measure::<Fahrenheit>::new(3.);
+let celsius_temperature_variation =
+    fahrenheit_temperature_variation.convert::<Celsius>();
+let fahrenheit_temperature_point = MeasurePoint::<Fahrenheit>::new(3.);
+let celsius_temperature_point =
+    fahrenheit_temperature_point.convert::<Celsius>();
 ```
 
 Both unit conversions use the clause `.convert::<Celsius>()`; though, the second one uses the type `MeasurePoint`, and so it takes into account the different origins.
@@ -243,38 +276,38 @@ let average_speed_in_metres_per_second = distance / time_elapsed;
 // Wrong; this value is in miles per hour.
 ```
 
-The third statement computes a value in miles per hours, and it wrongly assigns that value to a variable meant to keep a value in metres per second.
+The value of the variable `average_speed_in_metres_per_second` is computed in miles per hours, but it is wrongly assigned to a variable meant to keep a value in metres per second.
 
 This is avoided by using this code:
 
 ```rust
-let distance = Measure::<Mile, f64>::new(8.);
-let time_elapsed = Measure::<Hour, f64>::new(2.);
-let average_speed1: Measure<MilePerHour, f64>
+let distance = Measure::<Mile>::new(8.);
+let time_elapsed = Measure::<Hour>::new(2.);
+let average_speed1: Measure<MilePerHour>
     = distance / time_elapsed; // Allowed.
 // or
 let average_speed2 = distance / time_elapsed; // Allowed.
-let average_speed3: Measure<MetrePerSecond, f64>
+let average_speed3: Measure<MetrePerSecond>
     = distance / time_elapsed; // Compilation error.
 ```
 
-The compilation of the third statement checks that the value assigned has the same derived unit of measurement of the variable that receives that value.
+The compilation of the assignment to `average_speed1` checks that the value assigned has the same derived unit of measurement of the variable that receives that value.
 
-The compilation of the fourth statements infers such unit of measurement.
+The compilation of the assignment to `average_speed2` infers such unit of measurement.
 
-The compilation of the last statement generates a type-mismatch compilation error.
+The compilation of the assignment to `average_speed3` generates a type-mismatch compilation error.
 
 ## Plane (2D) And space (3D) measures
 
 Some physical or geometrical properties are properly described as multidimensional. For example, a displacement in a plane has two dimensions (X and Y), and a displacement in space has three dimensions (X, Y, and Z). They are called “vector measures”. Plane vector measures (a.k.a. 2D measures) have two components, and space vector measures (a.k.a. 3D measures) have three components.
 
-For vector measures, usually there is no reason to use a numeric type and a unit of measurement for one component, and a different numeric type or a different unit of measurement for another component. So, the Rs-Measures crate allows to encapsulate all the components of a vector measure into a single object.
+For vector measures, usually there is no reason to use a numeric type and a unit of measurement for one component, and a different numeric type or a different unit of measurement for another component. So, the library `rs-measures` allows to encapsulate all the components of a vector measure into a single object, like `Measure3::<Metre, f64>`, in which all three components have `Metre` as unit of measurement and `f64` as inner type.
 
-For example, instead of writing this code:
+For example, to represent a planar force and a planar displacement, instead of writing this code:
 
 ```rust
 let force = (Measure::<Newton, f64>::new(3.), Measure::<Newton, f64>::new(4.));
-let displacement = (Measure2d::<Metre, f64>::new(7.), Measure2d::<Metre, f64>::new(1.));
+let displacement = (Measure::<Metre, f64>::new(7.), Measure::<Metre, f64>::new(1.));
 ```
 
 You can and should write this code:
@@ -301,24 +334,30 @@ let position_in_space = MeasurePoint3d::<Metre, f64>::new(3., 4., 5.);
 Dot products and cross products between measures have the right units of measurement:
 
 ```rust
-let force = Measure2d::<Newton, f64>::new(3., 4.);
-let displacement = Measure2d::<Metre, f64>::new(7., 1.);
-let work: Measure<Joule, f64> = force * displacement;
-let torque: Measure<NewtonMetre, f64> = force.cross_product(displacement);
+// In a plane
+let force = Measure2d::<Newton>::new(3., 4.);
+let displacement = Measure2d::<Metre>::new(7., 1.);
+let work: Measure<Joule> = force * displacement;
+let torque: Measure<NewtonMetre> = force.cross_product(displacement);
+```rust
 
-let force = Measure3d::<Newton, f64>::new(3., 4., 5.);
-let displacement = Measure3d::<Metre, f64>::new(7., 1., -6.);
-let work: Measure<Joule, f64> = force * displacement;
-let torque: Measure3d<NewtonMetre, f64> = force.cross_product(displacement);
+The value of `work` is obtained by multiplying `force`, a 2D force expressed in newtons, by `displacement`, a 2D displacement expressed in metres. Such multiplication, which uses the "`*`" operator, is the *dot product* between the two 2D vectors. So, the result is an energy (or work), expressed in joules.
+
+The value of `torque` is obtained by computing the cross product between `force` and `displacement`, resulting in a torque, expressed in newton-metres.
+
+Notice that the unit `Joule` and `NewtonMetre` are different types, even if they have the same dimensional composition (mass space space / time time).
+
+Similarly it happens in 3D space:
+
+```rust
+// In space
+let force = Measure3d::<Newton>::new(3., 4., 5.);
+let displacement = Measure3d::<Metre>::new(7., 1., -6.);
+let work: Measure<Joule> = force * displacement;
+let torque: Measure3d<NewtonMetre> = force.cross_product(displacement);
 ```
 
-In the third statement, a 2D force, expressed in newtons, is multiplied by a 2D displacement, expressed in metres. Such multiplication, which uses the "`*`" operator, is the dot product between the two 2D vectors. So, the result is an energy (or work), expressed in joules.
-
-In the fourth statement, the cross product is computed between that force and that displacement, resulting in a torque, expressed in newton-metres.
-
-In the last four statements, similar computations are performed using 3D measures.
-
-Notice that the 2D torque is a scalar (a `Measure`), while the 3D torque is a 3D vector (a `Measure3d`).
+Notice a difference: the 2D torque is a scalar (a `Measure`), while the 3D torque is a 3D vector (a `Measure3d`).
 
 ## Angles and directions
 
@@ -331,7 +370,7 @@ angular_position += rotation;
 assert_eq!(angular_position, 700.);
 ```
 
-The third statement increments an angular position by a rotation. The resulting position is 700 degrees, that is more than one whole turn. It may be what we needed, but it may be we needed instead a position in the circumference, i.e. a directional angle.
+The third statement increments an angular position by a rotation. The resulting position is 700 degrees, that is more than one cycle. It may be just what we needed, but it may be that we needed instead a position in the circumference, i.e. a directional angle. And in such a case, 700 degrees is not a valid result.
 
 There are two widely used conventions to specify a direction: using an angle from 0 to 360 degrees, or an angle from -180 to +180 degrees. The former case, which uses only non-negative values, is computed by the the following statement:
 
@@ -350,24 +389,26 @@ assert_eq!(direction180, -20.);
 Though, these formulas are error-prone, and depend on the angular unit of measurement. These error-prone expressions are avoided by using this code:
 
 ```rust
-let mut angular_position = MeasurePoint::<Degree, f64>::new(300.);
-let rotation = Measure::<Degree, f64>::new(400.);
+// An unconstrained angular position.
+let mut angular_position = MeasurePoint::<Degree>::new(300.);
 
-// It increments an unconstrained angular position,
-// that is a `MeasurePoint`, by adding a rotation to it.
+// An rotation.
+let rotation = Measure::<Degree>::new(400.);
+
+// The position is incremented by the rotation.
 angular_position += rotation;
 assert_eq!(700., angular_position.value);
 
 // The method `to_unsigned_direction` converts the unconstrained angular position
 // to a direction type, whose values are constrained to be in the range 0 to 360 degrees.
 // Such a type is named `UnsignedDirection`, because it may have only non-negative values.
-let unsigned_direction: UnsignedDirection::<Degree, f64> = angular_position.to_unsigned_direction();
+let unsigned_direction: UnsignedDirection::<Degree> = angular_position.to_unsigned_direction();
 assert_eq!(unsigned_direction.value, 340.);
 
 // The method `to_signed_direction` converts the unconstrained angular position
 // to a direction type, whose values are constrained to be in the range -180 to 180 degrees.
 // Such a type is named `SignedDirection`, because it may have negative or positive values.
-let signed_direction: SignedDirection::<Degree, f64> = angular_position.to_signed_direction();
+let signed_direction: SignedDirection::<Degree> = angular_position.to_signed_direction();
 assert_eq!(signed_direction.value, -20.);
 ```
 
@@ -380,21 +421,21 @@ extern crate nalgebra;
 use nalgebra::{Rotation2, Vector2};
 fn main() {
     let displacement = Vector2::new(4., 5.);
-    let rotation = Rotation2::new(0.01);
+    let rotation = Rotation2::new(0.1);
     let rotated_displacement = rotation * displacement;
 }
 ```
 
 First, it stores in `displacement` a 2D measure, with no units of measurement. Then, it stores in `rotation` a 2D linear transformation. Then, such rotation is applied to the displacement, using a matrix multiplication, obtaining a transformed 2D measure. Such resulting measure is stored in the variable `rotated_displacement`. Of course, such a variable is meant to have the same unit of measurement of the first variable, but this is not specified by the used types.
 
-Let’s try to attach units to measures, with this code:
+Let’s try to attach units of measurement to these measures, with this code:
 
 ```rust
 let displacement = Vector2::new(
     Measure::<Metre, f64>::new(4.),
     Measure::<Metre, f64>::new(5.),
 );
-let rotation = Rotation2::new(Measure::<Radian, f64>::new(0.01));
+let rotation = Rotation2::new(Measure::<Radian, f64>::new(0.1));
 let rotated_displacement = rotation * displacement;
 ```
 
@@ -406,27 +447,29 @@ let displacement = Vector2::new(
     Measure::<Metre, f64>::new(4.),
     Measure::<Metre, f64>::new(5.),
 );
-let rotation = Rotation2::new(0.01);
+let rotation = Rotation2::new(0.1);
 let rotated_displacement = rotation * displacement;
 ```
 
 This causes an error on the last statement, as `nalgebra` is not able to apply a linear transformation to a vector of `Measure` values. And even if it were able, probably the resulting value, which is assigned to `rotated_displacement`, wouldn’t have the proper unit of measurement.
 
-Instead, using the Rs-Measures crate, it is possible to compile the following code:
+Instead, using the library `rs-measures`, it is possible to compile the following code:
 
 ```rust
-let displacement = Measure2d::<Metre, f64>::new(4., 5.);
+// A 2D measure in metres.
+let displacement = Measure2d::<Metre>::new(4., 5.);
+
+// A 2D linear transformation, corresponding
+// to a counterclockwise rotation on 0.1 radians.
 let rotation = LinearMap2d::rotation(
-    Measure::<Radian, f64>::new(0.01));
+    Measure::<Radian>::new(0.1));
+
+// The rotation is applied to the planar measure,
+// obtaining a rotated measure,
+// having the same type of the original measure.
 let rotated_displacement = rotation.apply_to(displacement);
 ```
 
-The first statement creates a 2D measure in metres.
-
-The second statement creates a 2D linear transformation that corresponds to a rotation of 0.01 radians.
-
-The third statement applies that transformation to the measure, returning a value having the same type of the original displacement.
-
-The above code uses the type `LinearMap2d` to manipulate objects of type `Measure2d`. To manipulate objects of type `MeasurePoint2d`, the type `AffineMap2d` should be used instead.
+The above code uses the type `LinearMap2d` to transform objects of type `Measure2d`. To transform objects of type `MeasurePoint2d`, the type `AffineMap2d` should be used instead.
 
 And when working in three dimensions, the types `LinearMap3d` and `AffineMap3d` should be used.
