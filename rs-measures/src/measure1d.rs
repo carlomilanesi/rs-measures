@@ -347,10 +347,7 @@ macro_rules! define_measure_1d {
 
             /// UnsignedDirection::from_measure_point(MeasurePoint) -> UnsignedDirection
             pub fn from_measure_point(m: MeasurePoint<Unit, Number>) -> Self {
-                Self {
-                    value: Self::normalize(m.value),
-                    phantom: PhantomData,
-                }
+                Self::new(m.value)
             }
 
             pub fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
@@ -396,10 +393,10 @@ macro_rules! define_measure_1d {
         }
 
         // Unsigned direction += angle measure
-        impl<Unit, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
             for UnsignedDirection<Unit, Number> {
             fn add_assign(&mut self, other: Measure<Unit, Number>) {
-                self.value += other.value;
+                *self = *self + other;
             }
         }
 
@@ -413,10 +410,10 @@ macro_rules! define_measure_1d {
         }
 
         // Unsigned direction -= angle measure
-        impl<Unit, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
             for UnsignedDirection<Unit, Number> {
             fn sub_assign(&mut self, other: Measure<Unit, Number>) {
-                self.value -= other.value;
+                *self = *self - other;
             }
         }
 
@@ -482,10 +479,7 @@ macro_rules! define_measure_1d {
             }
 
             pub fn from_measure_point(m: MeasurePoint<Unit, Number>) -> Self {
-                Self {
-                    value: Self::normalize(m.value),
-                    phantom: PhantomData,
-                }
+                Self::new(m.value)
             }
 
             pub fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
@@ -531,10 +525,10 @@ macro_rules! define_measure_1d {
         }
 
         // Signed direction += angle measure
-        impl<Unit, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
             for SignedDirection<Unit, Number> {
             fn add_assign(&mut self, other: Measure<Unit, Number>) {
-                self.value += other.value;
+                *self = *self + other;
             }
         }
 
@@ -548,10 +542,10 @@ macro_rules! define_measure_1d {
         }
 
         // Signed direction -= angle measure
-        impl<Unit, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
             for SignedDirection<Unit, Number> {
             fn sub_assign(&mut self, other: Measure<Unit, Number>) {
-                self.value -= other.value;
+                *self = *self - other;
             }
         }
 

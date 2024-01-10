@@ -184,9 +184,34 @@ fn unsigned_direction_lossy_into_64_to_64() {
 #[test]
 fn unsigned_direction_addition_of_vector() {
     let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
-    let m = Measure::<Degree, f32>::new(7.);
-    let ud2: UnsignedDirection<Degree, f32> = ud1 + m;
+    let m1 = Measure::<Degree, f32>::new(7.);
+    let ud2: UnsignedDirection<Degree, f32> = ud1 + m1;
     assert_eq!(ud2.value, 19.);
+    let m2 = Measure::<Degree, f32>::new(270.);
+    let ud3: UnsignedDirection<Degree, f32> = ud1 + m2;
+    assert_eq!(ud3.value, 282.);
+}
+
+#[test]
+fn unsigned_direction_addition_of_vector_with_overflow() {
+    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
+    let m1 = Measure::<Degree, f32>::new(400.);
+    let ud2: UnsignedDirection<Degree, f32> = ud1 + m1;
+    assert_eq!(ud2.value, 52.);
+    let m2 = Measure::<Degree, f32>::new(3610.);
+    let ud3: UnsignedDirection<Degree, f32> = ud1 + m2;
+    assert_eq!(ud3.value, 22.);
+}
+
+#[test]
+fn unsigned_direction_addition_of_vector_with_underflow() {
+    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
+    let m1 = Measure::<Degree, f32>::new(20.);
+    let ud2: UnsignedDirection<Degree, f32> = ud1 + m1;
+    assert_eq!(ud2.value, 32.);
+    let m2 = Measure::<Degree, f32>::new(3607.);
+    let ud3: UnsignedDirection<Degree, f32> = ud1 + m2;
+    assert_eq!(ud3.value, 19.);
 }
 
 #[test]
@@ -194,14 +219,59 @@ fn unsigned_direction_addition_of_vector_assignment() {
     let mut ud = UnsignedDirection::<Degree, f32>::new(12.);
     ud += Measure::<Degree, f32>::new(7.);
     assert_eq!(ud.value, 19.);
+    ud += Measure::<Degree, f32>::new(170.);
+    assert_eq!(ud.value, 189.);
+}
+
+#[test]
+fn unsigned_direction_addition_of_vector_assignment_with_overflow() {
+    let mut ud = UnsignedDirection::<Degree, f32>::new(12.);
+    ud += Measure::<Degree, f32>::new(350.);
+    assert_eq!(ud.value, 2.);
+    ud += Measure::<Degree, f32>::new(3590.);
+    assert_eq!(ud.value, 352.);
+}
+
+#[test]
+fn unsigned_direction_addition_of_vector_assignment_with_underflow() {
+    let mut ud = UnsignedDirection::<Degree, f32>::new(12.);
+    ud += Measure::<Degree, f32>::new(-17.);
+    assert_eq!(ud.value, 355.);
+    ud += Measure::<Degree, f32>::new(-3602.);
+    assert_eq!(ud.value, 353.);
 }
 
 #[test]
 fn unsigned_direction_subtraction_of_vector() {
     let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
-    let m = Measure::<Degree, f32>::new(7.);
-    let ud2: UnsignedDirection<Degree, f32> = ud1 - m;
+    let m1 = Measure::<Degree, f32>::new(7.);
+    let ud2: UnsignedDirection<Degree, f32> = ud1 - m1;
     assert_eq!(ud2.value, 5.);
+    let m2 = Measure::<Degree, f32>::new(-270.);
+    let ud3: UnsignedDirection<Degree, f32> = ud1 - m2;
+    assert_eq!(ud3.value, 282.);
+}
+
+#[test]
+fn unsigned_direction_subtraction_of_vector_with_overflow() {
+    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
+    let m1 = Measure::<Degree, f32>::new(-400.);
+    let ud2: UnsignedDirection<Degree, f32> = ud1 - m1;
+    assert_eq!(ud2.value, 52.);
+    let m2 = Measure::<Degree, f32>::new(-3610.);
+    let ud3: UnsignedDirection<Degree, f32> = ud1 - m2;
+    assert_eq!(ud3.value, 22.);
+}
+
+#[test]
+fn unsigned_direction_subtraction_of_vector_with_underflow() {
+    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
+    let m1 = Measure::<Degree, f32>::new(20.);
+    let ud2: UnsignedDirection<Degree, f32> = ud1 - m1;
+    assert_eq!(ud2.value, 352.);
+    let m2 = Measure::<Degree, f32>::new(3607.);
+    let ud3: UnsignedDirection<Degree, f32> = ud1 - m2;
+    assert_eq!(ud3.value, 5.);
 }
 
 #[test]
@@ -209,6 +279,26 @@ fn unsigned_direction_subtraction_of_vector_assignment() {
     let mut ud = UnsignedDirection::<Degree, f32>::new(12.);
     ud -= Measure::<Degree, f32>::new(7.);
     assert_eq!(ud.value, 5.);
+    ud -= Measure::<Degree, f32>::new(-200.);
+    assert_eq!(ud.value, 205.);
+}
+
+#[test]
+fn unsigned_direction_subtraction_of_vector_assignment_with_overflow() {
+    let mut ud = UnsignedDirection::<Degree, f32>::new(12.);
+    ud -= Measure::<Degree, f32>::new(-355.);
+    assert_eq!(ud.value, 7.);
+    ud -= Measure::<Degree, f32>::new(-3599.);
+    assert_eq!(ud.value, 6.);
+}
+
+#[test]
+fn unsigned_direction_subtraction_of_vector_assignment_with_underflow() {
+    let mut ud = UnsignedDirection::<Degree, f32>::new(12.);
+    ud -= Measure::<Degree, f32>::new(17.);
+    assert_eq!(ud.value, 355.);
+    ud -= Measure::<Degree, f32>::new(3602.);
+    assert_eq!(ud.value, 353.);
 }
 
 #[test]
