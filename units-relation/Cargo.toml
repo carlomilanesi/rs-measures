@@ -1,6 +1,6 @@
 [package]
 name = "units-relation"
-version = "0.0.0"
+version = "0.1.0"
 authors = ["Carlo Milanesi <carlo.milanesi@libero.it>"]
 edition = "2018"
 description = "A procedural macro to be used with the library Rs-Measures to define relations among units of measurement."
@@ -18,6 +18,6 @@ quote = "1.0.9"
 syn = "1.0.73"
 
 [dev-dependencies]
-rs-measures = { path = "../rs-measures", version = "0.0.0" }
+rs-measures = { path = "../rs-measures", version = "0.1.0" }
 trybuild = { version = "1.0", features = ["diff"] }
 nalgebra = "0.32.3"
