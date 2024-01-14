@@ -20,7 +20,7 @@ macro_rules! define_measure_2d {
                 Number: ArithmeticOps,
             {
             /// measure 2d :: new(number, number) -> measure 2d
-            pub fn new(x: Number, y: Number) -> Self {
+            pub const fn new(x: Number, y: Number) -> Self {
                 Self {
                     x,
                     y,
@@ -29,10 +29,10 @@ macro_rules! define_measure_2d {
             }
 
             /// measure 2d .x() -> measure
-            pub fn x(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.x) }
+            pub const fn x(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.x) }
 
             /// measure 2d .x() -> measure
-            pub fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
+            pub const fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
 
             /// measure 2d .convert() -> measure 2d
             pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
@@ -236,7 +236,7 @@ macro_rules! define_measure_2d {
             phantom: PhantomData<Unit>,
         }
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty {
-            pub fn new(x: Number, y: Number) -> Self {
+            pub const fn new(x: Number, y: Number) -> Self {
                 Self {
                     x,
                     y,
@@ -244,9 +244,9 @@ macro_rules! define_measure_2d {
                 }
             }
 
-            pub fn x(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.x) }
+            pub const fn x(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.x) }
 
-            pub fn y(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.y) }
+            pub const fn y(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.y) }
 
             pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
@@ -386,7 +386,7 @@ macro_rules! define_measure_2d {
         }
 
         impl<Number: ArithmeticOps> LinearMap2d<Number> {
-            pub fn new(coefficients: [[Number; 2]; 2]) -> Self {
+            pub const fn new(coefficients: [[Number; 2]; 2]) -> Self {
                 Self {
                     c: coefficients,
                 }
@@ -611,7 +611,7 @@ macro_rules! define_measure_2d {
         }
 
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> AffineMap2d<Unit, Number> where Unit::Property: VectorProperty {
-            pub fn new(coefficients: [[Number; 3]; 2]) -> Self {
+            pub const fn new(coefficients: [[Number; 3]; 2]) -> Self {
                 Self {
                     c: coefficients,
                     phantom: PhantomData,

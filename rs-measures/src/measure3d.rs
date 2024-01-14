@@ -13,7 +13,7 @@ macro_rules! define_measure_3d {
         }
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             /// measure 3d :: new(number, number, number) -> measure 3d
-            pub fn new(x: Number, y: Number, z: Number) -> Self {
+            pub const fn new(x: Number, y: Number, z: Number) -> Self {
                 Self {
                     x,
                     y,
@@ -23,13 +23,13 @@ macro_rules! define_measure_3d {
             }
 
             /// measure 3d .x() -> measure
-            pub fn x(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.x) }
+            pub const fn x(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.x) }
 
             /// measure 3d .y() -> measure
-            pub fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
+            pub const fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
 
             /// measure 3d .z() -> measure
-            pub fn z(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.z) }
+            pub const fn z(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.z) }
 
             /// measure 3d .convert() -> measure 3d
             pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
@@ -186,7 +186,7 @@ macro_rules! define_measure_3d {
             phantom: PhantomData<Unit>,
         }
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty {
-            pub fn new(x: Number, y: Number, z: Number) -> Self {
+            pub const fn new(x: Number, y: Number, z: Number) -> Self {
                 Self {
                     x,
                     y,
@@ -195,11 +195,11 @@ macro_rules! define_measure_3d {
                 }
             }
 
-            pub fn x(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.x) }
+            pub const fn x(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.x) }
 
-            pub fn y(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.y) }
+            pub const fn y(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.y) }
 
-            pub fn z(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.z) }
+            pub const fn z(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.z) }
 
             pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
@@ -373,7 +373,7 @@ macro_rules! define_measure_3d {
         }
 
         impl<Number: ArithmeticOps> LinearMap3d<Number> {
-            pub fn new(coefficients: [[Number; 3]; 3]) -> Self {
+            pub const fn new(coefficients: [[Number; 3]; 3]) -> Self {
                 Self {
                     c: coefficients,
                 }
@@ -558,7 +558,7 @@ macro_rules! define_measure_3d {
         }
 
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> AffineMap3d<Unit, Number> where Unit::Property: VectorProperty {
-            pub fn new(coefficients: [[Number; 4]; 3]) -> Self {
+            pub const fn new(coefficients: [[Number; 4]; 3]) -> Self {
                 Self {
                     c: coefficients,
                     phantom: PhantomData,

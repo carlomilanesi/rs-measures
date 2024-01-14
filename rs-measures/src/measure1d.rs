@@ -20,7 +20,7 @@ macro_rules! define_measure_1d {
             Number: ArithmeticOps,
         {
             /// Measure::new(Number) -> Measure
-            pub fn new(value: Number) -> Self {
+            pub const fn new(value: Number) -> Self {
                 Self {
                     value,
                     phantom: PhantomData,
@@ -238,7 +238,7 @@ macro_rules! define_measure_1d {
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
         {
-            pub fn new(value: Number) -> Self {
+            pub const fn new(value: Number) -> Self {
                 Self {
                     value,
                     phantom: PhantomData,
@@ -393,7 +393,7 @@ macro_rules! define_measure_1d {
                 Self::new(m.value)
             }
 
-            pub fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
+            pub const fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
 
             pub fn to_signed_direction(self) -> SignedDirection<Unit, Number> {
                 SignedDirection::<Unit, Number>::new(self.value)
@@ -525,7 +525,7 @@ macro_rules! define_measure_1d {
                 Self::new(m.value)
             }
 
-            pub fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
+            pub const fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
 
             pub fn to_unsigned_direction(self) -> UnsignedDirection<Unit, Number> {
                 UnsignedDirection::<Unit, Number>::new(self.value)
