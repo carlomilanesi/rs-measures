@@ -1,6 +1,7 @@
 rs_measures::define_measure_2d! {}
 
 pub struct P1;
+impl VectorProperty for P1 {}
 
 pub struct U1;
 impl MeasurementUnit for U1 {
@@ -9,7 +10,6 @@ impl MeasurementUnit for U1 {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " u1";
 }
-impl VectorMeasurementUnit for U1 {}
 
 pub struct P2;
 
@@ -22,6 +22,7 @@ impl MeasurementUnit for U2 {
 }
 
 pub struct P3;
+impl VectorProperty for P3 {}
 
 pub struct U3;
 impl MeasurementUnit for U3 {
@@ -30,7 +31,6 @@ impl MeasurementUnit for U3 {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " u3";
 }
-impl VectorMeasurementUnit for U3 {}
 
 units_relation::define_units_relation! { U1:2 == U2 * U3:2 }
 

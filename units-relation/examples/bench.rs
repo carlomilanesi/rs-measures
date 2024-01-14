@@ -4,6 +4,7 @@
 rs_measures::define_measure_1d! {}
 
 pub struct Length;
+impl VectorProperty for Length {}
 
 pub struct Metre;
 impl MeasurementUnit for Metre {
@@ -12,9 +13,9 @@ impl MeasurementUnit for Metre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m";
 }
-impl VectorMeasurementUnit for Metre {}
 
 pub struct Force;
+impl VectorProperty for Force {}
 
 pub struct Newton;
 impl MeasurementUnit for Newton {
@@ -23,7 +24,6 @@ impl MeasurementUnit for Newton {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N";
 }
-impl VectorMeasurementUnit for Newton {}
 
 pub struct Energy;
 

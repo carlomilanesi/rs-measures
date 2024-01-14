@@ -284,4 +284,4 @@ pub trait AngleMeasurementUnit: MeasurementUnit {
     const CYCLE_FRACTION: f64;
 }
 
-pub trait VectorMeasurementUnit: MeasurementUnit {}
+pub trait VectorProperty {}

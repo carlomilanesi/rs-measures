@@ -11,6 +11,7 @@ impl MeasurementUnit for U1 {
 }
 
 pub struct P2;
+impl VectorProperty for P2 {}
 
 pub struct U2;
 impl MeasurementUnit for U2 {
@@ -19,7 +20,6 @@ impl MeasurementUnit for U2 {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " u2";
 }
-impl VectorMeasurementUnit for U2 {}
 
 units_relation::define_units_relation! { U1 == U2:2 * U2:2 }
 

@@ -1,6 +1,7 @@
 rs_measures::define_measure_1d! {}
 
 pub struct Length;
+impl VectorProperty for Length {}
 
 pub struct Metre;
 impl MeasurementUnit for Metre {
@@ -9,7 +10,6 @@ impl MeasurementUnit for Metre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m";
 }
-impl VectorMeasurementUnit for Metre {}
 
 pub struct Time;
 
@@ -22,6 +22,7 @@ impl MeasurementUnit for Second {
 }
 
 pub struct Velocity;
+impl VectorProperty for Velocity {}
 
 pub struct MetrePerSecond;
 impl MeasurementUnit for MetrePerSecond {
@@ -30,7 +31,6 @@ impl MeasurementUnit for MetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s";
 }
-impl VectorMeasurementUnit for MetrePerSecond {}
 
 pub struct Area;
 

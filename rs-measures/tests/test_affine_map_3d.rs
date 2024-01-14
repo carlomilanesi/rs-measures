@@ -4,6 +4,7 @@ rs_measures::define_measure_3d! {}
 mod test_utils;
 
 pub struct Dimensionless;
+impl VectorProperty for Dimensionless {}
 
 pub struct Unspecified;
 impl MeasurementUnit for Unspecified {
@@ -12,9 +13,9 @@ impl MeasurementUnit for Unspecified {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = "";
 }
-impl VectorMeasurementUnit for Unspecified {}
 
 struct Length;
+impl VectorProperty for Length {}
 
 struct Metre;
 impl MeasurementUnit for Metre {
@@ -23,7 +24,6 @@ impl MeasurementUnit for Metre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m";
 }
-impl VectorMeasurementUnit for Metre {}
 
 struct MilliMetre;
 impl MeasurementUnit for MilliMetre {
@@ -32,7 +32,6 @@ impl MeasurementUnit for MilliMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mm";
 }
-impl VectorMeasurementUnit for MilliMetre {}
 
 struct Degree;
 impl MeasurementUnit for Degree {

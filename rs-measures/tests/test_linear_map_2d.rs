@@ -4,6 +4,7 @@ rs_measures::define_measure_2d! {}
 mod test_utils;
 
 struct Length;
+impl VectorProperty for Length {}
 
 struct Metre;
 impl MeasurementUnit for Metre {
@@ -12,7 +13,6 @@ impl MeasurementUnit for Metre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m";
 }
-impl VectorMeasurementUnit for Metre {}
 
 struct Degree;
 impl MeasurementUnit for Degree {

@@ -11,7 +11,7 @@ macro_rules! define_measure_3d {
             pub z: Number,
             phantom: std::marker::PhantomData<Unit>,
         }
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             /// measure 3d :: new(number, number, number) -> measure 3d
             pub fn new(x: Number, y: Number, z: Number) -> Self {
                 Self {
@@ -32,7 +32,7 @@ macro_rules! define_measure_3d {
             pub fn z(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.z) }
 
             /// measure 3d .convert() -> measure 3d
-            pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> Measure3d<DestUnit, Number> {
                 let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
@@ -81,7 +81,7 @@ macro_rules! define_measure_3d {
         }
 
         // -Measure3d -> Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Neg for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Neg for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Self;
             fn neg(self) -> Self::Output {
                 Self::new(-self.x, -self.y, -self.z)
@@ -89,7 +89,7 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d * Number -> Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Self;
             fn mul(self, n: Number) -> Self::Output {
                 Self::new(self.x * n, self.y * n, self.z * n)
@@ -97,7 +97,7 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d *= Number
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MulAssign<Number> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> MulAssign<Number> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn mul_assign(&mut self, n: Number) {
                 self.x *= n;
                 self.y *= n;
@@ -106,7 +106,7 @@ macro_rules! define_measure_3d {
         }
 
         // f64 * Measure3d -> Measure3d
-        impl<Unit: VectorMeasurementUnit> Mul<Measure3d<Unit, f64>> for f64 {
+        impl<Unit: MeasurementUnit> Mul<Measure3d<Unit, f64>> for f64 where Unit::Property: VectorProperty {
             type Output = Measure3d<Unit, f64>;
             fn mul(self, other: Measure3d<Unit, f64>) -> Self::Output {
                 Self::Output::new(self * other.x, self * other.y, self * other.z)
@@ -114,7 +114,7 @@ macro_rules! define_measure_3d {
         }
 
         // f32 * Measure3d -> Measure3d
-        impl<Unit: VectorMeasurementUnit> Mul<Measure3d<Unit, f32>> for f32 {
+        impl<Unit: MeasurementUnit> Mul<Measure3d<Unit, f32>> for f32 where Unit::Property: VectorProperty {
             type Output = Measure3d<Unit, f32>;
             fn mul(self, other: Measure3d<Unit, f32>) -> Self::Output {
                 Self::Output::new(self * other.x, self * other.y, self * other.z)
@@ -122,7 +122,7 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d / Number -> Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Div<Number> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Div<Number> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Self;
             fn div(self, n: Number) -> Self::Output {
                 let factor = Number::ONE / n;
@@ -131,7 +131,7 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d /= Number
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> DivAssign<Number> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> DivAssign<Number> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn div_assign(&mut self, n: Number) {
                 self.x /= n;
                 self.y /= n;
@@ -140,8 +140,8 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d + Measure3d -> Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure3d<Unit, Number>>
-            for Measure3d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure3d<Unit, Number>>
+            for Measure3d<Unit, Number> where Unit::Property: VectorProperty
         {
             type Output = Self;
             fn add(self, other: Measure3d<Unit, Number>) -> Self::Output {
@@ -150,7 +150,7 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d += Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure3d<Unit, Number>> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AddAssign<Measure3d<Unit, Number>> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn add_assign(&mut self, other: Measure3d<Unit, Number>) {
                 self.x += other.x;
                 self.y += other.y;
@@ -159,8 +159,8 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d - Measure3d -> Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure3d<Unit, Number>>
-            for Measure3d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure3d<Unit, Number>>
+            for Measure3d<Unit, Number> where Unit::Property: VectorProperty
         {
             type Output = Self;
             fn sub(self, other: Measure3d<Unit, Number>) -> Self::Output {
@@ -169,7 +169,7 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d -= Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure3d<Unit, Number>> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> SubAssign<Measure3d<Unit, Number>> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn sub_assign(&mut self, other: Measure3d<Unit, Number>) {
                 self.x -= other.x;
                 self.y -= other.y;
@@ -185,7 +185,7 @@ macro_rules! define_measure_3d {
             pub z: Number,
             phantom: PhantomData<Unit>,
         }
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MeasurePoint3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty {
             pub fn new(x: Number, y: Number, z: Number) -> Self {
                 Self {
                     x,
@@ -201,7 +201,7 @@ macro_rules! define_measure_3d {
 
             pub fn z(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.z) }
 
-            pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> MeasurePoint3d<DestUnit, Number> {
                 let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
@@ -236,8 +236,8 @@ macro_rules! define_measure_3d {
         }
 
         // MeasurePoint3d + Measure3d -> MeasurePoint3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure3d<Unit, Number>>
-            for MeasurePoint3d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure3d<Unit, Number>>
+            for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             type Output = Self;
             fn add(self, other: Measure3d<Unit, Number>) -> Self::Output {
@@ -246,8 +246,8 @@ macro_rules! define_measure_3d {
         }
 
         // MeasurePoint3d += Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure3d<Unit, Number>>
-            for MeasurePoint3d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AddAssign<Measure3d<Unit, Number>>
+            for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             fn add_assign(&mut self, other: Measure3d<Unit, Number>) {
                 self.x += other.x;
@@ -257,8 +257,8 @@ macro_rules! define_measure_3d {
         }
 
         // MeasurePoint3d - Measure3d -> MeasurePoint3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure3d<Unit, Number>>
-            for MeasurePoint3d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure3d<Unit, Number>>
+            for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             type Output = Self;
             fn sub(self, other: Measure3d<Unit, Number>) -> Self::Output {
@@ -267,8 +267,8 @@ macro_rules! define_measure_3d {
         }
 
         // MeasurePoint3d -= Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure3d<Unit, Number>>
-            for MeasurePoint3d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> SubAssign<Measure3d<Unit, Number>>
+            for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             fn sub_assign(&mut self, other: Measure3d<Unit, Number>) {
                 self.x -= other.x;
@@ -278,8 +278,8 @@ macro_rules! define_measure_3d {
         }
 
         /// measure point 3d - measure point 3d -> measure 3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint3d<Unit, Number>>
-            for MeasurePoint3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint3d<Unit, Number>>
+            for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Measure3d<Unit, Number>;
             fn sub(self, other: MeasurePoint3d<Unit, Number>) -> Self::Output {
                 Self::Output::new(self.x - other.x, self.y - other.y, self.z - other.z)
@@ -287,8 +287,8 @@ macro_rules! define_measure_3d {
         }
 
         /// weighted_midpoint_3d(measure point 3d, measure point 3d, weight) -> measure point 3d
-        pub fn weighted_midpoint_3d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint3d<Unit, Number>, p2: MeasurePoint3d<Unit, Number>, weight1: Number) -> MeasurePoint3d<Unit, Number>
+        pub fn weighted_midpoint_3d<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint3d<Unit, Number>, p2: MeasurePoint3d<Unit, Number>, weight1: Number) -> MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             let weight2 = Number::ONE - weight1;
             MeasurePoint3d::<Unit, Number>::new(
@@ -299,8 +299,8 @@ macro_rules! define_measure_3d {
         }
 
         /// midpoint_3d(measure point 3d, measure point 3d) -> measure point 3d
-        pub fn midpoint_3d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint3d<Unit, Number>, p2: MeasurePoint3d<Unit, Number>) -> MeasurePoint3d<Unit, Number>
+        pub fn midpoint_3d<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint3d<Unit, Number>, p2: MeasurePoint3d<Unit, Number>) -> MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             MeasurePoint3d::<Unit, Number>::new(
                 (p1.x + p2.x) * Number::HALF,
@@ -310,8 +310,8 @@ macro_rules! define_measure_3d {
         }
 
         /// barycentric_combination_3d(array of 3d measure points, array of weights) -> 3d measure point
-        pub fn barycentric_combination_3d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            points: &[MeasurePoint3d<Unit, Number>], weights: &[Number]) -> MeasurePoint3d<Unit, Number>
+        pub fn barycentric_combination_3d<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            points: &[MeasurePoint3d<Unit, Number>], weights: &[Number]) -> MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty
         {
             MeasurePoint3d::<Unit, Number>::new(
                 points.iter().zip(weights).map(|(p, &w)| p.x * w).sum(),
@@ -321,46 +321,46 @@ macro_rules! define_measure_3d {
         }
 
         // Measure3d == Measure3d -> bool
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> PartialEq<Measure3d<Unit, Number>> for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<Measure3d<Unit, Number>> for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn eq(&self, other: &Measure3d<Unit, Number>) -> bool {
                 self.x == other.x && self.y == other.y && self.z == other.z
             }
         }
 
         // Measure3d.clone() -> Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn clone(&self) -> Self {
                 *self
             }
         }
 
         // Measure3d = Measure3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Copy for Measure3d<Unit, Number> { }
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for Measure3d<Unit, Number> where Unit::Property: VectorProperty { }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure3d<Unit, Number> where Unit::Property: VectorProperty {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "({}, {}, {}){}", self.x, self.y, self.z, Unit::SUFFIX)
             }
         }
 
         // MeasurePoint3d == MeasurePoint3d -> bool
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint3d<Unit, Number>> for MeasurePoint3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint3d<Unit, Number>> for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty {
             fn eq(&self, other: &MeasurePoint3d<Unit, Number>) -> bool {
                 self.x == other.x && self.y == other.y && self.z == other.z
             }
         }
 
         // MeasurePoint3d.clone() -> MeasurePoint3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty {
             fn clone(&self) -> Self {
                 *self
             }
         }
 
         // MeasurePoint3d = MeasurePoint3d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Copy for MeasurePoint3d<Unit, Number> { }
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty { }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint3d<Unit, Number> where Unit::Property: VectorProperty {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "at ({}, {}, {}){}", self.x, self.y, self.z, Unit::SUFFIX)
             }
@@ -385,10 +385,10 @@ macro_rules! define_measure_3d {
 
             // Rotation by an angle measure around a unit vector.
             // Precondition: unit_vector.squared_norm().value == 1
-            pub fn rotation<AngleUnit: AngleMeasurementUnit<Property = Angle>, AxisUnit: VectorMeasurementUnit>(
+            pub fn rotation<AngleUnit: AngleMeasurementUnit<Property = Angle>, AxisUnit: MeasurementUnit>(
                 angle: Measure<AngleUnit, Number>,
                 unit_vector: Measure3d<AxisUnit, Number>,
-            ) -> Self {
+            ) -> Self where AxisUnit::Property: VectorProperty {
                 Self::rotation_by_radians_around_unit_vector(
                     angle.convert::<Radian>().value,
                     unit_vector.x,
@@ -524,8 +524,8 @@ macro_rules! define_measure_3d {
                 ]}
             }
 
-            pub fn apply_to<Unit: VectorMeasurementUnit>(
-                &self, m: Measure3d<Unit, Number>) -> Measure3d<Unit, Number> {
+            pub fn apply_to<Unit: MeasurementUnit>(
+                &self, m: Measure3d<Unit, Number>) -> Measure3d<Unit, Number> where Unit::Property: VectorProperty {
                     Measure3d::<Unit, Number>::new(
                         self.c[0][0] * m.x + self.c[0][1] * m.y + self.c[0][2] * m.z,
                         self.c[1][0] * m.x + self.c[1][1] * m.y + self.c[1][2] * m.z,
@@ -557,7 +557,7 @@ macro_rules! define_measure_3d {
             phantom: std::marker::PhantomData<Unit>,
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AffineMap3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AffineMap3d<Unit, Number> where Unit::Property: VectorProperty {
             pub fn new(coefficients: [[Number; 4]; 3]) -> Self {
                 Self {
                     c: coefficients,
@@ -566,7 +566,7 @@ macro_rules! define_measure_3d {
             }
 
             // Unit conversion.
-            pub fn convert<DestUnit: VectorMeasurementUnit>(&self) -> AffineMap3d<DestUnit, Number> {
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(&self) -> AffineMap3d<DestUnit, Number> {
                 let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
                 AffineMap3d::<DestUnit, Number>::new([
                     [
@@ -616,11 +616,11 @@ macro_rules! define_measure_3d {
             // Rotation by an angle measure around a unit vector
             // applied to a point.
             // Precondition: unit_vector.squared_norm().value == 1
-            pub fn rotation<AngleUnit: AngleMeasurementUnit<Property = Angle>, AxisUnit: VectorMeasurementUnit>(
+            pub fn rotation<AngleUnit: AngleMeasurementUnit<Property = Angle>, AxisUnit: MeasurementUnit>(
                 fixed_point: MeasurePoint3d<Unit, Number>,
                 unit_vector: Measure3d<AxisUnit, Number>,
                 angle: Measure<AngleUnit, Number>,
-            ) -> Self {
+            ) -> Self where AxisUnit::Property: VectorProperty {
                 let fpx = fixed_point.x;
                 let fpy = fixed_point.y;
                 let fpz = fixed_point.z;
@@ -962,7 +962,7 @@ macro_rules! define_measure_3d {
             }
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap3d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap3d<Unit, Number> where Unit::Property: VectorProperty {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "{}", format_matrix::<3, 4, Number>(&self.c, Unit::SUFFIX))
             }

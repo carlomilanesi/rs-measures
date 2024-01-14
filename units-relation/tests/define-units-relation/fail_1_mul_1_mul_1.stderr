@@ -1,7 +1,7 @@
 error: bad expression
-  --> tests/define-units-relation/fail_1_mul_1_mul_1.rs:35:1
+  --> tests/define-units-relation/fail_1_mul_1_mul_1.rs:36:1
    |
-35 | units_relation::define_units_relation! { U1 * U2 * U3 }
+36 | units_relation::define_units_relation! { U1 * U2 * U3 }
    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
    |
    = note: this error originates in the macro `units_relation::define_units_relation` (in Nightly builds, run with -Z macro-backtrace for more info)

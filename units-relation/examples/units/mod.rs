@@ -2,6 +2,7 @@ rs_measures::define_measure_3d! {}
 
 // Property: acceleration
 pub struct Acceleration;
+impl VectorProperty for Acceleration {}
 
 pub struct MetrePerSquareSecond;
 impl MeasurementUnit for MetrePerSquareSecond {
@@ -10,7 +11,6 @@ impl MeasurementUnit for MetrePerSquareSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s\u{b2}";
 }
-impl VectorMeasurementUnit for MetrePerSquareSecond {}
 
 pub struct CentiMetrePerSquareSecond;
 impl MeasurementUnit for CentiMetrePerSquareSecond {
@@ -19,7 +19,6 @@ impl MeasurementUnit for CentiMetrePerSquareSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s\u{b2}";
 }
-impl VectorMeasurementUnit for CentiMetrePerSquareSecond {}
 
 pub struct GForce;
 impl MeasurementUnit for GForce {
@@ -28,7 +27,6 @@ impl MeasurementUnit for GForce {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g";
 }
-impl VectorMeasurementUnit for GForce {}
 
 pub struct KiloMetrePerHourPerSecond;
 impl MeasurementUnit for KiloMetrePerHourPerSecond {
@@ -37,7 +35,6 @@ impl MeasurementUnit for KiloMetrePerHourPerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km/h/s";
 }
-impl VectorMeasurementUnit for KiloMetrePerHourPerSecond {}
 
 // Property: action
 pub struct Action;
@@ -146,6 +143,7 @@ impl MeasurementUnit for RadianPerSquareSecond {
 
 // Property: angular momentum, spin
 pub struct AngularMomentum;
+impl VectorProperty for AngularMomentum {}
 
 pub struct KiloGramSquareMetrePerSecond;
 impl MeasurementUnit for KiloGramSquareMetrePerSecond {
@@ -154,7 +152,6 @@ impl MeasurementUnit for KiloGramSquareMetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg\u{b7}m\u{b2}/s";
 }
-impl VectorMeasurementUnit for KiloGramSquareMetrePerSecond {}
 
 pub struct GramSquareCentiMetrePerSecond;
 impl MeasurementUnit for GramSquareCentiMetrePerSecond {
@@ -163,7 +160,6 @@ impl MeasurementUnit for GramSquareCentiMetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g\u{b7}cm\u{b2}/s";
 }
-impl VectorMeasurementUnit for GramSquareCentiMetrePerSecond {}
 
 // Property: area
 pub struct Area;
@@ -339,6 +335,7 @@ impl MeasurementUnit for JoulePerMole {
 
 // Property: current density
 pub struct CurrentDensity;
+impl VectorProperty for CurrentDensity {}
 
 pub struct AmperePerSquareMetre;
 impl MeasurementUnit for AmperePerSquareMetre {
@@ -347,10 +344,10 @@ impl MeasurementUnit for AmperePerSquareMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " A/m\u{b2}";
 }
-impl VectorMeasurementUnit for AmperePerSquareMetre {}
 
 // Property: dimensionless
 pub struct Dimensionless;
+impl VectorProperty for Dimensionless {}
 
 pub struct Unspecified;
 impl MeasurementUnit for Unspecified {
@@ -359,7 +356,6 @@ impl MeasurementUnit for Unspecified {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = "";
 }
-impl VectorMeasurementUnit for Unspecified {}
 
 pub struct Mach;
 impl MeasurementUnit for Mach {
@@ -368,7 +364,6 @@ impl MeasurementUnit for Mach {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mach";
 }
-impl VectorMeasurementUnit for Mach {}
 
 // Property: dose equivalent
 pub struct DoseEquivalent;
@@ -554,6 +549,7 @@ impl MeasurementUnit for CoulombPerSquareMetre {
 
 // Property: electric field strength
 pub struct ElectricFieldStrength;
+impl VectorProperty for ElectricFieldStrength {}
 
 pub struct VoltPerMetre;
 impl MeasurementUnit for VoltPerMetre {
@@ -562,7 +558,6 @@ impl MeasurementUnit for VoltPerMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " V/m";
 }
-impl VectorMeasurementUnit for VoltPerMetre {}
 
 pub struct NewtonPerCoulomb;
 impl MeasurementUnit for NewtonPerCoulomb {
@@ -571,7 +566,6 @@ impl MeasurementUnit for NewtonPerCoulomb {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N/C";
 }
-impl VectorMeasurementUnit for NewtonPerCoulomb {}
 
 // Property: electric potential
 pub struct ElectricPotential;
@@ -731,6 +725,7 @@ impl MeasurementUnit for JoulePerKelvin {
 
 // Property: force, weight
 pub struct Force;
+impl VectorProperty for Force {}
 
 pub struct Newton;
 impl MeasurementUnit for Newton {
@@ -739,7 +734,6 @@ impl MeasurementUnit for Newton {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N";
 }
-impl VectorMeasurementUnit for Newton {}
 
 pub struct Dyne;
 impl MeasurementUnit for Dyne {
@@ -748,7 +742,6 @@ impl MeasurementUnit for Dyne {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dyn";
 }
-impl VectorMeasurementUnit for Dyne {}
 
 pub struct KiloGramForce;
 impl MeasurementUnit for KiloGramForce {
@@ -757,7 +750,6 @@ impl MeasurementUnit for KiloGramForce {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kgf";
 }
-impl VectorMeasurementUnit for KiloGramForce {}
 
 pub struct PoundForce;
 impl MeasurementUnit for PoundForce {
@@ -766,7 +758,6 @@ impl MeasurementUnit for PoundForce {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lbf";
 }
-impl VectorMeasurementUnit for PoundForce {}
 
 pub struct Poundal;
 impl MeasurementUnit for Poundal {
@@ -775,7 +766,6 @@ impl MeasurementUnit for Poundal {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " pdl";
 }
-impl VectorMeasurementUnit for Poundal {}
 
 // Property: frequency, angular speed, angular velocity
 pub struct Frequency;
@@ -1207,6 +1197,7 @@ impl MeasurementUnit for CentiStoke {
 
 // Property: length, width, height, depth, space, wavelength
 pub struct Length;
+impl VectorProperty for Length {}
 
 pub struct Metre;
 impl MeasurementUnit for Metre {
@@ -1215,7 +1206,6 @@ impl MeasurementUnit for Metre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m";
 }
-impl VectorMeasurementUnit for Metre {}
 
 pub struct AstronomicalUnit;
 impl MeasurementUnit for AstronomicalUnit {
@@ -1224,7 +1214,6 @@ impl MeasurementUnit for AstronomicalUnit {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " a.u.";
 }
-impl VectorMeasurementUnit for AstronomicalUnit {}
 
 pub struct Parsec;
 impl MeasurementUnit for Parsec {
@@ -1233,7 +1222,6 @@ impl MeasurementUnit for Parsec {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " psc";
 }
-impl VectorMeasurementUnit for Parsec {}
 
 pub struct LightYear;
 impl MeasurementUnit for LightYear {
@@ -1242,7 +1230,6 @@ impl MeasurementUnit for LightYear {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ly";
 }
-impl VectorMeasurementUnit for LightYear {}
 
 pub struct KiloMetre;
 impl MeasurementUnit for KiloMetre {
@@ -1251,7 +1238,6 @@ impl MeasurementUnit for KiloMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km";
 }
-impl VectorMeasurementUnit for KiloMetre {}
 
 pub struct HectoMetre;
 impl MeasurementUnit for HectoMetre {
@@ -1260,7 +1246,6 @@ impl MeasurementUnit for HectoMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " hm";
 }
-impl VectorMeasurementUnit for HectoMetre {}
 
 pub struct DecaMetre;
 impl MeasurementUnit for DecaMetre {
@@ -1269,7 +1254,6 @@ impl MeasurementUnit for DecaMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dam";
 }
-impl VectorMeasurementUnit for DecaMetre {}
 
 pub struct DeciMetre;
 impl MeasurementUnit for DeciMetre {
@@ -1278,7 +1262,6 @@ impl MeasurementUnit for DeciMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dm";
 }
-impl VectorMeasurementUnit for DeciMetre {}
 
 pub struct CentiMetre;
 impl MeasurementUnit for CentiMetre {
@@ -1287,7 +1270,6 @@ impl MeasurementUnit for CentiMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm";
 }
-impl VectorMeasurementUnit for CentiMetre {}
 
 pub struct MilliMetre;
 impl MeasurementUnit for MilliMetre {
@@ -1296,7 +1278,6 @@ impl MeasurementUnit for MilliMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mm";
 }
-impl VectorMeasurementUnit for MilliMetre {}
 
 pub struct MicroMetre;
 impl MeasurementUnit for MicroMetre {
@@ -1305,7 +1286,6 @@ impl MeasurementUnit for MicroMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{b5}m";
 }
-impl VectorMeasurementUnit for MicroMetre {}
 
 pub struct NanoMetre;
 impl MeasurementUnit for NanoMetre {
@@ -1314,7 +1294,6 @@ impl MeasurementUnit for NanoMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " nm";
 }
-impl VectorMeasurementUnit for NanoMetre {}
 
 pub struct Angstrom;
 impl MeasurementUnit for Angstrom {
@@ -1323,7 +1302,6 @@ impl MeasurementUnit for Angstrom {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " \u{212b}";
 }
-impl VectorMeasurementUnit for Angstrom {}
 
 pub struct Inch;
 impl MeasurementUnit for Inch {
@@ -1332,7 +1310,6 @@ impl MeasurementUnit for Inch {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " in";
 }
-impl VectorMeasurementUnit for Inch {}
 
 pub struct Foot;
 impl MeasurementUnit for Foot {
@@ -1341,7 +1318,6 @@ impl MeasurementUnit for Foot {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ft";
 }
-impl VectorMeasurementUnit for Foot {}
 
 pub struct Yard;
 impl MeasurementUnit for Yard {
@@ -1350,7 +1326,6 @@ impl MeasurementUnit for Yard {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " yd";
 }
-impl VectorMeasurementUnit for Yard {}
 
 pub struct Mile;
 impl MeasurementUnit for Mile {
@@ -1359,7 +1334,6 @@ impl MeasurementUnit for Mile {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mi";
 }
-impl VectorMeasurementUnit for Mile {}
 
 pub struct NauticalMile;
 impl MeasurementUnit for NauticalMile {
@@ -1368,7 +1342,6 @@ impl MeasurementUnit for NauticalMile {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " naut.mi";
 }
-impl VectorMeasurementUnit for NauticalMile {}
 
 // Property: linear density
 pub struct LinearDensity;
@@ -1437,6 +1410,7 @@ impl MeasurementUnit for CandelaPerSquareFoot {
 
 // Property: luminous flux, luminous power
 pub struct LuminousFlux;
+impl VectorProperty for LuminousFlux {}
 
 pub struct Lumen;
 impl MeasurementUnit for Lumen {
@@ -1445,7 +1419,6 @@ impl MeasurementUnit for Lumen {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lm";
 }
-impl VectorMeasurementUnit for Lumen {}
 
 // Property: luminous intensity
 pub struct LuminousIntensity;
@@ -1460,6 +1433,7 @@ impl MeasurementUnit for Candela {
 
 // Property: magnetic field strength, magnetic field intensity, magnetization
 pub struct MagneticFieldStrength;
+impl VectorProperty for MagneticFieldStrength {}
 
 pub struct AmperePerMetre;
 impl MeasurementUnit for AmperePerMetre {
@@ -1468,7 +1442,6 @@ impl MeasurementUnit for AmperePerMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " A/m";
 }
-impl VectorMeasurementUnit for AmperePerMetre {}
 
 // Property: magnetic flux
 pub struct MagneticFlux;
@@ -1483,6 +1456,7 @@ impl MeasurementUnit for Weber {
 
 // Property: magnetic flux density
 pub struct MagneticFluxDensity;
+impl VectorProperty for MagneticFluxDensity {}
 
 pub struct Tesla;
 impl MeasurementUnit for Tesla {
@@ -1491,7 +1465,6 @@ impl MeasurementUnit for Tesla {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " T";
 }
-impl VectorMeasurementUnit for Tesla {}
 
 pub struct Gauss;
 impl MeasurementUnit for Gauss {
@@ -1500,7 +1473,6 @@ impl MeasurementUnit for Gauss {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " G";
 }
-impl VectorMeasurementUnit for Gauss {}
 
 // Property: magnetic permeability
 pub struct MagneticPermeability;
@@ -1737,6 +1709,7 @@ impl MeasurementUnit for GramSquareCentiMetre {
 
 // Property: momentum, impulse
 pub struct Momentum;
+impl VectorProperty for Momentum {}
 
 pub struct NewtonSecond;
 impl MeasurementUnit for NewtonSecond {
@@ -1745,7 +1718,6 @@ impl MeasurementUnit for NewtonSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N\u{b7}s";
 }
-impl VectorMeasurementUnit for NewtonSecond {}
 
 pub struct KiloGramMetrePerSecond;
 impl MeasurementUnit for KiloGramMetrePerSecond {
@@ -1754,7 +1726,6 @@ impl MeasurementUnit for KiloGramMetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kg\u{b7}m/s";
 }
-impl VectorMeasurementUnit for KiloGramMetrePerSecond {}
 
 pub struct DyneSecond;
 impl MeasurementUnit for DyneSecond {
@@ -1763,7 +1734,6 @@ impl MeasurementUnit for DyneSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " dyn\u{b7}s";
 }
-impl VectorMeasurementUnit for DyneSecond {}
 
 pub struct GramCentiMetrePerSecond;
 impl MeasurementUnit for GramCentiMetrePerSecond {
@@ -1772,7 +1742,6 @@ impl MeasurementUnit for GramCentiMetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " g\u{b7}cm/s";
 }
-impl VectorMeasurementUnit for GramCentiMetrePerSecond {}
 
 // Property: permittivity
 pub struct Permittivity;
@@ -2255,6 +2224,7 @@ impl MeasurementUnit for FemtoSecond {
 
 // Property: torque
 pub struct Torque;
+impl VectorProperty for Torque {}
 
 pub struct NewtonMetre;
 impl MeasurementUnit for NewtonMetre {
@@ -2263,7 +2233,6 @@ impl MeasurementUnit for NewtonMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " N\u{b7}m";
 }
-impl VectorMeasurementUnit for NewtonMetre {}
 
 pub struct PoundFoot;
 impl MeasurementUnit for PoundFoot {
@@ -2272,7 +2241,6 @@ impl MeasurementUnit for PoundFoot {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lbf-ft";
 }
-impl VectorMeasurementUnit for PoundFoot {}
 
 pub struct PoundInch;
 impl MeasurementUnit for PoundInch {
@@ -2281,10 +2249,10 @@ impl MeasurementUnit for PoundInch {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " lbf-in";
 }
-impl VectorMeasurementUnit for PoundInch {}
 
 // Property: velocity, speed
 pub struct Velocity;
+impl VectorProperty for Velocity {}
 
 pub struct MetrePerSecond;
 impl MeasurementUnit for MetrePerSecond {
@@ -2293,7 +2261,6 @@ impl MeasurementUnit for MetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s";
 }
-impl VectorMeasurementUnit for MetrePerSecond {}
 
 pub struct Knot;
 impl MeasurementUnit for Knot {
@@ -2302,7 +2269,6 @@ impl MeasurementUnit for Knot {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " kt";
 }
-impl VectorMeasurementUnit for Knot {}
 
 pub struct KiloMetrePerHour;
 impl MeasurementUnit for KiloMetrePerHour {
@@ -2311,7 +2277,6 @@ impl MeasurementUnit for KiloMetrePerHour {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " km/h";
 }
-impl VectorMeasurementUnit for KiloMetrePerHour {}
 
 pub struct MilePerHour;
 impl MeasurementUnit for MilePerHour {
@@ -2320,7 +2285,6 @@ impl MeasurementUnit for MilePerHour {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mi/h";
 }
-impl VectorMeasurementUnit for MilePerHour {}
 
 pub struct CentiMetrePerSecond;
 impl MeasurementUnit for CentiMetrePerSecond {
@@ -2329,7 +2293,6 @@ impl MeasurementUnit for CentiMetrePerSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " cm/s";
 }
-impl VectorMeasurementUnit for CentiMetrePerSecond {}
 
 // Property: volume
 pub struct Volume;

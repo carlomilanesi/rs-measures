@@ -12,7 +12,13 @@ macro_rules! define_measure_2d {
             phantom: std::marker::PhantomData<Unit>,
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Measure2d<Unit, Number> {
+        impl<Unit, Number>
+        Measure2d<Unit, Number>
+            where
+                Unit: MeasurementUnit,
+                Unit::Property: VectorProperty,
+                Number: ArithmeticOps,
+            {
             /// measure 2d :: new(number, number) -> measure 2d
             pub fn new(x: Number, y: Number) -> Self {
                 Self {
@@ -29,7 +35,7 @@ macro_rules! define_measure_2d {
             pub fn y(self) -> Measure<Unit, Number> { Measure::<Unit, Number>::new(self.y) }
 
             /// measure 2d .convert() -> measure 2d
-            pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> Measure2d<DestUnit, Number> {
                 let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
@@ -91,7 +97,12 @@ macro_rules! define_measure_2d {
         }
 
         // -Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Neg for Measure2d<Unit, Number> {
+        impl<Unit, Number> Neg for Measure2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Unit::Property: VectorProperty,
+            Number: ArithmeticOps,
+        {
             type Output = Self;
             fn neg(self) -> Self::Output {
                 Self::new(-self.x, -self.y)
@@ -99,8 +110,11 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d + Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure2d<Unit, Number>>
-            for Measure2d<Unit, Number>
+        impl<Unit, Number> Add<Measure2d<Unit, Number>> for Measure2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Unit::Property: VectorProperty,
+            Number: ArithmeticOps,
         {
             type Output = Self;
             fn add(self, other: Measure2d<Unit, Number>) -> Self::Output {
@@ -109,7 +123,13 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d += Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
+        impl<Unit, Number>
+        AddAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Unit::Property: VectorProperty,
+            Number: ArithmeticOps,
+        {
             fn add_assign(&mut self, other: Measure2d<Unit, Number>) {
                 self.x += other.x;
                 self.y += other.y;
@@ -117,8 +137,11 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d - Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure2d<Unit, Number>>
-            for Measure2d<Unit, Number>
+        impl<Unit, Number> Sub<Measure2d<Unit, Number>> for Measure2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Unit::Property: VectorProperty,
+            Number: ArithmeticOps,
         {
             type Output = Self;
             fn sub(self, other: Measure2d<Unit, Number>) -> Self::Output {
@@ -127,7 +150,7 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d -= Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>> for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             fn sub_assign(&mut self, other: Measure2d<Unit, Number>) {
                 self.x -= other.x;
                 self.y -= other.y;
@@ -135,7 +158,7 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d * Number -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Self;
             fn mul(self, n: Number) -> Self::Output {
                 Self::new(self.x * n, self.y * n)
@@ -143,7 +166,7 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d *= Number
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MulAssign<Number> for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> MulAssign<Number> for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             fn mul_assign(&mut self, n: Number) {
                 self.x *= n;
                 self.y *= n;
@@ -151,7 +174,7 @@ macro_rules! define_measure_2d {
         }
 
         // f64 * Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit> Mul<Measure2d<Unit, f64>> for f64 {
+        impl<Unit: MeasurementUnit> Mul<Measure2d<Unit, f64>> for f64 where Unit::Property: VectorProperty {
             type Output = Measure2d<Unit, f64>;
             fn mul(self, other: Measure2d<Unit, f64>) -> Self::Output {
                 Self::Output::new(self * other.x, self * other.y)
@@ -159,7 +182,7 @@ macro_rules! define_measure_2d {
         }
 
         // f32 * Measure2d -> Measure2d
-        impl<Unit: VectorMeasurementUnit> Mul<Measure2d<Unit, f32>> for f32 {
+        impl<Unit: MeasurementUnit> Mul<Measure2d<Unit, f32>> for f32 where Unit::Property: VectorProperty {
             type Output = Measure2d<Unit, f32>;
             fn mul(self, other: Measure2d<Unit, f32>) -> Self::Output {
                 Self::Output::new(self * other.x, self * other.y)
@@ -167,7 +190,7 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d / Number -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Div<Number> for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Div<Number> for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Self;
             fn div(self, n: Number) -> Self::Output {
                 Self::new(self.x / n, self.y / n)
@@ -175,7 +198,7 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d /= Number
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> DivAssign<Number> for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> DivAssign<Number> for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             fn div_assign(&mut self, n: Number) {
                 self.x /= n;
                 self.y /= n;
@@ -183,23 +206,23 @@ macro_rules! define_measure_2d {
         }
 
         // Measure2d == Measure2d -> bool
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> PartialEq<Measure2d<Unit, Number>> for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<Measure2d<Unit, Number>> for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             fn eq(&self, other: &Measure2d<Unit, Number>) -> bool {
                 self.x == other.x && self.y == other.y
             }
         }
 
         // Measure2d.clone() -> Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             fn clone(&self) -> Self {
                 *self
             }
         }
 
         // Measure2d = Measure2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Copy for Measure2d<Unit, Number> { }
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for Measure2d<Unit, Number> where Unit::Property: VectorProperty { }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure2d<Unit, Number> where Unit::Property: VectorProperty {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "({}, {}){}", self.x, self.y, Unit::SUFFIX)
             }
@@ -212,7 +235,7 @@ macro_rules! define_measure_2d {
             pub y: Number,
             phantom: PhantomData<Unit>,
         }
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty {
             pub fn new(x: Number, y: Number) -> Self {
                 Self {
                     x,
@@ -225,7 +248,7 @@ macro_rules! define_measure_2d {
 
             pub fn y(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.y) }
 
-            pub fn convert<DestUnit: VectorMeasurementUnit<Property = Unit::Property>>(
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(
                 &self,
             ) -> MeasurePoint2d<DestUnit, Number> {
                 let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
@@ -257,8 +280,8 @@ macro_rules! define_measure_2d {
         }
 
         // measure point + measure
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Add<Measure2d<Unit, Number>>
-            for MeasurePoint2d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             type Output = Self;
             fn add(self, other: Measure2d<Unit, Number>) -> Self::Output {
@@ -267,8 +290,8 @@ macro_rules! define_measure_2d {
         }
 
         // measure point += measure
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AddAssign<Measure2d<Unit, Number>>
-            for MeasurePoint2d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AddAssign<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             fn add_assign(&mut self, other: Measure2d<Unit, Number>) {
                 self.x += other.x;
@@ -277,8 +300,8 @@ macro_rules! define_measure_2d {
         }
 
         // measure point - measure
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<Measure2d<Unit, Number>>
-            for MeasurePoint2d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             type Output = Self;
             fn sub(self, other: Measure2d<Unit, Number>) -> Self::Output {
@@ -287,8 +310,8 @@ macro_rules! define_measure_2d {
         }
 
         // measure point -= measure
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>>
-            for MeasurePoint2d<Unit, Number>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> SubAssign<Measure2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             fn sub_assign(&mut self, other: Measure2d<Unit, Number>) {
                 self.x -= other.x;
@@ -297,8 +320,8 @@ macro_rules! define_measure_2d {
         }
 
         // measure point 2d - measure point 2d
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint2d<Unit, Number>>
-            for MeasurePoint2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint2d<Unit, Number>>
+            for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty {
             type Output = Measure2d<Unit, Number>;
             fn sub(self, other: MeasurePoint2d<Unit, Number>) -> Self::Output {
                 Self::Output::new(self.x - other.x, self.y - other.y)
@@ -306,8 +329,8 @@ macro_rules! define_measure_2d {
         }
 
         /// weighted_midpoint_2d(measure point 2d, measure point 2d, weight) -> measure point 2d
-        pub fn weighted_midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight1: Number) -> MeasurePoint2d<Unit, Number>
+        pub fn weighted_midpoint_2d<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>, weight1: Number) -> MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             let weight2 = Number::ONE - weight1;
             MeasurePoint2d::<Unit, Number>::new(
@@ -317,8 +340,8 @@ macro_rules! define_measure_2d {
         }
 
         /// midpoint_2d(measure point 2d, measure point 2d) -> measure point 2d
-        pub fn midpoint_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>) -> MeasurePoint2d<Unit, Number>
+        pub fn midpoint_2d<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            p1: MeasurePoint2d<Unit, Number>, p2: MeasurePoint2d<Unit, Number>) -> MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             MeasurePoint2d::<Unit, Number>::new(
                 (p1.x + p2.x) * Number::HALF,
@@ -327,8 +350,8 @@ macro_rules! define_measure_2d {
         }
 
         /// barycentric_combination_2d(array of 2d measure points, array of weights) -> 2d measure point
-        pub fn barycentric_combination_2d<Unit: VectorMeasurementUnit, Number: ArithmeticOps>(
-            points: &[MeasurePoint2d<Unit, Number>], weights: &[Number]) -> MeasurePoint2d<Unit, Number>
+        pub fn barycentric_combination_2d<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            points: &[MeasurePoint2d<Unit, Number>], weights: &[Number]) -> MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty
         {
             MeasurePoint2d::<Unit, Number>::new(
                 points.iter().zip(weights).map(|(p, &w)| p.x * w).sum(),
@@ -336,21 +359,21 @@ macro_rules! define_measure_2d {
             )
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint2d<Unit, Number>> for MeasurePoint2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint2d<Unit, Number>> for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty {
             fn eq(&self, other: &MeasurePoint2d<Unit, Number>) -> bool {
                 self.x == other.x && self.y == other.y
             }
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty {
             fn clone(&self) -> Self {
                 *self
             }
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> Copy for MeasurePoint2d<Unit, Number> { }
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty { }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint2d<Unit, Number> where Unit::Property: VectorProperty {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "at ({}, {}){}", self.x, self.y, Unit::SUFFIX)
             }
@@ -476,8 +499,8 @@ macro_rules! define_measure_2d {
                 ]}
             }
 
-            pub fn apply_to<Unit: VectorMeasurementUnit>(
-                &self, m: Measure2d<Unit, Number>) -> Measure2d<Unit, Number> {
+            pub fn apply_to<Unit: MeasurementUnit>(
+                &self, m: Measure2d<Unit, Number>) -> Measure2d<Unit, Number> where Unit::Property: VectorProperty {
                     Measure2d::<Unit, Number>::new(
                         self.c[0][0] * m.x + self.c[0][1] * m.y,
                         self.c[1][0] * m.x + self.c[1][1] * m.y,
@@ -587,7 +610,7 @@ macro_rules! define_measure_2d {
             phantom: std::marker::PhantomData<Unit>,
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> AffineMap2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AffineMap2d<Unit, Number> where Unit::Property: VectorProperty {
             pub fn new(coefficients: [[Number; 3]; 2]) -> Self {
                 Self {
                     c: coefficients,
@@ -596,7 +619,7 @@ macro_rules! define_measure_2d {
             }
 
             // Unit conversion.
-            pub fn convert<DestUnit: VectorMeasurementUnit>(&self) -> AffineMap2d<DestUnit, Number> {
+            pub fn convert<DestUnit: MeasurementUnit<Property = Unit::Property>>(&self) -> AffineMap2d<DestUnit, Number> {
                 let factor = Number::from_f64(Unit::RATIO / DestUnit::RATIO);
                 AffineMap2d::<DestUnit, Number>::new([
                     [
@@ -837,7 +860,7 @@ macro_rules! define_measure_2d {
             }
         }
 
-        impl<Unit: VectorMeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap2d<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap2d<Unit, Number> where Unit::Property: VectorProperty {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "{}", format_matrix::<2, 3, Number>(&self.c, Unit::SUFFIX))
             }

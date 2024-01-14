@@ -17,7 +17,6 @@ impl MeasurementUnit for MilliMetre {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " mm";
 }
-impl VectorMeasurementUnit for MilliMetre {}
 
 #[test]
 fn measure_new() {

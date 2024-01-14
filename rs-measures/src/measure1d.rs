@@ -1,7 +1,7 @@
 #[macro_export]
 macro_rules! define_measure_1d {
     {} => {
-        use rs_measures::{angle::{Angle, Radian}, traits::{Sqrt, ArithmeticOps, LossyFrom, MeasurementUnit, AngleMeasurementUnit, VectorMeasurementUnit}};
+        use rs_measures::{angle::{Angle, Radian}, traits::{Sqrt, ArithmeticOps, LossyFrom, MeasurementUnit, AngleMeasurementUnit, VectorProperty}};
         use core::ops::{Neg, Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
         use std::fmt;
         use std::marker::PhantomData;
@@ -13,7 +13,12 @@ macro_rules! define_measure_1d {
             phantom: PhantomData<Unit>,
         }
 
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Measure<Unit, Number> {
+        impl<Unit, Number>
+        Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             /// Measure::new(Number) -> Measure
             pub fn new(value: Number) -> Self {
                 Self {
@@ -64,7 +69,12 @@ macro_rules! define_measure_1d {
         }
 
         // -Measure -> Measure
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Neg for Measure<Unit, Number> {
+        impl<Unit, Number>
+        Neg for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             type Output = Self;
             fn neg(self) -> Self::Output {
                 Self::new(-self.value)
@@ -72,8 +82,12 @@ macro_rules! define_measure_1d {
         }
 
         // Measure + Measure -> Measure
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure<Unit, Number>>
-            for Measure<Unit, Number> {
+        impl<Unit, Number>
+        Add<Measure<Unit, Number>> for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             type Output = Self;
             fn add(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value + other.value)
@@ -81,15 +95,21 @@ macro_rules! define_measure_1d {
         }
 
         // Measure += Measure
-        impl<Unit, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
-            for Measure<Unit, Number> {
+        impl<Unit, Number>
+        AddAssign<Measure<Unit, Number>>
+            for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn add_assign(&mut self, other: Measure<Unit, Number>) {
                 self.value += other.value;
             }
         }
 
         // Measure - Measure -> Measure
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure<Unit, Number>>
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps>
+        Sub<Measure<Unit, Number>>
             for Measure<Unit, Number> {
             type Output = Self;
             fn sub(self, other: Measure<Unit, Number>) -> Self::Output {
@@ -98,15 +118,24 @@ macro_rules! define_measure_1d {
         }
 
         // Measure -= Measure
-        impl<Unit, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
-            for Measure<Unit, Number> {
+        impl<Unit, Number>
+        SubAssign<Measure<Unit, Number>> for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn sub_assign(&mut self, other: Measure<Unit, Number>) {
                 self.value -= other.value;
             }
         }
 
         // Measure * Number -> Measure
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure<Unit, Number> {
+        impl<Unit, Number>
+        Mul<Number> for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             type Output = Self;
             fn mul(self, n: Number) -> Self::Output {
                 Self::new(self.value * n)
@@ -114,14 +143,23 @@ macro_rules! define_measure_1d {
         }
 
         // Measure *= Number
-        impl<Unit, Number: ArithmeticOps> MulAssign<Number> for Measure<Unit, Number> {
+        impl<Unit, Number>
+        MulAssign<Number> for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn mul_assign(&mut self, n: Number) {
                 self.value *= n;
             }
         }
 
         // f64 * Measure -> Measure
-        impl<Unit: MeasurementUnit> Mul<Measure<Unit, f64>> for f64 {
+        impl<Unit>
+        Mul<Measure<Unit, f64>> for f64
+        where
+            Unit: MeasurementUnit,
+        {
             type Output = Measure<Unit, f64>;
             fn mul(self, other: Measure<Unit, f64>) -> Self::Output {
                 Self::Output::new(self * other.value)
@@ -194,7 +232,12 @@ macro_rules! define_measure_1d {
             pub value: Number,
             phantom: PhantomData<Unit>,
         }
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint<Unit, Number> {
+        impl<Unit, Number>
+        MeasurePoint<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             pub fn new(value: Number) -> Self {
                 Self {
                     value,
@@ -542,46 +585,78 @@ macro_rules! define_measure_1d {
         }
 
         // Signed direction -= angle measure
-        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
-            for SignedDirection<Unit, Number> {
+        impl<Unit, Number>
+        SubAssign<Measure<Unit, Number>>
+            for SignedDirection<Unit, Number>
+        where
+            Unit: AngleMeasurementUnit<Property = Angle>,
+            Number: ArithmeticOps,
+        {
             fn sub_assign(&mut self, other: Measure<Unit, Number>) {
                 *self = *self - other;
             }
         }
 
         // Signed direction - Signed direction
-        impl<Unit: AngleMeasurementUnit, Number: ArithmeticOps> Sub<SignedDirection<Unit, Number>>
-            for SignedDirection<Unit, Number> {
-            type Output = Measure<Unit, Number>;
-            fn sub(self, other: SignedDirection<Unit, Number>) -> Self::Output {
+        impl<AngleUnit: AngleMeasurementUnit, Number: ArithmeticOps>
+        Sub<SignedDirection<AngleUnit, Number>>
+            for SignedDirection<AngleUnit, Number>
+        where
+            AngleUnit: AngleMeasurementUnit,
+            Number: ArithmeticOps,
+        {
+            type Output = Measure<AngleUnit, Number>;
+            fn sub(self, other: SignedDirection<AngleUnit, Number>) -> Self::Output {
                 let diff = self.value - other.value;
-                let cycle = Number::from_f64(Unit::CYCLE_FRACTION);
+                let cycle = Number::from_f64(AngleUnit::CYCLE_FRACTION);
                 let half_cycle = cycle * Number::HALF;
                 Self::Output::new(if diff > half_cycle { diff - cycle } else if diff < -half_cycle { diff + cycle } else { diff })
             }
         }
 
 
-        impl<Unit, Number: ArithmeticOps> PartialEq<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number> {
+        impl<Unit, Number>
+        PartialEq<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn eq(&self, other: &SignedDirection<Unit, Number>) -> bool {
                 self.value == other.value
             }
         }
 
-        impl<Unit, Number: ArithmeticOps> PartialOrd<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number> {
+        impl<Unit, Number>
+        PartialOrd<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn partial_cmp(&self, other: &SignedDirection<Unit, Number>) -> Option<std::cmp::Ordering> {
                 self.value.partial_cmp(&other.value)
             }
         }
 
-        impl<Unit, Number: ArithmeticOps> Clone for SignedDirection<Unit, Number> {
+        impl<Unit, Number> Clone for SignedDirection<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn clone(&self) -> Self { *self }
         }
 
-        impl<Unit, Number: ArithmeticOps> Copy for SignedDirection<Unit, Number> { }
+        impl<Unit, Number: ArithmeticOps> Copy for SignedDirection<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
+        }
 
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
-            for SignedDirection<Unit, Number> {
+        impl<Unit, Number> fmt::Display for SignedDirection<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "at {}{} (in -180°..180°)", self.value, Unit::SUFFIX)
             }
