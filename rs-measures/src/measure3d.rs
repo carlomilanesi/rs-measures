@@ -617,9 +617,9 @@ macro_rules! define_measure_3d {
             // applied to a point.
             // Precondition: unit_vector.squared_norm().value == 1
             pub fn rotation<AngleUnit: AngleMeasurementUnit<Property = Angle>, AxisUnit: VectorMeasurementUnit>(
-                angle: Measure<AngleUnit, Number>,
-                unit_vector: Measure3d<AxisUnit, Number>,
                 fixed_point: MeasurePoint3d<Unit, Number>,
+                unit_vector: Measure3d<AxisUnit, Number>,
+                angle: Measure<AngleUnit, Number>,
             ) -> Self {
                 let fpx = fixed_point.x;
                 let fpy = fixed_point.y;
@@ -665,8 +665,8 @@ macro_rules! define_measure_3d {
             // applied to a point.
             // Precondition: unit_vector.squared_norm().value == 1
             pub fn projection_onto_line<AxisUnit: MeasurementUnit>(
-                unit_vector: Measure3d<AxisUnit, Number>,
                 fixed_point: MeasurePoint3d<Unit, Number>,
+                unit_vector: Measure3d<AxisUnit, Number>,
             ) -> Self {
                 let fpx = fixed_point.x;
                 let fpy = fixed_point.y;
@@ -698,8 +698,8 @@ macro_rules! define_measure_3d {
             // applied to a point.
             // Precondition: unit_vector.squared_norm().value == 1
             pub fn projection_onto_plane<AxisUnit: MeasurementUnit>(
-                unit_vector: Measure3d<AxisUnit, Number>,
                 fixed_point: MeasurePoint3d<Unit, Number>,
+                unit_vector: Measure3d<AxisUnit, Number>,
             ) -> Self {
                 let fpx = fixed_point.x;
                 let fpy = fixed_point.y;
@@ -742,8 +742,8 @@ macro_rules! define_measure_3d {
             // applied to a point.
             // Precondition: unit_vector.squared_norm().value == 1
             pub fn reflection_over_line<AxisUnit: MeasurementUnit>(
-                unit_vector: Measure3d<AxisUnit, Number>,
                 fixed_point: MeasurePoint3d<Unit, Number>,
+                unit_vector: Measure3d<AxisUnit, Number>,
             ) -> Self {
                 let two = Number::ONE + Number::ONE;
                 let fpx = fixed_point.x;
@@ -785,8 +785,8 @@ macro_rules! define_measure_3d {
             // applied to a point.
             // Precondition: unit_vector.squared_norm().value == 1
             pub fn reflection_over_plane<AxisUnit: MeasurementUnit>(
-                unit_vector: Measure3d<AxisUnit, Number>,
                 fixed_point: MeasurePoint3d<Unit, Number>,
+                unit_vector: Measure3d<AxisUnit, Number>,
             ) -> Self {
                 let minus_two = -(Number::ONE + Number::ONE);
                 let fpx = fixed_point.x;

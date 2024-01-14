@@ -109,9 +109,9 @@ fn affine_map_3d_rotation() {
 
     let fixed_point = MeasurePoint3d::<Metre, f64>::new(6., 2., -9.);
     let am1 = AffineMap3d::<Metre, f64>::rotation(
-        Measure::<Degree, f64>::new(90.),
-        Measure3d::<Unspecified, f64>::new(0., 0., 1.),
         fixed_point,
+        Measure3d::<Unspecified, f64>::new(0., 0., 1.),
+        Measure::<Degree, f64>::new(90.),
     );
     let mp2 = am1.apply_to(mp1);
     assert_eq_64!(mp2.x, 3.);
@@ -120,9 +120,9 @@ fn affine_map_3d_rotation() {
 
     let unit_vector = Measure3d::<Unspecified, f64>::new(2., 3., 4.).normalized();
     let am2 = AffineMap3d::<Metre, f64>::rotation(
-        Measure::<Degree, f64>::new(30.),
-        unit_vector,
         fixed_point,
+        unit_vector,
+        Measure::<Degree, f64>::new(30.),
     );
     let mp3 = am2.apply_to(mp1);
     assert_eq_64!(mp3.x, 8.946504549699267);
@@ -138,8 +138,8 @@ fn affine_map_3d_projection_onto_line() {
 
     let fixed_point = MeasurePoint3d::<Metre, f64>::new(6., 2., -9.);
     let am1 = AffineMap3d::<Metre, f64>::projection_onto_line(
-        Measure3d::<Metre, f64>::new(0., 0., 1.),
         fixed_point,
+        Measure3d::<Metre, f64>::new(0., 0., 1.),
     );
     let mp2 = am1.apply_to(mp1);
     assert_eq_64!(mp2.x, 6.);
@@ -147,7 +147,7 @@ fn affine_map_3d_projection_onto_line() {
     assert_eq_64!(mp2.z, -2.);
 
     let unit_vector = Measure3d::<Unspecified, f64>::new(2., 3., 4.).normalized();
-    let am2 = AffineMap3d::<Metre, f64>::projection_onto_line(unit_vector, fixed_point);
+    let am2 = AffineMap3d::<Metre, f64>::projection_onto_line(fixed_point, unit_vector);
     let mp3 = am2.apply_to(mp1);
     assert_eq_64!(mp3.x, 8.827586206896552);
     assert_eq_64!(mp3.y, 6.241379310344827);
@@ -160,8 +160,8 @@ fn affine_map_3d_projection_onto_plane() {
 
     let fixed_point = MeasurePoint3d::<Metre, f64>::new(6., 2., -9.);
     let am1 = AffineMap3d::<Metre, f64>::projection_onto_plane(
-        Measure3d::<Metre, f64>::new(0., 0., 1.),
         fixed_point,
+        Measure3d::<Metre, f64>::new(0., 0., 1.),
     );
     let mp2 = am1.apply_to(mp1);
     assert_eq_64!(mp2.x, 8.);
@@ -169,7 +169,7 @@ fn affine_map_3d_projection_onto_plane() {
     assert_eq_64!(mp2.z, -9.);
 
     let unit_vector = Measure3d::<Unspecified, f64>::new(2., 3., 4.).normalized();
-    let am2 = AffineMap3d::<Metre, f64>::projection_onto_plane(unit_vector, fixed_point);
+    let am2 = AffineMap3d::<Metre, f64>::projection_onto_plane(fixed_point, unit_vector);
     let mp3 = am2.apply_to(mp1);
     assert_eq_64!(mp3.x, 5.172413793103448);
     assert_eq_64!(mp3.y, 0.7586206896551726);
@@ -184,8 +184,8 @@ fn affine_map_3d_reflection_over_line() {
 
     let fixed_point = MeasurePoint3d::<Metre, f64>::new(6., 2., -9.);
     let am1 = AffineMap3d::<Metre, f64>::reflection_over_line(
-        Measure3d::<Metre, f64>::new(0., 0., 1.),
         fixed_point,
+        Measure3d::<Metre, f64>::new(0., 0., 1.),
     );
     let mp2 = am1.apply_to(mp1);
     assert_eq_64!(mp2.x, 4.);
@@ -193,7 +193,7 @@ fn affine_map_3d_reflection_over_line() {
     assert_eq_64!(mp2.z, -2.);
 
     let unit_vector = Measure3d::<Unspecified, f64>::new(2., 3., 4.).normalized();
-    let am2 = AffineMap3d::<Metre, f64>::reflection_over_line(unit_vector, fixed_point);
+    let am2 = AffineMap3d::<Metre, f64>::reflection_over_line(fixed_point, unit_vector);
     let mp3 = am2.apply_to(mp1);
     assert_eq_64!(mp3.x, 9.655172413793103);
     assert_eq_64!(mp3.y, 7.482758620689655);
@@ -206,8 +206,8 @@ fn affine_map_3d_reflection_over_plane() {
 
     let fixed_point = MeasurePoint3d::<Metre, f64>::new(6., 2., -9.);
     let am1 = AffineMap3d::<Metre, f64>::reflection_over_plane(
-        Measure3d::<Metre, f64>::new(0., 0., 1.),
         fixed_point,
+        Measure3d::<Metre, f64>::new(0., 0., 1.),
     );
     let mp2 = am1.apply_to(mp1);
     assert_eq_64!(mp2.x, 8.);
@@ -215,7 +215,7 @@ fn affine_map_3d_reflection_over_plane() {
     assert_eq_64!(mp2.z, -16.);
 
     let unit_vector = Measure3d::<Unspecified, f64>::new(2., 3., 4.).normalized();
-    let am2 = AffineMap3d::<Metre, f64>::reflection_over_plane(unit_vector, fixed_point);
+    let am2 = AffineMap3d::<Metre, f64>::reflection_over_plane(fixed_point, unit_vector);
     let mp3 = am2.apply_to(mp1);
     assert_eq_64!(mp3.x, 2.344827586206896);
     assert_eq_64!(mp3.y, -3.4827586206896557);
