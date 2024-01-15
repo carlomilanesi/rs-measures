@@ -807,12 +807,14 @@ In a plane, the torque is always perpendicular to the plane, and so we are not i
 
 Instead, in 3D space, the torque is a vector which could have any direction, and so the cross-product returns a value of type `Measure3d`.
 
-## Define your own units of measurement
+## How units of measurement and their relationships are defined
 
 So far, we have used types, functions, and units of measurement without needing to define them.
 Actually, our small program begins by importing all there is in the module `units`, defined by yourself at the beginning of this tutorial.
 
 Let's see its contents.
+
+### Defining measure types
 
 It begins with this statement:
 ```rust
@@ -841,17 +843,37 @@ Actually these definitions do not define all the units of measurement we used in
 
 The only predefined unit of measurement is `Radian` which is used for angles. Every other unit must be explicitly defined.
 
-Actually if you go on reading file `units.rs`, you will see at line 4:
+### Defining properties
+
+Actually, if you go on reading file `units.rs`, you will see at lines 4 and 5:
 ```rust
 pub struct Acceleration;
+impl VectorProperty for Acceleration {}
 ```
 
-It defines a *property*. A (physical or geometrical) property is something you want to measure, and for that it needs one or more units of measurement.
+It defines a *property*. A (physical or geometrical) property is something you want to measure, and, for such a purpose, it needs one or more units of measurement.
 
 Its purpose is to avoid unit conversions which do not make sense.
 For example, `Mile`, `Inch`, `NanoMetre` and `KiloMetre` are all units of the property `Length` and so it will be allowed to convert between to of them. Instead, `MetrePerSquareSecond` is a unit of property `Acceleration` and so it will be forbidden to convert from `Mile` or `MetrePerSquareSecond` or conversely.
 
-At line 6 of file `units.rs` there is:
+For some properties, it makes sense to have a 2D measure or 3D measure, and for others it does make no sense. For example, length, velocity, force, torque, electric field strength, magnetic field strength can are *vector properties*. Instead mass, temperature, time, electric charge are *scalar properties*.
+
+It is useful to forbid creating vectors for scalar properties.
+To such purpose, the statement `impl VectorProperty for Acceleration {}` just marks the property `Acceleration` as a vector property.
+Later, any attempt to create a 2D or 3D measure with a unit of this property will be allowed.
+For example, this is allowed: `Measure3d<MetrePerSquareSecond>`.
+
+Instead, the declaration of time should simply be, without any `impl` statement:
+```rust
+pub struct Time;
+```
+
+Later, any attempt to create a 2D or 3D measure with a unit of this property will generate a compilation error.
+For example, this is not allowed: `Measure3d<Second>`.
+
+### Defining units of measurement
+
+From line 7 of file `units.rs` there is:
 ```rust
 pub struct MetrePerSquareSecond;
 ```
@@ -867,7 +889,6 @@ impl MeasurementUnit for MetrePerSquareSecond {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " m/s\u{b2}";
 }
-impl VectorMeasurementUnit for MetrePerSquareSecond {}
 ```
 
 The field `Property` asserts the property of this unit.
@@ -879,14 +900,13 @@ The field `RATIO` specifies how many base units for its property are contained i
 Being this the base unit, it `RATIO` is `1.`.
 It is not required that the base unit is defined.
 For example we could have defined just this unit for acceleration:
-```
-impl MeasurementUnit for MetrePerSquareSecond {
+```rust
+impl MeasurementUnit for CentiMetrePerSquareSecond {
     type Property = Acceleration;
-    const RATIO: f64 = 1.;
+    const RATIO: f64 = 1e-2;
     const OFFSET: f64 = 0.;
-    const SUFFIX: &'static str = " m/s\u{b2}";
+    const SUFFIX: &'static str = " cm/s\u{b2}";
 }
-impl VectorMeasurementUnit for MetrePerSquareSecond {}
 ```
 
 For the unit `CentiMetrePerSquareSecond`, `RATIO` is `1e-2`, meaning that one hundredth of metre per square second is equivalent to one centimetre per square second.
@@ -903,15 +923,7 @@ You can define your origins in case you have different systems of reference, as 
 
 The field `SUFFIX` is a string which is printed after the numeric value whenever you print a measure value.
 
-For some properties makes sense to have a 2D measure or 3D measure, for others it does make no sense. For example, length, velocity, force, torque, electric field strength, magnetic field strength are vector properties. Instead mass, temperature, time, electric charge are scalar properties.
-
-It is useful to forbid creating vectors for scalar properties.
-To such purpose, a statement like this is used:
-```
-impl VectorMeasurementUnit for Mile {}
-```
-
-This statement specifies that you use the types `Measure2d<Mile>`, `MeasurePoint2d<Mile>`, `Measure3d<Mile>`, `MeasurePoint3d<Mile>`. Otherwise, such type are forbidden.
+### Defining units of angles
 
 A particular property is that of angles.
 
@@ -930,7 +942,7 @@ First of all, it declares that `Degree` is a kind of angle, but in addition it s
 
 For the unit `Cycle`, `CYCLE_FRACTION` is `1.`, and for `Radian` it is `std::f64::consts::TAU` (which is approximately 6.28);
 
-## Define your own relationships among units
+### Defining relationships among units
 
 With the above declarations you can define measures, points, directions, and transformations, you can make conversions between units of the same property, you can compute additions, subtractions and divisions between measures of the same unit, and you can multiply or divide a measure by a number.
 
@@ -940,7 +952,7 @@ To do that, you need to teach it to your application.
 
 How to do this is shown in the file `units.rs` after line 2697.
 
-For example, statement at line 2714 is:
+For example, statement at line 2677 is:
 ```rust
 define_units_relation! {Joule == Newton * Metre}
 ```
@@ -990,7 +1002,8 @@ define_units_relation! {Siemens == 1 / Ohm}
 
 ## Creating a custom file `units.ts`
 
-The file `units.ts` is quite useful for learning, for experimenting, and for copying&pasting useful definitions. Though, it is not recommended for production use, for the following reasons:
+The file `units.ts` is quite useful for learning, for experimenting, and for copying&pasting useful definitions.
+Though, it is not recommended for production use, for the following reasons:
 * Such large file increases your code base.
 * Such large file increases compilation time.
 * Such file use words or output prefix you don't like. For example, if you prefer, you could replace `Length` with `Space`, or `Metre` with `Meter`, or `" m"` with `" [m]"`.
@@ -1001,7 +1014,7 @@ Therefore, the suggested procedure for production code is the following one:
 * Create your own file `units.rs` for your project.
 * Add as its first statement `rs_measures::define_measure_1d! {}`, replacing `1` with `2` or `3` in case you work in a plane or in the 3D space.
 * Search the provided example file for the properties, the units, and the relations you need, or the ones most similar to what you need. Copy and paste them into your own file.
-* Edit your file according with your needs.
+* Edit your file according to your needs.
 
 To create a property means simply to define an empty `struct` with the desired name. For example: `pub struct Information;`.
 
