@@ -1,8 +1,13 @@
 #[macro_export]
 macro_rules! define_measure_1d {
     {} => {
-        use rs_measures::{angle::{Angle, Radian}, traits::{Sqrt, ArithmeticOps, LossyFrom, MeasurementUnit, AngleMeasurementUnit, VectorProperty}};
-        use core::ops::{Neg, Add, AddAssign, Div, DivAssign, Mul, MulAssign, Sub, SubAssign};
+        use core::ops::{Add, AddAssign, Div, DivAssign, Mul, MulAssign, Neg, Sub, SubAssign};
+        use rs_measures::{
+            angle::{Angle, Radian},
+            traits::{
+                AngleMeasurementUnit, ArithmeticOps, LossyFrom, MeasurementUnit, Sqrt, VectorProperty,
+            },
+        };
         use std::fmt;
         use std::marker::PhantomData;
 
@@ -13,8 +18,7 @@ macro_rules! define_measure_1d {
             phantom: PhantomData<Unit>,
         }
 
-        impl<Unit, Number>
-        Measure<Unit, Number>
+        impl<Unit, Number> Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -69,8 +73,7 @@ macro_rules! define_measure_1d {
         }
 
         // -Measure -> Measure
-        impl<Unit, Number>
-        Neg for Measure<Unit, Number>
+        impl<Unit, Number> Neg for Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -82,8 +85,7 @@ macro_rules! define_measure_1d {
         }
 
         // Measure + Measure -> Measure
-        impl<Unit, Number>
-        Add<Measure<Unit, Number>> for Measure<Unit, Number>
+        impl<Unit, Number> Add<Measure<Unit, Number>> for Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -95,9 +97,7 @@ macro_rules! define_measure_1d {
         }
 
         // Measure += Measure
-        impl<Unit, Number>
-        AddAssign<Measure<Unit, Number>>
-            for Measure<Unit, Number>
+        impl<Unit, Number> AddAssign<Measure<Unit, Number>> for Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -108,9 +108,9 @@ macro_rules! define_measure_1d {
         }
 
         // Measure - Measure -> Measure
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps>
-        Sub<Measure<Unit, Number>>
-            for Measure<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure<Unit, Number>>
+            for Measure<Unit, Number>
+        {
             type Output = Self;
             fn sub(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value - other.value)
@@ -118,8 +118,7 @@ macro_rules! define_measure_1d {
         }
 
         // Measure -= Measure
-        impl<Unit, Number>
-        SubAssign<Measure<Unit, Number>> for Measure<Unit, Number>
+        impl<Unit, Number> SubAssign<Measure<Unit, Number>> for Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -130,8 +129,7 @@ macro_rules! define_measure_1d {
         }
 
         // Measure * Number -> Measure
-        impl<Unit, Number>
-        Mul<Number> for Measure<Unit, Number>
+        impl<Unit, Number> Mul<Number> for Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -143,8 +141,7 @@ macro_rules! define_measure_1d {
         }
 
         // Measure *= Number
-        impl<Unit, Number>
-        MulAssign<Number> for Measure<Unit, Number>
+        impl<Unit, Number> MulAssign<Number> for Measure<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -155,8 +152,7 @@ macro_rules! define_measure_1d {
         }
 
         // f64 * Measure -> Measure
-        impl<Unit>
-        Mul<Measure<Unit, f64>> for f64
+        impl<Unit> Mul<Measure<Unit, f64>> for f64
         where
             Unit: MeasurementUnit,
         {
@@ -190,7 +186,9 @@ macro_rules! define_measure_1d {
         }
 
         // Measure / Measure -> Number
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Div<Measure<Unit, Number>> for Measure<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Div<Measure<Unit, Number>>
+            for Measure<Unit, Number>
+        {
             type Output = Number;
             fn div(self, other: Measure<Unit, Number>) -> Self::Output {
                 self.value / other.value
@@ -213,11 +211,13 @@ macro_rules! define_measure_1d {
 
         // Measure.clone() -> Measure
         impl<Unit, Number: ArithmeticOps> Clone for Measure<Unit, Number> {
-            fn clone(&self) -> Self { *self }
+            fn clone(&self) -> Self {
+                *self
+            }
         }
 
         // Measure = Measure
-        impl<Unit, Number: ArithmeticOps> Copy for Measure<Unit, Number> { }
+        impl<Unit, Number: ArithmeticOps> Copy for Measure<Unit, Number> {}
 
         // format!("{}", Measure)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure<Unit, Number> {
@@ -232,8 +232,7 @@ macro_rules! define_measure_1d {
             pub value: Number,
             phantom: PhantomData<Unit>,
         }
-        impl<Unit, Number>
-        MeasurePoint<Unit, Number>
+        impl<Unit, Number> MeasurePoint<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -273,7 +272,8 @@ macro_rules! define_measure_1d {
 
         // MeasurePoint + Measure -> MeasurePoint
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure<Unit, Number>>
-            for MeasurePoint<Unit, Number> {
+            for MeasurePoint<Unit, Number>
+        {
             type Output = Self;
             fn add(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value + other.value)
@@ -281,8 +281,7 @@ macro_rules! define_measure_1d {
         }
 
         // MeasurePoint += Measure
-        impl<Unit, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
-            for MeasurePoint<Unit, Number> {
+        impl<Unit, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>> for MeasurePoint<Unit, Number> {
             fn add_assign(&mut self, other: Measure<Unit, Number>) {
                 self.value += other.value;
             }
@@ -290,7 +289,8 @@ macro_rules! define_measure_1d {
 
         // MeasurePoint - Measure -> MeasurePoint
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure<Unit, Number>>
-            for MeasurePoint<Unit, Number> {
+            for MeasurePoint<Unit, Number>
+        {
             type Output = Self;
             fn sub(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value - other.value)
@@ -298,8 +298,7 @@ macro_rules! define_measure_1d {
         }
 
         // MeasurePoint -= Measure
-        impl<Unit, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
-            for MeasurePoint<Unit, Number> {
+        impl<Unit, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>> for MeasurePoint<Unit, Number> {
             fn sub_assign(&mut self, other: Measure<Unit, Number>) {
                 self.value -= other.value;
             }
@@ -307,7 +306,8 @@ macro_rules! define_measure_1d {
 
         // MeasurePoint - MeasurePoint -> Measure
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<MeasurePoint<Unit, Number>>
-            for MeasurePoint<Unit, Number> {
+            for MeasurePoint<Unit, Number>
+        {
             type Output = Measure<Unit, Number>;
             fn sub(self, other: MeasurePoint<Unit, Number>) -> Self::Output {
                 Self::Output::new(self.value - other.value)
@@ -316,49 +316,54 @@ macro_rules! define_measure_1d {
 
         // weighted_midpoint(MeasurePoint, MeasurePoint, weight) -> MeasurePoint
         pub fn weighted_midpoint<Unit: MeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint<Unit, Number>, p2: MeasurePoint<Unit, Number>, weight1: Number) -> MeasurePoint<Unit, Number>
-        {
-            MeasurePoint::<Unit, Number>::new(
-                p1.value * weight1 + p2.value * (Number::ONE - weight1))
+            p1: MeasurePoint<Unit, Number>,
+            p2: MeasurePoint<Unit, Number>,
+            weight1: Number,
+        ) -> MeasurePoint<Unit, Number> {
+            MeasurePoint::<Unit, Number>::new(p1.value * weight1 + p2.value * (Number::ONE - weight1))
         }
 
         // midpoint(MeasurePoint, MeasurePoint) -> MeasurePoint
         pub fn midpoint<Unit: MeasurementUnit, Number: ArithmeticOps>(
-            p1: MeasurePoint<Unit, Number>, p2: MeasurePoint<Unit, Number>) -> MeasurePoint<Unit, Number>
-        {
-            MeasurePoint::<Unit, Number>::new(
-                (p1.value + p2.value) * Number::HALF)
+            p1: MeasurePoint<Unit, Number>,
+            p2: MeasurePoint<Unit, Number>,
+        ) -> MeasurePoint<Unit, Number> {
+            MeasurePoint::<Unit, Number>::new((p1.value + p2.value) * Number::HALF)
         }
 
         // barycentric_combination([MeasurePoint], [Number]) -> MeasurePoint
         pub fn barycentric_combination<Unit: MeasurementUnit, Number: ArithmeticOps>(
-            points: &[MeasurePoint<Unit, Number>], weights: &[Number]) -> MeasurePoint<Unit, Number>
-        {
-            MeasurePoint::<Unit, Number>::new(
-                points.iter().zip(weights).map(|(p, &w)| p.value * w).sum()
-            )
+            points: &[MeasurePoint<Unit, Number>],
+            weights: &[Number],
+        ) -> MeasurePoint<Unit, Number> {
+            MeasurePoint::<Unit, Number>::new(points.iter().zip(weights).map(|(p, &w)| p.value * w).sum())
         }
 
-        impl<Unit, Number: ArithmeticOps> PartialEq<MeasurePoint<Unit, Number>> for MeasurePoint<Unit, Number> {
+        impl<Unit, Number: ArithmeticOps> PartialEq<MeasurePoint<Unit, Number>>
+            for MeasurePoint<Unit, Number>
+        {
             fn eq(&self, other: &MeasurePoint<Unit, Number>) -> bool {
                 self.value == other.value
             }
         }
 
-        impl<Unit, Number: ArithmeticOps> PartialOrd<MeasurePoint<Unit, Number>> for MeasurePoint<Unit, Number> {
+        impl<Unit, Number: ArithmeticOps> PartialOrd<MeasurePoint<Unit, Number>>
+            for MeasurePoint<Unit, Number>
+        {
             fn partial_cmp(&self, other: &MeasurePoint<Unit, Number>) -> Option<std::cmp::Ordering> {
                 self.value.partial_cmp(&other.value)
             }
         }
 
         impl<Unit, Number: ArithmeticOps> Clone for MeasurePoint<Unit, Number> {
-            fn clone(&self) -> Self { *self }
+            fn clone(&self) -> Self {
+                *self
+            }
         }
 
-        impl<Unit, Number: ArithmeticOps> Copy for MeasurePoint<Unit, Number> { }
+        impl<Unit, Number: ArithmeticOps> Copy for MeasurePoint<Unit, Number> {}
 
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
-            for MeasurePoint<Unit, Number> {
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint<Unit, Number> {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "at {}{}", self.value, Unit::SUFFIX)
             }
@@ -371,13 +376,19 @@ macro_rules! define_measure_1d {
             phantom: PhantomData<Unit>,
         }
 
-        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> UnsignedDirection<Unit, Number> {
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps>
+            UnsignedDirection<Unit, Number>
+        {
             /// Returns the only value that in the current Unit represents `x` and
             /// is between minus half cycle included and plus half cycle excluded.
             fn normalize(x: Number) -> Number {
                 let one_cycle = Number::from_f64(Unit::CYCLE_FRACTION);
                 let x2 = x % one_cycle;
-                if x2 >= Number::ZERO { x2 } else { x2 + one_cycle }
+                if x2 >= Number::ZERO {
+                    x2
+                } else {
+                    x2 + one_cycle
+                }
             }
 
             /// UnsignedDirection::new(Number) -> UnsignedDirection
@@ -393,7 +404,9 @@ macro_rules! define_measure_1d {
                 Self::new(m.value)
             }
 
-            pub const fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
+            pub const fn to_measure_point(self) -> MeasurePoint<Unit, Number> {
+                MeasurePoint::<Unit, Number>::new(self.value)
+            }
 
             pub fn to_signed_direction(self) -> SignedDirection<Unit, Number> {
                 SignedDirection::<Unit, Number>::new(self.value)
@@ -428,7 +441,8 @@ macro_rules! define_measure_1d {
 
         // Unsigned direction + angle measure -> Unsigned direction
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Add<Measure<Unit, Number>>
-            for UnsignedDirection<Unit, Number> {
+            for UnsignedDirection<Unit, Number>
+        {
             type Output = Self;
             fn add(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value + other.value)
@@ -436,8 +450,9 @@ macro_rules! define_measure_1d {
         }
 
         // Unsigned direction += angle measure
-        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
-            for UnsignedDirection<Unit, Number> {
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps>
+            AddAssign<Measure<Unit, Number>> for UnsignedDirection<Unit, Number>
+        {
             fn add_assign(&mut self, other: Measure<Unit, Number>) {
                 *self = *self + other;
             }
@@ -445,7 +460,8 @@ macro_rules! define_measure_1d {
 
         // Unsigned direction - angle measure -> Unsigned direction
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Sub<Measure<Unit, Number>>
-            for UnsignedDirection<Unit, Number> {
+            for UnsignedDirection<Unit, Number>
+        {
             type Output = Self;
             fn sub(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value - other.value)
@@ -453,8 +469,9 @@ macro_rules! define_measure_1d {
         }
 
         // Unsigned direction -= angle measure
-        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> SubAssign<Measure<Unit, Number>>
-            for UnsignedDirection<Unit, Number> {
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps>
+            SubAssign<Measure<Unit, Number>> for UnsignedDirection<Unit, Number>
+        {
             fn sub_assign(&mut self, other: Measure<Unit, Number>) {
                 *self = *self - other;
             }
@@ -462,36 +479,50 @@ macro_rules! define_measure_1d {
 
         // unsigned direction - unsigned direction -> angle measure
         impl<Unit: AngleMeasurementUnit, Number: ArithmeticOps> Sub<UnsignedDirection<Unit, Number>>
-            for UnsignedDirection<Unit, Number> {
+            for UnsignedDirection<Unit, Number>
+        {
             type Output = Measure<Unit, Number>;
             fn sub(self, other: UnsignedDirection<Unit, Number>) -> Self::Output {
                 let diff = self.value - other.value;
                 let cycle = Number::from_f64(Unit::CYCLE_FRACTION);
                 let half_cycle = cycle * Number::HALF;
-                Self::Output::new(if diff > half_cycle { diff - cycle } else if diff < -half_cycle { diff + cycle } else { diff })
+                Self::Output::new(if diff > half_cycle {
+                    diff - cycle
+                } else if diff < -half_cycle {
+                    diff + cycle
+                } else {
+                    diff
+                })
             }
         }
 
-        impl<Unit, Number: ArithmeticOps> PartialEq<UnsignedDirection<Unit, Number>> for UnsignedDirection<Unit, Number> {
+        impl<Unit, Number: ArithmeticOps> PartialEq<UnsignedDirection<Unit, Number>>
+            for UnsignedDirection<Unit, Number>
+        {
             fn eq(&self, other: &UnsignedDirection<Unit, Number>) -> bool {
                 self.value == other.value
             }
         }
 
-        impl<Unit, Number: ArithmeticOps> PartialOrd<UnsignedDirection<Unit, Number>> for UnsignedDirection<Unit, Number> {
+        impl<Unit, Number: ArithmeticOps> PartialOrd<UnsignedDirection<Unit, Number>>
+            for UnsignedDirection<Unit, Number>
+        {
             fn partial_cmp(&self, other: &UnsignedDirection<Unit, Number>) -> Option<std::cmp::Ordering> {
                 self.value.partial_cmp(&other.value)
             }
         }
 
         impl<Unit, Number: ArithmeticOps> Clone for UnsignedDirection<Unit, Number> {
-            fn clone(&self) -> Self { *self }
+            fn clone(&self) -> Self {
+                *self
+            }
         }
 
-        impl<Unit, Number: ArithmeticOps> Copy for UnsignedDirection<Unit, Number> { }
+        impl<Unit, Number: ArithmeticOps> Copy for UnsignedDirection<Unit, Number> {}
 
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
-            for UnsignedDirection<Unit, Number> {
+            for UnsignedDirection<Unit, Number>
+        {
             fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(f, "at {}{} (in 0°..360°)", self.value, Unit::SUFFIX)
             }
@@ -504,14 +535,20 @@ macro_rules! define_measure_1d {
             phantom: PhantomData<Unit>,
         }
 
-        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> SignedDirection<Unit, Number> {
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps>
+            SignedDirection<Unit, Number>
+        {
             /// Returns the only value that in the current Unit represents `x`, and
             /// is between 0 included and one cycle excluded.
             fn normalize(x: Number) -> Number {
                 let one_cycle = Number::from_f64(Unit::CYCLE_FRACTION);
                 let half_cycle = one_cycle * Number::HALF;
                 let x2 = (x + half_cycle) % one_cycle;
-                if x2 >= Number::ZERO { x2 - half_cycle } else { x2 + half_cycle }
+                if x2 >= Number::ZERO {
+                    x2 - half_cycle
+                } else {
+                    x2 + half_cycle
+                }
             }
 
             pub fn new(value: Number) -> Self {
@@ -525,7 +562,9 @@ macro_rules! define_measure_1d {
                 Self::new(m.value)
             }
 
-            pub const fn to_measure_point(self) -> MeasurePoint<Unit, Number> { MeasurePoint::<Unit, Number>::new(self.value) }
+            pub const fn to_measure_point(self) -> MeasurePoint<Unit, Number> {
+                MeasurePoint::<Unit, Number>::new(self.value)
+            }
 
             pub fn to_unsigned_direction(self) -> UnsignedDirection<Unit, Number> {
                 UnsignedDirection::<Unit, Number>::new(self.value)
@@ -560,7 +599,8 @@ macro_rules! define_measure_1d {
 
         // Signed direction + angle measure
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Add<Measure<Unit, Number>>
-            for SignedDirection<Unit, Number> {
+            for SignedDirection<Unit, Number>
+        {
             type Output = Self;
             fn add(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value + other.value)
@@ -568,8 +608,9 @@ macro_rules! define_measure_1d {
         }
 
         // Signed direction += angle measure
-        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> AddAssign<Measure<Unit, Number>>
-            for SignedDirection<Unit, Number> {
+        impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps>
+            AddAssign<Measure<Unit, Number>> for SignedDirection<Unit, Number>
+        {
             fn add_assign(&mut self, other: Measure<Unit, Number>) {
                 *self = *self + other;
             }
@@ -577,7 +618,8 @@ macro_rules! define_measure_1d {
 
         // Signed direction - angle measure
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Sub<Measure<Unit, Number>>
-            for SignedDirection<Unit, Number> {
+            for SignedDirection<Unit, Number>
+        {
             type Output = Self;
             fn sub(self, other: Measure<Unit, Number>) -> Self::Output {
                 Self::new(self.value - other.value)
@@ -585,9 +627,7 @@ macro_rules! define_measure_1d {
         }
 
         // Signed direction -= angle measure
-        impl<Unit, Number>
-        SubAssign<Measure<Unit, Number>>
-            for SignedDirection<Unit, Number>
+        impl<Unit, Number> SubAssign<Measure<Unit, Number>> for SignedDirection<Unit, Number>
         where
             Unit: AngleMeasurementUnit<Property = Angle>,
             Number: ArithmeticOps,
@@ -598,8 +638,7 @@ macro_rules! define_measure_1d {
         }
 
         // Signed direction - Signed direction
-        impl<AngleUnit: AngleMeasurementUnit, Number: ArithmeticOps>
-        Sub<SignedDirection<AngleUnit, Number>>
+        impl<AngleUnit: AngleMeasurementUnit, Number: ArithmeticOps> Sub<SignedDirection<AngleUnit, Number>>
             for SignedDirection<AngleUnit, Number>
         where
             AngleUnit: AngleMeasurementUnit,
@@ -610,13 +649,17 @@ macro_rules! define_measure_1d {
                 let diff = self.value - other.value;
                 let cycle = Number::from_f64(AngleUnit::CYCLE_FRACTION);
                 let half_cycle = cycle * Number::HALF;
-                Self::Output::new(if diff > half_cycle { diff - cycle } else if diff < -half_cycle { diff + cycle } else { diff })
+                Self::Output::new(if diff > half_cycle {
+                    diff - cycle
+                } else if diff < -half_cycle {
+                    diff + cycle
+                } else {
+                    diff
+                })
             }
         }
 
-
-        impl<Unit, Number>
-        PartialEq<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number>
+        impl<Unit, Number> PartialEq<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -626,8 +669,7 @@ macro_rules! define_measure_1d {
             }
         }
 
-        impl<Unit, Number>
-        PartialOrd<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number>
+        impl<Unit, Number> PartialOrd<SignedDirection<Unit, Number>> for SignedDirection<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
@@ -642,7 +684,9 @@ macro_rules! define_measure_1d {
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
         {
-            fn clone(&self) -> Self { *self }
+            fn clone(&self) -> Self {
+                *self
+            }
         }
 
         impl<Unit, Number: ArithmeticOps> Copy for SignedDirection<Unit, Number>

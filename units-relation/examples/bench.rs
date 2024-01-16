@@ -41,6 +41,7 @@ define_units_relation! {Joule == Newton * Metre}
 const BENCH_MATRIX_SIZE: usize = 120;
 const TINY_BENCH_MATRIX_SIZE: usize = 4;
 
+#[allow(clippy::needless_range_loop)]
 fn array_raw_matrix_multiplication() -> bool {
     let mat1 = [[0.; BENCH_MATRIX_SIZE]; BENCH_MATRIX_SIZE];
     let mat2 = [[0.; BENCH_MATRIX_SIZE]; BENCH_MATRIX_SIZE];
@@ -55,6 +56,7 @@ fn array_raw_matrix_multiplication() -> bool {
     mat3[BENCH_MATRIX_SIZE / 2][BENCH_MATRIX_SIZE / 2] >= 0.
 }
 
+#[allow(clippy::needless_range_loop)]
 fn tiny_array_raw_matrix_multiplication() -> bool {
     let mat1 = [[0.; TINY_BENCH_MATRIX_SIZE]; TINY_BENCH_MATRIX_SIZE];
     let mat2 = [[0.; TINY_BENCH_MATRIX_SIZE]; TINY_BENCH_MATRIX_SIZE];
@@ -118,6 +120,7 @@ fn tiny_nalgebra_raw_matrix_explicit_multiplication() -> bool {
     mat3[(TINY_BENCH_MATRIX_SIZE / 2, TINY_BENCH_MATRIX_SIZE / 2)] >= 0.
 }
 
+#[allow(clippy::needless_range_loop)]
 fn array_measure_matrix_multiplication() -> bool {
     let mat1 = [[Measure::<Newton>::new(0.); BENCH_MATRIX_SIZE]; BENCH_MATRIX_SIZE];
     let mat2 = [[Measure::<Metre>::new(0.); BENCH_MATRIX_SIZE]; BENCH_MATRIX_SIZE];
@@ -132,6 +135,7 @@ fn array_measure_matrix_multiplication() -> bool {
     mat3[BENCH_MATRIX_SIZE / 2][BENCH_MATRIX_SIZE / 2].value >= 0.
 }
 
+#[allow(clippy::needless_range_loop)]
 fn tiny_array_measure_matrix_multiplication() -> bool {
     let mat1 = [[Measure::<Newton>::new(0.); TINY_BENCH_MATRIX_SIZE]; TINY_BENCH_MATRIX_SIZE];
     let mat2 = [[Measure::<Metre>::new(0.); TINY_BENCH_MATRIX_SIZE]; TINY_BENCH_MATRIX_SIZE];

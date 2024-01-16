@@ -1,16 +1,12 @@
 # Contribution guidelines
 
-First off, thank you for considering contributing to rs-measures.
+First off, thank you for considering contributing to the project `rs-measures`, including the crate `rs-measures` and the crate `units-relation`.
 
-If your contribution is not straightforward, please first discuss the change you
-wish to make by creating a new issue before making the change.
+If your contribution is not straightforward, please first discuss the change you wish to make, by creating a new issue before creating the pull request.
 
 ## Reporting issues
 
-Before reporting an issue on the
-[issue tracker](https://github.com/carlomilanesi/rs-measures/issues),
-please check that it has not already been reported by searching for some related
-keywords.
+Before reporting an issue on the [issue tracker](https://github.com/carlomilanesi/rs-measures/issues), please check that it has not already been reported by searching for some related keywords.
 
 ## Pull requests
 
@@ -18,14 +14,9 @@ Try to do one pull request per change.
 
 ### Updating the changelog
 
-Update the changes you have made in
-[CHANGELOG](https://github.com/carlomilanesi/rs-measures/blob/master/CHANGELOG.md)
-file under the **Unreleased** section.
+Update the document [CHANGELOG](https://github.com/carlomilanesi/rs-measures/blob/master/CHANGELOG.md) with the changes you have made under the **Unreleased** section.
 
-Add the changes of your pull request to one of the following subsections,
-depending on the types of changes defined by
-[Keep a changelog](https://keepachangelog.com/en/1.0.0/):
-
+Add the changes of your pull request to one of the following subsections, depending on the types of changes defined by [Keep a changelog](https://keepachangelog.com/en/1.0.0/):
 - `Added` for new features.
 - `Changed` for changes in existing functionality.
 - `Deprecated` for soon-to-be removed features.
@@ -33,7 +24,7 @@ depending on the types of changes defined by
 - `Fixed` for any bug fixes.
 - `Security` in case of vulnerabilities.
 
-If the required subsection does not exist yet under **Unreleased**, create it!
+If the required subsection does not exist yet under **Unreleased**, create it.
 
 ## Developing
 
@@ -49,32 +40,36 @@ cargo build
 
 ### Useful Commands
 
-- Build and show a lot of example measures:
+In the repository root, you can type these commands:
 
-  ```shell
-  cargo run --bin units
-  ```
+```sh
+# Perform a quick performance check
+cargo r --release --example bench
 
-- Run Clippy:
+# Exercise all code, showing use cases.
+cargo r --example full
 
-  ```shell
-  cargo clippy --all
-  ```
+# Check syntax
+cargo c
 
-- Run all tests:
+# Lint examples
+cargo clippy --examples
 
-  ```shell
-  cargo test --all
-  ```
+#  Run all tests
+cargo t
+```
 
-- Check to see if there are code formatting issues
+The crate rs-measures consists essentially in three big macros, defined in the files `measure1d.rs`, `measure2d.rs`, and `measure3d.rs`.
+The command `cargo fmt` cannot format the code inside such macros.
+So, to format that code, follow these process:
+* For each of those three files, comment out the first three lines and the last two lines, and save the file.
+* Run the command `cargo fmt`.
+* For each of those three files, uncomment the five lines commented in the first step.
+* Select all the lines except the five just uncommented lines, and type twice the Tab key, to indent them, and save the file.
 
-  ```shell
-  cargo fmt --all -- --check
-  ```
+The command `format_measures.sh` performs this processing for the three macro files.
 
-- Format the code in the project
-
-  ```shell
-  cargo fmt --all
-  ```
+Before committing any change, except for those in documentation only, these command must be run successfully:
+```sh
+./format_measures.sh && cargo clippy && cargo clippy --examples && cargo t && echo OK
+```
