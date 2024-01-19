@@ -24,109 +24,109 @@ impl AngleMeasurementUnit for Cycle {
 
 #[test]
 fn signed_direction_integer_cycles() {
-    let ud = SignedDirection::<Degree, f32>::new(3600.);
-    assert_eq!(ud.value, 0.);
+    let sd = SignedDirection::<Degree, f32>::new(3600.);
+    assert_eq!(sd.value, 0.);
 }
 
 #[test]
 fn signed_direction_small_positive_value() {
-    let ud = SignedDirection::<Degree, f32>::new(10.);
-    assert_eq!(ud.value, 10.);
+    let sd = SignedDirection::<Degree, f32>::new(10.);
+    assert_eq!(sd.value, 10.);
 }
 
 #[test]
 fn signed_direction_small_negative_value() {
-    let ud = SignedDirection::<Degree, f32>::new(-10.);
-    assert_eq!(ud.value, -10.);
+    let sd = SignedDirection::<Degree, f32>::new(-10.);
+    assert_eq!(sd.value, -10.);
 }
 
 #[test]
 fn signed_direction_large_positive_value() {
-    let ud = SignedDirection::<Degree, f32>::new(3604.);
-    assert_eq!(ud.value, 4.);
+    let sd = SignedDirection::<Degree, f32>::new(3604.);
+    assert_eq!(sd.value, 4.);
 }
 
 #[test]
 fn signed_direction_large_negative_value() {
-    let ud = SignedDirection::<Degree, f32>::new(-3604.);
-    assert_eq!(ud.value, -4.);
+    let sd = SignedDirection::<Degree, f32>::new(-3604.);
+    assert_eq!(sd.value, -4.);
 }
 
 #[test]
 fn signed_direction_from_small_zero_measure_point() {
     let mp = MeasurePoint::<Degree, f32>::new(0.);
-    let ud: SignedDirection<Degree, f32> = SignedDirection::<Degree, f32>::from_measure_point(mp);
-    assert_eq!(ud.value, 0.);
+    let sd: SignedDirection<Degree, f32> = SignedDirection::<Degree, f32>::from_measure_point(mp);
+    assert_eq!(sd.value, 0.);
 }
 
 #[test]
 fn signed_direction_from_small_positive_measure_point() {
     let mp = MeasurePoint::<Degree, f32>::new(10.);
-    let ud: SignedDirection<Degree, f32> = SignedDirection::<Degree, f32>::from_measure_point(mp);
-    assert_eq!(ud.value, 10.);
+    let sd: SignedDirection<Degree, f32> = SignedDirection::<Degree, f32>::from_measure_point(mp);
+    assert_eq!(sd.value, 10.);
 }
 
 #[test]
 fn signed_direction_from_small_negative_measure_point() {
     let mp = MeasurePoint::<Degree, f32>::new(-10.);
-    let ud: SignedDirection<Degree, f32> = SignedDirection::<Degree, f32>::from_measure_point(mp);
-    assert_eq!(ud.value, -10.);
+    let sd: SignedDirection<Degree, f32> = SignedDirection::<Degree, f32>::from_measure_point(mp);
+    assert_eq!(sd.value, -10.);
 }
 
 #[test]
 fn signed_direction_zero_to_measure_point() {
-    let ud = SignedDirection::<Degree, f32>::new(0.);
-    let mp: MeasurePoint<Degree, f32> = ud.to_measure_point();
+    let sd = SignedDirection::<Degree, f32>::new(0.);
+    let mp: MeasurePoint<Degree, f32> = sd.to_measure_point();
     assert_eq!(mp.value, 0.);
 }
 
 #[test]
 fn signed_direction_small_to_measure_point() {
-    let ud = SignedDirection::<Degree, f32>::new(10.);
-    let mp: MeasurePoint<Degree, f32> = ud.to_measure_point();
+    let sd = SignedDirection::<Degree, f32>::new(10.);
+    let mp: MeasurePoint<Degree, f32> = sd.to_measure_point();
     assert_eq!(mp.value, 10.);
 }
 
 #[test]
 fn signed_direction_negative_to_measure_point() {
-    let ud = SignedDirection::<Degree, f32>::new(-10.);
-    let mp: MeasurePoint<Degree, f32> = ud.to_measure_point();
+    let sd = SignedDirection::<Degree, f32>::new(-10.);
+    let mp: MeasurePoint<Degree, f32> = sd.to_measure_point();
     assert_eq!(mp.value, -10.);
 }
 
 #[test]
 fn signed_direction_zero_to_unsigned_direction() {
-    let ud = SignedDirection::<Degree, f32>::new(0.);
-    let sd: UnsignedDirection<Degree, f32> = ud.to_unsigned_direction();
-    assert_eq!(sd.value, 0.);
+    let sd = SignedDirection::<Degree, f32>::new(0.);
+    let ud: UnsignedDirection<Degree, f32> = sd.to_unsigned_direction();
+    assert_eq!(ud.value, 0.);
 }
 
 #[test]
 fn signed_direction_small_to_unsigned_direction() {
-    let ud = SignedDirection::<Degree, f32>::new(10.);
-    let sd: UnsignedDirection<Degree, f32> = ud.to_unsigned_direction();
-    assert_eq!(sd.value, 10.);
+    let sd = SignedDirection::<Degree, f32>::new(10.);
+    let ud: UnsignedDirection<Degree, f32> = sd.to_unsigned_direction();
+    assert_eq!(ud.value, 10.);
 }
 
 #[test]
 fn signed_direction_negative_to_unsigned_direction() {
-    let ud = SignedDirection::<Degree, f32>::new(-10.);
-    let sd: UnsignedDirection<Degree, f32> = ud.to_unsigned_direction();
-    assert_eq!(sd.value, 350.);
+    let sd = SignedDirection::<Degree, f32>::new(-10.);
+    let ud: UnsignedDirection<Degree, f32> = sd.to_unsigned_direction();
+    assert_eq!(ud.value, 350.);
 }
 
 #[test]
 fn signed_direction_convert_positive() {
-    let ud1 = SignedDirection::<Degree, f32>::new(90.);
-    let ud2: SignedDirection<Cycle, f32> = ud1.convert::<Cycle>();
-    assert_eq!(ud2.value, 0.25);
+    let sd1 = SignedDirection::<Degree, f32>::new(90.);
+    let sd2: SignedDirection<Cycle, f32> = sd1.convert::<Cycle>();
+    assert_eq!(sd2.value, 0.25);
 }
 
 #[test]
 fn signed_direction_convert_negative() {
-    let ud1 = SignedDirection::<Degree, f32>::new(-90.);
-    let ud2: SignedDirection<Cycle, f32> = ud1.convert::<Cycle>();
-    assert_eq!(ud2.value, -0.25);
+    let sd1 = SignedDirection::<Degree, f32>::new(-90.);
+    let sd2: SignedDirection<Cycle, f32> = sd1.convert::<Cycle>();
+    assert_eq!(sd2.value, -0.25);
 }
 
 #[test]
@@ -180,253 +180,271 @@ fn signed_direction_lossy_into_64_to_64() {
 
 #[test]
 fn signed_direction_addition_of_vector() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let m1 = Measure::<Degree, f32>::new(7.);
-    let ud2: SignedDirection<Degree, f32> = ud1 + m1;
-    assert_eq!(ud2.value, 19.);
+    let sd2: SignedDirection<Degree, f32> = sd1 + m1;
+    assert_eq!(sd2.value, 19.);
     let m2 = Measure::<Degree, f32>::new(270.);
-    let ud3: SignedDirection<Degree, f32> = ud1 + m2;
-    assert_eq!(ud3.value, -78.);
+    let sd3: SignedDirection<Degree, f32> = sd1 + m2;
+    assert_eq!(sd3.value, -78.);
 }
 
 #[test]
 fn signed_direction_addition_of_vector_with_overflow() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let m1 = Measure::<Degree, f32>::new(400.);
-    let ud2: SignedDirection<Degree, f32> = ud1 + m1;
-    assert_eq!(ud2.value, 52.);
+    let sd2: SignedDirection<Degree, f32> = sd1 + m1;
+    assert_eq!(sd2.value, 52.);
     let m2 = Measure::<Degree, f32>::new(3610.);
-    let ud3: SignedDirection<Degree, f32> = ud1 + m2;
-    assert_eq!(ud3.value, 22.);
+    let sd3: SignedDirection<Degree, f32> = sd1 + m2;
+    assert_eq!(sd3.value, 22.);
 }
 
 #[test]
 fn signed_direction_addition_of_vector_with_underflow() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let m1 = Measure::<Degree, f32>::new(20.);
-    let ud2: SignedDirection<Degree, f32> = ud1 + m1;
-    assert_eq!(ud2.value, 32.);
+    let sd2: SignedDirection<Degree, f32> = sd1 + m1;
+    assert_eq!(sd2.value, 32.);
     let m2 = Measure::<Degree, f32>::new(3607.);
-    let ud3: SignedDirection<Degree, f32> = ud1 + m2;
-    assert_eq!(ud3.value, 19.);
+    let sd3: SignedDirection<Degree, f32> = sd1 + m2;
+    assert_eq!(sd3.value, 19.);
 }
 
 #[test]
 fn signed_direction_addition_of_vector_assignment() {
-    let mut ud = SignedDirection::<Degree, f32>::new(12.);
-    ud += Measure::<Degree, f32>::new(7.);
-    assert_eq!(ud.value, 19.);
-    ud += Measure::<Degree, f32>::new(170.);
-    assert_eq!(ud.value, -171.);
+    let mut sd = SignedDirection::<Degree, f32>::new(12.);
+    sd += Measure::<Degree, f32>::new(7.);
+    assert_eq!(sd.value, 19.);
+    sd += Measure::<Degree, f32>::new(170.);
+    assert_eq!(sd.value, -171.);
 }
 
 #[test]
 fn signed_direction_addition_of_vector_assignment_with_overflow() {
-    let mut ud = SignedDirection::<Degree, f32>::new(12.);
-    ud += Measure::<Degree, f32>::new(350.);
-    assert_eq!(ud.value, 2.);
-    ud += Measure::<Degree, f32>::new(3590.);
-    assert_eq!(ud.value, -8.);
+    let mut sd = SignedDirection::<Degree, f32>::new(12.);
+    sd += Measure::<Degree, f32>::new(350.);
+    assert_eq!(sd.value, 2.);
+    sd += Measure::<Degree, f32>::new(3590.);
+    assert_eq!(sd.value, -8.);
 }
 
 #[test]
 fn signed_direction_addition_of_vector_assignment_with_underflow() {
-    let mut ud = SignedDirection::<Degree, f32>::new(12.);
-    ud += Measure::<Degree, f32>::new(-17.);
-    assert_eq!(ud.value, -5.);
-    ud += Measure::<Degree, f32>::new(-3602.);
-    assert_eq!(ud.value, -7.);
+    let mut sd = SignedDirection::<Degree, f32>::new(12.);
+    sd += Measure::<Degree, f32>::new(-17.);
+    assert_eq!(sd.value, -5.);
+    sd += Measure::<Degree, f32>::new(-3602.);
+    assert_eq!(sd.value, -7.);
 }
 
 #[test]
 fn signed_direction_subtraction_of_vector() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let m1 = Measure::<Degree, f32>::new(7.);
-    let ud2: SignedDirection<Degree, f32> = ud1 - m1;
-    assert_eq!(ud2.value, 5.);
+    let sd2: SignedDirection<Degree, f32> = sd1 - m1;
+    assert_eq!(sd2.value, 5.);
     let m2 = Measure::<Degree, f32>::new(-270.);
-    let ud3: SignedDirection<Degree, f32> = ud1 - m2;
-    assert_eq!(ud3.value, -78.);
+    let sd3: SignedDirection<Degree, f32> = sd1 - m2;
+    assert_eq!(sd3.value, -78.);
 }
 
 #[test]
 fn signed_direction_subtraction_of_vector_with_overflow() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let m1 = Measure::<Degree, f32>::new(-400.);
-    let ud2: SignedDirection<Degree, f32> = ud1 - m1;
-    assert_eq!(ud2.value, 52.);
+    let sd2: SignedDirection<Degree, f32> = sd1 - m1;
+    assert_eq!(sd2.value, 52.);
     let m2 = Measure::<Degree, f32>::new(-3610.);
-    let ud3: SignedDirection<Degree, f32> = ud1 - m2;
-    assert_eq!(ud3.value, 22.);
+    let sd3: SignedDirection<Degree, f32> = sd1 - m2;
+    assert_eq!(sd3.value, 22.);
 }
 
 #[test]
 fn signed_direction_subtraction_of_vector_with_underflow() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let m1 = Measure::<Degree, f32>::new(20.);
-    let ud2: SignedDirection<Degree, f32> = ud1 - m1;
-    assert_eq!(ud2.value, -8.);
+    let sd2: SignedDirection<Degree, f32> = sd1 - m1;
+    assert_eq!(sd2.value, -8.);
     let m2 = Measure::<Degree, f32>::new(3607.);
-    let ud3: SignedDirection<Degree, f32> = ud1 - m2;
-    assert_eq!(ud3.value, 5.);
+    let sd3: SignedDirection<Degree, f32> = sd1 - m2;
+    assert_eq!(sd3.value, 5.);
 }
 
 #[test]
 fn signed_direction_subtraction_of_vector_assignment() {
-    let mut ud = SignedDirection::<Degree, f32>::new(12.);
-    ud -= Measure::<Degree, f32>::new(7.);
-    assert_eq!(ud.value, 5.);
-    ud -= Measure::<Degree, f32>::new(-200.);
-    assert_eq!(ud.value, -155.);
+    let mut sd = SignedDirection::<Degree, f32>::new(12.);
+    sd -= Measure::<Degree, f32>::new(7.);
+    assert_eq!(sd.value, 5.);
+    sd -= Measure::<Degree, f32>::new(-200.);
+    assert_eq!(sd.value, -155.);
 }
 
 #[test]
 fn signed_direction_subtraction_of_vector_assignment_with_overflow() {
-    let mut ud = SignedDirection::<Degree, f32>::new(12.);
-    ud -= Measure::<Degree, f32>::new(-355.);
-    assert_eq!(ud.value, 7.);
-    ud -= Measure::<Degree, f32>::new(-3599.);
-    assert_eq!(ud.value, 6.);
+    let mut sd = SignedDirection::<Degree, f32>::new(12.);
+    sd -= Measure::<Degree, f32>::new(-355.);
+    assert_eq!(sd.value, 7.);
+    sd -= Measure::<Degree, f32>::new(-3599.);
+    assert_eq!(sd.value, 6.);
 }
 
 #[test]
 fn signed_direction_subtraction_of_vector_assignment_with_underflow() {
-    let mut ud = SignedDirection::<Degree, f32>::new(12.);
-    ud -= Measure::<Degree, f32>::new(17.);
-    assert_eq!(ud.value, -5.);
-    ud -= Measure::<Degree, f32>::new(3602.);
-    assert_eq!(ud.value, -7.);
+    let mut sd = SignedDirection::<Degree, f32>::new(12.);
+    sd -= Measure::<Degree, f32>::new(17.);
+    assert_eq!(sd.value, -5.);
+    sd -= Measure::<Degree, f32>::new(3602.);
+    assert_eq!(sd.value, -7.);
 }
 
 #[test]
 fn signed_directions_subtraction_with_diff_greater_than_half_cycle() {
     // if diff > half_cycle { diff - cycle }
-    let ud1 = SignedDirection::<Degree, f32>::new(-160.);
-    let ud2 = SignedDirection::<Degree, f32>::new(10.);
-    let m: Measure<Degree, f32> = ud1 - ud2;
+    let sd1 = SignedDirection::<Degree, f32>::new(-160.);
+    let sd2 = SignedDirection::<Degree, f32>::new(10.);
+    let m: Measure<Degree, f32> = sd1 - sd2;
     assert_eq!(m.value, -170.);
 }
 
 #[test]
 fn signed_directions_subtraction_with_diff_less_than_minus_half_cycle() {
     // if diff < -half_cycle { diff + cycle }
-    let ud1 = SignedDirection::<Degree, f32>::new(10.);
-    let ud2 = SignedDirection::<Degree, f32>::new(-160.);
-    let m: Measure<Degree, f32> = ud1 - ud2;
+    let sd1 = SignedDirection::<Degree, f32>::new(10.);
+    let sd2 = SignedDirection::<Degree, f32>::new(-160.);
+    let m: Measure<Degree, f32> = sd1 - sd2;
     assert_eq!(m.value, 170.);
 }
 
 #[test]
 fn signed_directions_subtraction_with_small_positive_diff() {
     // if 0 < diff && diff < half_cycle { diff }
-    let ud1 = SignedDirection::<Degree, f32>::new(170.);
-    let ud2 = SignedDirection::<Degree, f32>::new(10.);
-    let m: Measure<Degree, f32> = ud1 - ud2;
+    let sd1 = SignedDirection::<Degree, f32>::new(170.);
+    let sd2 = SignedDirection::<Degree, f32>::new(10.);
+    let m: Measure<Degree, f32> = sd1 - sd2;
     assert_eq!(m.value, 160.);
 }
 
 #[test]
 fn signed_directions_subtraction_with_small_negative_diff() {
     // if -half_cycle < diff && diff < 0 { diff }
-    let ud1 = SignedDirection::<Degree, f32>::new(10.);
-    let ud2 = SignedDirection::<Degree, f32>::new(170.);
-    let m: Measure<Degree, f32> = ud1 - ud2;
+    let sd1 = SignedDirection::<Degree, f32>::new(10.);
+    let sd2 = SignedDirection::<Degree, f32>::new(170.);
+    let m: Measure<Degree, f32> = sd1 - sd2;
     assert_eq!(m.value, -160.);
 }
 
 #[test]
 fn signed_directions_subtraction_with_minus_half_cycle_diff() {
     // if -half_cycle == diff { diff }
-    let ud1 = SignedDirection::<Degree, f32>::new(10.);
-    let ud2 = SignedDirection::<Degree, f32>::new(-170.);
-    let m: Measure<Degree, f32> = ud1 - ud2;
+    let sd1 = SignedDirection::<Degree, f32>::new(10.);
+    let sd2 = SignedDirection::<Degree, f32>::new(-170.);
+    let m: Measure<Degree, f32> = sd1 - sd2;
     assert_eq!(m.value, 180.);
 }
 
 #[test]
 fn signed_directions_subtraction_with_half_cycle_diff() {
     // if diff == half_cycle { diff }
-    let ud1 = SignedDirection::<Degree, f32>::new(-170.);
-    let ud2 = SignedDirection::<Degree, f32>::new(10.);
-    let m: Measure<Degree, f32> = ud1 - ud2;
+    let sd1 = SignedDirection::<Degree, f32>::new(-170.);
+    let sd2 = SignedDirection::<Degree, f32>::new(10.);
+    let m: Measure<Degree, f32> = sd1 - sd2;
     assert_eq!(m.value, -180.);
 }
 
 #[test]
 fn signed_direction_equals() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = SignedDirection::<Degree, f32>::new(12.);
-    let ud3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(ud2 == ud1);
-    assert!(!(ud3 == ud1));
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = SignedDirection::<Degree, f32>::new(12.);
+    let sd3 = SignedDirection::<Degree, f32>::new(13.);
+    assert!(sd2 == sd1);
+    assert!(!(sd3 == sd1));
 }
 
 #[test]
 fn signed_direction_differs() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = SignedDirection::<Degree, f32>::new(12.);
-    let ud3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(!(ud2 != ud1));
-    assert!(ud3 != ud1);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = SignedDirection::<Degree, f32>::new(12.);
+    let sd3 = SignedDirection::<Degree, f32>::new(13.);
+    assert!(!(sd2 != sd1));
+    assert!(sd3 != sd1);
 }
 
 #[test]
 fn signed_direction_is_less_than() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = SignedDirection::<Degree, f32>::new(12.);
-    let ud3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(!(ud1 < ud2));
-    assert!(ud1 < ud3);
-    assert!(!(ud3 < ud1));
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = SignedDirection::<Degree, f32>::new(12.);
+    let sd3 = SignedDirection::<Degree, f32>::new(13.);
+    assert!(!(sd1 < sd2));
+    assert!(sd1 < sd3);
+    assert!(!(sd3 < sd1));
 }
 
 #[test]
 fn signed_direction_is_less_than_or_equal_to() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = SignedDirection::<Degree, f32>::new(12.);
-    let ud3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(ud1 <= ud2);
-    assert!(ud1 <= ud3);
-    assert!(!(ud3 <= ud1));
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = SignedDirection::<Degree, f32>::new(12.);
+    let sd3 = SignedDirection::<Degree, f32>::new(13.);
+    assert!(sd1 <= sd2);
+    assert!(sd1 <= sd3);
+    assert!(!(sd3 <= sd1));
 }
 
 #[test]
 fn signed_direction_is_greater_than() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = SignedDirection::<Degree, f32>::new(12.);
-    let ud3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(!(ud1 > ud2));
-    assert!(!(ud1 > ud3));
-    assert!(ud3 > ud1);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = SignedDirection::<Degree, f32>::new(12.);
+    let sd3 = SignedDirection::<Degree, f32>::new(13.);
+    assert!(!(sd1 > sd2));
+    assert!(!(sd1 > sd3));
+    assert!(sd3 > sd1);
 }
 
 #[test]
 fn signed_direction_is_greater_than_or_equal_to() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = SignedDirection::<Degree, f32>::new(12.);
-    let ud3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(ud1 >= ud2);
-    assert!(!(ud1 >= ud3));
-    assert!(ud3 >= ud1);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = SignedDirection::<Degree, f32>::new(12.);
+    let sd3 = SignedDirection::<Degree, f32>::new(13.);
+    assert!(sd1 >= sd2);
+    assert!(!(sd1 >= sd3));
+    assert!(sd3 >= sd1);
 }
 
 #[test]
 fn signed_direction_is_equal_to_its_clone() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = ud1.clone();
-    assert!(ud2 == ud1);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = sd1.clone();
+    assert!(sd2 == sd1);
 }
 
 #[test]
 fn signed_direction_is_equal_to_its_copy() {
-    let ud1 = SignedDirection::<Degree, f32>::new(12.);
-    let ud2 = ud1;
-    let _ = ud1; // Copy again
-    assert!(ud2 == ud1);
+    let sd1 = SignedDirection::<Degree, f32>::new(12.);
+    let sd2 = sd1;
+    let _ = sd1; // Copy again
+    assert!(sd2 == sd1);
 }
 
 #[test]
-fn signed_direction_shown_in_degrees() {
-    let ud = SignedDirection::<Degree, f32>::new(12.25);
-    assert_eq!(ud.to_string(), "at 12.25 deg (in -180°..180°)");
+fn signed_direction_formatting_in_degrees() {
+    let sd = SignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{}", sd), "at 12.25 deg (in -180°..180°)");
+}
+
+#[test]
+fn signed_direction_formatting_in_degrees_one_fractional_digit() {
+    let sd = SignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{:.1}", sd), "at 12.2 deg (in -180°..180°)");
+}
+
+#[test]
+fn signed_direction_formatting_for_debug_in_degrees() {
+    let sd = SignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{:?}", sd), "at 12.25 deg (in -180°..180°)");
+}
+
+#[test]
+fn signed_direction_formatting_for_debug_in_degrees_one_fractional_digit() {
+    let sd = SignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{:.1?}", sd), "at 12.2 deg (in -180°..180°)");
 }

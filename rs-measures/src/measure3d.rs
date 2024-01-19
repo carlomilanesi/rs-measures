@@ -100,6 +100,56 @@ macro_rules! define_measure_3d {
             }
         }
 
+        // Measure3d + Measure3d -> Measure3d
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure3d<Unit, Number>>
+            for Measure3d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            type Output = Self;
+            fn add(self, other: Measure3d<Unit, Number>) -> Self::Output {
+                Self::new(self.x + other.x, self.y + other.y, self.z + other.z)
+            }
+        }
+
+        // Measure3d += Measure3d
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AddAssign<Measure3d<Unit, Number>>
+            for Measure3d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn add_assign(&mut self, other: Measure3d<Unit, Number>) {
+                self.x += other.x;
+                self.y += other.y;
+                self.z += other.z;
+            }
+        }
+
+        // Measure3d - Measure3d -> Measure3d
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure3d<Unit, Number>>
+            for Measure3d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            type Output = Self;
+            fn sub(self, other: Measure3d<Unit, Number>) -> Self::Output {
+                Self::new(self.x - other.x, self.y - other.y, self.z - other.z)
+            }
+        }
+
+        // Measure3d -= Measure3d
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> SubAssign<Measure3d<Unit, Number>>
+            for Measure3d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn sub_assign(&mut self, other: Measure3d<Unit, Number>) {
+                self.x -= other.x;
+                self.y -= other.y;
+                self.z -= other.z;
+            }
+        }
+
         // Measure3d * Number -> Measure3d
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Mul<Number> for Measure3d<Unit, Number>
         where
@@ -169,53 +219,64 @@ macro_rules! define_measure_3d {
             }
         }
 
-        // Measure3d + Measure3d -> Measure3d
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Add<Measure3d<Unit, Number>>
+        // Measure3d == Measure3d -> bool
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<Measure3d<Unit, Number>>
             for Measure3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            type Output = Self;
-            fn add(self, other: Measure3d<Unit, Number>) -> Self::Output {
-                Self::new(self.x + other.x, self.y + other.y, self.z + other.z)
+            fn eq(&self, other: &Measure3d<Unit, Number>) -> bool {
+                self.x == other.x && self.y == other.y && self.z == other.z
             }
         }
 
-        // Measure3d += Measure3d
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> AddAssign<Measure3d<Unit, Number>>
-            for Measure3d<Unit, Number>
+        // Measure3d.clone() -> Measure3d
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for Measure3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn add_assign(&mut self, other: Measure3d<Unit, Number>) {
-                self.x += other.x;
-                self.y += other.y;
-                self.z += other.z;
+            fn clone(&self) -> Self {
+                *self
             }
         }
 
-        // Measure3d - Measure3d -> Measure3d
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Sub<Measure3d<Unit, Number>>
-            for Measure3d<Unit, Number>
+        // Measure3d = Measure3d
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for Measure3d<Unit, Number> where
+            Unit::Property: VectorProperty
+        {
+        }
+
+        // format!("{}", Measure3d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            type Output = Self;
-            fn sub(self, other: Measure3d<Unit, Number>) -> Self::Output {
-                Self::new(self.x - other.x, self.y - other.y, self.z - other.z)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("(")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.z, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
-        // Measure3d -= Measure3d
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> SubAssign<Measure3d<Unit, Number>>
-            for Measure3d<Unit, Number>
+        // format!("{:?}", Measure3d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for Measure3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn sub_assign(&mut self, other: Measure3d<Unit, Number>) {
-                self.x -= other.x;
-                self.y -= other.y;
-                self.z -= other.z;
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("(")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.z, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
@@ -395,42 +456,6 @@ macro_rules! define_measure_3d {
             )
         }
 
-        // Measure3d == Measure3d -> bool
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<Measure3d<Unit, Number>>
-            for Measure3d<Unit, Number>
-        where
-            Unit::Property: VectorProperty,
-        {
-            fn eq(&self, other: &Measure3d<Unit, Number>) -> bool {
-                self.x == other.x && self.y == other.y && self.z == other.z
-            }
-        }
-
-        // Measure3d.clone() -> Measure3d
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for Measure3d<Unit, Number>
-        where
-            Unit::Property: VectorProperty,
-        {
-            fn clone(&self) -> Self {
-                *self
-            }
-        }
-
-        // Measure3d = Measure3d
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for Measure3d<Unit, Number> where
-            Unit::Property: VectorProperty
-        {
-        }
-
-        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure3d<Unit, Number>
-        where
-            Unit::Property: VectorProperty,
-        {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "({}, {}, {}){}", self.x, self.y, self.z, Unit::SUFFIX)
-            }
-        }
-
         // MeasurePoint3d == MeasurePoint3d -> bool
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint3d<Unit, Number>>
             for MeasurePoint3d<Unit, Number>
@@ -458,12 +483,37 @@ macro_rules! define_measure_3d {
         {
         }
 
+        // format!("{}", MeasurePoint3d)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at ({}, {}, {}){}", self.x, self.y, self.z, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at (")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.z, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        // format!("{:?}", MeasurePoint3d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for MeasurePoint3d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at (")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.z, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
@@ -736,9 +786,17 @@ macro_rules! define_measure_3d {
             }
         }
 
+        // format!("{}", LinearMap3d)
         impl<Number: ArithmeticOps> fmt::Display for LinearMap3d<Number> {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "{}", format_matrix::<3, 3, Number>(&self.c, ""))
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(formatter, "{}", format_matrix::<3, 3, Number>(&self.c, ""))
+            }
+        }
+
+        // format!("{:?}", LinearMap3d)
+        impl<Number: ArithmeticOps> fmt::Debug for LinearMap3d<Number> {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(formatter, "{}", format_matrix::<3, 3, Number>(&self.c, ""))
             }
         }
 
@@ -1093,13 +1151,28 @@ macro_rules! define_measure_3d {
             }
         }
 
+        // format!("{}", AffineMap3d)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(
-                    f,
+                    formatter,
+                    "{}",
+                    format_matrix::<3, 4, Number>(&self.c, Unit::SUFFIX)
+                )
+            }
+        }
+
+        // format!("{:?}", AffineMap3d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for AffineMap3d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(
+                    formatter,
                     "{}",
                     format_matrix::<3, 4, Number>(&self.c, Unit::SUFFIX)
                 )

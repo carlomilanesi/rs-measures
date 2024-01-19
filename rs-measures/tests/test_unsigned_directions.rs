@@ -429,7 +429,25 @@ fn unsigned_direction_is_equal_to_its_copy() {
 }
 
 #[test]
-fn unsigned_direction_shown_in_degrees() {
+fn unsigned_direction_formatting_in_degrees() {
     let ud = UnsignedDirection::<Degree, f32>::new(12.25);
-    assert_eq!(ud.to_string(), "at 12.25 deg (in 0°..360°)");
+    assert_eq!(format!("{}", ud), "at 12.25 deg (in 0°..360°)");
+}
+
+#[test]
+fn unsigned_direction_formatting_in_degrees_one_fractional_digit() {
+    let ud = UnsignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{:.1}", ud), "at 12.2 deg (in 0°..360°)");
+}
+
+#[test]
+fn unsigned_direction_formatting_for_debug_in_degrees() {
+    let ud = UnsignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{:?}", ud), "at 12.25 deg (in 0°..360°)");
+}
+
+#[test]
+fn unsigned_direction_formatting_for_debug_in_degrees_one_fractional_digit() {
+    let ud = UnsignedDirection::<Degree, f32>::new(12.25);
+    assert_eq!(format!("{:.1?}", ud), "at 12.2 deg (in 0°..360°)");
 }

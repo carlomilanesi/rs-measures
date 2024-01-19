@@ -226,7 +226,25 @@ fn measure_point_is_equal_to_its_copy() {
 }
 
 #[test]
-fn measure_point_shown_in_celsius() {
+fn measure_point_formatting_in_celsius() {
     let mp = MeasurePoint::<Celsius, f32>::new(12.25);
-    assert_eq!(mp.to_string(), "at 12.25 °C");
+    assert_eq!(format!("{}", mp), "at 12.25 °C");
+}
+
+#[test]
+fn measure_point_formatting_in_celsius_one_fractional_digit() {
+    let mp = MeasurePoint::<Celsius, f32>::new(12.25);
+    assert_eq!(format!("{:.1}", mp), "at 12.2 °C");
+}
+
+#[test]
+fn measure_point_formatting_for_debug_in_celsius() {
+    let mp = MeasurePoint::<Celsius, f32>::new(12.25);
+    assert_eq!(format!("{:?}", mp), "at 12.25 °C");
+}
+
+#[test]
+fn measure_point_formatting_for_debug_in_celsius_one_fractional_digit() {
+    let mp = MeasurePoint::<Celsius, f32>::new(12.25);
+    assert_eq!(format!("{:.1?}", mp), "at 12.2 °C");
 }

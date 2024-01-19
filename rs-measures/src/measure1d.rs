@@ -221,8 +221,17 @@ macro_rules! define_measure_1d {
 
         // format!("{}", Measure)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure<Unit, Number> {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "{}{}", self.value, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        // format!("{:?}", Measure)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for Measure<Unit, Number> {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
@@ -363,9 +372,21 @@ macro_rules! define_measure_1d {
 
         impl<Unit, Number: ArithmeticOps> Copy for MeasurePoint<Unit, Number> {}
 
+        // format!("{}", MeasurePoint)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint<Unit, Number> {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at {}{}", self.value, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at ")?;
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        // format!("{:?}", MeasurePoint)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for MeasurePoint<Unit, Number> {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at ")?;
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
@@ -520,11 +541,25 @@ macro_rules! define_measure_1d {
 
         impl<Unit, Number: ArithmeticOps> Copy for UnsignedDirection<Unit, Number> {}
 
+        // format!("{}", UnsignedDirection)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
             for UnsignedDirection<Unit, Number>
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at {}{} (in 0°..360°)", self.value, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at ")?;
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)?;
+                formatter.write_str(" (in 0°..360°)")
+            }
+        }
+
+        // format!("{:?}", UnsignedDirection)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for UnsignedDirection<Unit, Number> {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at ")?;
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)?;
+                formatter.write_str(" (in 0°..360°)")
             }
         }
 
@@ -696,13 +731,31 @@ macro_rules! define_measure_1d {
         {
         }
 
+        // format!("{}", SignedDirection)
         impl<Unit, Number> fmt::Display for SignedDirection<Unit, Number>
         where
             Unit: MeasurementUnit,
             Number: ArithmeticOps,
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at {}{} (in -180°..180°)", self.value, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at ")?;
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)?;
+                formatter.write_str(" (in -180°..180°)")
+            }
+        }
+
+        // format!("{:?}", SignedDirection)
+        impl<Unit, Number> fmt::Debug for SignedDirection<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at ")?;
+                fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)?;
+                formatter.write_str(" (in -180°..180°)")
             }
         }
     };

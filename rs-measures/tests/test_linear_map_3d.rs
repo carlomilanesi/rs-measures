@@ -368,7 +368,16 @@ fn linear_map_3d_combined_with() {
 fn linear_map_3d_formatting_with_no_padding() {
     let lm = LinearMap3d::<f64>::new([[1.2, 000.8, 1.2], [3.400, 1.3, 1.4], [8.7, 3.1, 5.8]]);
     assert_eq!(
-        lm.to_string(),
+        format!("{}", lm),
+        "[1.2 0.8 1.2]\n[3.4 1.3 1.4]\n[8.7 3.1 5.8]"
+    );
+}
+
+#[test]
+fn linear_map_3d_formatting_for_debug_with_no_padding() {
+    let lm = LinearMap3d::<f64>::new([[1.2, 000.8, 1.2], [3.400, 1.3, 1.4], [8.7, 3.1, 5.8]]);
+    assert_eq!(
+        format!("{:?}", lm),
         "[1.2 0.8 1.2]\n[3.4 1.3 1.4]\n[8.7 3.1 5.8]"
     );
 }
@@ -377,7 +386,16 @@ fn linear_map_3d_formatting_with_no_padding() {
 fn linear_map_3d_formatting_with_initial_padding() {
     let lm = LinearMap3d::<f64>::new([[1.2, 20.8, 2567.], [873.4, 1.3, 0.], [3.1, 3473.2, 10.]]);
     assert_eq!(
-        lm.to_string(),
+        format!("{}", lm),
+        "[  1.2   20.8 2567]\n[873.4    1.3    0]\n[  3.1 3473.2   10]"
+    );
+}
+
+#[test]
+fn linear_map_3d_formatting_for_debug_with_initial_padding() {
+    let lm = LinearMap3d::<f64>::new([[1.2, 20.8, 2567.], [873.4, 1.3, 0.], [3.1, 3473.2, 10.]]);
+    assert_eq!(
+        format!("{:?}", lm),
         "[  1.2   20.8 2567]\n[873.4    1.3    0]\n[  3.1 3473.2   10]"
     );
 }
@@ -390,7 +408,20 @@ fn linear_map_3d_formatting_with_final_padding() {
         [2.64, 5.452710, 45.],
     ]);
     assert_eq!(
-        lm.to_string(),
+        format!("{}", lm),
+        "[1.254 0.8     -0.3401  ]\n[3.4   1.36    45.958234]\n[2.64  5.45271 45       ]"
+    );
+}
+
+#[test]
+fn linear_map_3d_formatting_for_debug_with_final_padding() {
+    let lm = LinearMap3d::<f64>::new([
+        [1.254, 0.8, -0.3401],
+        [3.4, 1.36, 45.958234],
+        [2.64, 5.452710, 45.],
+    ]);
+    assert_eq!(
+        format!("{:?}", lm),
         "[1.254 0.8     -0.3401  ]\n[3.4   1.36    45.958234]\n[2.64  5.45271 45       ]"
     );
 }
@@ -403,7 +434,20 @@ fn linear_map_3d_formatting_with_both_padding() {
         [756., 3.8472, 41.81],
     ]);
     assert_eq!(
-        lm.to_string(),
+        format!("{}", lm),
+        "[    1.254 650         -872   ]\n[98763.4     1.7658909    5.43]\n[  756       3.8472      41.81]"
+    );
+}
+
+#[test]
+fn linear_map_3d_formatting_for_debug_with_both_padding() {
+    let lm = LinearMap3d::<f64>::new([
+        [1.254, 650., -872.],
+        [98763.4, 1.7658909, 5.43],
+        [756., 3.8472, 41.81],
+    ]);
+    assert_eq!(
+        format!("{:?}", lm),
         "[    1.254 650         -872   ]\n[98763.4     1.7658909    5.43]\n[  756       3.8472      41.81]"
     );
 }

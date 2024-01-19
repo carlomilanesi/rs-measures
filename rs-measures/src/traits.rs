@@ -184,6 +184,7 @@ pub trait ArithmeticOps:
     + HasSign
     + std::iter::Sum
     + fmt::Display
+    + fmt::Debug
     + Clone
     + Copy
     + PartialOrd
@@ -215,6 +216,7 @@ impl<T> ArithmeticOps for T where
         + HasSign
         + std::iter::Sum
         + fmt::Display
+        + fmt::Debug
         + Clone
         + Copy
         + PartialOrd

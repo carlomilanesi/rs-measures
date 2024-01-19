@@ -231,7 +231,25 @@ fn measure_point_2d_is_equal_to_its_copy() {
 }
 
 #[test]
-fn measure_point_2d_shown_in_metres() {
-    let mp = MeasurePoint2d::<Metre, f32>::new(12.25, 23.50);
-    assert_eq!(mp.to_string(), "at (12.25, 23.5) m");
+fn measure_point_2d_formatting_in_metres() {
+    let mp = MeasurePoint2d::<Metre, f32>::new(12.25, 23.50203);
+    assert_eq!(format!("{}", mp), "at (12.25, 23.50203) m");
+}
+
+#[test]
+fn measure_point_2d_formatting_in_metres_one_fractional_digit() {
+    let mp = MeasurePoint2d::<Metre, f32>::new(12.25, 23.50203);
+    assert_eq!(format!("{:.1}", mp), "at (12.2, 23.5) m");
+}
+
+#[test]
+fn measure_point_2d_formatting_for_debug_in_metres() {
+    let mp = MeasurePoint2d::<Metre, f32>::new(12.25, 23.50203);
+    assert_eq!(format!("{:?}", mp), "at (12.25, 23.50203) m");
+}
+
+#[test]
+fn measure_point_2d_formatting_for_debug_in_metres_one_fractional_digit() {
+    let mp = MeasurePoint2d::<Metre, f32>::new(12.25, 23.50203);
+    assert_eq!(format!("{:.1?}", mp), "at (12.2, 23.5) m");
 }

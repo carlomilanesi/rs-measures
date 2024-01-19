@@ -262,12 +262,33 @@ macro_rules! define_measure_2d {
         {
         }
 
+        // format!("{}", Measure2d)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for Measure2d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "({}, {}){}", self.x, self.y, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("(")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        // format!("{:?}", Measure2d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for Measure2d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("(")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
@@ -430,6 +451,7 @@ macro_rules! define_measure_2d {
             )
         }
 
+        // MeasurePoint2d == MeasurePoint2d -> bool
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> PartialEq<MeasurePoint2d<Unit, Number>>
             for MeasurePoint2d<Unit, Number>
         where
@@ -440,6 +462,7 @@ macro_rules! define_measure_2d {
             }
         }
 
+        // MeasurePoint2d.clone() -> MeasurePoint2d
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Clone for MeasurePoint2d<Unit, Number>
         where
             Unit::Property: VectorProperty,
@@ -449,17 +472,39 @@ macro_rules! define_measure_2d {
             }
         }
 
+        // MeasurePoint2d = MeasurePoint2d
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Copy for MeasurePoint2d<Unit, Number> where
             Unit::Property: VectorProperty
         {
         }
 
+        // format!("{}", MeasurePoint2d)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for MeasurePoint2d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "at ({}, {}){}", self.x, self.y, Unit::SUFFIX)
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at (")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        // format!("{:?}", MeasurePoint2d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for MeasurePoint2d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                formatter.write_str("at (")?;
+                fmt::Display::fmt(&self.x, formatter)?;
+                formatter.write_str(", ")?;
+                fmt::Display::fmt(&self.y, formatter)?;
+                formatter.write_str(")")?;
+                formatter.write_str(Unit::SUFFIX)
             }
         }
 
@@ -717,9 +762,17 @@ macro_rules! define_measure_2d {
             rows.join("\n")
         }
 
+        // format!("{}", LinearMap2d)
         impl<Number: ArithmeticOps> fmt::Display for LinearMap2d<Number> {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
-                write!(f, "{}", format_matrix::<2, 2, Number>(&self.c, ""))
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(formatter, "{}", format_matrix::<2, 2, Number>(&self.c, ""))
+            }
+        }
+
+        // format!("{:?}", LinearMap2d)
+        impl<Number: ArithmeticOps> fmt::Debug for LinearMap2d<Number> {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(formatter, "{}", format_matrix::<2, 2, Number>(&self.c, ""))
             }
         }
 
@@ -949,13 +1002,28 @@ macro_rules! define_measure_2d {
             }
         }
 
+        // format!("{}", AffineMap2d)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap2d<Unit, Number>
         where
             Unit::Property: VectorProperty,
         {
-            fn fmt(&self, f: &mut fmt::Formatter<'_>) -> fmt::Result {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
                 write!(
-                    f,
+                    formatter,
+                    "{}",
+                    format_matrix::<2, 3, Number>(&self.c, Unit::SUFFIX)
+                )
+            }
+        }
+
+        // format!("{:?}", AffineMap2d)
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for AffineMap2d<Unit, Number>
+        where
+            Unit::Property: VectorProperty,
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                write!(
+                    formatter,
                     "{}",
                     format_matrix::<2, 3, Number>(&self.c, Unit::SUFFIX)
                 )

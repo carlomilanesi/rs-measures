@@ -302,7 +302,20 @@ fn affine_map_3d_formatting_with_no_padding() {
         [8.7, 3.1, 5.8, 0.],
     ]);
     assert_eq!(
-        am.to_string(),
+        format!("{}", am),
+        "[1.2 0.8 1.2 6] m\n[3.4 1.3 1.4 2]\n[8.7 3.1 5.8 0]"
+    );
+}
+
+#[test]
+fn affine_map_3d_formatting_for_debug_with_no_padding() {
+    let am = AffineMap3d::<Metre, f64>::new([
+        [1.2, 000.8, 1.2, 6.],
+        [3.400, 1.3, 1.4, 2.],
+        [8.7, 3.1, 5.8, 0.],
+    ]);
+    assert_eq!(
+        format!("{:?}", am),
         "[1.2 0.8 1.2 6] m\n[3.4 1.3 1.4 2]\n[8.7 3.1 5.8 0]"
     );
 }
@@ -315,7 +328,20 @@ fn affine_map_3d_formatting_with_initial_padding() {
         [3.1, 3473.2, 10., 34.2],
     ]);
     assert_eq!(
-        am.to_string(),
+        format!("{}", am),
+        "[  1.2   20.8 2567   56.3] m\n[873.4    1.3    0 2151.1]\n[  3.1 3473.2   10   34.2]"
+    );
+}
+
+#[test]
+fn affine_map_3d_formatting_for_debug_with_initial_padding() {
+    let am = AffineMap3d::<Metre, f64>::new([
+        [1.2, 20.8, 2567., 56.3],
+        [873.4, 1.3, 0., 2151.1],
+        [3.1, 3473.2, 10., 34.2],
+    ]);
+    assert_eq!(
+        format!("{:?}", am),
         "[  1.2   20.8 2567   56.3] m\n[873.4    1.3    0 2151.1]\n[  3.1 3473.2   10   34.2]"
     );
 }
@@ -328,7 +354,20 @@ fn affine_map_3d_formatting_with_final_padding() {
         [2.64, 5.452710, 45., 731.],
     ]);
     assert_eq!(
-        am.to_string(),
+        format!("{}", am),
+        "[1.254 0.8     -0.3401   -34.2 ] m\n[3.4   1.36    45.958234 345.23]\n[2.64  5.45271 45        731   ]"
+    );
+}
+
+#[test]
+fn affine_map_3d_formatting_for_debug_with_final_padding() {
+    let am = AffineMap3d::<Metre, f64>::new([
+        [1.254, 0.8, -0.3401, -34.2],
+        [3.4, 1.36, 45.958234, 345.23],
+        [2.64, 5.452710, 45., 731.],
+    ]);
+    assert_eq!(
+        format!("{:?}", am),
         "[1.254 0.8     -0.3401   -34.2 ] m\n[3.4   1.36    45.958234 345.23]\n[2.64  5.45271 45        731   ]"
     );
 }
@@ -341,7 +380,20 @@ fn affine_map_3d_formatting_with_both_padding() {
         [756., 3.8472, 41.81, -561.81],
     ]);
     assert_eq!(
-        am.to_string(),
+        format!("{}", am),
+        "[    1.254 650         -872       6   ] m\n[98763.4     1.7658909    5.43    9   ]\n[  756       3.8472      41.81 -561.81]"
+    );
+}
+
+#[test]
+fn affine_map_3d_formatting_for_debug_with_both_padding() {
+    let am = AffineMap3d::<Metre, f64>::new([
+        [1.254, 650., -872., 6.],
+        [98763.4, 1.7658909, 5.43, 9.],
+        [756., 3.8472, 41.81, -561.81],
+    ]);
+    assert_eq!(
+        format!("{:?}", am),
         "[    1.254 650         -872       6   ] m\n[98763.4     1.7658909    5.43    9   ]\n[  756       3.8472      41.81 -561.81]"
     );
 }
