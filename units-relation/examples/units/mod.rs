@@ -2926,8 +2926,10 @@ define_units_relation! {CoulombPerCubicMetre == MicroCoulomb / MilliLitre}
 define_units_relation! {CoulombPerSquareMetre == Coulomb / SquareMetre}
 define_units_relation! {CoulombPerSquareMetre == MicroCoulomb / SquareMilliMetre}
 
-// ElectricFieldStrength == ElectricPotential * Length
+// ElectricFieldStrength == ElectricPotential / Length
 define_units_relation! {VoltPerMetre == Volt / Metre}
+
+// ElectricFieldStrength == Force / ElectricCharge
 define_units_relation! {NewtonPerCoulomb == Newton / Coulomb}
 
 // ElectricPotential == Power / ElectricCurrent
@@ -2968,7 +2970,11 @@ define_units_relation! {AmperePerMetre == MilliAmpere / MilliMetre}
 define_units_relation! {AmperePerMetre == MicroAmpere / MicroMetre}
 
 // TODO: MagneticFlux == Mass * Area / SquareTime / Current
-// TODO: MagneticFlux == Force * Length / Current
+
+// ElectricFieldStrength == Velocity X MagneticFlux
+define_units_relation! {VoltPerMetre == MetrePerSecond * Weber}
+define_units_relation! {VoltPerMetre == MetrePerSecond:2 X Weber:2}
+define_units_relation! {VoltPerMetre:3 == MetrePerSecond:3 X Weber:3}
 
 // MagneticFluxDensity == MagneticFlux / Area
 // TODO: MagneticFluxDensity == Mass / SquareTime / Current
