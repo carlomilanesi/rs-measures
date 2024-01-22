@@ -1,4 +1,5 @@
-rs_measures::define_measure_1ddefine_measure_1d! {}
+rs_measures::define_1d! {}
+
 struct Mass;
 struct KiloGram;
 impl MeasurementUnit for KiloGram {

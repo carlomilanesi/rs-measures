@@ -1,10 +1,11 @@
-rs_measures::define_measure_1d! {}
-
 mod angles_decl;
 
 #[test]
 fn angle_units_consts() {
-    use rs_measures::{angle::Radian, traits::AngleMeasurementUnit};
+    use rs_measures::{
+        angle::Radian,
+        traits::{AngleMeasurementUnit, MeasurementUnit},
+    };
     let pi = std::f64::consts::PI;
 
     // Radians

@@ -1,4 +1,4 @@
-rs_measures::define_measure_1d! {}
+rs_measures::define_1d! {}
 
 pub struct Length;
 impl VectorProperty for Length {}

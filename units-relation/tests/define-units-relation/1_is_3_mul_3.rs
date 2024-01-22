@@ -1,4 +1,4 @@
-rs_measures::define_measure_3d! {}
+rs_measures::define_1d_3d! {}
 
 pub struct P1;
 

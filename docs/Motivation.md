@@ -190,9 +190,9 @@ note: expected this to be `Length`
 note: required by a bound in `Measure::<Unit, Number>::convert`
    --> rs-measures/src/bin/main.rs:4:1
     |
-4   | rs_measures::define_measure_1d! {}
-    | ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `Measure::<Unit, Number>::convert`
-    = note: this error originates in the macro `rs_measures::define_measure_1d` (in Nightly builds, run with -Z macro-backtrace for more info)
+4   | rs_measures::define_1d! {}
+    | ^^^^^^^^^^^^^^^^^^^^^^^^^^ required by this bound in `Measure::<Unit, Number>::convert`
+    = note: this error originates in the macro `rs_measures::define_1d` (in Nightly builds, run with -Z macro-backtrace for more info)
 ```
 
 From it, it is clear that, for the destination unit of the conversion, a unit of `Length` was expected, but a unit of `Time` was specified.
@@ -207,10 +207,10 @@ Consider the following Rust code:
 let position1 = 1.2;
 let position2 = 2.3;
 let displacement1 = 0.3;
-let position3 = position1 + displacement1; // Meaniningful.
-let what1 = position1 + position2; // Meaniningless.
-let displacement2 = position2 - position1; // Meaniningful.
-let what2 = position1 * 2.; // Meaniningless.
+let position3 = position1 + displacement1; // Meaningful.
+let what1 = position1 + position2; // Meaningless.
+let displacement2 = position2 - position1; // Meaningful.
+let what2 = position1 * 2.; // Meaningless.
 ```
 
 The value of the variable `position3` is a position, obtained by incrementing another position by a displacement. It is a meaningful operation.

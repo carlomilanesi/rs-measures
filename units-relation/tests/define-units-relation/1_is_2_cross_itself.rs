@@ -1,4 +1,4 @@
-rs_measures::define_measure_2d! {}
+rs_measures::define_1d_2d! {}
 
 pub struct P1;
 
@@ -24,6 +24,7 @@ impl MeasurementUnit for U2 {
 units_relation::define_units_relation! { U1 == U2:2 X U2:2 }
 
 fn main() {
+    use rs_measures::traits::CrossProduct;
     let u1: Measure<U1> = Measure2d::<U2>::new(6., 5.).cross_product(Measure2d::<U2>::new(7., 4.));
     assert_eq!(u1.value, -11.);
 }

@@ -1,4 +1,4 @@
-rs_measures::define_measure_1d! {}
+rs_measures::define_1d_and_directions! {}
 
 pub struct Degree;
 impl MeasurementUnit for Degree {

@@ -404,7 +404,7 @@ fn expand_cross_2(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
     let expanded = if unit1 == unit2 {
         quote! {
             // Measure2d<U1>.cross_product(Measure2d<U1>) -> Measure<U3>
-            impl<Number: ArithmeticOps> CrossProduct<Measure2d<#unit1, Number>> for Measure2d<#unit1, Number> {
+            impl<Number: ArithmeticOps> rs_measures::traits::CrossProduct<Measure2d<#unit1, Number>> for Measure2d<#unit1, Number> {
                 type Output = Measure<#unit3, Number>;
                 fn cross_product(self, other: Measure2d<#unit1, Number>) -> Self::Output {
                     Self::Output::new(self.x * other.y - self.y * other.x)
@@ -414,7 +414,7 @@ fn expand_cross_2(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
     } else {
         quote! {
             // Measure2d<U1>.cross_product(Measure2d<U2>) -> Measure<U3>
-            impl<Number: ArithmeticOps> CrossProduct<Measure2d<#unit2, Number>> for Measure2d<#unit1, Number> {
+            impl<Number: ArithmeticOps> rs_measures::traits::CrossProduct<Measure2d<#unit2, Number>> for Measure2d<#unit1, Number> {
                 type Output = Measure<#unit3, Number>;
                 fn cross_product(self, other: Measure2d<#unit2, Number>) -> Self::Output {
                     Self::Output::new(self.x * other.y - self.y * other.x)
@@ -422,7 +422,7 @@ fn expand_cross_2(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
             }
 
             // Measure2d<U2>.cross_product(Measure2d<U1>) -> Measure<U3>
-            impl<Number: ArithmeticOps> CrossProduct<Measure2d<#unit1, Number>> for Measure2d<#unit2, Number> {
+            impl<Number: ArithmeticOps> rs_measures::traits::CrossProduct<Measure2d<#unit1, Number>> for Measure2d<#unit2, Number> {
                 type Output = Measure<#unit3, Number>;
                 fn cross_product(self, other: Measure2d<#unit1, Number>) -> Self::Output {
                     Self::Output::new(self.x * other.y - self.y * other.x)
@@ -437,7 +437,7 @@ fn expand_cross_3(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
     let expanded = if unit1 == unit2 {
         quote! {
             // Measure3d<U1>.cross_product(Measure3d<U1>) -> Measure<U3>
-            impl<Number: ArithmeticOps> CrossProduct<Measure3d<#unit1, Number>> for Measure3d<#unit1, Number> {
+            impl<Number: ArithmeticOps> rs_measures::traits::CrossProduct<Measure3d<#unit1, Number>> for Measure3d<#unit1, Number> {
                 type Output = Measure3d<#unit3, Number>;
                 fn cross_product(self, other: Measure3d<#unit1, Number>) -> Self::Output {
                     Self::Output::new(
@@ -451,7 +451,7 @@ fn expand_cross_3(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
     } else {
         quote! {
             // Measure3d<U1>.cross_product(Measure3d<U2>) -> Measure<U4>
-            impl<Number: ArithmeticOps> CrossProduct<Measure3d<#unit2, Number>> for Measure3d<#unit1, Number> {
+            impl<Number: ArithmeticOps> rs_measures::traits::CrossProduct<Measure3d<#unit2, Number>> for Measure3d<#unit1, Number> {
                 type Output = Measure3d<#unit3, Number>;
                 fn cross_product(self, other: Measure3d<#unit2, Number>) -> Self::Output {
                     Self::Output::new(
@@ -463,7 +463,7 @@ fn expand_cross_3(unit1: syn::Ident, unit2: syn::Ident, unit3: syn::Ident) -> To
             }
 
             // Measure3d<U2>.cross_product(Measure3d<U1>) -> Measure<U4>
-            impl<Number: ArithmeticOps> CrossProduct<Measure3d<#unit1, Number>> for Measure3d<#unit2, Number> {
+            impl<Number: ArithmeticOps> rs_measures::traits::CrossProduct<Measure3d<#unit1, Number>> for Measure3d<#unit2, Number> {
                 type Output = Measure3d<#unit3, Number>;
                 fn cross_product(self, other: Measure3d<#unit1, Number>) -> Self::Output {
                     Self::Output::new(

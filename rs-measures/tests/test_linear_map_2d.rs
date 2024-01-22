@@ -1,5 +1,5 @@
 use std::f64::consts::TAU;
-rs_measures::define_measure_2d! {}
+rs_measures::define_1d_2d! {}
 
 mod test_utils;
 

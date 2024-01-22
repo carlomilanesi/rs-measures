@@ -59,15 +59,19 @@ cargo clippy --examples
 cargo t
 ```
 
-The crate rs-measures consists essentially in three big macros, defined in the files `measure1d.rs`, `measure2d.rs`, and `measure3d.rs`.
+The crate rs-measures consists essentially in macros.
 The command `cargo fmt` cannot format the code inside such macros.
+In particular, the source files containing only macros are:
+* The files whose pathname starts with `define_`.
+* The files contained in the folder `inner`, except for the file `mod.rs`.
+
 So, to format that code, follow these process:
-* For each of those three files, comment out the first three lines and the last two lines, and save the file.
+* For each of those files containing only macros, comment out the first three lines and the last two lines, and save the file.
 * Run the command `cargo fmt`.
-* For each of those three files, uncomment the five lines commented in the first step.
+* For each of those files, uncomment the five lines commented in the first step.
 * Select all the lines except the five just uncommented lines, and type twice the Tab key, to indent them, and save the file.
 
-The command `format_measures.sh` performs this processing for the three macro files.
+The command `format_measures.sh` performs this processing for all the macro files.
 
 Before committing any change, except for those in documentation only, these command must be run successfully:
 ```sh

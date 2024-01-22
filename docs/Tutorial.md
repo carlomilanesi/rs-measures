@@ -818,26 +818,35 @@ Let's see its contents.
 
 It begins with this statement:
 ```rust
-rs_measures::define_measure_3d! {}
+rs_measures::define_1d_2d_3d! {}
 ```
 
-This is a macro invocation which expands to the code which defines the types `Measure3d`, `MeasurePoint3d`, `LinearMap3d`, and `LinearMap3d`.
+This is a macro invocation which expands to the code which defines these types:
+* `Measure`
+* `MeasurePoint`
+* `UnsignedDirections`
+* `SignedDirections`.
+* `Measure2d`
+* `MeasurePoint2d`
+* `LinearMap2d`
+* `AffineMap2d`.
+* `Measure3d`
+* `MeasurePoint3d`
+* `LinearMap3d`
+* `AffineMap3d`.
 
-But before such definitions, it contains this statement:
-```rust
-rs_measures::define_measure_2d! {}
-```
 
-This is a macro invocation which expands to the code which defines the types `Measure2d`, `MeasurePoint2d`, `LinearMap2d`, and `LinearMap2d`.
+Therefore, if there is the need to work in 1D, in 2D, in 3D and using angular directions, the macro `define_1d_2d_3d` should be used. It will declare every kind of measure, directions and transformations.
 
-But before such definitions, it contains this statement:
-```rust
-rs_measures::define_measure_1d! {}
-```
+Though, if only some of such types are needed, you can use some other macros, with reduce the number of declared types, and so the resulting code is quicker to compile, and developers are not bothered by unneeded types.
 
-This is a macro invocation which expands to the code which defines the types `Measure`, `MeasurePoint`, `UnsignedDirection`, and `SignedDirection`.
+If only 1D and 3D measures and transformations are needed, with no angular directions, it is better to use the macro `define_1d_3d`. It will declare only 1D and 3D measures and transformations, skipping 2D measures and transformations and angular directions.
 
-Therefore, if there is the need to work in 3D space, the macro `define_measure_3d` should be used, and it will declare every kind of measure. If there is the need to work in a plane, it is more efficient to use the macro `define_measure_2d`, which it will declare every kind of measure, except the 3D ones. And if ony scalar measures are needed, it is more efficient to use the macro `define_measure_1d`, which will skip both 2D and 2D types definitions.
+If only 1D and 2D measures and transformations are needed, possibly with angular directions, it is better to use the macro `define_1d_2d`. It will declare only 1D and 2D measures and transformations, and the angular directions, skipping 3D measures and transformation.
+
+If only 1D measures and angular directions are needed, it is better to use the macro `define_1d_and_directions`. It will define only 1D measures and the angular directions, skipping both 2D and 3D measures and transformations.
+
+And at last, if only 1D measures are needed, it is better to use the macro `define_1d`. It will define only 1D measures, skipping 2D and 3D measures and transformations, and the angular directions.
 
 Actually these definitions do not define all the units of measurement we used in our examples.
 
@@ -845,7 +854,7 @@ The only predefined unit of measurement is `Radian` which is used for angles. Ev
 
 ### Defining properties
 
-Actually, if you go on reading file `units.rs`, you will see at lines 4 and 5:
+Actually, if you go on reading the file `units.rs`, you will see at lines 4 and 5:
 ```rust
 pub struct Acceleration;
 impl VectorProperty for Acceleration {}
@@ -853,17 +862,17 @@ impl VectorProperty for Acceleration {}
 
 It defines a *property*. A (physical or geometrical) property is something you want to measure, and, for such a purpose, it needs one or more units of measurement.
 
-Its purpose is to avoid unit conversions which do not make sense.
-For example, `Mile`, `Inch`, `NanoMetre` and `KiloMetre` are all units of the property `Length` and so it will be allowed to convert between to of them. Instead, `MetrePerSquareSecond` is a unit of property `Acceleration` and so it will be forbidden to convert from `Mile` or `MetrePerSquareSecond` or conversely.
+Its main purpose is to avoid unit conversions which do not make sense.
+For example, `Mile`, `Inch`, `NanoMetre` and `KiloMetre` are all units of the property `Length` and so it will be allowed to convert between two of them. Instead, `MetrePerSquareSecond` is a unit of the property `Acceleration`, and so it will be forbidden to convert from `Mile` or `MetrePerSquareSecond` or conversely.
 
-For some properties, it makes sense to have a 2D measure or 3D measure, and for others it does make no sense. For example, length, velocity, force, torque, electric field strength, magnetic field strength can are *vector properties*. Instead mass, temperature, time, electric charge are *scalar properties*.
+For some properties, it makes sense to have a 2D measure or 3D measure, and for others it does make no sense. For example, length, velocity, force, torque, electric field strength, and magnetic field strength are *vector properties*. Instead mass, temperature, time, and electric charge are *scalar properties*.
 
 It is useful to forbid creating vectors for scalar properties.
-To such purpose, the statement `impl VectorProperty for Acceleration {}` just marks the property `Acceleration` as a vector property.
+To such a purpose, the statement `impl VectorProperty for Acceleration {}` just marks the property `Acceleration` as a vector property.
 Later, any attempt to create a 2D or 3D measure with a unit of this property will be allowed.
 For example, this is allowed: `Measure3d<MetrePerSquareSecond>`.
 
-Instead, the declaration of time should simply be, without any `impl` statement:
+Instead, the declaration of time should simply be this, without any `impl` statement:
 ```rust
 pub struct Time;
 ```
@@ -873,14 +882,14 @@ For example, this is not allowed: `Measure3d<Second>`.
 
 ### Defining units of measurement
 
-From line 7 of file `units.rs` there is:
+At line 7 of file `units.rs` there is:
 ```rust
 pub struct MetrePerSquareSecond;
 ```
 
 It defines a unit of measurement.
 
-The struct by itself has no content, because it is used for its type, not for its value.
+The struct by itself has no content, because it is used just for its type, not for its value.
 Its type is decorated in the following lines:
 ```rust
 impl MeasurementUnit for MetrePerSquareSecond {
@@ -895,11 +904,12 @@ The field `Property` asserts the property of this unit.
 As we said, we mean `MetrePerSquareSecond` to be an `Acceleration`.
 
 For every property, there should be in your mind a base unit.
-This is just the base unit for acceleration.
+Let's assume `MetrePerSquareSecond` is the base unit for acceleration, according with the SI international standard.
 The field `RATIO` specifies how many base units for its property are contained in this unit.
-Being this the base unit, it `RATIO` is `1.`.
-It is not required that the base unit is defined.
-For example we could have defined just this unit for acceleration:
+Being this the base unit, its `RATIO` is `1.`.
+
+It is not required that the base unit is actually defined.
+For example, we could have defined just this unit for acceleration:
 ```rust
 impl MeasurementUnit for CentiMetrePerSquareSecond {
     type Property = Acceleration;
@@ -912,26 +922,30 @@ impl MeasurementUnit for CentiMetrePerSquareSecond {
 For the unit `CentiMetrePerSquareSecond`, `RATIO` is `1e-2`, meaning that one hundredth of metre per square second is equivalent to one centimetre per square second.
 For the unit `Mile`, `RATIO` is `1609.`, meaning that 1609 metres is equivalent to one mile.
 
-The field `OFFSET` has rarely a value different from zero. In `units.rs`, it has different values only for temperature degrees.
-It represents the displacement from the origin of the base unit, represented in units of the base unit, to reach the origin of the current unit.
+The field `OFFSET` is needed for units having an origin different from the origin of the base unit.
+It has almost always a zero value, because almost all units have the same origin that their base unit.
+In `units.rs`, it has different values only for temperature degrees.
+Actually, it represents the displacement from the origin of the base unit, represented in units of the base unit, to reach the origin of the current unit.
 
 For example, for the unit `Fahrenheit`, it is `273.15 - 32. * 5. / 9.`.
 The base unit for temperature is `Kelvin`.
 Starting from the origin of the Kelvin scale, if we add `273.15` Kelvin degrees (reaching the origin of the Celsius scale), and then we subtract `32. * 5. / 9.` Kelvin degrees, we reach the origin of the `Fahrenheit` scale.
 
-You can define your origins in case you have different systems of reference, as long as they do not vary at run-time.
+Another possible use of `OFFSET` is for calendars, because different ways to represent times can have different origins.
 
-The field `SUFFIX` is a string which is printed after the numeric value whenever you print a measure value.
+Instead, it shouldn't be used for vector units, like `Length`, because it makes no sense to define the same `OFFSET` for all components of a vector.
+
+The field `SUFFIX` is a string which is printed after the numeric value, whenever a measure is printed or converted to string.
 
 ### Defining units of angles
 
-A particular property is that of angles.
+Angles are a particular property.
 
 The property `Angle` is the only predefined property.
 The unit `Radian` is its base unit and, as we said, it is the only predefined unit.
 
-You can define other angle units, but must be identified as such, to be used only when an angle makes sense.
-To that purpose, whenever an angle unit is defined also a definition like this is required:
+You can define other angle units, but, to allow their use as directions, there declaration must be a bit different than the declaration of other units.
+Whenever an angle unit is defined, also a definition like this is required:
 ```rust
 impl AngleMeasurementUnit for Degree {
     const CYCLE_FRACTION: f64 = 360.;
@@ -946,44 +960,46 @@ For the unit `Cycle`, `CYCLE_FRACTION` is `1.`, and for `Radian` it is `std::f64
 
 With the above declarations you can define measures, points, directions, and transformations, you can make conversions between units of the same property, you can compute additions, subtractions and divisions between measures of the same unit, and you can multiply or divide a measure by a number.
 
-Though you still cannot compute multiplications or divisions involving measures of different properties, like `Measure<Newton> * Measure<Metre>`.
+Though, you still cannot compute multiplications or divisions involving measures of different properties, like `Measure<Newton> * Measure<Metre>`.
 
 To do that, you need to teach it to your application.
 
-How to do this is shown in the file `units.rs` after line 2697.
+How to do this is shown in the file `units.rs` after line 2490.
 
-For example, statement at line 2677 is:
+For example, statement at line 2677 is this:
 ```rust
 define_units_relation! {Joule == Newton * Metre}
 ```
 
 It is a call to the procedural macro defined in the create `units-relation`.
 
-It expands to four functions, which:
-* One allows you to multiply a `Measure<Newton>` by a `Measure<Meter>` getting a `Measure<Joule>`.
-* One allows you to multiply a `Measure<Meter>` by a `Measure<Newton>` getting a `Measure<Joule>`.
-* One allows you to divide a `Measure<Joule>` by a `Measure<Meter>` getting a `Measure<Newton>`.
-* One allows you to multiply a `Measure<Joule>` by a `Measure<Newton>` getting a `Measure<Meter>`.
+It expands to four functions:
+* One function allows you to multiply a `Measure<Newton>` by a `Measure<Meter>` getting a `Measure<Joule>`.
+* One function allows you to multiply a `Measure<Meter>` by a `Measure<Newton>` getting a `Measure<Joule>`.
+* One function allows you to divide a `Measure<Joule>` by a `Measure<Meter>` getting a `Measure<Newton>`.
+* One function allows you to multiply a `Measure<Joule>` by a `Measure<Newton>` getting a `Measure<Meter>`.
 
-It is followed by these statements:
+It is followed, in file `units.rs`, by these statements:
 ```rust
 define_units_relation! {Joule == Newton:2 * Metre:2}
 define_units_relation! {Joule == Newton:3 * Metre:3}
 ```
 
-They allow the same operations, but, respectively, in a plane or in the space.
+They allow the same operations, but, respectively, in a plane or in the 3D space.
 
 To specify the need to compute the cross-product, you can write:
 ```rust
 define_units_relation! {NewtonMetre == Newton:2 X Metre:2}
 ```
 
-It allows the operations `Measure2d<Newton>.cross_product(Measure2d<Metre>)` and `Measure2d<Metre>.cross_product(Measure2d<Newton>)`.
+It allows the operations `Measure2d<Newton>.cross_product(Measure2d<Metre>)` and `Measure2d<Metre>.cross_product(Measure2d<Newton>)`, both returning a `Measure<NewtonMetre>`. Notice that the return value type is a scalar.
 
 The following expression is similar, but for 3D space.
 ```rust
 define_units_relation! {NewtonMetre:3 == Newton:3 X Metre:3}
 ```
+
+It allows the operations `Measure3d<Newton>.cross_product(Measure3d<Metre>)` and `Measure3d<Metre>.cross_product(Measure3d<Newton>)`, both returning a `Measure3d<NewtonMetre>`. Notice that the return value type is a 3D vector.
 
 You can also write an expression like this one:
 ```rust
@@ -995,10 +1011,12 @@ It is equivalent to the following one, but it may appear more intuitive:
 define_units_relation! {Joule == Watt * Second}
 ```
 
-In a couple of cases, you need just to specify that a unit is the opposite of another one. In such a case you can write something like this:
+In a couple of cases, you need just to specify that a unit is the opposite of another one. In such a case, you can write something like this:
 ```rust
 define_units_relation! {Siemens == 1 / Ohm}
 ```
+
+Only the value `1` is allowed here.
 
 ## Creating a custom file `units.ts`
 
@@ -1006,19 +1024,20 @@ The file `units.ts` is quite useful for learning, for experimenting, and for cop
 Though, it is not recommended for production use, for the following reasons:
 * Such large file increases your code base.
 * Such large file increases compilation time.
-* Such file use words or output prefix you don't like. For example, if you prefer, you could replace `Length` with `Space`, or `Metre` with `Meter`, or `" m"` with `" [m]"`.
-* Such files have names which conflicts with some names used in your project.
+* Such file uses words or output suffix you may dislike. For example, if you prefer, you could replace `Length` with `Space`, or `Metre` with `Meter`, or `" m"` with `" [m]"`.
+* Such files have names which conflicts with some names already used in your project.
 * Such files miss some properties or units or relations you may need.
 
 Therefore, the suggested procedure for production code is the following one:
 * Create your own file `units.rs` for your project.
-* Add as its first statement `rs_measures::define_measure_1d! {}`, replacing `1` with `2` or `3` in case you work in a plane or in the 3D space.
+* Add as its first statement `rs_measures::define_1d! {}`, possibly replacing `1d` with `1d_and_directions`, `1d_2d`, `1d_3d`, or `1d_2d_3d`, in case you need the types defined by such macros.
 * Search the provided example file for the properties, the units, and the relations you need, or the ones most similar to what you need. Copy and paste them into your own file.
 * Edit your file according to your needs.
 
 To create a property means simply to define an empty `struct` with the desired name. For example: `pub struct Information;`.
+If you need to define 2D or 3D measures having units of such a property, specify that it is a vector property, by implementing the empty trait `VectorProperty`.
 
-To create a unit for a property you first should decide, in case there will several units for that property, which is the base unit. For example, if you want to create the units `Bit` and `Byte` for property `Information`, you must decide which of them will be the base unit for you project, and which the derived one.
+To create a unit for a property, first you should decide, in case there will several units for that property, which of them is the base unit. For example, if you want to create the units `Bit` and `Byte` for property `Information`, you must decide which of them will be the base unit for you project, and which the derived one.
 
 And then use the macro `define_units_relation!` to define possible relationship between units, preceded by this statement:
 ```rust
@@ -1027,7 +1046,7 @@ use units_relation::define_units_relation;
 
 Here is an example of contents for a file `units.ts`;
 ```rust
-rs_measures::define_measure_1d! {}
+rs_measures::define_1d! {}
 
 pub struct Information;
 pub struct Bit;
@@ -1086,7 +1105,7 @@ use units::{Bit, Byte, Measure, Second};
 fn main() {
     let info_size = Measure::<Byte>::new(2700.);
     let time = Measure::<Second>::new(5.1);
-    println!("Transmission rate is {}", info_size.convert::<Bit>() / time);
+    println!("The transmission rate is {}", info_size.convert::<Bit>() / time);
 }
 ```
 
