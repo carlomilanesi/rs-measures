@@ -2294,6 +2294,14 @@ impl MeasurementUnit for CentiMetrePerSecond {
     const SUFFIX: &'static str = " cm/s";
 }
 
+pub struct KiloMetrePerSecond;
+impl MeasurementUnit for KiloMetrePerSecond {
+    type Property = Velocity;
+    const RATIO: f64 = 1000.;
+    const OFFSET: f64 = 0.;
+    const SUFFIX: &'static str = " km/s";
+}
+
 // Property: volume
 pub struct Volume;
 

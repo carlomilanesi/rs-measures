@@ -19,6 +19,11 @@ The documentation is in these files:
 * [Tutorial](docs/Tutorial.md). It is a step-by-step course on the use of these crates.
 * [Architecture](docs/Architecture.md). It explains the design choices of the crates.
 
+There are several examples:
+* `full`: Very long print of the provided examples of units of measures, and of the results of any supported operation.
+* `bench`, `bench2`: Simple check of speed, compared with naked numbers or with the crate `nalgebra`.
+* `base`, `mks`, `si`, `unit`: Translation for Rs-measures of the examples included in the crate `uom` version 0.35.0.
+
 ## License
 
 Licensed under either of
