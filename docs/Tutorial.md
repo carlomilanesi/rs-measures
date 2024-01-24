@@ -28,9 +28,12 @@ fn main() {
 }
 ```
 
-Run your project. It should print: `The distance is 100 km`. Notice that the characters "` km`" are printed automatically, because of the type of the variable.
+Run your project. It should print: `The distance is 100 km`.
+Notice that the characters "` km`" are printed automatically, because of the type of the variable.
 
-The variable named `distance` encapsulates an `f64` number, whose value is `100`. The unit of measurement is not stored in memory. It is just in the type of the variable.
+The variable named `distance` encapsulates an `f64` number, whose value is `100`.
+The unit of measurement is not stored in memory.
+It is just in the type of the variable.
 
 You can access the value of a measure by adding these two statements to your function `main`:
 ```rust
@@ -46,7 +49,7 @@ The distance is 100.
 
 The second printed line has no unit, because it is a naked number.
 
-This code is valid with `distance_value` having type `f64`, because `f64` is default value type of the `Measure` generic type.
+This code is valid with `distance_value` having type `f64`, because `f64` is the default value type of the generic type `Measure`.
 The statement `let distance_value: f32 = distance.value;` would have been illegal.
 Though, you can use also `f32` as value type, if you specify it explicitly, like in the following statement:
 ```rust
@@ -73,11 +76,29 @@ There are two numeric conversion methods:
 ## Operations on measures
 
 Whe have already seen that the type `Measure` can be printed.
-This means it implements the `Display` trait, and it has the `to_string()` method.
+This means it implements the trait `Display`, and it has the method `to_string()`.
 Printing a measure means printing its value followed by a suffix depending on its units of measurement.
 For the unit `KiloMeter`, the suffix is `" km"`, with a leading space.
 
-Here are the other operations that can be performed on one or two objects of type `Measure` having the same unit and the same value type.
+Measures implement also the trait `Debug`, having the same behavior of the the trait `Display`.
+So, you can write:
+```rust
+    #[allow(dead_code)]
+    #[derive(Debug)]
+    struct TimeElapsed {
+        hours: Measure<Hour>,
+        minutes: Measure<Minute>,
+    }
+    let time_elapsed = TimeElapsed {
+        hours: Measure::<Hour>::new(3.),
+        minutes: Measure::<Minute>::new(17.),
+    };
+    println!("{time_elapsed:?}");
+```
+
+It will print: `TimeElapsed { hours: 3 h, minutes: 17 min }`.
+
+Here are the other operations that can be performed on one or two objects of type `Measure`, provided they have the same unit and the same value type.
 ```rust
     let length = Measure::<Metre>::new(-7.);
     assert_eq!(length.squared_norm(), 49.);
@@ -95,29 +116,29 @@ Here are other arithmetic operations:
 ```rust
     let mut length1 = Measure::<Metre>::new(7.);
     let length2 = Measure::<Metre>::new(5.);
-    assert_eq!((-length1).value, -7.);
-    assert_eq!((length1 + length2).value, 12.);
-    assert_eq!((length1 - length2).value, 2.);
-    length1 += length2;
+    assert_eq!((-length1).value, -7.); // Negation
+    assert_eq!((length1 + length2).value, 12.); // Sum of two measures
+    assert_eq!((length1 - length2).value, 2.); // Subtraction between two measures
+    length1 += length2; // Increment of a measure
     assert_eq!(length1.value, 12.);
-    length1 -= length2;
+    length1 -= length2; // Decrement of a measure
     assert_eq!(length1.value, 7.);
-    assert_eq!((length1 * 3.).value, 21.);
-    assert_eq!((3. * length1).value, 21.);
-    length1 *= 3.;
+    assert_eq!((length1 * 3.).value, 21.); // Multiplication of a measure by a number
+    assert_eq!((3. * length1).value, 21.); // Multiplication of a number by a measure
+    length1 *= 3.; // Upscaling of a measure
     assert_eq!(length1.value, 21.);
-    assert_eq!((length1 / 3.).value, 7.);
-    length1 /= 3.;
+    assert_eq!((length1 / 3.).value, 7.); // Division of a measure by a number
+    length1 /= 3.; // Downscaling of a measure
     assert_eq!(length1.value, 7.);
-    assert_eq!(length1 / length2, 1.4); // When to measures of the same unit are divided, a number is obtained.
+    assert_eq!(length1 / length2, 1.4); // Division between two measures of the same unit, obtaining a number
 ```
 
 Here are some comparison operations:
 ```rust
     let length1 = Measure::<Metre>::new(7.);
     let length2 = Measure::<Metre>::new(5.);
-    assert!(length1 == length1);
-    assert!(length1 > length2);
+    assert!(length1 == length1); // Equality
+    assert!(length1 > length2); // Ordering
 ```
 
 ## Conversions between units
@@ -138,7 +159,7 @@ The distances 100 km and 62.15040397762586 mi are equivalent.
 The time spans 2 h and 120 min are equivalent.
 ```
 
-You cannot convert between units of measurement representing different physical or geometrical property:
+You cannot convert between units of measurement representing different physical or geometrical properties:
 ```rust
     let _ = Measure::<KiloMetre>::new(100.).convert::<Hour>(); // ILLEGAL
     let _ = Measure::<Mile>::new(100.).convert::<SquareMile>(); // ILLEGAL
@@ -185,10 +206,10 @@ On the other hand, some operations are specific of absolute values:
     let variation = point2 - point1; // Variation from point1 to point2.
     assert_eq!(variation.value, -8.);
 
-    // We can compute the average between the two points.
+    // We can compute the average between two points.
     assert_eq!(midpoint(point1, point2).value, 6.);
 
-    // We can compute a weighted average between the two points,
+    // We can compute a weighted average between two points,
     // when the first point has a weight of 25% (equivalent to 0.25),
     // and consequently the second point has a weight of 75% (equivalent to 0.75).
     // This is a generalization of the function `midpoint`,
@@ -198,6 +219,7 @@ On the other hand, some operations are specific of absolute values:
     // Having a slice of several points, each with its own weight,
     // we can compute the weighted average of all of them,
     // named *barycentric combination*.
+    // To make sense, the sum of all the weights (0.1 + 0.4 + 0.5) must be 1.
     let point3 = MeasurePoint::<Celsius>::new(-6.);
     let center: MeasurePoint<Celsius> =
         barycentric_combination(&[point1, point2, point3], &[0.1, 0.4, 0.5]);
@@ -217,9 +239,9 @@ Consider a screw mechanism, that can be turned by several cycles (or revolutions
 
 The initial position of the screw is 3 cycles. We turn it by 90 degrees, that is a quarter of a cycle, and so we get a position of three cycles and one quarter.
 
-For some application, such unconstrained angular positions and rotations are useful.
-Though, sometimes angles are used just to indicate a direction, or a spherical coordinate.
-For such case, when a full cycle is completed, we reach the same position than before.
+For some applications, such unconstrained angular positions and rotations are useful.
+Though, for some other applications, angles are used just to indicate a direction, or a spherical coordinate.
+For such cases, when a full cycle is completed, we reach the same position than before.
 It is a kind of *modulo* arithmetics.
 
 This is supported by this library, as shown in this code:
@@ -236,7 +258,7 @@ The name `UnsignedDirection` contains the word `Direction` because it is meant t
 
 And it contains the word `Unsigned` because its values are constrained to be non-negative numbers.
 
-Another common convention to represent directions is to use the range -180 to 180 degrees. For example, it is the one used to represent geographical coordinates.
+Another common convention to represent directions is to use the range from -180 to 180 degrees. For example, it is the one used to represent geographical coordinates.
 
 Here is an example using such a type:
 ```rust
@@ -279,6 +301,9 @@ Though, there are also some functions that allow a direct conversion:
     let ud2 = signed_direction.to_unsigned_direction();
     assert_eq!(ud2.value, 358.);
 ```
+
+The next section explain how to use 2D measures in a plane or 3D measures in space.
+If you are not interested in them, you can jump to the section [Mixed-unit operations](#mixed-unit-operations).
 
 ## Working in a plane
 
@@ -668,10 +693,10 @@ Here is the complete list of methods of `AffineMap3d`, which can be used to crea
 * `reflection_over_line(fixed_point: MeasurePoint3d, unit_vector: Measure3d)`: It returns a transformation which reflects points over the line going through the specified fixed point and having the direction specified by a unit vector.
 * `reflection_over_plane(fixed_point: MeasurePoint3d, unit_vector: Measure3d)`: It returns a transformation which reflects points over the plane going through the specified fixed point and having the specified orthogonal unit vector.
 
-## Mixed operations
+## Mixed-unit operations
 
-So far, we have never multiplied or divided one measure by another.
-Though, using the library rs-measures, it is possible:
+So far, we have never multiplied one measure by another, nor divided two measures having different units.
+Though, using the library rs-measures, it is allowed to write:
 ```rust
     let length = Measure::<Metre>::new(10.);
     let time = Measure::<Second>::new(4.);
