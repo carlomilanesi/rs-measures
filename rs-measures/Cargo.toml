@@ -11,3 +11,6 @@ publish = true
 
 [dev-dependencies]
 nalgebra = "0.32.3"
+
+[dependencies]
+rand = "0.8.5"
