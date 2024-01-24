@@ -285,18 +285,18 @@ fn expand_inverse(unit1: syn::Ident, unit2: syn::Ident) -> TokenStream {
         }
 
         // N64 / Measure<U1> -> Measure<U2>
-        impl<Number: ArithmeticOps> Div<Measure<#unit1, Number>> for f64 {
-            type Output = Measure<#unit2, Number>;
-            fn div(self, other: Measure<#unit1, Number>) -> Self::Output {
-                Self::Output::new(Number::from_f64(self) / other.value)
+        impl Div<Measure<#unit1, f64>> for f64 {
+            type Output = Measure<#unit2, f64>;
+            fn div(self, other: Measure<#unit1, f64>) -> Self::Output {
+                Self::Output::new(self / other.value)
             }
         }
 
         // N32 / Measure<U1> -> Measure<U2>
-        impl<Number: ArithmeticOps> Div<Measure<#unit1, Number>> for f32 {
-            type Output = Measure<#unit2, Number>;
-            fn div(self, other: Measure<#unit1, Number>) -> Self::Output {
-                Self::Output::new(Number::from_f64(self as f64) / other.value)
+        impl Div<Measure<#unit1, f32>> for f32 {
+            type Output = Measure<#unit2, f32>;
+            fn div(self, other: Measure<#unit1, f32>) -> Self::Output {
+                Self::Output::new(self / other.value)
             }
         }
 
