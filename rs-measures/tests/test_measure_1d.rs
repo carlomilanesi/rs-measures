@@ -19,6 +19,14 @@ impl MeasurementUnit for MilliMetre {
 }
 
 #[test]
+fn measure_default() {
+    let m: Measure<Metre, f32> = Measure::default();
+    assert_eq!(m.value, 0.);
+    let m = Measure::<Metre>::default();
+    assert_eq!(m.value, 0.);
+}
+
+#[test]
 fn measure_new() {
     let m: Measure<Metre, f32> = Measure::<Metre, f32>::new(12.);
     assert_eq!(m.value, 12.);

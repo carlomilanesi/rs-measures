@@ -34,6 +34,16 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
+fn measure_2d_default() {
+    let m: Measure2d<Metre, f32> = Measure2d::default();
+    assert_eq!(m.x, 0.);
+    assert_eq!(m.y, 0.);
+    let m = Measure2d::<Metre>::default();
+    assert_eq!(m.x, 0.);
+    assert_eq!(m.y, 0.);
+}
+
+#[test]
 fn measure_2d_new() {
     let m: Measure2d<Metre, f32> = Measure2d::<Metre, f32>::new(12., 23.);
     assert_eq!(m.x, 12.);

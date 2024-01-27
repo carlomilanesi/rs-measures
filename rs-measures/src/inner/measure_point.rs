@@ -5,6 +5,7 @@ macro_rules! inner_define_measure_point {
             pub value: Number,
             phantom: PhantomData<Unit>,
         }
+
         impl<Unit, Number> MeasurePoint<Unit, Number>
         where
             Unit: MeasurementUnit,
@@ -40,6 +41,17 @@ macro_rules! inner_define_measure_point {
                     value: DestNumber::lossy_from(self.value),
                     phantom: PhantomData,
                 }
+            }
+        }
+
+        impl<Unit, Number> Default for MeasurePoint<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
+            // It returns the origin.
+            fn default() -> Self {
+                Self::new(Number::ZERO)
             }
         }
 

@@ -268,6 +268,20 @@ macro_rules! inner_define_linear_map_3d {
             }
         }
 
+        impl<Number> Default for LinearMap3d<Number>
+        where
+            Number: ArithmeticOps,
+        {
+            // It returns the identity transformation.
+            fn default() -> Self {
+                Self::new([
+                    [Number::ONE, Number::ZERO, Number::ZERO],
+                    [Number::ZERO, Number::ONE, Number::ZERO],
+                    [Number::ZERO, Number::ZERO, Number::ONE],
+                ])
+            }
+        }
+
         // format!("{}", LinearMap3d)
         impl<Number: ArithmeticOps> fmt::Display for LinearMap3d<Number> {
             fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {

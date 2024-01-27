@@ -34,6 +34,18 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
+fn measure_3d_default() {
+    let m: Measure3d<Metre, f32> = Measure3d::default();
+    assert_eq!(m.x, 0.);
+    assert_eq!(m.y, 0.);
+    assert_eq!(m.z, 0.);
+    let m = Measure3d::<Metre>::default();
+    assert_eq!(m.x, 0.);
+    assert_eq!(m.y, 0.);
+    assert_eq!(m.z, 0.);
+}
+
+#[test]
 fn measure_3d_new() {
     let m: Measure3d<Metre, f32> = Measure3d::<Metre, f32>::new(12., 23., 34.);
     assert_eq!(m.x, 12.);

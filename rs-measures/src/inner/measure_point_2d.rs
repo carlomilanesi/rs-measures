@@ -6,6 +6,7 @@ macro_rules! inner_define_measure_point_2d {
             pub y: Number,
             phantom: PhantomData<Unit>,
         }
+
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint2d<Unit, Number>
         where
             Unit::Property: VectorProperty,
@@ -54,6 +55,18 @@ macro_rules! inner_define_measure_point_2d {
                     y: DestNumber::lossy_from(self.y),
                     phantom: PhantomData,
                 }
+            }
+        }
+
+        impl<Unit, Number> Default for MeasurePoint2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+            Unit::Property: VectorProperty,
+        {
+            // It returns the origin.
+            fn default() -> Self {
+                Self::new(Number::ZERO, Number::ZERO)
             }
         }
 

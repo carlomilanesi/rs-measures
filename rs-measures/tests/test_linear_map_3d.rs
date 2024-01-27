@@ -37,6 +37,34 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
+fn linear_map_3d_default() {
+    let lm: LinearMap3d<f32> = LinearMap3d::default();
+    assert_eq!(lm.c[0][0], 1.);
+    assert_eq!(lm.c[0][1], 0.);
+    assert_eq!(lm.c[0][2], 0.);
+    assert_eq!(lm.c[1][0], 0.);
+    assert_eq!(lm.c[1][1], 1.);
+    assert_eq!(lm.c[1][2], 0.);
+    assert_eq!(lm.c[2][0], 0.);
+    assert_eq!(lm.c[2][1], 0.);
+    assert_eq!(lm.c[2][2], 1.);
+    let m = Measure3d::<Metre, f32>::new(12., 23., -34.);
+    assert_eq!(lm.apply_to(m), m);
+    let lm = LinearMap3d::default();
+    assert_eq!(lm.c[0][0], 1.);
+    assert_eq!(lm.c[0][1], 0.);
+    assert_eq!(lm.c[0][2], 0.);
+    assert_eq!(lm.c[1][0], 0.);
+    assert_eq!(lm.c[1][1], 1.);
+    assert_eq!(lm.c[1][2], 0.);
+    assert_eq!(lm.c[2][0], 0.);
+    assert_eq!(lm.c[2][1], 0.);
+    assert_eq!(lm.c[2][2], 1.);
+    let m = Measure3d::<Metre>::new(12., 23., -34.);
+    assert_eq!(lm.apply_to(m), m);
+}
+
+#[test]
 fn linear_map_3d_new() {
     let lm = LinearMap3d::<f32>::new([[12., 23., 34.], [45., -56., 67.], [78., 89., 90.]]);
     assert_eq!(lm.c[0][0], 12.);

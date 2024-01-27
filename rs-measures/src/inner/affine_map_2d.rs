@@ -225,6 +225,21 @@ macro_rules! inner_define_affine_map_2d {
             }
         }
 
+        impl<Unit, Number> Default for AffineMap2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+            Unit::Property: VectorProperty,
+        {
+            // It returns the identity transformation.
+            fn default() -> Self {
+                Self::new([
+                    [Number::ONE, Number::ZERO, Number::ZERO],
+                    [Number::ZERO, Number::ONE, Number::ZERO],
+                ])
+            }
+        }
+
         // format!("{}", AffineMap2d)
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display for AffineMap2d<Unit, Number>
         where

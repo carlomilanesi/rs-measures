@@ -187,6 +187,16 @@ macro_rules! inner_define_linear_map_2d {
             }
         }
 
+        impl<Number> Default for LinearMap2d<Number>
+        where
+            Number: ArithmeticOps,
+        {
+            // It returns the identity transformation.
+            fn default() -> Self {
+                Self::new([[Number::ONE, Number::ZERO], [Number::ZERO, Number::ONE]])
+            }
+        }
+
         // format!("{}", LinearMap2d)
         impl<Number: ArithmeticOps> fmt::Display for LinearMap2d<Number> {
             fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {

@@ -21,6 +21,14 @@ impl MeasurementUnit for Fahrenheit {
 }
 
 #[test]
+fn measure_point_default() {
+    let mp: MeasurePoint<Celsius, f32> = MeasurePoint::default();
+    assert_eq!(mp.value, 0.);
+    let mp = MeasurePoint::<Celsius>::default();
+    assert_eq!(mp.value, 0.);
+}
+
+#[test]
 fn measure_point_new() {
     let mp = MeasurePoint::<Celsius, f32>::new(12.);
     assert_eq!(mp.value, 12.);

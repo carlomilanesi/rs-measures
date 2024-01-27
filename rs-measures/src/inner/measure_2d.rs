@@ -100,6 +100,18 @@ macro_rules! inner_define_measure_2d {
             }
         }
 
+        impl<Unit, Number> Default for Measure2d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+            Unit::Property: VectorProperty,
+        {
+            // It returns the zero vector.
+            fn default() -> Self {
+                Self::new(Number::ZERO, Number::ZERO)
+            }
+        }
+
         // -Measure2d -> Measure2d
         impl<Unit, Number> Neg for Measure2d<Unit, Number>
         where

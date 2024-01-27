@@ -68,6 +68,17 @@ macro_rules! inner_define_signed_direction {
             }
         }
 
+        impl<Unit, Number> Default for SignedDirection<Unit, Number>
+        where
+            Unit: AngleMeasurementUnit<Property = Angle>,
+            Number: ArithmeticOps,
+        {
+            // It returns the zero direction (eastbound).
+            fn default() -> Self {
+                Self::new(Number::ZERO)
+            }
+        }
+
         // Signed direction + angle measure
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Add<Measure<Unit, Number>>
             for SignedDirection<Unit, Number>

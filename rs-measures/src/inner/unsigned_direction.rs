@@ -69,6 +69,17 @@ macro_rules! inner_define_unsigned_direction {
             }
         }
 
+        impl<Unit, Number> Default for UnsignedDirection<Unit, Number>
+        where
+            Unit: AngleMeasurementUnit<Property = Angle>,
+            Number: ArithmeticOps,
+        {
+            // It returns the zero direction (eastbound).
+            fn default() -> Self {
+                Self::new(Number::ZERO)
+            }
+        }
+
         // Unsigned direction + angle measure -> Unsigned direction
         impl<Unit: AngleMeasurementUnit<Property = Angle>, Number: ArithmeticOps> Add<Measure<Unit, Number>>
             for UnsignedDirection<Unit, Number>

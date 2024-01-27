@@ -60,6 +60,17 @@ macro_rules! inner_define_measure {
             }
         }
 
+        impl<Unit, Number> Default for Measure<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+        {
+            // It returns the zero vector.
+            fn default() -> Self {
+                Self::new(Number::ZERO)
+            }
+        }
+
         // -Measure -> Measure
         impl<Unit, Number> Neg for Measure<Unit, Number>
         where

@@ -85,6 +85,18 @@ macro_rules! inner_define_measure_3d {
             }
         }
 
+        impl<Unit, Number> Default for Measure3d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+            Unit::Property: VectorProperty,
+        {
+            // It returns the zero vector.
+            fn default() -> Self {
+                Self::new(Number::ZERO, Number::ZERO, Number::ZERO)
+            }
+        }
+
         // -Measure3d -> Measure3d
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> Neg for Measure3d<Unit, Number>
         where

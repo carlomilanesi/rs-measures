@@ -45,6 +45,40 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
+fn affine_map_3d_default() {
+    let am: AffineMap3d<Metre, f32> = AffineMap3d::default();
+    assert_eq!(am.c[0][0], 1.);
+    assert_eq!(am.c[0][1], 0.);
+    assert_eq!(am.c[0][2], 0.);
+    assert_eq!(am.c[0][3], 0.);
+    assert_eq!(am.c[1][0], 0.);
+    assert_eq!(am.c[1][1], 1.);
+    assert_eq!(am.c[1][2], 0.);
+    assert_eq!(am.c[1][3], 0.);
+    assert_eq!(am.c[2][0], 0.);
+    assert_eq!(am.c[2][1], 0.);
+    assert_eq!(am.c[2][2], 1.);
+    assert_eq!(am.c[2][3], 0.);
+    let mp = MeasurePoint3d::<Metre, f32>::new(12., 23., -34.);
+    assert_eq!(am.apply_to(mp), mp);
+    let am = AffineMap3d::<Metre>::default();
+    assert_eq!(am.c[0][0], 1.);
+    assert_eq!(am.c[0][1], 0.);
+    assert_eq!(am.c[0][2], 0.);
+    assert_eq!(am.c[0][3], 0.);
+    assert_eq!(am.c[1][0], 0.);
+    assert_eq!(am.c[1][1], 1.);
+    assert_eq!(am.c[1][2], 0.);
+    assert_eq!(am.c[1][3], 0.);
+    assert_eq!(am.c[2][0], 0.);
+    assert_eq!(am.c[2][1], 0.);
+    assert_eq!(am.c[2][2], 1.);
+    assert_eq!(am.c[2][3], 0.);
+    let mp = MeasurePoint3d::<Metre>::new(12., 23., -34.);
+    assert_eq!(am.apply_to(mp), mp);
+}
+
+#[test]
 fn affine_map_3d_new() {
     let am = AffineMap3d::<Metre, f32>::new([
         [12., 23., -34., 45.],

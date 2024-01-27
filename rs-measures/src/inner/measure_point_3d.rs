@@ -7,6 +7,7 @@ macro_rules! inner_define_measure_point_3d {
             pub z: Number,
             phantom: PhantomData<Unit>,
         }
+
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> MeasurePoint3d<Unit, Number>
         where
             Unit::Property: VectorProperty,
@@ -63,6 +64,18 @@ macro_rules! inner_define_measure_point_3d {
                     z: DestNumber::lossy_from(self.z),
                     phantom: PhantomData,
                 }
+            }
+        }
+
+        impl<Unit, Number> Default for MeasurePoint3d<Unit, Number>
+        where
+            Unit: MeasurementUnit,
+            Number: ArithmeticOps,
+            Unit::Property: VectorProperty,
+        {
+            // It returns the origin.
+            fn default() -> Self {
+                Self::new(Number::ZERO, Number::ZERO, Number::ZERO)
             }
         }
 

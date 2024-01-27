@@ -23,6 +23,14 @@ impl AngleMeasurementUnit for Cycle {
 }
 
 #[test]
+fn unsigned_direction_default() {
+    let ud: UnsignedDirection<Degree, f32> = UnsignedDirection::default();
+    assert_eq!(ud.value, 0.);
+    let ud = UnsignedDirection::<Degree>::default();
+    assert_eq!(ud.value, 0.);
+}
+
+#[test]
 fn unsigned_direction_integer_cycles() {
     let ud = UnsignedDirection::<Degree, f32>::new(3600.);
     assert_eq!(ud.value, 0.);

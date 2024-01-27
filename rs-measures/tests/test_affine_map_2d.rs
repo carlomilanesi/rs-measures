@@ -34,6 +34,28 @@ impl AngleMeasurementUnit for Degree {
 }
 
 #[test]
+fn affine_map_2d_default() {
+    let am: AffineMap2d<Metre, f32> = AffineMap2d::default();
+    assert_eq!(am.c[0][0], 1.);
+    assert_eq!(am.c[0][1], 0.);
+    assert_eq!(am.c[0][2], 0.);
+    assert_eq!(am.c[1][0], 0.);
+    assert_eq!(am.c[1][1], 1.);
+    assert_eq!(am.c[1][2], 0.);
+    let mp = MeasurePoint2d::<Metre, f32>::new(12., 23.);
+    assert_eq!(am.apply_to(mp), mp);
+    let am = AffineMap2d::<Metre>::default();
+    assert_eq!(am.c[0][0], 1.);
+    assert_eq!(am.c[0][1], 0.);
+    assert_eq!(am.c[0][2], 0.);
+    assert_eq!(am.c[1][0], 0.);
+    assert_eq!(am.c[1][1], 1.);
+    assert_eq!(am.c[1][2], 0.);
+    let mp = MeasurePoint2d::<Metre>::new(12., 23.);
+    assert_eq!(am.apply_to(mp), mp);
+}
+
+#[test]
 fn affine_map_2d_new() {
     let am = AffineMap2d::<Metre, f32>::new([[12., 23., 34.], [-45., 56., 67.]]);
     assert_eq!(am.c[0][0], 12.);

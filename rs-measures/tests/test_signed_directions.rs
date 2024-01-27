@@ -23,6 +23,14 @@ impl AngleMeasurementUnit for Cycle {
 }
 
 #[test]
+fn signed_direction_default() {
+    let sd: SignedDirection<Degree, f32> = SignedDirection::default();
+    assert_eq!(sd.value, 0.);
+    let sd = SignedDirection::<Degree>::default();
+    assert_eq!(sd.value, 0.);
+}
+
+#[test]
 fn signed_direction_integer_cycles() {
     let sd = SignedDirection::<Degree, f32>::new(3600.);
     assert_eq!(sd.value, 0.);
