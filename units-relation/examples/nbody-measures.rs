@@ -6,8 +6,8 @@
 // And then run with:
 //     /bin/time target/release/examples/nbody-measures 50000000
 // It should print:
-// -0.169075164
-// -0.169059907
+// -0.169075164 J
+// -0.169059907 J
 
 rs_measures::define_1d_3d! {}
 use units_relation::define_units_relation;
@@ -181,7 +181,7 @@ const SOLAR_MASS: Measure<KiloGram> = Measure::<KiloGram>::new(4.0 * PI * PI);
 const DPY: f64 = 365.24;
 
 pub struct Body {
-    pub x: Measure3d<Metre>,
+    pub x: MeasurePoint3d<Metre>,
     pub mass: Measure<KiloGram>, // Putting `mass` here, improves the alignment.
     pub v: Measure3d<MetrePerSecond>,
 }
@@ -192,13 +192,13 @@ fn bodies() -> [Body; N_BODIES] {
     [
         // sun:
         Body {
-            x: Measure3d::<Metre>::default(),
+            x: MeasurePoint3d::<Metre>::default(),
             v: Measure3d::<MetrePerSecond>::default(),
             mass: SOLAR_MASS,
         },
         // jupiter:
         Body {
-            x: Measure3d::new(
+            x: MeasurePoint3d::new(
                 4.84143144246472090e+00,
                 -1.16032004402742839e+00,
                 -1.03622044471123109e-01,
@@ -212,7 +212,7 @@ fn bodies() -> [Body; N_BODIES] {
         },
         // saturn:
         Body {
-            x: Measure3d::new(
+            x: MeasurePoint3d::new(
                 8.34336671824457987e+00,
                 4.12479856412430479e+00,
                 -4.03523417114321381e-01,
@@ -226,7 +226,7 @@ fn bodies() -> [Body; N_BODIES] {
         },
         // uranus:
         Body {
-            x: Measure3d::new(
+            x: MeasurePoint3d::new(
                 1.28943695621391310e+01,
                 -1.51111514016986312e+01,
                 -2.23307578892655734e-01,
@@ -240,7 +240,7 @@ fn bodies() -> [Body; N_BODIES] {
         },
         // neptune:
         Body {
-            x: Measure3d::new(
+            x: MeasurePoint3d::new(
                 1.53796971148509165e+01,
                 -2.59193146099879641e+01,
                 1.79258772950371181e-01,
