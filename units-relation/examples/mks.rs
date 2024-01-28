@@ -1,5 +1,13 @@
 //! Rs-measures version of the example `mks.rs` of the crate `uom` version 0.35.0.
 //! Example showing how to create a custom system of quantities.
+/*
+Rs-measures will print:
+100 m = 328.08398 ft
+
+UOM will print:
+100 m = 328.08398 ft
+*/
+
 rs_measures::define_1d! {}
 
 fn main() {
@@ -25,10 +33,3 @@ impl MeasurementUnit for Foot {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " ft";
 }
-/*
-Rs-measures will print:
-100 m = 328.08398 ft
-
-UOM will print:
-100 m = 328.08398 ft
-*/

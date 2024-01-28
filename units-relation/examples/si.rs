@@ -1,5 +1,19 @@
 //! Rs-measures version of the example `si.rs` of the crate `uom` version 0.35.0.
 //! Example showing how to use the pre-built SI system.
+/*
+Rs-measures will print:
+15 m + 10 cm = 15.1 m
+15 m + 10 cm = 0.0151 km
+15 m / 50 s = 0.3 m/s
+15 m / 50 s = 0.0003 km/s
+
+UOM will print:
+15 m + 9.999999 cm = 15.1 m
+15 m + 9.999999 cm = 0.0151 km
+15 m / 50 s = 0.3 m/s
+15 m / 50 s = 0.0003 km/s
+*/
+
 mod units;
 use units::{CentiMetre, KiloMetre, KiloMetrePerSecond, Measure, Metre, Second};
 
@@ -24,16 +38,3 @@ fn main() {
     println!("{} / {} = {}", l1, t1, v1);
     println!("{} / {} = {}", l1, t1, v1.convert::<KiloMetrePerSecond>());
 }
-/*
-Rs-measures will print:
-15 m + 10 cm = 15.1 m
-15 m + 10 cm = 0.0151 km
-15 m / 50 s = 0.3 m/s
-15 m / 50 s = 0.0003 km/s
-
-UOM will print:
-15 m + 9.999999 cm = 15.1 m
-15 m + 9.999999 cm = 0.0151 km
-15 m / 50 s = 0.3 m/s
-15 m / 50 s = 0.0003 km/s
-*/

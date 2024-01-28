@@ -1,5 +1,5 @@
-// To run this, type (where 10000 is the size of the data set; the default is 100):
-// cargo run --release --example bench2 10000
+// Build and run with (where 10000000 is the size of the data set; the default is 100):
+//     cargo run --release --example bench2 10000000
 
 use rand::{rngs::StdRng, Rng, SeedableRng};
 

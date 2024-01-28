@@ -1,5 +1,5 @@
-// To run this, type:
-// cargo run --release --example bench
+// Build and run with:
+//     cargo run --release --example bench
 
 rs_measures::define_1d! {}
 
