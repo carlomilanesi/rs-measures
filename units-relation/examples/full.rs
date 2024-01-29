@@ -2,7 +2,10 @@
 // cargo run --example full
 
 mod units;
-use rs_measures::{angle::Radian, traits::CrossProduct};
+use rs_measures::{
+    angle::Radian,
+    traits::{CrossProduct, Decibel},
+};
 use units::*;
 
 fn print_all_acceleration_units() {
@@ -4036,4 +4039,8 @@ fn main() {
     print_all_single_unit_operations();
     print_all_mixed_operation();
     print_all_transformations();
+
+    let m = Measure::<Watt>::new(rs_measures::traits::Decibel::from_decibel(-30.));
+    let val = m.value.to_decibel();
+    print!("{:.4}, {:.1}, {:.1};", m, val, m.format_decibel());
 }

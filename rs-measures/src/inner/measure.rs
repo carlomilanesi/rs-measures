@@ -78,6 +78,10 @@ macro_rules! inner_define_measure {
             pub fn clamp(self, lower_bound: Self, upper_bound: Self) -> Self {
                 self.max(lower_bound).min(upper_bound)
             }
+
+            pub fn format_decibel(self) -> DecibelFormattedMeasure<Unit, Number> {
+                DecibelFormattedMeasure(self)
+            }
         }
 
         pub fn max<Unit>(a: Measure<Unit, f64>, b: Measure<Unit, f64>) -> Measure<Unit, f64>
@@ -257,6 +261,32 @@ macro_rules! inner_define_measure {
         impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug for Measure<Unit, Number> {
             fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
                 fmt::Display::fmt(&self.value, formatter)?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        pub struct DecibelFormattedMeasure<Unit: MeasurementUnit, Number: ArithmeticOps>(
+            Measure<Unit, Number>,
+        );
+
+        // format!("{}", Measure.format_decibel())
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Display
+            for DecibelFormattedMeasure<Unit, Number>
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                fmt::Display::fmt(&self.0.value.to_decibel(), formatter)?;
+                formatter.write_str(" dB")?;
+                formatter.write_str(Unit::SUFFIX)
+            }
+        }
+
+        // format!("{:?}", Measure.format_decibel())
+        impl<Unit: MeasurementUnit, Number: ArithmeticOps> fmt::Debug
+            for DecibelFormattedMeasure<Unit, Number>
+        {
+            fn fmt(&self, formatter: &mut fmt::Formatter<'_>) -> fmt::Result {
+                fmt::Display::fmt(&self.0.value.to_decibel(), formatter)?;
+                formatter.write_str(" dB")?;
                 formatter.write_str(Unit::SUFFIX)
             }
         }

@@ -118,6 +118,27 @@ impl InverseTrigonometry for f64 {
     }
 }
 
+pub trait Decibel {
+    fn to_decibel(self) -> Self;
+    fn from_decibel(decibel_value: Self) -> Self;
+}
+impl Decibel for f32 {
+    fn to_decibel(self) -> Self {
+        self.log10() * 10.
+    }
+    fn from_decibel(decibel_value: Self) -> Self {
+        10_f32.powf(decibel_value * 0.1)
+    }
+}
+impl Decibel for f64 {
+    fn to_decibel(self) -> Self {
+        self.log10() * 10.
+    }
+    fn from_decibel(decibel_value: Self) -> Self {
+        10_f64.powf(decibel_value * 0.1)
+    }
+}
+
 pub trait HasZero {
     const ZERO: Self;
 }
@@ -178,6 +199,7 @@ pub trait ArithmeticOps:
     + CubicRoot<Output = Self>
     + Trigonometry<Output = Self>
     + InverseTrigonometry<Output = Self>
+    + Decibel
     + HasZero
     + HasOne
     + HasHalf
@@ -210,6 +232,7 @@ impl<T> ArithmeticOps for T where
         + CubicRoot<Output = Self>
         + Trigonometry<Output = Self>
         + InverseTrigonometry<Output = Self>
+        + Decibel
         + HasZero
         + HasOne
         + HasHalf

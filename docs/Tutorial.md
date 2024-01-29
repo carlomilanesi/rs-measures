@@ -1134,4 +1134,29 @@ fn main() {
 }
 ```
 
+## Using decibels
+
+For some measures, it is customary to used logarithmic values, typically in form of decibels, that are tenths of the 10-base logarithm of the actual value.
+
+The library rs-measures supports decibels only for the type `Measure`, as show in the following code:
+```rust
+    let m = Measure::<Watt>::new(rs_measures::traits::Decibel::from_decibel(-30.));
+    let val = m.value.to_decibel();
+    print!("{:.4}, {:.1}, {:.1};", m, val, m.format_decibel());
+```
+
+It will print: `0.0010 W, -30.0, -30.0 dB W;`.
+
+Actually, the `m` is a usual measure, with its inner value of `0.001` watts, i.e. one milliwatt.
+It is printed as `0.0010 W`.
+Though, it is initialized by using a value corresponding to `-30` decibels, obtained by calling the method `from_decibel`, implemented for `f32` and for `f64`.
+
+Then, to get the value in decibels, the method `to_decibels` is called on the numeric value, also implemented for `f32` and for `f64`.
+It is printed as `-30.0`.
+
+All this has little to do with the type `Measure`.
+The only method belonging to `Measure` is `format_decibel`, which returns an object of type `DecibelFormattedMeasure`, which encapsulates the measure, and which implements the traits `Display` and `Debug`.
+Such implementations cause that, when this object is printed, it will show the string "` dB`" between the numeric value and the unit suffix.
+Therefore, it is printed as `-30.0 dB W`.
+
 Happy measuring!
