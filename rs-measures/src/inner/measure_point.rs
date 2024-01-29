@@ -42,6 +42,26 @@ macro_rules! inner_define_measure_point {
                     phantom: PhantomData,
                 }
             }
+
+            pub fn min(self, other: Self) -> Self {
+                if self <= other {
+                    self
+                } else {
+                    other
+                }
+            }
+
+            pub fn max(self, other: Self) -> Self {
+                if self >= other {
+                    self
+                } else {
+                    other
+                }
+            }
+
+            pub fn clamp(self, lower_bound: Self, upper_bound: Self) -> Self {
+                self.max(lower_bound).min(upper_bound)
+            }
         }
 
         impl<Unit, Number> Default for MeasurePoint<Unit, Number>

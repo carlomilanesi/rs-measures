@@ -58,6 +58,33 @@ macro_rules! inner_define_measure {
             pub fn normalized(self) -> Self {
                 Self::new(self.value.signum())
             }
+
+            pub fn min(self, other: Self) -> Self {
+                if self <= other {
+                    self
+                } else {
+                    other
+                }
+            }
+
+            pub fn max(self, other: Self) -> Self {
+                if self >= other {
+                    self
+                } else {
+                    other
+                }
+            }
+
+            pub fn clamp(self, lower_bound: Self, upper_bound: Self) -> Self {
+                self.max(lower_bound).min(upper_bound)
+            }
+        }
+
+        pub fn max<Unit>(a: Measure<Unit, f64>, b: Measure<Unit, f64>) -> Measure<Unit, f64>
+        where
+            Unit: MeasurementUnit,
+        {
+            Measure::<Unit, f64>::new(a.value.max(b.value))
         }
 
         impl<Unit, Number> Default for Measure<Unit, Number>
