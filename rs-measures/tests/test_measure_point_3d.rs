@@ -252,13 +252,6 @@ fn measure_point_3d_differs() {
 }
 
 #[test]
-fn measure_point_3d_is_equal_to_its_clone() {
-    let mp1 = MeasurePoint3d::<Metre, f32>::new(12., 23., -34.);
-    let mp2 = mp1.clone();
-    assert!(mp2 == mp1);
-}
-
-#[test]
 fn measure_point_3d_is_equal_to_its_copy() {
     let mp1 = MeasurePoint3d::<Metre, f32>::new(12., 23., -34.);
     let mp2 = mp1;

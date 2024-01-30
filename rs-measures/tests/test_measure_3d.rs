@@ -384,13 +384,6 @@ fn measure_3d_differs() {
 }
 
 #[test]
-fn measure_3d_is_equal_to_its_clone() {
-    let m1 = Measure3d::<Metre, f32>::new(12., 23., 34.);
-    let m2 = m1.clone();
-    assert!(m2 == m1);
-}
-
-#[test]
 fn measure_3d_is_equal_to_its_copy() {
     let m1 = Measure3d::<Metre, f32>::new(12., 23., 34.);
     let m2 = m1;

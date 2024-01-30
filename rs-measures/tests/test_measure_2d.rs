@@ -383,13 +383,6 @@ fn measure_2d_differs() {
 }
 
 #[test]
-fn measure_2d_is_equal_to_its_clone() {
-    let m1 = Measure2d::<Metre, f32>::new(12., 23.);
-    let m2 = m1.clone();
-    assert!(m2 == m1);
-}
-
-#[test]
 fn measure_2d_is_equal_to_its_copy() {
     let m1 = Measure2d::<Metre, f32>::new(12., 23.);
     let m2 = m1;

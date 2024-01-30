@@ -379,50 +379,16 @@ fn signed_direction_differs() {
 }
 
 #[test]
-fn signed_direction_is_less_than() {
+fn signed_direction_partial_cmp() {
     let sd1 = SignedDirection::<Degree, f32>::new(12.);
     let sd2 = SignedDirection::<Degree, f32>::new(12.);
     let sd3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(!(sd1 < sd2));
-    assert!(sd1 < sd3);
-    assert!(!(sd3 < sd1));
-}
-
-#[test]
-fn signed_direction_is_less_than_or_equal_to() {
-    let sd1 = SignedDirection::<Degree, f32>::new(12.);
-    let sd2 = SignedDirection::<Degree, f32>::new(12.);
-    let sd3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(sd1 <= sd2);
-    assert!(sd1 <= sd3);
-    assert!(!(sd3 <= sd1));
-}
-
-#[test]
-fn signed_direction_is_greater_than() {
-    let sd1 = SignedDirection::<Degree, f32>::new(12.);
-    let sd2 = SignedDirection::<Degree, f32>::new(12.);
-    let sd3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(!(sd1 > sd2));
-    assert!(!(sd1 > sd3));
-    assert!(sd3 > sd1);
-}
-
-#[test]
-fn signed_direction_is_greater_than_or_equal_to() {
-    let sd1 = SignedDirection::<Degree, f32>::new(12.);
-    let sd2 = SignedDirection::<Degree, f32>::new(12.);
-    let sd3 = SignedDirection::<Degree, f32>::new(13.);
-    assert!(sd1 >= sd2);
-    assert!(!(sd1 >= sd3));
-    assert!(sd3 >= sd1);
-}
-
-#[test]
-fn signed_direction_is_equal_to_its_clone() {
-    let sd1 = SignedDirection::<Degree, f32>::new(12.);
-    let sd2 = sd1.clone();
-    assert!(sd2 == sd1);
+    let sd4 = SignedDirection::<Degree, f32>::new(f32::NAN);
+    use std::cmp::Ordering;
+    assert_eq!(sd1.partial_cmp(&sd2), Some(Ordering::Equal));
+    assert_eq!(sd1.partial_cmp(&sd3), Some(Ordering::Less));
+    assert_eq!(sd3.partial_cmp(&sd1), Some(Ordering::Greater));
+    assert_eq!(sd1.partial_cmp(&sd4), None);
 }
 
 #[test]

@@ -179,50 +179,16 @@ fn measure_point_differs() {
 }
 
 #[test]
-fn measure_point_is_less_than() {
+fn measure_point_partial_cmp() {
     let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
     let mp2 = MeasurePoint::<Celsius, f32>::new(12.);
     let mp3 = MeasurePoint::<Celsius, f32>::new(13.);
-    assert!(!(mp1 < mp2));
-    assert!(mp1 < mp3);
-    assert!(!(mp3 < mp1));
-}
-
-#[test]
-fn measure_point_is_less_than_or_equal_to() {
-    let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp2 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp3 = MeasurePoint::<Celsius, f32>::new(13.);
-    assert!(mp1 <= mp2);
-    assert!(mp1 <= mp3);
-    assert!(!(mp3 <= mp1));
-}
-
-#[test]
-fn measure_point_is_greater_than() {
-    let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp2 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp3 = MeasurePoint::<Celsius, f32>::new(13.);
-    assert!(!(mp1 > mp2));
-    assert!(!(mp1 > mp3));
-    assert!(mp3 > mp1);
-}
-
-#[test]
-fn measure_point_is_greater_than_or_equal_to() {
-    let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp2 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp3 = MeasurePoint::<Celsius, f32>::new(13.);
-    assert!(mp1 >= mp2);
-    assert!(!(mp1 >= mp3));
-    assert!(mp3 >= mp1);
-}
-
-#[test]
-fn measure_point_is_equal_to_its_clone() {
-    let mp1 = MeasurePoint::<Celsius, f32>::new(12.);
-    let mp2 = mp1.clone();
-    assert!(mp2 == mp1);
+    let mp4 = MeasurePoint::<Celsius, f32>::new(f32::NAN);
+    use std::cmp::Ordering;
+    assert_eq!(mp1.partial_cmp(&mp2), Some(Ordering::Equal));
+    assert_eq!(mp1.partial_cmp(&mp3), Some(Ordering::Less));
+    assert_eq!(mp3.partial_cmp(&mp1), Some(Ordering::Greater));
+    assert_eq!(mp1.partial_cmp(&mp4), None);
 }
 
 #[test]

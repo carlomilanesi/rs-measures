@@ -52,9 +52,9 @@ fn linear_map_2d_new() {
     assert_eq!(lm.c[1][1], -45.);
 }
 
-//// N.B.: Linear maps have no translations.
+// N.B.: Linear maps have no translations.
 
-//// Rotations
+// Rotations
 
 #[test]
 fn linear_map_2d_rotation_by_angle() {

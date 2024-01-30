@@ -73,7 +73,7 @@ So, to format that code, follow these process:
 
 The command `format_measures.sh` performs this processing for all the macro files.
 
-Before committing any change, except for those in documentation only, these command must be run successfully:
+Before committing any change, except for those in documentation only, this script must be run successfully from the root folder of the repository:
 ```sh
-./format_measures.sh && cargo clippy && cargo clippy --examples && cargo t && echo OK
+./build.sh
 ```

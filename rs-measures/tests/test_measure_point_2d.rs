@@ -226,13 +226,6 @@ fn measure_point_2d_differs() {
 }
 
 #[test]
-fn measure_point_2d_is_equal_to_its_clone() {
-    let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
-    let mp2 = mp1.clone();
-    assert!(mp2 == mp1);
-}
-
-#[test]
 fn measure_point_2d_is_equal_to_its_copy() {
     let mp1 = MeasurePoint2d::<Metre, f32>::new(12., 3.);
     let mp2 = mp1;

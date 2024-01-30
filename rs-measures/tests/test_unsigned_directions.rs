@@ -382,50 +382,16 @@ fn unsigned_direction_differs() {
 }
 
 #[test]
-fn unsigned_direction_is_less_than() {
+fn unsigned_direction_partial_cmp() {
     let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
     let ud2 = UnsignedDirection::<Degree, f32>::new(12.);
     let ud3 = UnsignedDirection::<Degree, f32>::new(13.);
-    assert!(!(ud1 < ud2));
-    assert!(ud1 < ud3);
-    assert!(!(ud3 < ud1));
-}
-
-#[test]
-fn unsigned_direction_is_less_than_or_equal_to() {
-    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud2 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud3 = UnsignedDirection::<Degree, f32>::new(13.);
-    assert!(ud1 <= ud2);
-    assert!(ud1 <= ud3);
-    assert!(!(ud3 <= ud1));
-}
-
-#[test]
-fn unsigned_direction_is_greater_than() {
-    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud2 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud3 = UnsignedDirection::<Degree, f32>::new(13.);
-    assert!(!(ud1 > ud2));
-    assert!(!(ud1 > ud3));
-    assert!(ud3 > ud1);
-}
-
-#[test]
-fn unsigned_direction_is_greater_than_or_equal_to() {
-    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud2 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud3 = UnsignedDirection::<Degree, f32>::new(13.);
-    assert!(ud1 >= ud2);
-    assert!(!(ud1 >= ud3));
-    assert!(ud3 >= ud1);
-}
-
-#[test]
-fn unsigned_direction_is_equal_to_its_clone() {
-    let ud1 = UnsignedDirection::<Degree, f32>::new(12.);
-    let ud2 = ud1.clone();
-    assert!(ud2 == ud1);
+    let ud4 = UnsignedDirection::<Degree, f32>::new(f32::NAN);
+    use std::cmp::Ordering;
+    assert_eq!(ud1.partial_cmp(&ud2), Some(Ordering::Equal));
+    assert_eq!(ud1.partial_cmp(&ud3), Some(Ordering::Less));
+    assert_eq!(ud3.partial_cmp(&ud1), Some(Ordering::Greater));
+    assert_eq!(ud1.partial_cmp(&ud4), None);
 }
 
 #[test]
