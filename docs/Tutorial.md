@@ -98,21 +98,7 @@ So, you can write:
 
 It will print: `TimeElapsed { hours: 3 h, minutes: 17 min }`.
 
-Here are the other operations that can be performed on one or two objects of type `Measure`, provided they have the same unit and the same value type.
-```rust
-    let length = Measure::<Metre>::new(-7.);
-    assert_eq!(length.squared_norm(), 49.);
-    // It is equivalent to this:
-    assert_eq!(length.value * length.value, 49.);
-
-    assert_eq!(length.normalized().value, -1.);
-    // It is equivalent to this:
-    assert_eq!(length.value.signum(), -1.);
-```
-
-The standard-library method `signum` returns `1.` for a positive argument, including a positive zero, and `-1.` otherwise, including a negative zero.
-
-Here are other arithmetic operations:
+Here are some arithmetic operations that can be performed on one or two objects of type `Measure`, provided they have the same unit and the same value type.
 ```rust
     let mut length1 = Measure::<Metre>::new(7.);
     let length2 = Measure::<Metre>::new(5.);
@@ -1159,4 +1145,81 @@ The only method belonging to `Measure` is `format_decibel`, which returns an obj
 Such implementations cause that, when this object is printed, it will show the string "` dB`" between the numeric value and the unit suffix.
 Therefore, it is printed as `-30.0 dB W`.
 
-Happy measuring!
+## The trait `Default`
+
+For any type defined by Rs-measures, i.e. `Measure`, `MeasurePoint`, `Measure2d`, `MeasurePoint2d`, `Measure3d`, `MeasurePoint3d`, `LinearMap2d`, `LinearMap3d`, `AffineMap2d`, `AffineMap3d`, `UnsignedDirection`, and `SignedDirection`, the trait `Default` is implemented.
+
+For the four transformations types, the method `default()` returns an *identity* transformation, not a zero transformation.
+For all the other types, `default()` returns a *zero* object, i.e. an object encapsulating one or more zero numbers.
+
+Here is an example:
+```rust
+    println!("{}", Measure3d::<Newton>::default());
+    let m = Measure3d::<Newton>::new(7., -3., 1.2);
+    println!("{m}");
+    let map = LinearMap3d::default();
+    println!("{map}");
+    println!("{}", map.apply_to(m));
+```
+
+It will print:
+```text
+(0, 0, 0) N
+(7, -3, 1.2) N
+[1 0 0]
+[0 1 0]
+[0 0 1]
+(7, -3, 1.2) N
+```
+
+## The methods `squared_norm` and `normalized`
+
+The types `Measure`, `Measure2d`, and `Measure3d` have the instance methods:
+* `squared_norm`: It computes the square of the norm of the value of the measure, considered as a mathematical vector. To compute the norm of the measure, it is enough to call the function `sqrt` on the obtained numeric value.
+* `normalized`: It returns a measure having norm 1. This measure has the same unit of measurement, inner numeric type and direction of the receiving object.
+
+Here is an example:
+```rust
+    let length = Measure2d::<Metre>::new(-30., 40.);
+    println!("{}", length.squared_norm());
+    println!("{}", length.normalized());
+```
+
+It will print:
+```rust
+2500
+(-0.6, 0.8) m
+```
+
+## The methods `min`, `max`, and `clamp`
+
+For the types `Measure` and `MeasurePoint`, the following methods have bbe implemented:
+* `min`: It returns the lesser of two relative or absolute measures.
+* `max`: It returns the greater of two relative or absolute measures.
+* `clamp`: It forces the receiver to be between the specified bounds.
+
+Here is an example:
+```rust
+    let m1 = Measure::<Celsius>::new(17.);
+    let m2 = Measure::<Celsius>::new(27.);
+    let m3 = Measure::<Celsius>::new(37.);
+    let mp1 = MeasurePoint::<Celsius>::new(17.);
+    let mp2 = MeasurePoint::<Celsius>::new(27.);
+    let mp3 = MeasurePoint::<Celsius>::new(37.);
+    println!("{}, {};", m1.min(m2), m1.max(m2));
+    println!("{}, {};", mp1.min(mp2), mp1.max(mp2));
+    println!("{};", m1.clamp(m2, m3));
+    println!("{};", mp1.clamp(mp2, mp3));
+```
+
+It will print:
+```text
+17 °C, 27 °C;
+at 17 °C, at 27 °C;
+27 °C;
+at 27 °C;
+```
+
+---
+
+**Happy measuring!**
