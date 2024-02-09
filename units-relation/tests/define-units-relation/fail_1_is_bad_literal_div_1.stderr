@@ -1,5 +1,0 @@
-error: expected identifier or literal `1`
-  --> tests/define-units-relation/fail_1_is_bad_literal_div_1.rs:25:50
-   |
-25 | units_relation::define_units_relation! { U1 == 2 / U2 }
-   |                                                  ^

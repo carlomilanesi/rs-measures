@@ -1,5 +1,0 @@
-error: dimensions can be only 1, 2, or 3
-  --> tests/define-units-relation/fail_4_is_1_mul_1.rs:36:45
-   |
-36 | units_relation::define_units_relation! { U1:4 == U2 * U3 }
-   |                                             ^

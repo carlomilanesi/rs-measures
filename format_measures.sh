@@ -2,7 +2,7 @@
 
 cargo b --release
 
-FILELIST=`ls rs-measures/src/define_*.rs rs-measures/src/inner/*.rs | grep -v "/mod.rs$"`
+FILELIST=`ls src/inner/*.rs | grep -v "/mod.rs$"`
 
 for FILEPATH in $FILELIST
 do

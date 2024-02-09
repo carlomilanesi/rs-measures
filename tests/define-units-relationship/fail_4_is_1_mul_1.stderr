@@ -1,0 +1,11 @@
+error: no rules expected the token `4`
+  --> tests/define-units-relationship/fail_4_is_1_mul_1.rs:36:46
+   |
+36 | rs_measures::define_units_relationship! { U1:4 == U2 * U3 }
+   |                                              ^ no rules expected this token in macro call
+   |
+note: while trying to match `2`
+  --> src/define_units_relationship.rs
+   |
+   |     { $id1:ident:2 == $id2:ident * $id3:ident:2} => { rs_measures::expand_1_2! {$id2 $id3 $id1} };
+   |                  ^
