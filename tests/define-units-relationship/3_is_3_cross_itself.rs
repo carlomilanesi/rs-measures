@@ -1,4 +1,13 @@
-rs_measures::define_1d_3d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: false,
+        with_directions: false,
+        with_2d: false,
+        with_3d: true,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 pub struct P1;
 impl VectorProperty for P1 {}

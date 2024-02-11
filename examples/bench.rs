@@ -1,7 +1,16 @@
 // Build and run with:
 //     cargo run --release --example bench
 
-rs_measures::define_1d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: false,
+        with_directions: false,
+        with_2d: false,
+        with_3d: false,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 pub struct Length;
 impl VectorProperty for Length {}

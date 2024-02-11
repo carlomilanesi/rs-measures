@@ -96,22 +96,23 @@ impl MeasurementUnit for NewtonMetre {
 }
 
 fn main() {
-    rs_measures::define_1d_2d_3d! {}
+    rs_measures::define_measure_types! {
+        MeasureFeatures {
+            with_points: true,
+            with_directions: true,
+            with_2d: true,
+            with_3d: false,
+            with_transformations: false,
+            with_uncertainty: None,
+        }
+    }
     rs_measures::define_units_relationship! {Metre == MetrePerSecond * Second}
-    rs_measures::define_units_relationship! {Metre:2 == Second * MetrePerSecond:2}
-    rs_measures::define_units_relationship! {MetrePerSecond:2 == MetrePerSquareSecond:2 * Second}
-    rs_measures::define_units_relationship! {Metre:3 == Second * MetrePerSecond:3}
-    rs_measures::define_units_relationship! {MetrePerSecond:3 == MetrePerSquareSecond:3 * Second}
-    rs_measures::define_units_relationship! {Joule == Newton:2 * Metre:2}
-    rs_measures::define_units_relationship! {Joule == Newton:3 * Metre:3}
-    rs_measures::define_units_relationship! { Ohm == 1 / Siemens }
-    rs_measures::define_units_relationship! { NewtonMetre == Newton:2 X Metre:2}
-    rs_measures::define_units_relationship! { NewtonMetre:3 == Newton:3 X Metre:3}
     let length = Measure::<Metre>::new(100.);
     let duration = Measure::<Second>::new(9.8);
     println!("{}", length / duration);
-    let length2 = Measure2d::<Metre>::new(100., 120.);
-    println!("{}", length2 / duration);
-    let length3 = Measure3d::<Metre>::new(100., 120., 150.);
-    println!("{}", length3 / duration);
+    let _position = MeasurePoint::<Metre>::new(120.);
+    let _direction1 = UnsignedDirection::<Radian>::new(-1.);
+    let _direction2 = SignedDirection::<Radian>::new(-1.);
+    let _length2 = Measure2d::<Metre>::new(120., 130.);
+    let _position2 = MeasurePoint2d::<Metre>::new(120., 130.);
 }

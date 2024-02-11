@@ -1,4 +1,13 @@
-rs_measures::define_1d_and_directions! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: true,
+        with_directions: true,
+        with_2d: false,
+        with_3d: false,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 pub struct Degree;
 impl MeasurementUnit for Degree {

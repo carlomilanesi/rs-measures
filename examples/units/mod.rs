@@ -1,4 +1,13 @@
-rs_measures::define_1d_2d_3d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: true,
+        with_directions: true,
+        with_2d: true,
+        with_3d: true,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 // Property: acceleration
 pub struct Acceleration;

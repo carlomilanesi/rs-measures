@@ -9,7 +9,16 @@
 // -0.169075164 J
 // -0.169059907 J
 
-rs_measures::define_1d_3d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: true,
+        with_directions: false,
+        with_2d: false,
+        with_3d: true,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 pub struct Length;
 impl VectorProperty for Length {}

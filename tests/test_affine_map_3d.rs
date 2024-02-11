@@ -1,5 +1,14 @@
 use std::f64::consts::TAU;
-rs_measures::define_1d_2d_3d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: true,
+        with_directions: false,
+        with_2d: false,
+        with_3d: true,
+        with_transformations: true,
+        with_uncertainty: None,
+    }
+}
 
 mod test_utils;
 

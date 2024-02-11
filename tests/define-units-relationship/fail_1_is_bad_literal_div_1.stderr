@@ -1,7 +1,7 @@
 error: no rules expected the token `2`
-  --> tests/define-units-relationship/fail_1_is_bad_literal_div_1.rs:25:49
+  --> tests/define-units-relationship/fail_1_is_bad_literal_div_1.rs:34:49
    |
-25 | rs_measures::define_units_relationship! { U1 == 2 / U2 }
+34 | rs_measures::define_units_relationship! { U1 == 2 / U2 }
    |                                                 ^ no rules expected this token in macro call
    |
 note: while trying to match meta-variable `$id2:ident`

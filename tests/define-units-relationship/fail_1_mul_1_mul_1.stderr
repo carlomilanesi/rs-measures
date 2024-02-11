@@ -1,7 +1,7 @@
 error: no rules expected the token `*`
-  --> tests/define-units-relationship/fail_1_mul_1_mul_1.rs:36:46
+  --> tests/define-units-relationship/fail_1_mul_1_mul_1.rs:45:46
    |
-36 | rs_measures::define_units_relationship! { U1 * U2 * U3 }
+45 | rs_measures::define_units_relationship! { U1 * U2 * U3 }
    |                                              ^ no rules expected this token in macro call
    |
 note: while trying to match `==`

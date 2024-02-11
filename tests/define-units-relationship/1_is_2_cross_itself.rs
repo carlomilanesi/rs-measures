@@ -1,4 +1,13 @@
-rs_measures::define_1d_2d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: false,
+        with_directions: false,
+        with_2d: true,
+        with_3d: false,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 pub struct P1;
 

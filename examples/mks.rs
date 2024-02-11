@@ -8,7 +8,16 @@ UOM will print:
 100 m = 328.08398 ft
 */
 
-rs_measures::define_1d! {}
+rs_measures::define_measure_types! {
+    MeasureFeatures {
+        with_points: false,
+        with_directions: false,
+        with_2d: false,
+        with_3d: false,
+        with_transformations: false,
+        with_uncertainty: None,
+    }
+}
 
 fn main() {
     let l1 = Measure::<Metre, f32>::new(100.);

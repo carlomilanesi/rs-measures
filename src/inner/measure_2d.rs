@@ -1,6 +1,6 @@
 #[macro_export]
 macro_rules! inner_define_measure_2d {
-    {} => {
+    { $with_points:tt $with_directions:tt } => {
         pub struct Measure2d<Unit, Number = f64> {
             pub x: Number,
             pub y: Number,
@@ -77,26 +77,32 @@ macro_rules! inner_define_measure_2d {
                 Self::new(self.x * k, self.y * k)
             }
 
-            /// Measure2d::from_direction(AnglePoint) -> Measure2d
-            pub fn from_direction<AngleUnit: AngleMeasurementUnit<Property = Angle>>(
-                direction: MeasurePoint<AngleUnit, Number>,
-            ) -> Self {
-                let (y, x) = direction.convert::<Radian>().value.sin_cos();
-                Self::new(x, y)
+            rs_measures::if_true! { $with_points,
+                /// Measure2d::from_direction(AnglePoint) -> Measure2d
+                pub fn from_direction<AngleUnit: AngleMeasurementUnit<Property = Angle>>(
+                    direction: MeasurePoint<AngleUnit, Number>,
+                ) -> Self {
+                    let (y, x) = direction.convert::<Radian>().value.sin_cos();
+                    Self::new(x, y)
+                }
             }
 
-            /// Measure2d.signed_direction() -> SignedDirection
-            pub fn signed_direction<AngleUnit: MeasurementUnit<Property = Angle>>(
-                self,
-            ) -> SignedDirection<AngleUnit, Number> {
-                SignedDirection::<Radian, Number>::new(self.y.atan2(self.x)).convert::<AngleUnit>()
+            rs_measures::if_true! { $with_directions,
+                /// Measure2d.signed_direction() -> SignedDirection
+                pub fn signed_direction<AngleUnit: MeasurementUnit<Property = Angle>>(
+                    self,
+                ) -> SignedDirection<AngleUnit, Number> {
+                    SignedDirection::<Radian, Number>::new(self.y.atan2(self.x)).convert::<AngleUnit>()
+                }
             }
 
-            /// Measure2d.unsigned_direction() -> UnsignedDirection
-            pub fn unsigned_direction<AngleUnit: MeasurementUnit<Property = Angle>>(
-                self,
-            ) -> UnsignedDirection<AngleUnit, Number> {
-                UnsignedDirection::<Radian, Number>::new(self.y.atan2(self.x)).convert::<AngleUnit>()
+            rs_measures::if_true! { $with_directions,
+                /// Measure2d.unsigned_direction() -> UnsignedDirection
+                pub fn unsigned_direction<AngleUnit: MeasurementUnit<Property = Angle>>(
+                    self,
+                ) -> UnsignedDirection<AngleUnit, Number> {
+                    UnsignedDirection::<Radian, Number>::new(self.y.atan2(self.x)).convert::<AngleUnit>()
+                }
             }
         }
 
