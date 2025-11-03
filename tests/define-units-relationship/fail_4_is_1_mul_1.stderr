@@ -1,4 +1,4 @@
-error: no rules expected the token `4`
+error: no rules expected `4`
   --> tests/define-units-relationship/fail_4_is_1_mul_1.rs:45:46
    |
 45 | rs_measures::define_units_relationship! { U1:4 == U2 * U3 }
@@ -7,5 +7,5 @@ error: no rules expected the token `4`
 note: while trying to match `2`
   --> src/define_units_relationship.rs
    |
-   |     { $id1:ident:2 == $id2:ident * $id3:ident:2} => { rs_measures::expand_1_2! {$id2 $id3 $id1} };
+ 5 |     { $id1:ident:2 == $id2:ident * $id3:ident:2} => { rs_measures::expand_1_2! {$id2 $id3 $id1} };
    |                  ^

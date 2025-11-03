@@ -31,6 +31,7 @@ impl MeasurementUnit for MilliMetre {
     const SUFFIX: &'static str = " mm";
 }
 
+#[allow(dead_code)]
 struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;

@@ -59,6 +59,7 @@ impl MeasurementUnit for JouleSecond {
 // Property: amount of substance, count
 pub struct Amount;
 
+#[allow(dead_code)]
 pub struct Unit;
 impl MeasurementUnit for Unit {
     type Property = Amount;
@@ -67,6 +68,7 @@ impl MeasurementUnit for Unit {
     const SUFFIX: &'static str = " u.";
 }
 
+#[allow(dead_code)]
 pub struct Dozen;
 impl MeasurementUnit for Dozen {
     type Property = Amount;
@@ -95,6 +97,7 @@ impl AngleMeasurementUnit for Cycle {
     const CYCLE_FRACTION: f64 = 1.;
 }
 
+#[allow(dead_code)]
 pub struct Gradian;
 impl MeasurementUnit for Gradian {
     type Property = Angle;
@@ -106,6 +109,7 @@ impl AngleMeasurementUnit for Gradian {
     const CYCLE_FRACTION: f64 = 400.;
 }
 
+#[allow(dead_code)]
 pub struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;
@@ -117,6 +121,7 @@ impl AngleMeasurementUnit for Degree {
     const CYCLE_FRACTION: f64 = 360.;
 }
 
+#[allow(dead_code)]
 pub struct ArcMinute;
 impl MeasurementUnit for ArcMinute {
     type Property = Angle;
@@ -128,6 +133,7 @@ impl AngleMeasurementUnit for ArcMinute {
     const CYCLE_FRACTION: f64 = 360. * 60.;
 }
 
+#[allow(dead_code)]
 pub struct ArcSecond;
 impl MeasurementUnit for ArcSecond {
     type Property = Angle;
@@ -162,6 +168,7 @@ impl MeasurementUnit for KiloGramSquareMetrePerSecond {
     const SUFFIX: &'static str = " kg\u{b7}m\u{b2}/s";
 }
 
+#[allow(dead_code)]
 pub struct GramSquareCentiMetrePerSecond;
 impl MeasurementUnit for GramSquareCentiMetrePerSecond {
     type Property = AngularMomentum;
@@ -366,6 +373,7 @@ impl MeasurementUnit for Unspecified {
     const SUFFIX: &'static str = "";
 }
 
+#[allow(dead_code)]
 pub struct Mach;
 impl MeasurementUnit for Mach {
     type Property = Dimensionless;
@@ -375,8 +383,10 @@ impl MeasurementUnit for Mach {
 }
 
 // Property: dose equivalent
+#[allow(dead_code)]
 pub struct DoseEquivalent;
 
+#[allow(dead_code)]
 pub struct Sievert;
 impl MeasurementUnit for Sievert {
     type Property = DoseEquivalent;
@@ -385,6 +395,7 @@ impl MeasurementUnit for Sievert {
     const SUFFIX: &'static str = " Sv";
 }
 
+#[allow(dead_code)]
 pub struct Rem;
 impl MeasurementUnit for Rem {
     type Property = DoseEquivalent;
@@ -437,6 +448,7 @@ impl MeasurementUnit for Ohm {
     const SUFFIX: &'static str = " \u{3a9}";
 }
 
+#[allow(dead_code)]
 pub struct MilliOhm;
 impl MeasurementUnit for MilliOhm {
     type Property = ElectricalResistance;
@@ -445,6 +457,7 @@ impl MeasurementUnit for MilliOhm {
     const SUFFIX: &'static str = " m\u{3a9}";
 }
 
+#[allow(dead_code)]
 pub struct KiloOhm;
 impl MeasurementUnit for KiloOhm {
     type Property = ElectricalResistance;
@@ -454,8 +467,10 @@ impl MeasurementUnit for KiloOhm {
 }
 
 // Property: electrical resistivity
+#[allow(dead_code)]
 pub struct ElectricalResistivity;
 
+#[allow(dead_code)]
 pub struct OhmMetre;
 impl MeasurementUnit for OhmMetre {
     type Property = ElectricalResistivity;
@@ -603,6 +618,7 @@ impl MeasurementUnit for MilliVolt {
     const SUFFIX: &'static str = " mV";
 }
 
+#[allow(dead_code)]
 pub struct MicroVolt;
 impl MeasurementUnit for MicroVolt {
     type Property = ElectricPotential;
@@ -646,6 +662,7 @@ impl MeasurementUnit for KiloWattHour {
     const SUFFIX: &'static str = " kW\u{b7}h";
 }
 
+#[allow(dead_code)]
 pub struct MegaWattHour;
 impl MeasurementUnit for MegaWattHour {
     type Property = Energy;
@@ -654,6 +671,7 @@ impl MeasurementUnit for MegaWattHour {
     const SUFFIX: &'static str = " MW\u{b7}h";
 }
 
+#[allow(dead_code)]
 pub struct Calorie;
 impl MeasurementUnit for Calorie {
     type Property = Energy;
@@ -662,6 +680,7 @@ impl MeasurementUnit for Calorie {
     const SUFFIX: &'static str = " cal";
 }
 
+#[allow(dead_code)]
 pub struct KiloCalorie;
 impl MeasurementUnit for KiloCalorie {
     type Property = Energy;
@@ -670,6 +689,7 @@ impl MeasurementUnit for KiloCalorie {
     const SUFFIX: &'static str = " kcal";
 }
 
+#[allow(dead_code)]
 pub struct ElectronVolt;
 impl MeasurementUnit for ElectronVolt {
     type Property = Energy;
@@ -678,6 +698,7 @@ impl MeasurementUnit for ElectronVolt {
     const SUFFIX: &'static str = " eV";
 }
 
+#[allow(dead_code)]
 pub struct KiloElectronVolt;
 impl MeasurementUnit for KiloElectronVolt {
     type Property = Energy;
@@ -686,6 +707,7 @@ impl MeasurementUnit for KiloElectronVolt {
     const SUFFIX: &'static str = " keV";
 }
 
+#[allow(dead_code)]
 pub struct MegaElectronVolt;
 impl MeasurementUnit for MegaElectronVolt {
     type Property = Energy;
@@ -694,6 +716,7 @@ impl MeasurementUnit for MegaElectronVolt {
     const SUFFIX: &'static str = " MeV";
 }
 
+#[allow(dead_code)]
 pub struct GigaElectronVolt;
 impl MeasurementUnit for GigaElectronVolt {
     type Property = Energy;
@@ -702,6 +725,7 @@ impl MeasurementUnit for GigaElectronVolt {
     const SUFFIX: &'static str = " GeV";
 }
 
+#[allow(dead_code)]
 pub struct TeraElectronVolt;
 impl MeasurementUnit for TeraElectronVolt {
     type Property = Energy;
@@ -768,6 +792,7 @@ impl MeasurementUnit for PoundForce {
     const SUFFIX: &'static str = " lbf";
 }
 
+#[allow(dead_code)]
 pub struct Poundal;
 impl MeasurementUnit for Poundal {
     type Property = Force;
@@ -787,6 +812,7 @@ impl MeasurementUnit for Hertz {
     const SUFFIX: &'static str = " Hz";
 }
 
+#[allow(dead_code)]
 pub struct CyclePerSecond;
 impl MeasurementUnit for CyclePerSecond {
     type Property = Frequency;
@@ -795,6 +821,7 @@ impl MeasurementUnit for CyclePerSecond {
     const SUFFIX: &'static str = " c/s";
 }
 
+#[allow(dead_code)]
 pub struct KiloHertz;
 impl MeasurementUnit for KiloHertz {
     type Property = Frequency;
@@ -803,6 +830,7 @@ impl MeasurementUnit for KiloHertz {
     const SUFFIX: &'static str = " kHz";
 }
 
+#[allow(dead_code)]
 pub struct MegaHertz;
 impl MeasurementUnit for MegaHertz {
     type Property = Frequency;
@@ -811,6 +839,7 @@ impl MeasurementUnit for MegaHertz {
     const SUFFIX: &'static str = " MHz";
 }
 
+#[allow(dead_code)]
 pub struct GigaHertz;
 impl MeasurementUnit for GigaHertz {
     type Property = Frequency;
@@ -1216,6 +1245,7 @@ impl MeasurementUnit for Metre {
     const SUFFIX: &'static str = " m";
 }
 
+#[allow(dead_code)]
 pub struct AstronomicalUnit;
 impl MeasurementUnit for AstronomicalUnit {
     type Property = Length;
@@ -1224,6 +1254,7 @@ impl MeasurementUnit for AstronomicalUnit {
     const SUFFIX: &'static str = " a.u.";
 }
 
+#[allow(dead_code)]
 pub struct Parsec;
 impl MeasurementUnit for Parsec {
     type Property = Length;
@@ -1232,6 +1263,7 @@ impl MeasurementUnit for Parsec {
     const SUFFIX: &'static str = " psc";
 }
 
+#[allow(dead_code)]
 pub struct LightYear;
 impl MeasurementUnit for LightYear {
     type Property = Length;
@@ -1304,6 +1336,7 @@ impl MeasurementUnit for NanoMetre {
     const SUFFIX: &'static str = " nm";
 }
 
+#[allow(dead_code)]
 pub struct Angstrom;
 impl MeasurementUnit for Angstrom {
     type Property = Length;
@@ -1393,6 +1426,7 @@ impl MeasurementUnit for CandelaPerSquareMetre {
     const SUFFIX: &'static str = " cd/m\u{b2}";
 }
 
+#[allow(dead_code)]
 pub struct Nit;
 impl MeasurementUnit for Nit {
     type Property = Luminance;
@@ -1464,9 +1498,11 @@ impl MeasurementUnit for Weber {
 }
 
 // Property: magnetic flux density
+#[allow(dead_code)]
 pub struct MagneticFluxDensity;
 impl VectorProperty for MagneticFluxDensity {}
 
+#[allow(dead_code)]
 pub struct Tesla;
 impl MeasurementUnit for Tesla {
     type Property = MagneticFluxDensity;
@@ -1475,6 +1511,7 @@ impl MeasurementUnit for Tesla {
     const SUFFIX: &'static str = " T";
 }
 
+#[allow(dead_code)]
 pub struct Gauss;
 impl MeasurementUnit for Gauss {
     type Property = MagneticFluxDensity;
@@ -1484,8 +1521,10 @@ impl MeasurementUnit for Gauss {
 }
 
 // Property: magnetic permeability
+#[allow(dead_code)]
 pub struct MagneticPermeability;
 
+#[allow(dead_code)]
 pub struct HenryPerMetre;
 impl MeasurementUnit for HenryPerMetre {
     type Property = MagneticPermeability;
@@ -1527,6 +1566,7 @@ impl MeasurementUnit for Tonne {
 #[allow(dead_code)]
 pub type MetricTon = Tonne;
 
+#[allow(dead_code)]
 pub struct MegaGram;
 impl MeasurementUnit for MegaGram {
     type Property = Mass;
@@ -1535,6 +1575,7 @@ impl MeasurementUnit for MegaGram {
     const SUFFIX: &'static str = " Mg";
 }
 
+#[allow(dead_code)]
 pub struct HectoGram;
 impl MeasurementUnit for HectoGram {
     type Property = Mass;
@@ -1543,6 +1584,7 @@ impl MeasurementUnit for HectoGram {
     const SUFFIX: &'static str = " hg";
 }
 
+#[allow(dead_code)]
 pub struct DecaGram;
 impl MeasurementUnit for DecaGram {
     type Property = Mass;
@@ -1559,6 +1601,7 @@ impl MeasurementUnit for Gram {
     const SUFFIX: &'static str = " g";
 }
 
+#[allow(dead_code)]
 pub struct MilliGram;
 impl MeasurementUnit for MilliGram {
     type Property = Mass;
@@ -1567,6 +1610,7 @@ impl MeasurementUnit for MilliGram {
     const SUFFIX: &'static str = " mg";
 }
 
+#[allow(dead_code)]
 pub struct MicroGram;
 impl MeasurementUnit for MicroGram {
     type Property = Mass;
@@ -1575,6 +1619,7 @@ impl MeasurementUnit for MicroGram {
     const SUFFIX: &'static str = " \u{b5}g";
 }
 
+#[allow(dead_code)]
 pub struct NanoGram;
 impl MeasurementUnit for NanoGram {
     type Property = Mass;
@@ -1605,6 +1650,7 @@ impl MeasurementUnit for USTon {
 #[allow(dead_code)]
 pub type ShortTon = USTon;
 
+#[allow(dead_code)]
 pub struct Stone;
 impl MeasurementUnit for Stone {
     type Property = Mass;
@@ -1613,6 +1659,7 @@ impl MeasurementUnit for Stone {
     const SUFFIX: &'static str = " st.";
 }
 
+#[allow(dead_code)]
 pub struct Pound;
 impl MeasurementUnit for Pound {
     type Property = Mass;
@@ -1621,6 +1668,7 @@ impl MeasurementUnit for Pound {
     const SUFFIX: &'static str = " lb";
 }
 
+#[allow(dead_code)]
 pub struct Ounce;
 impl MeasurementUnit for Ounce {
     type Property = Mass;
@@ -1629,6 +1677,7 @@ impl MeasurementUnit for Ounce {
     const SUFFIX: &'static str = " oz";
 }
 
+#[allow(dead_code)]
 pub struct Carat;
 impl MeasurementUnit for Carat {
     type Property = Mass;
@@ -1744,6 +1793,7 @@ impl MeasurementUnit for DyneSecond {
     const SUFFIX: &'static str = " dyn\u{b7}s";
 }
 
+#[allow(dead_code)]
 pub struct GramCentiMetrePerSecond;
 impl MeasurementUnit for GramCentiMetrePerSecond {
     type Property = Momentum;
@@ -1790,6 +1840,7 @@ impl MeasurementUnit for KiloWatt {
     const SUFFIX: &'static str = " kW";
 }
 
+#[allow(dead_code)]
 pub struct MegaWatt;
 impl MeasurementUnit for MegaWatt {
     type Property = Power;
@@ -1798,6 +1849,7 @@ impl MeasurementUnit for MegaWatt {
     const SUFFIX: &'static str = " MW";
 }
 
+#[allow(dead_code)]
 pub struct GigaWatt;
 impl MeasurementUnit for GigaWatt {
     type Property = Power;
@@ -1814,6 +1866,7 @@ impl MeasurementUnit for ErgPerSecond {
     const SUFFIX: &'static str = " erg/s";
 }
 
+#[allow(dead_code)]
 pub struct HorsePower;
 impl MeasurementUnit for HorsePower {
     type Property = Power;
@@ -1841,6 +1894,7 @@ impl MeasurementUnit for HectoPascal {
     const SUFFIX: &'static str = " hPa";
 }
 
+#[allow(dead_code)]
 pub struct Atmosphere;
 impl MeasurementUnit for Atmosphere {
     type Property = Pressure;
@@ -1849,6 +1903,7 @@ impl MeasurementUnit for Atmosphere {
     const SUFFIX: &'static str = " atm";
 }
 
+#[allow(dead_code)]
 pub struct Bar;
 impl MeasurementUnit for Bar {
     type Property = Pressure;
@@ -1856,6 +1911,8 @@ impl MeasurementUnit for Bar {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " bar";
 }
+
+#[allow(dead_code)]
 pub struct MilliBar;
 impl MeasurementUnit for MilliBar {
     type Property = Pressure;
@@ -1864,6 +1921,7 @@ impl MeasurementUnit for MilliBar {
     const SUFFIX: &'static str = " mbar";
 }
 
+#[allow(dead_code)]
 pub struct MmHg;
 impl MeasurementUnit for MmHg {
     type Property = Pressure;
@@ -1903,8 +1961,10 @@ impl MeasurementUnit for WattPerSteradian {
 }
 
 // Property: radioactive activity
+#[allow(dead_code)]
 pub struct RadioactiveActivity;
 
+#[allow(dead_code)]
 pub struct Becquerel;
 impl MeasurementUnit for Becquerel {
     type Property = RadioactiveActivity;
@@ -1912,6 +1972,8 @@ impl MeasurementUnit for Becquerel {
     const OFFSET: f64 = 0.;
     const SUFFIX: &'static str = " Bq";
 }
+
+#[allow(dead_code)]
 pub struct KiloBecquerel;
 impl MeasurementUnit for KiloBecquerel {
     type Property = RadioactiveActivity;
@@ -1920,6 +1982,7 @@ impl MeasurementUnit for KiloBecquerel {
     const SUFFIX: &'static str = " kBq";
 }
 
+#[allow(dead_code)]
 pub struct MegaBecquerel;
 impl MeasurementUnit for MegaBecquerel {
     type Property = RadioactiveActivity;
@@ -1928,6 +1991,7 @@ impl MeasurementUnit for MegaBecquerel {
     const SUFFIX: &'static str = " MBq";
 }
 
+#[allow(dead_code)]
 pub struct GigaBecquerel;
 impl MeasurementUnit for GigaBecquerel {
     type Property = RadioactiveActivity;
@@ -1947,6 +2011,7 @@ impl MeasurementUnit for Gray {
     const SUFFIX: &'static str = " Gy";
 }
 
+#[allow(dead_code)]
 pub struct Rad;
 impl MeasurementUnit for Rad {
     type Property = RadioactiveDose;
@@ -1988,6 +2053,7 @@ impl MeasurementUnit for Steradian {
     const SUFFIX: &'static str = " sr";
 }
 
+#[allow(dead_code)]
 pub struct Spat;
 impl MeasurementUnit for Spat {
     type Property = SolidAngle;
@@ -1996,6 +2062,7 @@ impl MeasurementUnit for Spat {
     const SUFFIX: &'static str = " sp";
 }
 
+#[allow(dead_code)]
 pub struct Sphere;
 impl MeasurementUnit for Sphere {
     type Property = SolidAngle;
@@ -2004,6 +2071,7 @@ impl MeasurementUnit for Sphere {
     const SUFFIX: &'static str = " sphere";
 }
 
+#[allow(dead_code)]
 pub struct SquareDegree;
 impl MeasurementUnit for SquareDegree {
     type Property = SolidAngle;
@@ -2105,6 +2173,7 @@ impl MeasurementUnit for Kelvin {
     const SUFFIX: &'static str = " \u{b0}K";
 }
 
+#[allow(dead_code)]
 pub struct Celsius;
 impl MeasurementUnit for Celsius {
     type Property = Temperature;
@@ -2113,6 +2182,7 @@ impl MeasurementUnit for Celsius {
     const SUFFIX: &'static str = " \u{b0}C";
 }
 
+#[allow(dead_code)]
 pub struct Fahrenheit;
 impl MeasurementUnit for Fahrenheit {
     type Property = Temperature;
@@ -2122,8 +2192,10 @@ impl MeasurementUnit for Fahrenheit {
 }
 
 // Property: thermal conductivity
+#[allow(dead_code)]
 pub struct ThermalConductivity;
 
+#[allow(dead_code)]
 pub struct WattPerMetrePerKelvin;
 impl MeasurementUnit for WattPerMetrePerKelvin {
     type Property = ThermalConductivity;
@@ -2143,6 +2215,7 @@ impl MeasurementUnit for Second {
     const SUFFIX: &'static str = " s";
 }
 
+#[allow(dead_code)]
 pub struct Year;
 impl MeasurementUnit for Year {
     type Property = Time;
@@ -2151,6 +2224,7 @@ impl MeasurementUnit for Year {
     const SUFFIX: &'static str = " Y";
 }
 
+#[allow(dead_code)]
 pub struct Month;
 impl MeasurementUnit for Month {
     type Property = Time;
@@ -2159,6 +2233,7 @@ impl MeasurementUnit for Month {
     const SUFFIX: &'static str = " M";
 }
 
+#[allow(dead_code)]
 pub struct Week;
 impl MeasurementUnit for Week {
     type Property = Time;
@@ -2167,6 +2242,7 @@ impl MeasurementUnit for Week {
     const SUFFIX: &'static str = " W";
 }
 
+#[allow(dead_code)]
 pub struct Day;
 impl MeasurementUnit for Day {
     type Property = Time;
@@ -2191,6 +2267,7 @@ impl MeasurementUnit for Minute {
     const SUFFIX: &'static str = " min";
 }
 
+#[allow(dead_code)]
 pub struct MilliSecond;
 impl MeasurementUnit for MilliSecond {
     type Property = Time;
@@ -2207,6 +2284,7 @@ impl MeasurementUnit for MicroSecond {
     const SUFFIX: &'static str = " \u{b5}s";
 }
 
+#[allow(dead_code)]
 pub struct NanoSecond;
 impl MeasurementUnit for NanoSecond {
     type Property = Time;
@@ -2223,6 +2301,7 @@ impl MeasurementUnit for PicoSecond {
     const SUFFIX: &'static str = " ps";
 }
 
+#[allow(dead_code)]
 pub struct FemtoSecond;
 impl MeasurementUnit for FemtoSecond {
     type Property = Time;
@@ -2303,6 +2382,7 @@ impl MeasurementUnit for CentiMetrePerSecond {
     const SUFFIX: &'static str = " cm/s";
 }
 
+#[allow(dead_code)]
 pub struct KiloMetrePerSecond;
 impl MeasurementUnit for KiloMetrePerSecond {
     type Property = Velocity;
@@ -2386,6 +2466,7 @@ impl MeasurementUnit for Litre {
     const SUFFIX: &'static str = " l";
 }
 
+#[allow(dead_code)]
 pub struct CubicDecimetre;
 impl MeasurementUnit for CubicDecimetre {
     type Property = Volume;
@@ -2402,6 +2483,7 @@ impl MeasurementUnit for MilliLitre {
     const SUFFIX: &'static str = " ml";
 }
 
+#[allow(dead_code)]
 pub struct CubicCentimetre;
 impl MeasurementUnit for CubicCentimetre {
     type Property = Volume;
@@ -2418,6 +2500,7 @@ impl MeasurementUnit for MicroLitre {
     const SUFFIX: &'static str = " \u{b5}l";
 }
 
+#[allow(dead_code)]
 pub struct CubicMillimetre;
 impl MeasurementUnit for CubicMillimetre {
     type Property = Volume;
@@ -2426,6 +2509,7 @@ impl MeasurementUnit for CubicMillimetre {
     const SUFFIX: &'static str = " mm\u{b3}";
 }
 
+#[allow(dead_code)]
 pub struct NanoLitre;
 impl MeasurementUnit for NanoLitre {
     type Property = Volume;
@@ -2434,6 +2518,7 @@ impl MeasurementUnit for NanoLitre {
     const SUFFIX: &'static str = " nl";
 }
 
+#[allow(dead_code)]
 pub struct PicoLitre;
 impl MeasurementUnit for PicoLitre {
     type Property = Volume;
@@ -2442,6 +2527,7 @@ impl MeasurementUnit for PicoLitre {
     const SUFFIX: &'static str = " pl";
 }
 
+#[allow(dead_code)]
 pub struct Pint;
 impl MeasurementUnit for Pint {
     type Property = Volume;
@@ -2450,6 +2536,7 @@ impl MeasurementUnit for Pint {
     const SUFFIX: &'static str = " pt";
 }
 
+#[allow(dead_code)]
 pub struct Gallon;
 impl MeasurementUnit for Gallon {
     type Property = Volume;
@@ -2477,6 +2564,7 @@ impl MeasurementUnit for MilliLitrePerSecond {
     const SUFFIX: &'static str = " ml/s";
 }
 
+#[allow(dead_code)]
 pub struct CubicCentimetrePerSecond;
 impl MeasurementUnit for CubicCentimetrePerSecond {
     type Property = VolumetricFlowRate;

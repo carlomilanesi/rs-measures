@@ -5,7 +5,7 @@
 [![CI](https://github.com/carlomilanesi/rs-measures/workflows/Continuous%20Integration/badge.svg)](https://github.com/carlomilanesi/rs-measures/actions)
 [![Coverage Status](https://coveralls.io/repos/github/carlomilanesi/rs-measures/badge.svg?branch=master)](https://coveralls.io/github/carlomilanesi/rs-measures?branch=master)
 
-**Remark:** From October 2025, this repo is in maintenance mode, because another similar crate is recommended instead of it: [**Measures-rs**](https://github.com/carlomilanesi/measures-rs).
+**Remark:** Since the end of October 2025, this repo is in maintenance mode, because another similar crate is recommended instead of it: [**Measures-rs**](https://github.com/carlomilanesi/measures-rs).
 That repo is definitely better for several reasons, among which:
 * It uses only declarative macros, instead of procedural macros.
 * It adds optional approximate measures, i.e. measures with an uncertainty. The operations with such measures propagate the uncertainty to the results.

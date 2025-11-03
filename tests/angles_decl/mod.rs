@@ -15,6 +15,7 @@ impl AngleMeasurementUnit for Cycle {
     const CYCLE_FRACTION: f64 = 1.;
 }
 
+#[allow(dead_code)]
 pub struct Gradian;
 impl MeasurementUnit for Gradian {
     type Property = Angle;
@@ -26,6 +27,7 @@ impl AngleMeasurementUnit for Gradian {
     const CYCLE_FRACTION: f64 = 400.;
 }
 
+#[allow(dead_code)]
 pub struct Degree;
 impl MeasurementUnit for Degree {
     type Property = Angle;
